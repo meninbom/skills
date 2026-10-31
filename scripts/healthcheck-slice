@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+"""healthcheck-slice: fatia transcripts exportados por bot e janela de datas (só formatação).
+uso: healthcheck-slice --from 2026-10-24 --to 2026-10-31 ARQ_OU_PASTA... [--out /workspace/healthcheck-<to>] [--max-chars 4000]
+Entradas: .txt no formato '===== role @ AAAA-MM-DD HH:MM:SS BRT ... =====' ou .jsonl com {role,text[,timestamp|time|ts]}.
+O nome do bot = nome do arquivo (ex. Bardo.txt) ou campo 'bot' da linha jsonl. Linhas sem data entram sempre."""
+import argparse, json, pathlib, re
+ap = argparse.ArgumentParser(); ap.add_argument("inputs", nargs="+"); ap.add_argument("--from", dest="f", required=True); ap.add_argument("--to", required=True)
+ap.add_argument("--out"); ap.add_argument("--max-chars", type=int, default=4000); a = ap.parse_args()
+HDR = re.compile(r"^===== (\w+) @ (\d{4}-\d{2}-\d{2})[ T]?([\d:]*).*?=====\s*$", re.M)
+def from_txt(p):
+    parts = HDR.split(p.read_text(errors="replace"))
+    for i in range(1, len(parts), 4): yield dict(role=parts[i], date=parts[i+1], time=parts[i+2], text=parts[i+3].strip())
+def from_jsonl(p):
+    for l in p.read_text(errors="replace").splitlines():
+        if not l.strip(): continue
+        try: o = json.loads(l)
+        except json.JSONDecodeError: continue
+        ts = str(o.get("timestamp") or o.get("time") or o.get("ts") or "")
+        m = re.match(r"(\d{4}-\d{2}-\d{2})[ T]?([\d:]{0,8})", ts)
+        t = o.get("text") or o.get("content") or ""
+        yield dict(role=o.get("role","?"), date=m.group(1) if m else "", time=m.group(2) if m else "", text=t if isinstance(t,str) else json.dumps(t, ensure_ascii=False), bot=o.get("bot"))
+files = [f for i in a.inputs for f in (sorted(pathlib.Path(i).glob("*")) if pathlib.Path(i).is_dir() else [pathlib.Path(i)]) if f.suffix in (".txt",".jsonl") and f.name != "REPORT.md"]
+out = pathlib.Path(a.out or f"/workspace/healthcheck-{a.to}"); out.mkdir(parents=True, exist_ok=True)
+bots = {}
+for f in files:
+    for m in (from_jsonl(f) if f.suffix == ".jsonl" else from_txt(f)):
+        if m["date"] and not (a.f <= m["date"] <= a.to): continue
+        bots.setdefault(m.get("bot") or f.stem, []).append(m)
+idx = [f"# fatias {a.f} → {a.to}", ""]
+for bot, ms in sorted(bots.items()):
+    body = "\n\n".join(f"===== {m['role']} @ {m['date']} {m['time']} =====\n" + (m["text"][:a.max_chars] + (" […cortado]" if len(m["text"]) > a.max_chars else "")) for m in ms)
+    (out/f"{re.sub(r'[^\w.-]+','_',bot)}.txt").write_text(body + "\n")
+    idx.append(f"- {bot}: {len(ms)} msgs ({sum(m['role']=='user' for m in ms)} do usuário)")
+(out/"INDEX.md").write_text("\n".join(idx) + "\n"); print(out); print("\n".join(idx[2:]))
