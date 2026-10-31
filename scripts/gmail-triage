@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+"""gmail-triage: classifica threads do Gmail em lote. NUNCA arquiva: só gera IDs + relatório.
+uso: gmail-triage --rules rules.json pagina1.json [pagina2.json ...] [--out /workspace/gmail-triage/<data>]
+- páginas: JSON de search_threads do conector Gmail ({"threads":[{"id","messages":[{"sender","subject","snippet"}]}]})
+- rules.json (opcional): {"query": "texto da busca usada", "extra_skip_senders": [...], "extra_skip_phrases": [regex...],
+  "extra_archive_senders": [...]}. As regras base vêm de gmail_classify.py (cópia do gmail_cleanup_classify.py)."""
+import argparse, datetime, json, pathlib, re, sys
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import gmail_classify as base
+ap = argparse.ArgumentParser(); ap.add_argument("pages", nargs="+"); ap.add_argument("--rules"); ap.add_argument("--out"); a = ap.parse_args()
+rules = json.load(open(a.rules)) if a.rules else {}
+base.SKIP_SENDER_SUBSTR += [s.lower() for s in rules.get("extra_skip_senders", [])]
+base.SKIP_PHRASE += rules.get("extra_skip_phrases", [])
+force = [s.lower() for s in rules.get("extra_archive_senders", [])]
+out = pathlib.Path(a.out or f"/workspace/gmail-triage/{datetime.datetime.now():%Y-%m-%d_%H%M%S}"); out.mkdir(parents=True, exist_ok=True)
+archive, skip, seen = [], [], set()
+for p in a.pages:
+    for t in (json.load(open(p)).get("threads") or []):
+        if t["id"] in seen: continue
+        seen.add(t["id"]); kind, info = base.classify_thread(t)
+        if False: pass
+        elif kind == "skip" and any(f in info["sender"].lower() for f in force) and not info["reason"].startswith("skip_phrase"):
+            kind, info["reason"] = "archive", "extra_archive_sender"
+        (archive if kind == "archive" else skip).append(info)
+(out/"archive_ids.json").write_text(json.dumps([x["id"] for x in archive], indent=1))
+from collections import Counter
+r = [f"# gmail-triage", "", f"- query: {rules.get('query','(não informada)')}", f"- threads: {len(seen)} | arquivar: {len(archive)} | manter: {len(skip)}",
+     "- **nada foi arquivado.** arquivar continua pedindo o OK do Kauã.", "", "## top remetentes a arquivar"]
+r += [f"- {n}× {s[:60]}" for s, n in Counter(x["sender"] for x in archive).most_common(15)]
+r += ["", "## motivos de manter"] + [f"- {n}× {s}" for s, n in Counter(x["reason"] for x in skip).most_common(15)]
+r += ["", "## a arquivar (amostra)"] + [f"- `{x['id']}` {x['sender'][:40]} | {x['subject'][:70]}" for x in archive[:40]]
+(out/"report.md").write_text("\n".join(r)+"\n")
+(out/"detail.json").write_text(json.dumps({"archive": archive, "skip": skip}, ensure_ascii=False, indent=2))
+print(f"{out}  arquivar={len(archive)} manter={len(skip)}")

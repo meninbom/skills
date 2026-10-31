@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# agent-run: roda claude -p ou codex exec a partir de um brief e salva tudo numa pasta datada.
+# uso: agent-run --brief arquivo.md --model opus|sonnet|gpt-... [--role "texto do papel"] [--repo /caminho] [--cli claude|codex] [--name job] [--out /workspace/agent-runs] [--dry-run]
+set -euo pipefail
+CLI=claude; ROLE=""; REPO="$PWD"; NAME=""; OUT="${AGENT_RUN_OUT:-/workspace/agent-runs}"; DRY=0; BRIEF=""; MODEL=""
+while [ $# -gt 0 ]; do case "$1" in
+  --brief) BRIEF="$2"; shift 2;; --model) MODEL="$2"; shift 2;; --role) ROLE="$2"; shift 2;;
+  --repo) REPO="$2"; shift 2;; --cli) CLI="$2"; shift 2;; --name) NAME="$2"; shift 2;;
+  --out) OUT="$2"; shift 2;; --dry-run) DRY=1; shift;;
+  -h|--help) sed -n 2,3p "$0"; exit 0;; *) echo "arg desconhecido: $1" >&2; exit 2;; esac; done
+[ -f "$BRIEF" ] || { echo "--brief obrigatório (arquivo)" >&2; exit 2; }
+[ -n "$MODEL" ] || { echo "--model obrigatório" >&2; exit 2; }
+[ -d "$REPO" ] || { echo "repo não existe: $REPO" >&2; exit 2; }
+NAME="${NAME:-$(basename "$BRIEF" | sed 's/\.[^.]*$//')}"
+DIR="$OUT/$(date +%Y-%m-%d_%H%M%S)-$NAME-$CLI-$MODEL"; mkdir -p "$DIR"
+PROMPT="$(cat "$BRIEF")"; [ -n "$ROLE" ] && PROMPT="$PROMPT
+
+PAPEL: $ROLE"
+printf '%s' "$PROMPT" > "$DIR/prompt.md"
+if [ "$CLI" = claude ]; then CMD=(claude -p --model "$MODEL" --dangerously-skip-permissions --output-format json "$PROMPT")
+elif [ "$CLI" = codex ]; then CMD=(codex exec -m "$MODEL" --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check -C "$REPO" -o "$DIR/last-message.txt" "$PROMPT")
+else echo "--cli deve ser claude ou codex" >&2; exit 2; fi
+START=$(date +%s); RC=0
+if [ $DRY = 1 ]; then printf '%q ' "${CMD[@]:0:${#CMD[@]}-1}" > "$DIR/log.txt"; echo '"<prompt>"' >> "$DIR/log.txt"; echo '{"dry_run":true}' > "$DIR/output.json"
+else ( cd "$REPO" && "${CMD[@]}" ) > "$DIR/stdout.txt" 2> "$DIR/log.txt" < /dev/null || RC=$?
+  if [ "$CLI" = claude ]; then cp "$DIR/stdout.txt" "$DIR/output.json"; else cat "$DIR/stdout.txt" >> "$DIR/log.txt"
+    python3 -c 'import json,sys;print(json.dumps({"result":open(sys.argv[1]).read() if __import__("os").path.exists(sys.argv[1]) else ""}))' "$DIR/last-message.txt" > "$DIR/output.json"; fi; fi
+DUR=$(( $(date +%s) - START ))
+python3 - "$DIR" "$CLI" "$MODEL" "$REPO" "$RC" "$DUR" <<'PY'
+import json,sys,os
+d,cli,model,repo,rc,dur=sys.argv[1:]
+try: o=json.load(open(os.path.join(d,"output.json")))
+except Exception: o={}
+res=str(o.get("result",""))[:1500]
+s=f"# agent-run\n\n- cli: {cli}\n- model: {model}\n- repo: {repo}\n- exit: {rc}\n- duração: {dur}s\n"
+if "total_cost_usd" in o: s+=f"- custo: ${o['total_cost_usd']}\n"
+if o.get("is_error"): s+="- is_error: true\n"
+s+=f"\n## resultado (início)\n\n{res or '(vazio, veja log.txt)'}\n"
+open(os.path.join(d,"summary.md"),"w").write(s)
+PY
+echo "$DIR"; exit $RC

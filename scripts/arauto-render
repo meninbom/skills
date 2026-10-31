@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+"""arauto-render: edição HTML -> PDF datado (padrão <dir>/<prefixo>-AAAA-MM-DD.pdf).
+uso: arauto-render edicao.html [--date AAAA-MM-DD] [--prefix clarim] [--out-dir /workspace/arauto]
+A data padrão sai do nome do arquivo (edicao-AAAA-MM-DD.html) ou de hoje."""
+import argparse, re, datetime, pathlib, sys
+from playwright.sync_api import sync_playwright
+ap = argparse.ArgumentParser(); ap.add_argument("html"); ap.add_argument("--date"); ap.add_argument("--prefix", default="clarim")
+ap.add_argument("--out-dir", default="/workspace/arauto"); a = ap.parse_args()
+src = pathlib.Path(a.html).resolve()
+if not src.exists(): sys.exit(f"não achei {src}")
+m = re.search(r"\d{4}-\d{2}-\d{2}", src.name)
+date = a.date or (m.group(0) if m else datetime.date.today().isoformat())
+out = pathlib.Path(a.out_dir) / f"{a.prefix}-{date}.pdf"; out.parent.mkdir(parents=True, exist_ok=True)
+with sync_playwright() as p:
+    b = p.chromium.launch(); pg = b.new_page()
+    pg.goto(src.as_uri(), wait_until="networkidle"); pg.emulate_media(media="print")
+    pg.pdf(path=str(out), format="A4", print_background=True, margin={"top":"12mm","bottom":"12mm","left":"10mm","right":"10mm"})
+    b.close()
+print(out)

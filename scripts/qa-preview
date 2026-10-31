@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+"""qa-preview: prints desktop+mobile, erros de console e checklist (régua qa-antes-de-preview-mwllo).
+uso: qa-preview URL [--out /workspace/qa/<data>-<host>] [--wait-ms 1500]"""
+import argparse, datetime, json, pathlib, re, urllib.parse
+from playwright.sync_api import sync_playwright
+ap = argparse.ArgumentParser(); ap.add_argument("url"); ap.add_argument("--out"); ap.add_argument("--wait-ms", type=int, default=1500); a = ap.parse_args()
+host = urllib.parse.urlparse(a.url).netloc or "local"
+out = pathlib.Path(a.out or f"/workspace/qa/{datetime.datetime.now():%Y-%m-%d_%H%M%S}-{host}"); out.mkdir(parents=True, exist_ok=True)
+BRAND = {"#051a24", "#ffffff", "#dce8e4"}
+VIEWS = {"desktop": dict(viewport={"width":1440,"height":900}), "mobile": dict(viewport={"width":390,"height":844}, device_scale_factor=2, is_mobile=True, has_touch=True)}
+res = {}
+with sync_playwright() as p:
+    b = p.chromium.launch()
+    for name, opts in VIEWS.items():
+        ctx = b.new_context(**opts); pg = ctx.new_page(); errs = []
+        pg.on("console", lambda m, e=errs: m.type == "error" and e.append(m.text))
+        pg.on("pageerror", lambda x, e=errs: e.append(f"pageerror: {x}"))
+        r = pg.goto(a.url, wait_until="networkidle", timeout=60000); pg.wait_for_timeout(a.wait_ms)
+        pg.screenshot(path=str(out/f"{name}.png"), full_page=True)
+        info = pg.evaluate("""() => ({
+          overflowX: document.documentElement.scrollWidth > window.innerWidth + 1,
+          text: document.body.innerText,
+          colors: [...new Set([...document.querySelectorAll('*')].slice(0,3000).flatMap(e=>{const s=getComputedStyle(e);return [s.color,s.backgroundColor]}))],
+          reducedMotion: [...document.styleSheets].some(s=>{try{return [...s.cssRules].some(r=>r.cssText.includes('prefers-reduced-motion'))}catch(e){return false}}) || document.documentElement.outerHTML.includes('prefers-reduced-motion'),
+          title: document.title })""")
+        res[name] = dict(status=r.status if r else None, errors=errs, **info); ctx.close()
+    b.close()
+def hexc(c):
+    m = re.match(r"rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?", c)
+    if not m or (m.group(4) is not None and float(m.group(4)) == 0): return None
+    return "#%02x%02x%02x" % tuple(int(m.group(i)) for i in (1,2,3))
+cols = {h for v in res.values() for c in v["colors"] if (h := hexc(c)) and h != "#000000"}
+txt = res["desktop"]["text"].lower()
+ok = lambda c: "✅" if c else "❌"
+errs = sorted({e for v in res.values() for e in v["errors"]})
+lines = [f"# QA preview: {a.url}", "", f"- título: {res['desktop']['title']}  | status HTTP: {res['desktop']['status']}", "",
+ "## automático",
+ f"- {ok(not errs)} console sem erros ({len(errs)})",
+ f"- {ok(not res['mobile']['overflowX'])} mobile sem scroll horizontal",
+ f"- {ok(not res['desktop']['overflowX'])} desktop sem scroll horizontal",
+ f"- {ok('londrina' not in txt)} não cita Londrina",
+ f"- {ok('kauã' not in txt and 'kaua melo' not in txt)} não cita o nome do Kauã",
+ f"- {ok(res['desktop']['reducedMotion'])} respeita prefers-reduced-motion (achou regra no CSS/HTML)",
+ f"- {'✅' if BRAND & cols else '⚠️'} brand kit: cores oficiais presentes {sorted(BRAND & cols)}; outras cores: {', '.join(sorted(cols - BRAND)[:12]) or 'nenhuma'}",
+ "", "## manual (olho humano, ver PNGs)",
+ "- [ ] tipografia e tom premium com toque de humor, pt-BR",
+ "- [ ] texto legível no celular, uma ideia por frame/seção",
+ "- [ ] alinhado ao pedido, não ao primeiro chip óbvio",
+ "- [ ] animações usam GSAP conforme pedido",
+ "", "## arquivos", "- desktop.png", "- mobile.png", "- console-errors.json"]
+if errs: lines += ["", "## erros de console"] + [f"- `{e[:300]}`" for e in errs]
+(out/"checklist.md").write_text("\n".join(lines)+"\n")
+(out/"console-errors.json").write_text(json.dumps({k: v["errors"] for k, v in res.items()}, ensure_ascii=False, indent=2))
+print(out)
