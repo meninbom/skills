@@ -97,7 +97,7 @@ Escolha um e diga o porquê.
 | **D. Comparação / estoque** | Intenção de busca ou catálogo (ex.: multimarcas) |
 | **E. Showroom cinematográfico** | Premium automotivo / retail com hero de impacto (Approach A) |
 
-Consulte referências do stack mwllo (land-book, minimal.gallery, lapa.ninja, navbar.gallery, footer.design, 21st.dev, Refero, Cult UI) **depois** de travar tipo e offer — referência não substitui brief.
+Consulte referências do stack mwllo (motionsites.ai — https://motionsites.ai, base do próprio mwllo.dev —, land-book, minimal.gallery, lapa.ninja, navbar.gallery, footer.design, 21st.dev, Refero, Cult UI) **depois** de travar tipo e offer — referência não substitui brief.
 
 ## A4. Conversão
 
