@@ -4,8 +4,8 @@ description: >-
   Motion e interação para landing pages mwllo com GSAP + ScrollTrigger:
   hero de impacto, pin/scrub, magnetic CTA, stagger editorial, reduced-motion.
   Use ao animar LP, hero, estoque horizontal, assinatura tipográfica ou
-  microinterações — e sempre antes de inventar curva/timeline. Consulte o
-  MCP GSAP conectado quando disponível.
+  microinterações — e sempre antes de inventar curva/timeline. Use as skills
+  gsap-* e o pacote npm gsap (não existe MCP do GSAP).
 ---
 
 # LP Motion (GSAP) — mwllo
@@ -34,7 +34,8 @@ Motion serve a história da página. Não é enfeite de portfolio Dribbble.
 - GSAP + ScrollTrigger via CDN ou bundler do projeto
 - Preferir props baratas: `transform`, `opacity`, `filter` com cuidado
 - **Nunca** listener de scroll cru sem throttle — use ScrollTrigger / IntersectionObserver
-- Antes de inventar API: consulte MCP GSAP (`gsap-core`, `gsap-scrolltrigger`, `gsap-timeline`, plugins conforme skill catalog)
+- Antes de inventar API: carregue as skills `gsap-core`, `gsap-scrolltrigger`, `gsap-timeline` (e plugins conforme o catálogo) e use o pacote npm `gsap`. Não existe MCP do GSAP.
+- Trocar GSAP por CSS ou outra lib é decisão do Kauã: pergunte antes, nunca troque em silêncio.
 
 ## Reduced motion
 
