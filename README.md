@@ -12,6 +12,7 @@ Cada skill é uma pasta com `SKILL.md`. Instale só o que precisa.
 |---|---|
 | `landing-page-design` | LP nova de cliente ou do estúdio: oferta, estrutura, copy, tokens do brand kit do projeto, QA antes de preview |
 | `lp-motion-gsap` | Animações e interações de LP com GSAP + ScrollTrigger; respeita reduced-motion; consulta MCP GSAP antes de inventar |
+| `reanimate` | Clonar animação de um site, vídeo, gif ou Lottie no código do projeto, gravar o clone e comparar frame a frame até bater o timing. Skill de terceiros: [NiazMorshed2007/reanimate](https://github.com/NiazMorshed2007/reanimate) (MIT). Precisa de Bun; no primeiro uso baixa Playwright Chromium e ffmpeg (~250 MB). |
 
 ## Brand rules (resumo)
 
@@ -60,4 +61,4 @@ Entregue outline → hero → seções; depois motion. Respeite prefers-reduced-
 
 ## License
 
-MIT. Créditos: estrutura e anti-slop adaptados de elayadesign/ai-design-skills (MIT).
+MIT. Créditos: estrutura e anti-slop adaptados de elayadesign/ai-design-skills (MIT). `reanimate` é cópia da skill MIT de [Niaz Morshed](https://github.com/NiazMorshed2007/reanimate); o LICENSE original vai junto na pasta.
