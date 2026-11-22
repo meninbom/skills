@@ -12,6 +12,7 @@ Cada skill é uma pasta com `SKILL.md`. Instale só o que precisa.
 |---|---|
 | `landing-page-design` | LP nova de cliente ou do estúdio: oferta, estrutura, copy, tokens do brand kit do projeto, QA antes de preview |
 | `lp-motion-gsap` | Animações e interações de LP com GSAP + ScrollTrigger; respeita reduced-motion; consulta MCP GSAP antes de inventar |
+| `econodescomplicada-videos` | Episódios verticais do @econodescomplicada (estilo #07, mascote Moedinha): roteiro 5 cenas + CTA com regras de gancho dos 3 primeiros segundos, narração edge-tts, render, QA e arquivamento. Pesquisa de ganchos em `pesquisa-ganchos.md`. |
 
 ## Brand rules (resumo)
 
