@@ -131,6 +131,7 @@ def inspect(config, stage="plan"):
         "checks": [],
         "errors": [],
         "warnings": [],
+        "manual_verification": [],
     }
 
     def check(name, ok, detail, required=True):
@@ -138,18 +139,42 @@ def inspect(config, stage="plan"):
         if not ok:
             (result["errors"] if required else result["warnings"]).append(f"{name}: {detail}")
 
+    def require_manual_verification(name, detail):
+        # A warning alone must not produce a misleading READY status.
+        result["checks"].append({
+            "name": name, "ok": False, "detail": detail,
+            "required": False, "manual_verification": True
+        })
+        result["manual_verification"].append(f"{name}: {detail}")
+
+    def finish():
+        if result["errors"]:
+            result["status"] = "blocked"
+        elif result["manual_verification"]:
+            result["status"] = "needs_verification"
+        else:
+            result["status"] = "ready"
+        result["ready"] = result["status"] == "ready"
+        return result
+
     # A writing-only episode can be planned on any platform with Python.
     workspace = p["workspace"]
     check("workspace", bool(workspace), "Set paths.workspace in local config or ECONO_WORKSPACE", required=True)
     if workspace and workspace.exists() and not workspace.is_dir():
         check("workspace_is_directory", False, f"{workspace} is not a directory")
     if stage == "plan":
-        result["ready"] = not result["errors"]
-        return result
+        return finish()
 
-    for label, name in (("engine", "engine"), ("episode_template", "episode_template"), ("sprites", "sprites")):
+    # The engine and sprites are required. Episode templates are optional:
+    # a self-contained engine may already have its renderer and assets.
+    for name in ("engine", "sprites"):
         path = p[name]
-        check(label, bool(path and path.is_dir()), f"Set paths.{name} to an existing directory")
+        check(name, bool(path and path.is_dir()), f"Set paths.{name} to an existing directory")
+    template = p["episode_template"]
+    if template:
+        check("episode_template", template.is_dir(),
+              f"Configured optional episode template does not exist: {template}",
+              required=False)
     sprites = p["sprites"]
     for name in REQUIRED_SPRITES:
         check("sprite:" + name, bool(sprites and (sprites / name).is_file()),
@@ -173,12 +198,12 @@ def inspect(config, stage="plan"):
             tts_available = False
         check("tts:edge-tts", tts_available, "Install edge-tts in the active Python environment")
     else:
-        check("tts:external", False, "Verify external narration and WordBoundary-compatible word timestamps manually", required=False)
+        require_manual_verification("tts:external", "Verify external narration and WordBoundary-compatible word timestamps manually")
     if prod["image_backend"] == "codex-image":
         check("image:codex", bool(shutil.which("codex")),
               "Install/login Codex CLI and install the separate codex-image skill")
     else:
-        check("image:external", False, "Verify another image generator and 9:16 reference support manually", required=False)
+        require_manual_verification("image:external", "Verify external image provider, output format and 9:16 reference support manually")
 
     if p["style_reference"]:
         check("style_reference", p["style_reference"].exists(),
@@ -191,13 +216,12 @@ def inspect(config, stage="plan"):
         if config["archive"]["mode"] == "google-drive":
             check("drive_folder", bool(config["archive"]["drive_folder_id"]),
                   "Set ECONO_DRIVE_FOLDER_ID locally (do not publish it in Git)")
-            check("drive_connector", False,
-                  "Drive connection and permissions must be verified by the agent at publishing time", required=False)
+            require_manual_verification("drive_connector",
+                  "Drive connection and permissions must be verified by the agent at publishing time")
         else:
             check("archive_local", True,
                   "Local delivery is configured; cloud upload is not automatic")
-    result["ready"] = not result["errors"]
-    return result
+    return finish()
 
 
 def main(argv=None):
@@ -218,7 +242,10 @@ def main(argv=None):
         print(f"Stage: {report['stage']} | Host: {report['host']['os']} {report['host']['architecture']} | Workers: {report['render_workers']}")
         for item in report["checks"]:
             print(f"{'OK' if item['ok'] else 'FAIL' if item['required'] else 'WARN'} {item['name']}: {item['detail']}")
-        print("READY" if report["ready"] else "NOT_READY")
+        for item in report["manual_verification"]:
+            print(f"VERIFY {item}")
+        print({"ready": "READY", "needs_verification": "NEEDS_VERIFICATION",
+               "blocked": "NOT_READY"}[report["status"]])
     return 0 if report["ready"] else 2
 
 
