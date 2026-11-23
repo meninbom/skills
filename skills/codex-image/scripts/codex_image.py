@@ -35,7 +35,7 @@ import tempfile
 import time
 from datetime import datetime
 from pathlib import Path
-from image_utils import _require_pillow, frame_image, load_preset, quota_exhausted, quota_window_expired, validate_png
+from image_utils import _require_pillow, frame_image, load_preset, quota_exhausted, quota_window_expired, validate_png, write_circle_preview
 
 CODEX_HOME = Path(os.environ.get("CODEX_HOME", Path.home() / ".codex"))
 STATE_DIR = Path(os.environ.get("CODEX_IMAGE_HOME", Path.home() / ".codex-image-skill"))
@@ -172,6 +172,17 @@ def build_prompt(args):
         lines.append("Use a genuinely transparent background (transparent_background true).")
     if args.preset_config:
         lines.append(f"VISUAL PRESET {args.preset}: {args.preset_config['brief']}")
+    if args.avatar_safe:
+        lines.append(
+            "INSTAGRAM CIRCULAR PROFILE AVATAR: compose on a square 1:1 canvas. "
+            "The final profile display masks every pixel outside an inscribed circle. "
+            "Keep the face, eyes, expression and defining features FULLY inside the central "
+            "60 percent of width and height, clear of the circular crop. Favor a bold "
+            "head-and-shoulders portrait with a recognisable silhouette and high contrast "
+            "at tiny thumbnail size (about 48 px). Do not rely on important details "
+            "at the corners. Show the full body only if the user's brief explicitly requests it. "
+            "No lettering or watermark unless explicitly requested."
+        )
     if args.brand_kit_text:
         lines.append("PROJECT BRAND KIT (follow visual guidelines, do not fabricate brand marks):\n" + args.brand_kit_text)
     if args.framing in ("contain", "blur"):
@@ -230,6 +241,7 @@ def main():
     p.add_argument("-o", "--out")
     p.add_argument("--aspect", choices=sorted(ASPECTS))
     p.add_argument("--preset", help="visual preset from presets.json: hero, mascot, social, reel")
+    p.add_argument("--avatar-safe", action="store_true", help="square circle-safe framing and circular preview for profile avatars")
     p.add_argument("--brand-kit", help="local UTF-8 brand guidelines to include in the briefing")
     p.add_argument("--framing", choices=("crop", "contain", "blur"), help="exact aspect: crop, solid pad, or blurred pad")
     p.add_argument("--focal-x", type=float, default=0.5, help="crop horizontal focal position (0 left, 1 right)")
@@ -262,6 +274,12 @@ def main():
             args.aspect = args.preset_config.get("aspect")
     else:
         args.preset_config = None
+    if args.avatar_safe:
+        if args.aspect and args.aspect != "1:1":
+            p.error("--avatar-safe requires square 1:1 output; override the preset with --aspect 1:1")
+        args.aspect = "1:1"
+        if not args.framing and not args.crop:
+            args.framing = "contain"  # guarantee square without cutting the face
     args.brand_kit_text = ""
     if args.brand_kit:
         try:
@@ -362,6 +380,8 @@ def main():
     with tempfile.NamedTemporaryFile(prefix=f".{out.stem}-", suffix=".png",
                                      dir=out.parent, delete=False) as tmp_file:
         tmp = Path(tmp_file.name)
+    preview_tmp = None
+    preview_out = None
     try:
         shutil.copy2(src, tmp)
         if args.framing:
@@ -370,12 +390,24 @@ def main():
                         transparent=args.transparent, pad_color=args.pad_color)
         w, h = validate_png(tmp, aspect=args.aspect if args.framing else None,
                             transparent=args.transparent)
-        os.replace(tmp, out)  # publish only after all checks pass
+        if args.avatar_safe:
+            preview_out = unique_path(out.with_name(f"{out.stem}-avatar-preview.png"), args.force)
+            with tempfile.NamedTemporaryFile(prefix=f".{out.stem}-avatar-", suffix=".png",
+                                             dir=out.parent, delete=False) as preview_file:
+                preview_tmp = Path(preview_file.name)
+            write_circle_preview(tmp, preview_tmp)
+        os.replace(tmp, out)  # publish only after both files pass validation
+        if preview_tmp is not None:
+            os.replace(preview_tmp, preview_out)
     except (ValueError, OSError) as exc:
         fail(1, f"Image QA/framing failed: {exc}")
     finally:
         tmp.unlink(missing_ok=True)
+        if preview_tmp is not None:
+            preview_tmp.unlink(missing_ok=True)
     print(f"SAVED {out}")
+    if preview_out is not None:
+        print(f"AVATAR_PREVIEW {preview_out}")
     print(f"SIZE {w}x{h}")
     print(f"VALIDATED PNG {w}x{h}" + (" transparent" if args.transparent else ""))
     print(f"SOURCE {src}")
