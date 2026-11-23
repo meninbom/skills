@@ -103,8 +103,89 @@ class ConfigTests(unittest.TestCase):
         self.write()
         cfg = preflight.load_config(self.path, environ={})
         report = preflight.inspect(cfg, "render")
-        self.assertTrue(any("image:external" in w for w in report["warnings"]))
-        self.assertTrue(any("tts:external" in w for w in report["warnings"]))
+        self.assertTrue(any("image:external" in w for w in report["manual_verification"]))
+        self.assertTrue(any("tts:external" in w for w in report["manual_verification"]))
+        self.assertFalse(report["ready"])
+
+    def create_render_assets(self):
+        engine = self.root / "engine"
+        sprites = self.root / "assets" / "sprites"
+        engine.mkdir(exist_ok=True)
+        sprites.mkdir(parents=True, exist_ok=True)
+        for name in preflight.REQUIRED_SPRITES:
+            (sprites / name).write_bytes(b"placeholder")
+        (engine / "render_paralelo.mjs").write_text("", encoding="utf-8")
+        return engine, sprites
+
+    def test_optional_episode_template_can_be_absent(self):
+        self.create_render_assets()
+        self.data["paths"].pop("episode_template", None)
+        self.write()
+        cfg = preflight.load_config(self.path, environ={})
+        with patch("preflight.shutil.which", return_value="/test/executable"), \
+                patch("preflight.find_browser", return_value="/test/browser"), \
+                patch("preflight.importlib.util.find_spec", return_value=object()):
+            report = preflight.inspect(cfg, "render")
+        self.assertTrue(report["ready"])
+        self.assertEqual(report["status"], "ready")
+        self.assertFalse(any("episode_template" in err for err in report["errors"]))
+
+    def test_bad_optional_template_is_warning_when_engine_complete(self):
+        self.create_render_assets()
+        self.data["paths"]["episode_template"] = "./missing-template"
+        self.write()
+        cfg = preflight.load_config(self.path, environ={})
+        with patch("preflight.shutil.which", return_value="/test/executable"), \
+                patch("preflight.find_browser", return_value="/test/browser"), \
+                patch("preflight.importlib.util.find_spec", return_value=object()):
+            report = preflight.inspect(cfg, "render")
+        self.assertTrue(report["ready"])
+        self.assertTrue(any("episode_template" in warning for warning in report["warnings"]))
+
+    def test_external_providers_require_verification_even_if_all_tools_exist(self):
+        self.create_render_assets()
+        self.data["production"].update(image_backend="external", tts_backend="external")
+        self.write()
+        cfg = preflight.load_config(self.path, environ={})
+        with patch("preflight.shutil.which", return_value="/test/executable"), \
+                patch("preflight.find_browser", return_value="/test/browser"):
+            report = preflight.inspect(cfg, "render")
+        self.assertFalse(report["ready"])
+        self.assertEqual(report["status"], "needs_verification")
+        self.assertFalse(report["errors"])
+        self.assertEqual(len(report["manual_verification"]), 2)
+        self.assertTrue(any("image:external" in item for item in report["manual_verification"]))
+        self.assertTrue(any("tts:external" in item for item in report["manual_verification"]))
+
+    def test_publish_requires_drive_connection_verification(self):
+        self.create_render_assets()
+        checker = self.root / "check.py"
+        checker.write_text("# test", encoding="utf-8")
+        self.data["paths"]["checker_script"] = "./check.py"
+        self.data["archive"] = {"mode": "google-drive", "drive_folder_id": "test-only-id"}
+        self.write()
+        cfg = preflight.load_config(self.path, environ={})
+        with patch("preflight.shutil.which", return_value="/test/executable"), \
+                patch("preflight.find_browser", return_value="/test/browser"), \
+                patch("preflight.importlib.util.find_spec", return_value=object()):
+            report = preflight.inspect(cfg, "publish")
+        self.assertEqual(report["status"], "needs_verification")
+        self.assertFalse(report["ready"])
+        self.assertTrue(any("drive_connector" in item for item in report["manual_verification"]))
+
+    def test_unverified_external_provider_is_not_reported_ready_by_cli(self):
+        self.create_render_assets()
+        self.data["production"].update(image_backend="external", tts_backend="external")
+        self.write()
+        buf = io.StringIO()
+        with patch("preflight.shutil.which", return_value="/test/executable"), \
+                patch("preflight.find_browser", return_value="/test/browser"), \
+                contextlib.redirect_stdout(buf):
+            rc = preflight.main(["--config", str(self.path), "--stage", "render", "--json"])
+        obj = json.loads(buf.getvalue())
+        self.assertEqual(rc, 2)
+        self.assertEqual(obj["status"], "needs_verification")
+        self.assertFalse(obj["ready"])
 
     def test_render_can_pass_with_injected_tools_and_assets(self):
         engine = self.root / "engine"
