@@ -9,23 +9,37 @@ description: >-
 
 Receita completa para produzir, revisar, legendar e arquivar vídeos verticais curtos (Reels/TikTok/Shorts) de Economia para público leigo no estilo `#07` (Explicativo ilustrado, pegada Kurzgesagt) com a mascote **Moedinha**.
 
+## 0. Setup no Mac (uma vez, já feito pelo Sargento em 20/11/2026)
+- Pasta da série: `~/Documents/Cursos/econodescomplicada/` (modelos em `modelos/`, episódios novos em `episodios/`). Não mova.
+- Plugin do curso: `curso-estilos@doti-cursos` (pasta `~/Documents/Cursos/curso-estilos`).
+- Voz: `~/Documents/Cursos/econodescomplicada/.venv-audio` com `edge-tts`. Checagem: `~/Documents/Cursos/econodescomplicada/.venv-checar` com o `requirements.txt` do `checar-video`.
+- Render usa o Google Chrome do Mac (ou `CHROME_PATH`) e `puppeteer-core` via `npm install` na pasta do episódio. FFmpeg em `/usr/local/bin/ffmpeg`.
+- Mac Intel sem GPU dedicada: render é por software, use `--workers 2`.
+- Placas: Codex CLI (`~/.local/bin/codex`, logado com ChatGPT) via `gerar_placa.sh` (adicionado em 20/11/2026).
+
 ## 1. Identidade fixa da série
 - **Formato:** vertical `1080×1920` (9:16), 30 fps, H.264 High, `yuv420p`, `+faststart`, ~32–45 s + versão leve `720×1280` para celular.
 - **Público e linguagem:** 100% público leigo, cotidiano brasileiro, tom direto e visual. **Proibido** jargão de aula ou gráfico acadêmico (nada de *ceteris paribus*, `P*`/`Q*`, curvas D/O' de livro, M1/M2, IPCA técnico, COPOM técnico, exógeno).
-- **Mascote fixa (Moedinha):** reaproveitar os sprites já limpos (0 pixels de franja magenta) em `/workspace/fabrica-videos-claude/economia-leigo-07/arte/sprites/`:
-  - `moeda_acena.png` (explicação; nunca no 1º quadro, ver 2.1)
+- **Mascote fixa (Moedinha):** reaproveitar os sprites já limpos (0 pixels de franja magenta) em `~/Documents/Cursos/econodescomplicada/modelos/economia-leigo-07/arte/sprites/`:
+  - `moeda_acena.png` (abertura/explicação)
   - `moeda_aponta.png` (destaque/crescimento/CTA)
   - `moeda_feliz.png` (alívio/equilíbrio/fecho calmo)
   - `moeda_assustada.png` (traz guarda-chuva azul — usar **somente** quando houver chuva literal ou metafórica, como chuva de água ou de notas)
+- **Expressões e quadros extras** (mesmo personagem, fundo transparente, recortados rente) em `~/Documents/Cursos/econodescomplicada/modelos/economia-leigo-07/arte/sprites/novos/`; copie para `arte/sprites/` do episódio e registre no `iniciar()` com a chave sem `moeda_`:
+  - `moeda_alerta.png` (aviso sério: juros, golpe, dívida) · `moeda_chocada.png` (susto com número, sem guarda-chuva) · `moeda_confusa.png` (dúvida, pegadinha) · `moeda_pensativa.png` (pergunta do gancho, comparação)
+  - `moeda_preocupada.png` (aperto, fim do mês) · `moeda_rindo.png` (gancho de humor) · `moeda_nota.png` (dinheiro, salário, desconto) · `moeda_joinha.png` (dica certa, resumo)
+  - Quadros de animação: `moeda_anda_a.png` + `moeda_anda_b.png` (ciclo de andar) e `moeda_pulo_agacha.png` + `moeda_pulo_ar.png` (pulo). Prévia em `novos/previa_animacoes.mp4`.
+  - Escolha a expressão pela emoção da fala de cada trecho, não por sorteio; não repita a mesma pose numa cena inteira quando a fala muda de emoção.
+  - Pose nova que não exista: gere com a skill `codex-image` (`--transparent --aspect 1:1 --ref moeda_acena.png --ref moeda_aponta.png`, briefs em `novos/briefs/`), confira o canal alfa sobre fundo roxo e recorte rente antes de usar.
 - **Paleta de overlays da marca:**
   - Cartões/selos principais: violeta-índigo profundo (`#3B207A` / `#2A155E`)
   - Destaques e etiqueta inicial: amarelo ouro (`#FFD93D`)
   - Alerta de alta e botão CTA: coral vibrante (`#FF4F5E`)
   - Equilíbrio / cédulas / check: verde esmeralda (`#27C26C`)
 - **Base de referência (somente leitura):**
-  - Motor `#07` do plugin (NUNCA editar lá): `/workspace/fabrica-videos-claude/extracted/curso-estilos/skills/curso-estilos/motores/07/`
-  - Receita e regras do estilo: `/workspace/fabrica-videos-claude/extracted/curso-estilos/skills/curso-estilos/estilos/07_explicativo_ilustrado.md` e `OFICIO.md`
-  - Projetos-modelo validados: `/workspace/fabrica-videos-claude/economia-leigo-07/` (ep. 01) e `/workspace/fabrica-videos-claude/economia-inflacao-07/` (ep. 02)
+  - Motor `#07` do plugin (NUNCA editar lá): `~/Documents/Cursos/curso-estilos/curso-estilos/skills/curso-estilos/motores/07/`
+  - Receita e regras do estilo: `~/Documents/Cursos/curso-estilos/curso-estilos/skills/curso-estilos/estilos/07_explicativo_ilustrado.md` e `OFICIO.md`
+  - Projetos-modelo validados: `~/Documents/Cursos/econodescomplicada/modelos/economia-leigo-07/` (ep. 01) e `~/Documents/Cursos/econodescomplicada/modelos/economia-inflacao-07/` (ep. 02)
 
 ## 2. Estrutura de roteiro (5 cenas + CTA) e legenda obrigatória
 Salve sempre `roteiro.md` e **`legenda.txt`** na pasta do episódio:
@@ -46,7 +60,7 @@ O gancho decide se a pessoa fica. Escrever o gancho **depois** de saber o "pagam
 - **A 1ª frase tem até ~8 palavras** e precisa caber até ~2,5 s de narração.
 - **Conflito ou tensão antes do nome do conceito.** O termo (PIB, Selic, CDI…) só aparece **depois** da dor ou da surpresa, nunca como 1ª palavra. Se aparecer na 1ª frase, que seja como alvo do conflito ("O PIB cresceu e teu bolso nem sentiu?"), não como tema de aula.
 - **Texto de gancho grande na tela já no 1º quadro (t = 0):** 2 linhas, no máximo ~7 palavras, peso bold, dentro da zona segura (y ≈ 160–900). É a versão curta da fala, não um rótulo de tema. Proibido abrir com o selo **DO DIA A DIA** ou com o título do tema. Se o selo for usado, entra depois de 1,5 s e pequeno.
-- **Moedinha já com expressão no 1º quadro**, ligada à emoção do gancho. **Nunca acenando** em 0 s, porque o aceno é o "oi gente" visual. Com os sprites atuais: `moeda_aponta.png` (alerta, curiosidade, número) ou `moeda_feliz.png` (humor, alívio); `moeda_assustada.png` só com chuva, pela regra da seção 1. Se o gancho pedir outra expressão (confusa, rindo, chocada), gere um sprite novo no mesmo estilo e limpe até 0 px de franja magenta antes de usar.
+- **Moedinha já com expressão no 1º quadro**, ligada à emoção do gancho. **Nunca acenando** em 0 s, porque o aceno é o "oi gente" visual. Use a expressão da lista da seção 1 que bate com o gancho: `aponta`/`alerta` (alerta, número), `pensativa`/`confusa` (pergunta, pegadinha), `chocada` (susto), `rindo`/`feliz` (humor), `preocupada` (aperto); `assustada` só com chuva.
 - **Movimento imediato:** algo já se mexendo em t = 0 (etiqueta caindo, número estourando, objeto quebrando, câmera em push-in ≤ 1,20×). Nada de fade do preto nem placa parada.
 - **Funciona sem som:** só com o 1º quadro, dá pra entender qual é o problema.
 
@@ -122,39 +136,40 @@ Pergunta só vale se for **específica e sem resposta óbvia**. Proibido "Já vi
 
 ## 3. Fluxo de produção (zero API paga)
 
-### Passo 0 — Validação de tema no Drive (OBRIGATÓRIO antes de qualquer criação)
-Antes de roteirizar ou produzir qualquer coisa:
-1. Liste **ao vivo** as subpastas da pasta do projeto no Drive pessoal (`user-Google-drive--personal`, pasta "Economia Sem Complicação — Vídeos", id `1iREg0PXN6AGqVpmtl-hrnq21DawowxJp`). Os nomes seguem o padrão `NN — <Tema>`.
-2. Monte a lista de episódios já feitos (número + tema). Em caso de dúvida sobre o que um episódio cobriu, abra o `roteiro.md` ou o `legenda.txt` daquela subpasta.
-3. Compare o tema pedido com essa lista. Considere repetido o mesmo conceito, mesmo com outro nome ou ângulo muito parecido (ex.: "Selic" e "taxa básica de juros"; "inflação" e "por que os preços sobem").
-4. **Se o tema já foi abordado:** não produza. Avise o dono dizendo qual episódio já cobre aquilo e sugira 2–3 temas novos (ou um ângulo claramente diferente). Só siga com o OK dele.
-5. **Se o tema é novo:** o número do episódio é o maior `NN` existente + 1. Use esse número na subpasta do Drive e no `roteiro.md`.
-6. Nunca confie só na memória ou em listas antigas: a fonte da verdade é o Drive no momento da criação. Se o Drive não responder, pare e avise em vez de chutar.
-
-
 ### Passo 1 — Criar pasta isolada do episódio
-- Crie `/workspace/fabrica-videos-claude/economia-<slug>-07/` copiando `motores/07/` (nunca altere a pasta do plugin nem episódios anteriores).
-- Reaproveite `render_paralelo.mjs`, `snap.mjs` e os sprites limpos de `/workspace/fabrica-videos-claude/economia-leigo-07/arte/sprites/`.
+- Crie `~/Documents/Cursos/econodescomplicada/episodios/economia-<slug>-07/` copiando `motores/07/` (nunca altere a pasta do plugin nem episódios anteriores).
+- Reaproveite `render_paralelo.mjs`, `snap.mjs` e os sprites limpos de `~/Documents/Cursos/econodescomplicada/modelos/economia-leigo-07/arte/sprites/`.
 - Garanta `puppeteer-core` disponível (`node_modules` ou symlink do episódio anterior).
 
 ### Passo 2 — Narração primeiro (`edge-tts` grátis)
-- Use o venv `/workspace/fabrica-videos-claude/economia-oferta-demanda/.venv-audio` com `edge-tts` em **uma única tomada contínua** (sem emendas):
+- Use o venv `~/Documents/Cursos/econodescomplicada/.venv-audio` com `edge-tts` em **uma única tomada contínua** (sem emendas):
   - Voz padrão da série: `pt-BR-ThalitaMultilingualNeural`, rate `+10%`.
 - Extraia timestamps exatos por palavra (`WordBoundary`) em `voz/words.json`.
 - Normalize para `voz/narracao_norm.wav` (−16 LUFS) e gere a faixa final `saida/voz_final.wav` em **−14,0 LUFS estéreo, True Peak ≤ −1,5 dBTP**, 48 kHz.
   - Sempre **estéreo** (mono duplicado nos dois canais) para não perder 6 dB no teste de celular do `checar-video`.
-- Defina a duração total (`window.END`) com **0,8 s de respiro visual após a última palavra** do CTA ("perfil" ou "bio") para nunca cortar áudio.
+- Defina a duração total (`window.END`) com **0,8 s de respiro visual após a última palavra** (a última palavra do CTA) para nunca cortar áudio.
 
-### Passo 3 — 5 placas de cenário 9:16 (`GenerateImage`)
-- Gere 5 ilustrações `aspect_ratio: "9:16"` no estilo flat vetorial Kurzgesagt passando uma placa da série (`/workspace/fabrica-videos-claude/economia-leigo-07/arte/placas/c1_sol.png` ou `catalogo/previas/07.jpg`) em `reference_image_paths` para manter paleta, luz e sombras violeta-índigo consistentes.
-- Regras obrigatórias nos prompts:
-  - Espaço limpo no terço superior para cartões e CTA.
-  - **`ABSOLUTELY NO text, NO numbers, NO letters, NO price tags, NO signs with words, NO watermarks, NO mascot.`**
-- **Inspecione todas as 5 placas com `Read`** antes de animar. Rejeite e regenere qualquer placa com texto borrado de IA, vazamento de cenário de outro episódio ou composição pobre (guarde rejeitadas em `arte/bruto/`).
-- Amplie as aprovadas para `1350×2400` (Lanczos) para permitir pan/zoom suaves sem perder nitidez.
+### Passo 3 — 5 placas de cenário 9:16 (Codex, `gerar_placa.sh`)
+- As placas saem do gerador de imagem do Codex CLI do Mac (logado com ChatGPT, recurso `image_generation`) pelo script `~/Documents/Cursos/econodescomplicada/gerar_placa.sh`. **Uma placa por chamada** (lote baixa a qualidade):
+  ```
+  ~/Documents/Cursos/econodescomplicada/gerar_placa.sh "<cena em inglês, concreta, sem personagem-mascote>" <pasta-do-episodio>/arte/placas/c1_<nome>.png [refs.png ...]
+  ```
+  - Sem refs, ele anexa `c2_padaria.png` e `c1_mercado.png` do ep. 02 como referência de estilo (violeta-índigo, luz âmbar). Para manter a cara de um episódio específico, passe as placas dele como refs.
+  - O script já embute as regras: terço superior limpo, espaço no canto inferior direito para a Moedinha, **sem texto, números, letras, etiquetas, logos, marca d'água nem mascote**.
+  - Saída: bruto original em `arte/placas/bruto/<nome>_bruto.png` e a placa final recortada no centro em 9:16 (sem esticar) e ampliada para `1350×2400` (Lanczos, FFmpeg).
+  - Cada placa leva ~1–2 min e gasta da cota do ChatGPT do Kauã. Rode uma por vez.
+- Escreva a cena em inglês, descrevendo lugar, objetos e luz (ex.: "a Brazilian street market at sunset, stalls with fruit crates"). Figurantes são ok; a Moedinha nunca vai na placa (entra como sprite).
+- **Inspecione todas as 5 placas abrindo cada imagem** antes de animar. Rejeite e regenere qualquer placa com texto borrado de IA, cor fora da paleta (céu ciano/pastel), vazamento de cenário de outro episódio ou composição pobre; mova as rejeitadas para `arte/bruto/`.
 
 ### Passo 4 — Animação em Canvas (`filme/cenas.js` e `filme/filme.html`)
-Baseie-se na estrutura validada de `economia-inflacao-07/filme/cenas.js` e siga este checklist rígido:
+Toda cena é animada no motor `#07` (Canvas, `window.seek(t)`), nunca uma placa parada com zoom lento montada no FFmpeg: o vídeo passa na checagem técnica mas fica sem nada que prenda a atenção.
+- Copie `motor/`, `render.mjs`, `render_paralelo.mjs`, `snap.mjs`, `package.json` e `filme/filme.html` do `economia-inflacao-07` e faça symlink do `node_modules` dele; reaproveite os ajudantes do `cenas.js` modelo (texto `T`, painel `PN`, `card`, `grupo`, `moeda`, `burst`, `brilhos`, `empurra`, `cursorMao`, `gente`, `cedula`, `check`, `xis`, `setaSolida`) e escreva só as funções `cena1…cena5`, `cta` e `window.render`.
+- Se a narração foi gravada em trechos, some a duração de cada trecho e a pausa entre eles para converter os tempos de palavra em tempo absoluto do vídeo.
+- Moedinha andando: alterne `anda_a`/`anda_b` a cada ~0,2 s enquanto o `x` muda (entrada ou travessia, com quique de ~12 px no quadro B). Pulo grande: `pulo_agacha` ~0,25 s, `pulo_ar` enquanto sobe e desce, `pulo_agacha` ~0,15 s no pouso, depois volta à pose da fala. Na função `moeda`, passe `pose(t)` devolvendo o quadro certo pelo tempo.
+- Em cada cena: câmera andando pela placa (`plate` com `kf`), Moedinha pulando nas palavras-chave (`beats`), cartões e ícones entrando na palavra exata, pelo menos uma mudança visível a cada ~1,5 s (contador subindo, item marcado, figura saindo, barra caindo, seta girando).
+- Antes do render completo, tire quadros de teste com `node snap.mjs snaps <t1> <t2> ...` (2 por cena), monte uma grade com `hstack` e abra a imagem; corrija sobreposições de cartões e rótulos (posições fixas, texto em 2 linhas) e repita.
+
+Siga este checklist rígido:
 - **Sincronia:** derive as entradas das âncoras reais de `voz/words.json`; primeiro evento visual em ≤ 0,4 s; nada congelado por > 1,5 s; estenda câmera da Cena 5 até além de `window.END`.
 - **Transições limpas:** **nunca use `whip`** (gera cópias fantasma). Use `empurra` (deslizamento único com filete de sombra) ou zoom suave ≤ 1,2×.
 - **Zero texto fantasma:** desenhe cada cartão, selo e botão como bloco composto único (offscreen/layer) antes de aplicar transparência.
@@ -168,22 +183,23 @@ Baseie-se na estrutura validada de `economia-inflacao-07/filme/cenas.js` e siga 
 - Rode `render_paralelo.mjs` (use `--workers 2` quando a memória disponível estiver apertada, um episódio por vez para não disputar RAM do Chromium) gerando:
   - `saida/<slug>_leigo_1080p.mp4` (`1080×1920`, 30 fps, H.264 High, `yuv420p`, `+faststart`, AAC 48 kHz estéreo ~192k)
   - `saida/<slug>_leigo_720p.mp4` (`720×1280`, 30 fps, H.264 High, `yuv420p`, `+faststart`, AAC 48 kHz estéreo ~128k)
+- Todo encode a partir de JPG/PNG sai em `yuvj420p` (que alguns celulares não abrem): force `scale=...:in_range=pc:out_range=tv,format=yuv420p`, `-profile:v high` e `-color_range tv` em qualquer encode ou recodificação fora do `render_paralelo.mjs`.
+- Junte a voz ao vídeo mudo com `loudnorm=I=-14:TP=-1.5`, estéreo, AAC 48 kHz.
 - Valide duração, codecs, tamanho, LUFS e True Peak via `ffprobe` + `ebur128`.
 
 ## 4. Portão de QA obrigatório (os 3 passos antes de entregar)
 1. **Checagem técnica (`checar-video` #29):**
-   `/workspace/fabrica-videos-claude/demo-14/.venv-checar/bin/python /workspace/fabrica-videos-claude/extracted/curso-estilos/skills/checar-video/scripts/checar.py <mp4_1080p> --sem-ocr --sem-stt`
+   `~/Documents/Cursos/econodescomplicada/.venv-checar/bin/python ~/Documents/Cursos/curso-estilos/curso-estilos/skills/checar-video/scripts/checar.py <mp4_1080p> --sem-ocr --sem-stt`
    - Exigir **PASSOU (0 falhas)** (0 engasgos, 0 flashes/s, 0 quadros vazios, 0 s parado, áudio −14 LUFS e celular ok; o aviso de largura do herói em cenário cheio é esperado).
-2. **Inspeção de quadros (`Read`):**
-   - Extrair grade + quadros soltos direto do `1080p.mp4` (`0,15 s`, cena 1, salto da cena 2, transições, cena 3, cena 4, saída dos cartões, auge do botão de CTA (`SEGUIR` ou `LINK NA BIO`) e último frame) e conferir visualmente com `Read`.
-   - **Checagem do gancho (2.7):** no quadro de 0,15 s, texto de gancho legível, Moedinha com expressão (não aceno) e algo em movimento; em `words.json`, 1ª palavra com `start ≤ 0,30` e nome do conceito só depois da 1ª frase. Falhou = corrigir antes de entregar.
-3. **Revisão de vídeo (`videoReview`):**
-   - Enviar o `720p.mp4` ao subagente `videoReview` validando narração completa sem corte, sincronia, transições sem glitch, acentos, ausência de texto fantasma e recorte da Moedinha sem franja magenta.
-   - Se `videoReview` apontar algum problema, confira primeiro o quadro exato no `1080p.mp4` com `Read`; sendo defeito real, arquive a versão anterior em `_antigo/`, corrija na raiz, re-renderize e passe nos 3 passos de novo.
+2. **Inspeção de quadros :**
+   - Extrair grade + quadros soltos direto do `1080p.mp4` (`0,15 s`, cena 1, salto da cena 2, transições, cena 3, cena 4, saída dos cartões, auge do botão `SEGUIR` e último frame) e conferir visualmente abrindo a imagem.
+3. **Revisão de vídeo:**
+   - Assistir o `720p.mp4` (o Kauã abre no QuickTime) ou pedir revisão a um modelo de vídeo disponível, validando narração completa sem corte, sincronia, transições sem glitch, acentos, ausência de texto fantasma e recorte da Moedinha sem franja magenta.
+   - Se a revisão apontar algum problema, confira primeiro o quadro exato no `1080p.mp4` abrindo a imagem; sendo defeito real, arquive a versão anterior em `_antigo/`, corrija na raiz, re-renderize e passe nos 3 passos de novo.
 
 ## 5. Entrega e arquivamento no Drive (SEMPRE com legenda)
-- **No chat:** envie o `1080p.mp4` primeiro como anexo (`type: "attachment"`), seguido imediatamente da mensagem com resumo curto (duração/QA) **+ a legenda pronta para copiar e colar** (nunca envie um vídeo sem a legenda, e nunca afirme ter assistido ao vídeo).
-- **No Google Drive pessoal:** salve sempre na pasta do projeto do Drive pessoal do dono (confirmando o e-mail pessoal antes de criar/enviar, nunca em conta acadêmica/secundária) em uma subpasta numerada `NN — <Tema>` contendo **4 arquivos obrigatórios**:
+- **Na conversa:** informe o caminho do `1080p.mp4` e mostre o resumo curto (duração/QA) **+ a legenda pronta para copiar e colar** (nunca envie um vídeo sem a legenda, e nunca afirme ter assistido ao vídeo).
+- **No Google Drive pessoal (se houver conector do Drive; senão, deixe os 4 arquivos na pasta `saida/` e avise):** salve sempre na pasta do projeto do Drive pessoal do dono (confirmando o e-mail pessoal antes de criar/enviar, nunca em conta acadêmica/secundária) em uma subpasta numerada `NN — <Tema>` contendo **4 arquivos obrigatórios**:
   1. `<slug>_leigo_1080p.mp4`
   2. `<slug>_leigo_720p.mp4`
   3. `roteiro.md`
