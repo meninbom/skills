@@ -12,7 +12,7 @@ Cada skill é uma pasta com `SKILL.md`. Instale só o que precisa.
 |---|---|
 | `landing-page-design` | LP nova de cliente ou do estúdio: oferta, estrutura, copy, tokens do brand kit do projeto, QA antes de preview |
 | `lp-motion-gsap` | Animações e interações de LP com GSAP + ScrollTrigger; respeita reduced-motion; consulta MCP GSAP antes de inventar |
-| `econodescomplicada-videos` | Episódios verticais do @econodescomplicada (estilo #07, mascote Moedinha): roteiro 5 cenas + CTA com regras de gancho dos 3 primeiros segundos, narração edge-tts, render, QA e arquivamento. Pesquisa de ganchos em `pesquisa-ganchos.md`. |
+| [`econodescomplicada-videos`](skills/econodescomplicada-videos/) | Pipeline portátil de vídeos de Economia com Moedinha: roteiro de 5 cenas, briefing, narração, render, QA e arquivamento. Caminhos, motor, sprites e ferramentas são configuráveis e verificados por [preflight multiplataforma](skills/econodescomplicada-videos/README.md); os assets externos continuam necessários. |
 | [`codex-image`](skills/codex-image/) | Geração e edição de imagens com briefing adaptativo (perguntas só quando necessárias), presets `hero/mascot/social/reel`, brand kits locais, enquadramento com recorte ou preservação, validação real de PNG/alpha e consulta de cotas mais segura. [Guia e exemplos](skills/codex-image/README.md). |
 
 ## Brand rules (resumo)
@@ -55,6 +55,11 @@ cp -r /tmp/mwllo-skills/skills/<skill-name> .agents/skills/
 ```
 
 A `codex-image` requer o Codex CLI autenticado com ChatGPT (`codex login`) e o recurso `image_generation` habilitado. O Pillow agora é obrigatório para validação (`pip install pillow`); há testes offline na pasta `skills/codex-image/tests/`. Consulte o [guia da codex-image](skills/codex-image/README.md).
+
+
+### Econo Descomplicada (macOS / Linux / Windows)
+
+Instale a pasta completa da skill, copie `skills/econodescomplicada-videos/config.example.json` para `config.local.json` na pasta da skill, informe caminhos **reais** do motor/sprites/template e execute `python3 scripts/preflight.py --config config.local.json --stage plan`. Para renderização, rode novamente com `--stage render`. A skill não inclui o motor externo nem os arquivos dos episódios; veja o [guia de migração](skills/econodescomplicada-videos/README.md).
 
 ## Teste com Codex (próximo passo)
 
