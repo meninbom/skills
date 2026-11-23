@@ -1,0 +1,374 @@
+{
+ "ep": "ep02b",
+ "speed": 1.06,
+ "blocos": [
+  {
+   "id": "A",
+   "start": 0.0,
+   "end": 2.325
+  },
+  {
+   "id": "V3",
+   "start": 2.675,
+   "end": 6.444
+  },
+  {
+   "id": "B",
+   "start": 6.644,
+   "end": 9.343
+  },
+  {
+   "id": "chegada",
+   "start": 10.243,
+   "end": 10.243
+  },
+  {
+   "id": "C",
+   "start": 10.243,
+   "end": 14.054
+  },
+  {
+   "id": "D",
+   "start": 14.404,
+   "end": 19.214
+  },
+  {
+   "id": "V4",
+   "start": 19.664,
+   "end": 22.492
+  },
+  {
+   "id": "E",
+   "start": 22.842,
+   "end": 27.432
+  },
+  {
+   "id": "congela",
+   "start": 27.782,
+   "end": 27.782
+  },
+  {
+   "id": "G",
+   "start": 27.782,
+   "end": 30.642
+  },
+  {
+   "id": "cauda",
+   "start": 31.092,
+   "end": 31.092
+  }
+ ],
+ "palavras": [
+  {
+   "w": "Vocês",
+   "start": 0.074,
+   "end": 0.451,
+   "bloco": "A"
+  },
+  {
+   "w": "mandaram",
+   "start": 0.526,
+   "end": 0.979,
+   "bloco": "A"
+  },
+  {
+   "w": "eu",
+   "start": 1.055,
+   "end": 1.13,
+   "bloco": "A"
+  },
+  {
+   "w": "seguir",
+   "start": 1.206,
+   "end": 1.432,
+   "bloco": "A"
+  },
+  {
+   "w": "as",
+   "start": 1.508,
+   "end": 1.583,
+   "bloco": "A"
+  },
+  {
+   "w": "regras.",
+   "start": 1.658,
+   "end": 2.413,
+   "bloco": "A"
+  },
+  {
+   "w": "Não",
+   "start": 6.871,
+   "end": 7.022,
+   "bloco": "B"
+  },
+  {
+   "w": "responde.",
+   "start": 7.097,
+   "end": 8.003,
+   "bloco": "B"
+  },
+  {
+   "w": "Não",
+   "start": 8.305,
+   "end": 8.38,
+   "bloco": "B"
+  },
+  {
+   "w": "responde...",
+   "start": 8.456,
+   "end": 9.512,
+   "bloco": "B"
+  },
+  {
+   "w": "Cheguei.",
+   "start": 10.387,
+   "end": 10.991,
+   "bloco": "C"
+  },
+  {
+   "w": "Fiquei",
+   "start": 11.368,
+   "end": 11.632,
+   "bloco": "C"
+  },
+  {
+   "w": "na",
+   "start": 11.67,
+   "end": 11.746,
+   "bloco": "C"
+  },
+  {
+   "w": "trilha.",
+   "start": 11.821,
+   "end": 12.425,
+   "bloco": "C"
+  },
+  {
+   "w": "Mas",
+   "start": 12.651,
+   "end": 12.727,
+   "bloco": "C"
+  },
+  {
+   "w": "eu",
+   "start": 12.802,
+   "end": 12.878,
+   "bloco": "C"
+  },
+  {
+   "w": "fechei",
+   "start": 12.953,
+   "end": 13.217,
+   "bloco": "C"
+  },
+  {
+   "w": "essa",
+   "start": 13.255,
+   "end": 13.406,
+   "bloco": "C"
+  },
+  {
+   "w": "porta.",
+   "start": 13.481,
+   "end": 14.161,
+   "bloco": "C"
+  },
+  {
+   "w": "Quatro:",
+   "start": 14.428,
+   "end": 15.182,
+   "bloco": "D"
+  },
+  {
+   "w": "se",
+   "start": 15.258,
+   "end": 15.333,
+   "bloco": "D"
+  },
+  {
+   "w": "a",
+   "start": 15.409,
+   "end": 15.484,
+   "bloco": "D"
+  },
+  {
+   "w": "porta",
+   "start": 15.598,
+   "end": 15.761,
+   "bloco": "D"
+  },
+  {
+   "w": "estiver",
+   "start": 15.812,
+   "end": 16.088,
+   "bloco": "D"
+  },
+  {
+   "w": "aberta,",
+   "start": 16.201,
+   "end": 16.918,
+   "bloco": "D"
+  },
+  {
+   "w": "não",
+   "start": 16.994,
+   "end": 17.145,
+   "bloco": "D"
+  },
+  {
+   "w": "entre.",
+   "start": 17.22,
+   "end": 17.975,
+   "bloco": "D"
+  },
+  {
+   "w": "Essa",
+   "start": 18.088,
+   "end": 18.277,
+   "bloco": "D"
+  },
+  {
+   "w": "não",
+   "start": 18.315,
+   "end": 18.503,
+   "bloco": "D"
+  },
+  {
+   "w": "tava",
+   "start": 18.579,
+   "end": 18.73,
+   "bloco": "D"
+  },
+  {
+   "w": "aqui.",
+   "start": 18.805,
+   "end": 19.258,
+   "bloco": "D"
+  },
+  {
+   "w": "Lá",
+   "start": 23.068,
+   "end": 23.446,
+   "bloco": "E"
+  },
+  {
+   "w": "dentro",
+   "start": 23.521,
+   "end": 23.823,
+   "bloco": "E"
+  },
+  {
+   "w": "tem",
+   "start": 23.899,
+   "end": 23.974,
+   "bloco": "E"
+  },
+  {
+   "w": "lareira.",
+   "start": 24.05,
+   "end": 24.804,
+   "bloco": "E"
+  },
+  {
+   "w": "Aqui",
+   "start": 25.031,
+   "end": 25.257,
+   "bloco": "E"
+  },
+  {
+   "w": "fora",
+   "start": 25.333,
+   "end": 25.484,
+   "bloco": "E"
+  },
+  {
+   "w": "tá",
+   "start": 25.634,
+   "end": 25.785,
+   "bloco": "E"
+  },
+  {
+   "w": "quinze",
+   "start": 25.899,
+   "end": 26.087,
+   "bloco": "E"
+  },
+  {
+   "w": "graus",
+   "start": 26.238,
+   "end": 26.465,
+   "bloco": "E"
+  },
+  {
+   "w": "negativos.",
+   "start": 26.54,
+   "end": 27.521,
+   "bloco": "E"
+  },
+  {
+   "w": "Um",
+   "start": 27.908,
+   "end": 27.933,
+   "bloco": "G"
+  },
+  {
+   "w": "ou",
+   "start": 28.008,
+   "end": 28.084,
+   "bloco": "G"
+  },
+  {
+   "w": "dois?",
+   "start": 28.159,
+   "end": 28.537,
+   "bloco": "G"
+  },
+  {
+   "w": "Comenta.",
+   "start": 28.688,
+   "end": 29.254,
+   "bloco": "G"
+  },
+  {
+   "w": "O",
+   "start": 29.367,
+   "end": 29.405,
+   "bloco": "G"
+  },
+  {
+   "w": "mais",
+   "start": 29.442,
+   "end": 29.593,
+   "bloco": "G"
+  },
+  {
+   "w": "votado",
+   "start": 29.631,
+   "end": 29.971,
+   "bloco": "G"
+  },
+  {
+   "w": "decide.",
+   "start": 30.084,
+   "end": 30.725,
+   "bloco": "G"
+  }
+ ],
+ "outros": [
+  {
+   "quem": "voz",
+   "texto": "Caio... Caio, por que você não volta?",
+   "start": 2.675,
+   "end": 6.444,
+   "bloco": "V3"
+  },
+  {
+   "quem": "voz",
+   "texto": "Entra, Caio. Tá frio aí fora.",
+   "start": 19.664,
+   "end": 22.492,
+   "bloco": "V4"
+  }
+ ],
+ "duracao": 31.092
+}

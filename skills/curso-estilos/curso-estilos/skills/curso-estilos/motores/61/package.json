@@ -1,0 +1,16 @@
+{
+  "name": "masmorra-kaykit",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Cena de masmorra 3D com personagens KayKit (CC0), three.js e kit de juice. Render quadro a quadro com o Chrome do sistema.",
+  "scripts": {
+    "demo": "node render.mjs --pagina cenas/masmorra_kk --video saida/demo.mp4 --fps 30 --ini 4.4 --fim 7.4 --esc 0.5 --ss 1",
+    "folha": "node render.mjs --pagina cenas/masmorra_kk --quadros 0.5,2,4,5.7,7,9,10.5,12 --esc 0.5 --ss 1 --out saida/folha.jpg",
+    "final": "node render.mjs --pagina cenas/masmorra_kk --video saida/masmorra_1080.mp4 --fps 60 --ss 2",
+    "animacoes": "node scripts/listar_animacoes.mjs personagem/kaykit/Mage.glb"
+  },
+  "dependencies": {
+    "puppeteer-core": "^23.11.1"
+  }
+}

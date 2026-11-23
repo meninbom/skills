@@ -1,0 +1,140 @@
+[
+ {
+  "n": 1,
+  "tempo": "0:05–0:07",
+  "nota": "Poderia ter aparecido já, se tivesse desenhado já ali o robote, mas ok.",
+  "titulo": "Ateliê: sem LABOŘI, o ROBOT! já no 'inventou'",
+  "o_que_muda": "Saem 'LABOŘI' riscado e a legenda '1ª ideia de Karel' (a voz não fala deles). O pintor começa a escrever ROBOT! na tela no 'inventou' (5,2 s) e termina no 'termo' (6,0 s); antes começava 0,6 s depois. Josef e a foto continuam iguais.",
+  "imgs": {"a": ["01_a1.jpg", "01_a2.jpg"], "b": ["01_b1.jpg", "01_b2.jpg"], "c": []},
+  "rotulos": {"a": "como está (5,6 s e 7,0 s)", "b": "novo (5,6 s e 7,0 s)"},
+  "clip": null
+ },
+ {
+  "n": 2,
+  "tempo": "0:11–0:23",
+  "nota": "a qualidade da ferramenta que a gente tá usando de vídeo não é tão boa assim, a gente tem que fazer alguma coisa pra dar uma mascarada naquilo ali",
+  "titulo": "Planos do gerador de vídeo com cara de película",
+  "o_que_muda": "Nos planos gerados por IA (servos, a fila 'fabricados em série' e o teatro de noite) entra o tratamento de película: grão mais grosso e visível, um desfoque leve, halação quente nos claros e vinheta mais forte. A moldura de geada é o mesmo cristal do RAB e só entra nos dois exteriores de neve (servos e teatro de noite); a fila fica sem geada para não repetir. Documentos reais não mudam. O grupo amador virou foto real (item 7), então não precisa. Em still de 540 px o grão aparece menos do que no vídeo.",
+  "imgs": {"a": ["02_a1.jpg", "02_a2.jpg", "02_a3.jpg"], "b": ["02_b1.jpg", "02_b2.jpg", "02_b3.jpg"], "c": []},
+  "rotulos": {"a": "como está (servos, fila, teatro de noite)", "b": "com tratamento"},
+  "clip": null
+ },
+ {
+  "n": 3,
+  "tempo": "0:14",
+  "nota": "foi uma informação meio jogada ali",
+  "titulo": "RAB = escravo",
+  "o_que_muda": "b: sai a pilha RABOTA/ROBOTA/ROBOT. Fica o RAB e, embaixo, '= escravo' (sem o 'rabŭ'), que entra no 'escravo' da voz. c: a pilha fica, mas ligada à fala: RAB e '= escravo' no 'escravo', depois uma palavra por vez, cada uma só depois da anterior assentar, com uma glosa curta ao lado: RABOTA 'servidão', ROBOTA 'trabalho forçado', ROBOT 'robô' (no 'os robôs'). Para caber, em c o plano dura 0,4 s a mais e a mesa do parafuso entra em 16,3 s. As glosas em c ficam sobre a geada e leem menos que o resto.",
+  "imgs": {"a": ["03_a.jpg"], "b": ["03_b.jpg"], "c": ["03_c.jpg"]},
+  "rotulos": {"b": "só RAB = escravo", "c": "a pilha ligada à fala"},
+  "clip": null,
+  "clips": {"c": "clips/03_rab_c.mp4"}
+ },
+ {
+  "n": 4,
+  "tempo": "0:16–0:18",
+  "nota": "a correlação entre os dois ficou meio sem noção",
+  "titulo": "O parafuso cai na mesa vazia",
+  "o_que_muda": "Sai a mão. A mesa é a mesma do plano (mesma perspectiva, mesma luz da janela): o braço foi apagado e a madeira refeita ao longo do veio, sem gerador de imagem. O parafuso faz a mesma queda, quica 2 vezes (cada vez mais baixo) e rola um pouco até parar. 'ZERO parafusos' fica igual. O plano agora é uma foto parada com o mesmo push lento (antes era o vídeo da mão fechando). O clipe tem o som b do item 5.",
+  "imgs": {"a": ["04_a1.jpg", "04_a2.jpg"], "b": ["04_b1.jpg", "04_b2.jpg"], "c": []},
+  "clip": "clips/05_sfx_b.mp4"
+ },
+ {
+  "n": 5,
+  "tempo": "0:17–0:18",
+  "nota": "não teve nenhum sound effect ... bem baixinho só, sabe, dele caindo",
+  "titulo": "Som do parafuso: escolha 1 de 3",
+  "o_que_muda": "Três sons gerados no Stable Audio local (grátis; a biblioteca não tem metal pequeno caindo em madeira). Cada som foi cortado nos próprios ataques e colado no quadro exato de cada batida da animação: queda em 17,02 s, quiques em 17,24 e 17,36 s, depois o rolar. Nível: 20 dB abaixo da voz no curto prazo (a regra nova). b = batida mais seca e encorpada, com tiques; c = tiques metálicos, quique de moeda; d = batida mais clara e um chocalho/rolar mais longo. A mix original não muda: o som entra num mix_v4 separado.",
+  "imgs": {"a": [], "b": [], "c": []},
+  "clip": null,
+  "clips": {"b": "clips/05_sfx_b.mp4", "c": "clips/05_sfx_c.mp4", "d": "clips/05_sfx_d.mp4"},
+  "rotulos": {"b": "som b (seco)", "c": "som c (metálico)", "d": "som d (rola mais)"}
+ },
+ {
+  "n": 6,
+  "tempo": "0:22–0:25",
+  "nota": "poderia ter sido um jornal, poderia ter feito um calendário ... Tipo 2 de janeiro de 1921",
+  "titulo": "Folha de calendário: 2 de janeiro de 1921",
+  "o_que_muda": "Sai '2. LEDEN 1921'. Entra uma folha de calendário de parede (papel, picote, faixa do bloco) com o '2' grande e 'de janeiro' / 'de 1921' em português. O casaco com neve desfoca atrás e a folha sai do desfoque, sem quique. O '2' entra no '2' da voz (22,9 s), 'de janeiro' no 'janeiro' (23,7 s) e 'de 1921' no 'de' logo antes do ano (24,1 s), para o ano ficar 0,8 s na tela antes do corte; no '1921' exato (24,55 s) ficaria só 0,4 s.",
+  "imgs": {"a": ["06_a.jpg"], "b": ["06_b1.jpg", "06_b2.jpg"], "c": []},
+  "clip": "clips/06_calendario.mp4"
+ },
+ {
+  "n": 7,
+  "tempo": "0:26–0:28",
+  "nota": "Essa parte do grupo amador meio que não faz muito sentido",
+  "titulo": "Grupo amador: foto real",
+  "o_que_muda": "Sai o padeiro de touca e o 'ochotníci = amadores'. b: foto real de um grupo de teatro amador (roupa comum, palco pequeno de tapadeiras, um deles ensaiando em cima da cadeira), Irlanda do Norte, c. 1930, sem restrição de direitos. Tela cheia, pan lento, 'GRUPO AMADOR' e o crédito em 1 linha. c: a mesma ideia com uma foto tcheca, os amadores (ochotníci) de Zaběhlá, Boêmia, c. 1930, domínio público. É mais perto da história, mas se lê menos como teatro (traje típico, ao ar livre).",
+  "imgs": {"a": ["07_a.jpg"], "b": ["07_b.jpg"], "c": ["07_c.jpg"]},
+  "rotulos": {"b": "Irlanda do Norte, c. 1930", "c": "Zaběhlá (tcheca), c. 1930"},
+  "clip": null
+ },
+ {
+  "n": 8,
+  "tempo": "0:29–0:31",
+  "nota": "não faz sentido isso aqui, né, tipo, com esse mais de 3 dias",
+  "titulo": "O mesmo calendário vira até 25",
+  "o_que_muda": "Sai '25. LEDEN +23 dias' na geada. A mesma folha do item 6 volta, agora na frente do teatro vazio (o plano da vela, desfocado), e as folhas viram rápido de 2 até 25, junto do '25' da voz. Embaixo, na própria folha: 'Teatro Nacional, Praga'.",
+  "imgs": {"a": ["08_a.jpg"], "b": ["08_b.jpg"], "c": []},
+  "clip": "clips/08_folhas.mp4"
+ },
+ {
+  "n": 9,
+  "tempo": "0:31–0:34",
+  "nota": "Podia ter sido mais devagar, podia ter sido mais suave, podia ter deixado aparecer na tela.",
+  "titulo": "Autômato e androide, uma por vez",
+  "o_que_muda": "Sai a chuva de tiras com os termos antigos e o livro caindo por cima. No 'a palavra engoliu' a câmera vai até a palavra ROBOTS na capa real. Na foto do Escritor de Jaquet-Droz, 'AUTÔMATO' entra no 'autômato' e 'ANDROIDE' no 'androide', uma por vez, cada uma mais de 1 s na tela. No 'e o robô' a palavra ROBOTS da capa (a letra original do Josef Čapek) cresce devagar por cima e as duas encolhem e somem dentro dela. Para caber, o robô de lata começa 0,4 s depois.",
+  "imgs": {"a": ["09_a1.jpg", "09_a2.jpg"], "b": ["09_b1.jpg", "09_b2.jpg", "09_b3.jpg"], "c": []},
+  "rotulos": {"a": "como está (31 s e 32 s)", "b": "33,3 s · 34,0 s · o 'engolir' (34,7 s)"},
+  "clip": "clips/09_engolir.mp4"
+ },
+ {
+  "n": 10,
+  "tempo": "0:33",
+  "nota": "era só ter tirado o XIV",
+  "titulo": "séc. 18",
+  "o_que_muda": "No crédito do Escritor de Jaquet-Droz, 'séc. XVIII' vira 'séc. 18' (regra nova: 'séc.' com algarismo comum). O resto do crédito fica igual. (A nota é da página do Orange e vale para a série.)",
+  "imgs": {"a": ["10_a.jpg"], "b": ["10_b.jpg"], "c": []},
+  "clip": null
+ },
+ {
+  "n": 11,
+  "tempo": "0:36",
+  "nota": "Mostrar só o que a voz explica, na ordem da fala.",
+  "titulo": "Sai o 1928 gigante",
+  "o_que_muda": "A voz diz 'veio depois', não diz 1928. Sai o '1928' grande em cima do robô de lata; a data fica só no crédito impresso na foto: 'Televox, Westinghouse · 1928'. (A nota aqui é uma regra sua, não uma fala deste vídeo.)",
+  "imgs": {"a": ["11_a.jpg"], "b": ["11_b.jpg"], "c": []},
+  "clip": null
+ },
+ {
+  "n": 12,
+  "tempo": "0:38–0:40",
+  "nota": "a informação parece ser uma informação muito legal, mas não teve uma conexão para mostrar aqui",
+  "titulo": "'Cara de escravo': ligar ao que a voz já disse",
+  "o_que_muda": "b: sai a lista do elenco. O plano do herói (robô de carne) com o ROBÔ continua até 40,3 s; no 'cara' o ROBÔ sobe e fica inteiro acima da cabeça e, no 'escravo', 'rab = escravo' sobe de trás da cabeça: o mesmo desenho do item 3. c: o documento fica, ligado à fala: no 'cara' um marca-texto amarelado passa em 'ROBOTSKÝ SLUHA' (o servo-robô da lista) e no 'escravo' entra 'sluha = criado'. Em c o plano dura 0,3 s a mais (o Briullov entra em 40,6 s).",
+  "imgs": {"a": ["12_a.jpg"], "b": ["12_b.jpg"], "c": ["12_c.jpg"]},
+  "rotulos": {"b": "volta ao herói + rab = escravo", "c": "o elenco fica, com marca-texto"},
+  "clip": null,
+  "clips": {"b": "clips/12_rab_escravo_b.mp4", "c": "clips/12_elenco_c.mp4"}
+ },
+ {
+  "n": 13,
+  "tempo": "0:40–0:45",
+  "nota": "daí já volta para o robô ... é uma assinatura ... achar uma outra frase para isso",
+  "titulo": "Fecho sem a volta ao robô",
+  "o_que_muda": "a = como está (volta ao herói com ROBÔ). b = fica na pintura do Briullov e a câmera empurra para dentro dela até o último quadro; o loop é um corte no meio do movimento para o quadro 0 (o herói do começo). Mesma voz. c = maquete com frase nova; a voz nova só seria gerada se você escolher c: 'Ou seja, o robô já nasceu com cara de escravo... e o nome da fábrica da peça, Rossum, também esconde uma palavra tcheca, mas essa fica pra outro dia.' Visual: a capa real na mesa, a câmera vai até ROSSUM'S, o resto desfoca e fica um '?' discreto ao lado. (Rossum vem do tcheco 'rozum', razão.) Em c são só 2 stills de maquete, sem som.",
+  "imgs": {"a": ["13_a1.jpg", "13_a2.jpg"], "b": ["13_b1.jpg", "13_b2.jpg"], "c": ["13_c1.jpg", "13_c2.jpg"]},
+  "rotulos": {"a": "como está", "b": "fica no Briullov (mesma voz)", "c": "maquete: frase nova + ROSSUM'S"},
+  "clip": null,
+  "clips": {"b": "clips/13_fecho_b_loop.mp4"}
+ },
+ {
+  "n": 14,
+  "tempo": "0:07 · 0:33 · 0:36 · 0:40",
+  "nota": "só cuidar pra não ficar exagerado demais",
+  "titulo": "Photo parallax sutil nas fotos reais",
+  "o_que_muda": "Nas 4 imagens reais que ficam mais tempo (Josef Čapek 1937, Escritor de Jaquet-Droz, Televox 1928 e a pintura do Briullov): 2 camadas. O sujeito recortado, com borda de foto impressa, anda no máximo ~1,3% da largura em relação ao fundo, 3 quadros depois dele. No Briullov quem anda é a multidão sobre a arquitetura. Parado não se vê: veja o clipe (Josef, depois Briullov, sem som).",
+  "imgs": {"a": ["14_a1.jpg", "14_a2.jpg"], "b": ["14_b1.jpg", "14_b2.jpg"], "c": []},
+  "clip": "clips/14_parallax.mp4"
+ }
+]

@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><title>biblioteca fx</title><style>body{margin:0;background:#000}</style></head><body>
+<!-- three.min.js (r149, build classico), effekseer.min.js e effekseer.wasm: baixe e ponha nesta pasta (ver LEIA.md) -->
+<script src="three.min.js"></script>
+<script src="effekseer.min.js"></script>
+<script>
+// Renderiza efeitos sozinhos no preto, 1080x1920, simulado a 60 qps e gravado a 30 qps, até o efeito acabar (máx 240 passos). Uso: renderLista([[nome, caminho, dist], ...])
+const W=1080,H=1920;
+const renderer=new THREE.WebGLRenderer({preserveDrawingBuffer:true,antialias:true}); renderer.setPixelRatio(1); renderer.setSize(W,H); document.body.appendChild(renderer.domElement);
+const scene=new THREE.Scene(); scene.background=new THREE.Color(0);
+const cam=new THREE.PerspectiveCamera(40,W/H,0.1,1000);
+let ctx; effekseer.initRuntime('effekseer.wasm',()=>{ ctx=effekseer.createContext(); ctx.init(renderer.getContext()); window.__pronto=true; });
+function desenha(){ renderer.render(scene,cam); ctx.setProjectionMatrix(cam.projectionMatrix.elements); ctx.setCameraMatrix(cam.matrixWorldInverse.elements); ctx.draw(); renderer.resetState(); }
+const carrega=p=>new Promise((ok,er)=>{ const t=setTimeout(()=>er('timeout'),15000); const fx=ctx.loadEffect(p,1,()=>{clearTimeout(t);ok(fx)},()=>{clearTimeout(t);er('erro')}); });
+window.renderUm=async(nome,p,dist=22,max=240)=>{
+  cam.position.set(0,0,dist); cam.lookAt(0,0,0); cam.updateMatrixWorld();
+  const fx=await carrega(p); const h=ctx.play(fx,0,0,0); let i=0;
+  for(;i<max;i++){ ctx.update(1); desenha(); if(i%2==0) await fetch(`/salvar?ef=${nome}&n=${String(i/2).padStart(4,'0')}`,{method:'POST',body:renderer.domElement.toDataURL('image/jpeg',0.92)}); if(!h.exists) break; }
+  h.stop(); ctx.update(1); ctx.releaseEffect&&ctx.releaseEffect(fx); return i; };
+window.renderLista=async(L)=>{ const r={}; for(const [n,p,d] of L){ try{ r[n]=await renderUm(n,p,d);}catch(e){ r[n]='ERRO '+e; } } return r; };
+</script></body></html>

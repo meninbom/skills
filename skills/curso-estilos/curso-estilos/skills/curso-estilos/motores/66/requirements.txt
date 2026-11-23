@@ -1,0 +1,6 @@
+# demo.py e hud.py: só estes dois
+numpy
+Pillow
+# montar_v2.py (rastreio e push-in nos clipes) e as folhas de conferência
+opencv-python-headless
+# FFmpeg e ffprobe precisam estar no PATH (não são pacotes Python)

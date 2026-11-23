@@ -1,0 +1,439 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Bric;src:url(fonts/Bricolage.ttf);font-weight:200 800}
+@font-face{font-family:Mono;src:url(fonts/JetBrainsMono-Bold.ttf);font-weight:700}
+html,body{margin:0;background:#000;overflow:hidden}
+canvas{display:block}
+#gl{position:absolute;left:-9999px;top:0}
+</style>
+<script src="mapas.js"></script>
+<script src="agua.js"></script>
+</head><body>
+<canvas id="out" width="1080" height="1920"></canvas>
+<canvas id="gl" width="1080" height="1920"></canvas>
+<script>
+// Globo explicativo: "E se a Terra parasse de girar?" — cada quadro é função pura de t (seek)
+const W=1080,H=1920,FPS=30,END=34.0;
+const out=document.getElementById('out'), octx=out.getContext('2d');
+const main=document.createElement('canvas'); main.width=W; main.height=H; const ctx=main.getContext('2d');
+const acc=document.createElement('canvas'); acc.width=W; acc.height=H; const actx=acc.getContext('2d');
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), lerp=(a,b,u)=>a+(b-a)*u;
+const eIO=u=>(u=clamp(u),u<.5?4*u*u*u:1-Math.pow(-2*u+2,3)/2), eOQ=u=>1-Math.pow(1-clamp(u),5), eIC=u=>{u=clamp(u);return u*u*u}, eOC=u=>1-Math.pow(1-clamp(u),3);
+function spr(t,z=.45,w=14){ if(t<=0) return 0; const wd=w*Math.sqrt(1-z*z); return 1-Math.exp(-z*w*t)*(Math.cos(wd*t)+z*w/wd*Math.sin(wd*t)); }
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function rr(c,x,y,w,h,r){r=Math.min(r,w/2,h/2);c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+const D2R=Math.PI/180;
+// paleta nossa
+const INK='#0a0913', CREAM='#f6efe2', ORANGE='#ff8a3d', COOL='#9fd3ff', SOFT='#c9c1d6';
+
+// ---------- tempos (cada evento preso à legenda) ----------
+const T={ask:.25, eq:2.0, pin:3.35, stop:4.6, air:5.45, airB:6.5, rec:8.4, day:11.5, dayB:13.2, night:15.0, bulge:18.1, water:20.6, can:22.7, eur:24.9, sup:26.7, end:28.6, endB:29.9};
+
+// ---------- relógio da história ----------
+// devolve {kind, v}: antes de parar = null; depois horas, dias, ano
+function storyDays(t){
+  if(t<T.stop) return -1;
+  if(t<T.day-.1){ const u=(t-T.stop)/(T.day-.1-T.stop); return 6/24*Math.pow(u,1.5); }          // 0 → 6 h
+  if(t<T.night){ const u=(t-(T.day-.1))/(T.night-T.day+.1); return lerp(.25,40,u); }           // devagar: o pôr do sol em Brasília
+  if(t<T.bulge){ const u=(t-T.night)/(T.bulge-T.night); return lerp(40,182,eIO(u)*.5+u*.5); } // até 6 meses
+  if(t<28.2){ const u=(t-T.bulge)/(28.2-T.bulge); return lerp(182,365,u); }
+  return 365;
+}
+function storyLabel(t){
+  const d=storyDays(t);
+  if(d<0) return 'GIRANDO';
+  const h=d*24;
+  if(h<1) return `${Math.floor(h*60)} min`;
+  if(d<1) return `${Math.floor(h)} h`;
+  if(d<364.5) return `dia ${Math.floor(d)+1}`;
+  return '1 ano';
+}
+function realLabel(t){ const s=Math.max(0,t); return `0:${String(Math.floor(s)).padStart(2,'0')}.${Math.floor(s*10)%10}`; }
+
+// ---------- giro, Sol, câmera ----------
+const OMEGA=18; // graus/s na tela antes de parar (tempo comprimido)
+const LON_STOP=-40, SUN_OFF=55; // na parada: centro da câmera em -40°, Sol 55° a leste
+function spinOmega(t){ // ângulo acumulado do giro (graus)
+  if(t<T.stop) return OMEGA*t;
+  const tau=.06; return OMEGA*T.stop+OMEGA*tau*(1-Math.exp(-(t-T.stop)/tau));
+}
+const A_SPIN=LON_STOP+OMEGA*T.stop;
+function subsolar(t){
+  const d=storyDays(t);
+  let lon, dd=Math.max(0,d);
+  if(t<T.stop) lon=A_SPIN+SUN_OFF-spinOmega(t);
+  else lon=LON_STOP+SUN_OFF+.9856*dd + (spinOmega(T.stop)-spinOmega(t));
+  const doy=319+dd; // 15/nov
+  const lat=-23.44*Math.cos(2*Math.PI*(doy+10)/365.25);
+  return {lon,lat};
+}
+// chaves: t, lon, lat, R, cy  (lon só vale depois da parada)
+const KEYS=[
+ [0,     null, 10, 380, 1060],
+ [2.6,   null,  6, 410, 1070],
+ [4.45,  null,  2,1060, 1190],
+ [4.6,   LON_STOP, 2,1060,1190],
+ [6.6,  -33, 12, 520, 1110],
+ [11.2, -24, 16, 470, 1100],
+ [13.2, -46,-10, 560, 1130],
+ [17.7, -57,-14, 610, 1130],
+ [20.0,-122, 18, 470, 1100],
+ [23.3, -96, 42, 520, 1090],
+ [26.0,  -2, 46, 520, 1090],
+ [28.4,  26,  6, 470, 1100],
+ [34.0,  40,  2, 370, 1060],
+];
+function camAt(t){
+  let c={lon:0,lat:KEYS[0][2],R:KEYS[0][3],cy:KEYS[0][4]};
+  for(let i=1;i<KEYS.length;i++){
+    const a=KEYS[i-1], b=KEYS[i]; if(t<a[0]) break;
+    const u=eIO((t-a[0])/(b[0]-a[0]));
+    c.lat=lerp(a[2],b[2],u); c.R=Math.exp(lerp(Math.log(a[3]),Math.log(b[3]),u)); c.cy=lerp(a[4],b[4],u);
+    if(a[1]!==null&&b[1]!==null) c.lon=lerp(a[1],b[1],u);
+  }
+  if(t<T.stop) c.lon=A_SPIN-spinOmega(t);
+  else if(t<KEYS[4][0]) c.lon=lerp(LON_STOP,KEYS[4][1],eIO((t-T.stop)/(KEYS[4][0]-T.stop)));
+  // deriva contínua: nunca parado
+  c.lon+=Math.sin(t*.21)*1.2; c.lat+=Math.sin(t*.17)*.8;
+  c.roll=-.10+Math.sin(t*.11)*.06;
+  c.R*=1+.012*Math.sin(t*.4);
+  c.cx=W/2+Math.sin(t*.23)*8;
+  // tranco da parada
+  const ds=t-T.stop; if(ds>0&&ds<1.1){ const k=Math.exp(-5*ds); c.cx+=Math.sin(ds*55)*26*k; c.cy+=Math.cos(ds*47)*16*k; c.roll+=Math.sin(ds*40)*.025*k; }
+  return c;
+}
+let CAM;
+// ponto (lon,lat) → coordenadas de vista (antes do roll), igual ao shader
+function toView(lon,lat){
+  const dl=(lon-CAM.lon)*D2R, f=lat*D2R, f0=CAM.lat*D2R;
+  const x=Math.cos(f)*Math.sin(dl), y1=Math.sin(f), z1=Math.cos(f)*Math.cos(dl);
+  return {x, y:y1*Math.cos(f0)-z1*Math.sin(f0), z:y1*Math.sin(f0)+z1*Math.cos(f0)};
+}
+function toScreen(lon,lat,alt=0){
+  const v=toView(lon,lat), r=CAM.roll, cr=Math.cos(-r), sr=Math.sin(-r);
+  const X=cr*v.x-sr*v.y, Y=sr*v.x+cr*v.y, k=CAM.R*(1+alt);
+  return {x:CAM.cx+X*k, y:CAM.cy-Y*k, z:v.z};
+}
+
+// ---------- água ----------
+function waterK(t){ return eIO((t-(T.water+.2))/6.6); }
+function waterC(k){ const i=Math.min(9,Math.floor(k*10)), u=k*10-i; return lerp(AGUA_C[i],AGUA_C[i+1],u); }
+function cloudShift(t){ // as nuvens seguem andando depois que o chão para (graus, para leste)
+  if(t<T.stop) return 0; const ds=t-T.stop, tau=7; return OMEGA*tau*(1-Math.exp(-ds/tau));
+}
+
+// ---------- espaço ----------
+const rnd=mulberry(17);
+const STARS=[...Array(420)].map(()=>({x:rnd()*W*2,y:rnd()*H,r:.5+rnd()*1.5,f:.4+rnd()*2,ph:rnd()*6.3,d:.15+rnd()*.5,c:rnd()<.12?'#ffd7b0':(rnd()<.2?'#cfe3ff':'#ffffff')}));
+function drawSpace(t){
+  const g=ctx.createLinearGradient(0,0,0,H); g.addColorStop(0,'#0b0a16'); g.addColorStop(.5,'#120f22'); g.addColorStop(1,'#181230');
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  // luz do Sol fora de quadro, do lado de onde ele está
+  const sv=toView(SUN.lon,SUN.lat), r=CAM.roll, cr=Math.cos(-r), sr=Math.sin(-r);
+  let dx=cr*sv.x-sr*sv.y, dy=-(sr*sv.x+cr*sv.y); const l=Math.hypot(dx,dy)||1; dx/=l; dy/=l;
+  const gx=CAM.cx+dx*900, gy=CAM.cy+dy*900;
+  ctx.save(); ctx.globalCompositeOperation='lighter';
+  const sg=ctx.createRadialGradient(gx,gy,0,gx,gy,1100); sg.addColorStop(0,'rgba(255,140,70,.20)'); sg.addColorStop(.5,'rgba(190,80,70,.07)'); sg.addColorStop(1,'rgba(120,50,80,0)');
+  ctx.fillStyle=sg; ctx.fillRect(0,0,W,H);
+  const ng=ctx.createRadialGradient(W*.2,H*.12,0,W*.2,H*.12,900); ng.addColorStop(0,'rgba(70,60,160,.16)'); ng.addColorStop(1,'rgba(70,60,160,0)'); ctx.fillStyle=ng; ctx.fillRect(0,0,W,H);
+  for(const s of STARS){
+    let x=((s.x-CAM.lon*6*s.d)%(W*2)+W*2)%(W*2)-W*.5, y=((s.y+CAM.lat*8*s.d)%H+H)%H;
+    if(x<-4||x>W+4) continue;
+    ctx.globalAlpha=(.25+.55*(.5+.5*Math.sin(t*s.f+s.ph)))*.8; ctx.fillStyle=s.c; ctx.beginPath(); ctx.arc(x,y,s.r,0,6.283); ctx.fill();
+  }
+  ctx.restore(); ctx.globalAlpha=1;
+}
+
+// ---------- Terra: shader ----------
+const glc=document.getElementById('gl');
+const gl=glc.getContext('webgl',{premultipliedAlpha:true,preserveDrawingBuffer:true,alpha:true});
+const VS=`attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
+const FS=`precision highp float;
+uniform vec2 uC;uniform float uR,uLon0,uLat0,uRoll,uK,uCw,uCloud,uCShift,uPix;uniform vec3 uL;
+uniform sampler2D uAlb,uAux,uGeo;
+vec3 C(float r,float g,float b){return vec3(r,g,b)/255.;}
+const float PI=3.14159265;
+vec4 shade(vec2 frag){
+  vec2 p=(frag-uC)/uR;
+  float cr=cos(uRoll),sr=sin(uRoll); p=vec2(cr*p.x-sr*p.y,sr*p.x+cr*p.y);
+  float r=length(p); vec3 L=normalize(uL);
+  if(r>1.){
+    float w=.045; float a=pow(clamp(1.-(r-1.)/w,0.,1.),1.7);
+    float side=clamp(dot(normalize(p),normalize(L.xy+1e-5))*.5+.5,0.,1.)*smoothstep(-.6,.3,L.z+.3);
+    vec3 col=mix(C(60.,70.,150.),C(255.,170.,110.),side);
+    float aa=a*(.22+.7*side);
+    return vec4(col*aa,aa);
+  }
+  vec3 n=vec3(p,sqrt(1.-r*r));
+  float lat=asin(clamp(n.y*cos(uLat0)+n.z*sin(uLat0),-1.,1.));
+  float lon=uLon0+atan(n.x,n.z*cos(uLat0)-n.y*sin(uLat0));
+  vec2 uv=vec2(fract(lon/(2.*PI)+.5),.5-lat/PI);
+  vec4 alb=texture2D(uAlb,uv); vec3 ax=texture2D(uAux,uv).rgb; float d0=texture2D(uGeo,uv).r*14.-7.;
+  vec2 uvc=vec2(fract((lon-uCShift)/(2.*PI)+.5),uv.y);
+  float cl=texture2D(uAux,uvc).r*uCloud;
+  float csh=texture2D(uAux,uvc+vec2(-.0022,-.0045)).r*uCloud;
+  float s2=sin(lat)*sin(lat);
+  float h=uK*21.385*(1./3.-s2);
+  float D=d0-h+uCw;                      // profundidade nova (km)
+  float wet=smoothstep(-.04,.04,D);
+  float wasSea=smoothstep(-.04,.04,d0);
+  // mar em degraus chapados (profundidade)
+  vec3 sea=C(98.,184.,222.);
+  sea=mix(sea,C(52.,140.,196.),smoothstep(.15,.3,D));
+  sea=mix(sea,C(33.,101.,166.),smoothstep(1.3,1.6,D));
+  sea=mix(sea,C(23.,72.,136.),smoothstep(3.6,4.,D));
+  sea=mix(sea,C(16.,50.,104.),smoothstep(7.,7.6,D));
+  // fundo do mar exposto: argila/sal em degraus pela profundidade antiga
+  vec3 bed=C(222.,200.,160.);
+  bed=mix(bed,C(198.,172.,134.),smoothstep(1.5,1.8,d0));
+  bed=mix(bed,C(170.,142.,112.),smoothstep(3.8,4.2,d0));
+  bed=mix(bed,C(146.,118.,96.),smoothstep(5.,5.3,d0));
+  vec3 landc=alb.a>.5?alb.rgb:bed;
+  landc=mix(bed,alb.rgb,alb.a);
+  vec3 base=mix(landc,sea,wet);
+  // borda nova do mar (linha clara fina)
+  float shore=exp(-pow(D/.06,2.))*uK*(1.-wasSea*.0);
+  base=mix(base,C(235.,244.,240.),shore*.55);
+  // nuvens + sombra
+  base=mix(base,base*C(150.,165.,200.),csh*(1.-cl)*.8);
+  base=mix(base,C(250.,250.,247.),cl);
+  float ndl=dot(n,L);
+  float day=smoothstep(-.10,.16,ndl);
+  float fres=pow(1.-n.z,2.4);
+  vec3 dcol=base*(.86+.18*clamp(ndl,0.,1.));
+  dcol+=C(255.,190.,140.)*fres*.18*smoothstep(.1,.8,ndl);
+  float band=exp(-pow((ndl-.03)/.11,2.));
+  dcol=mix(dcol,dcol*C(255.,150.,95.)*1.08,band*.6);
+  // noite
+  vec3 ncol=base*.10+C(12.,14.,40.);
+  ncol=mix(ncol,ncol+C(10.,14.,40.),wet*.6);
+  float city=ax.g*ax.b*(1.-wet)*(1.-cl*.8);
+  ncol+=mix(vec3(1.,.55,.2),vec3(1.,.85,.55),smoothstep(.55,1.,city))*city*1.5;
+  vec3 col=mix(ncol,dcol,day);
+  col+=C(255.,190.,120.)*city*smoothstep(.18,.0,ndl)*day*.5;
+  col+=C(255.,200.,150.)*pow(1.-n.z,3.5)*.35*day;
+  col+=C(90.,110.,220.)*pow(1.-n.z,3.)*.25*(1.-day);
+  float aa=clamp((1.-r)/uPix,0.,1.);
+  return vec4(col*aa,aa);
+}
+void main(){vec4 a=shade(gl_FragCoord.xy+vec2(-.25,-.25))+shade(gl_FragCoord.xy+vec2(.25,.25));gl_FragColor=a*.5;}`;
+function mkShader(t,src){const s=gl.createShader(t);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw gl.getShaderInfoLog(s);return s}
+const prog=gl.createProgram(); gl.attachShader(prog,mkShader(gl.VERTEX_SHADER,VS)); gl.attachShader(prog,mkShader(gl.FRAGMENT_SHADER,FS)); gl.linkProgram(prog); gl.useProgram(prog);
+const buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf); gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+const ploc=gl.getAttribLocation(prog,'p'); gl.enableVertexAttribArray(ploc); gl.vertexAttribPointer(ploc,2,gl.FLOAT,false,0,0);
+const U=n=>gl.getUniformLocation(prog,n);
+function loadImg(src){return new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.src=src;})}
+function tex(unit,img){const t=gl.createTexture();gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl.TEXTURE_2D,t);
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,false);
+  gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,img);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);}
+const MAPS_READY=Promise.all([loadImg(MAPA_ALB),loadImg(MAPA_AUX),loadImg(MAPA_GEO)]).then(([a,x,g])=>{tex(0,a);tex(1,x);tex(2,g);gl.uniform1i(U('uAlb'),0);gl.uniform1i(U('uAux'),1);gl.uniform1i(U('uGeo'),2);});
+let SUN={lon:0,lat:0};
+function drawEarth(t){
+  const k=waterK(t);
+  const L=toView(SUN.lon,SUN.lat);
+  // recorte só no quadrado do globo
+  const R=CAM.R*1.06, x0=Math.max(0,Math.floor(CAM.cx-R)), x1=Math.min(W,Math.ceil(CAM.cx+R)), y0=Math.max(0,Math.floor(CAM.cy-R)), y1=Math.min(H,Math.ceil(CAM.cy+R));
+  gl.viewport(0,0,W,H); gl.disable(gl.SCISSOR_TEST); gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT);
+  if(x1<=x0||y1<=y0) return;
+  gl.enable(gl.SCISSOR_TEST); gl.scissor(x0,H-y1,x1-x0,y1-y0);
+  gl.uniform2f(U('uC'),CAM.cx,H-CAM.cy); gl.uniform1f(U('uR'),CAM.R);
+  gl.uniform1f(U('uLon0'),CAM.lon*D2R); gl.uniform1f(U('uLat0'),CAM.lat*D2R); gl.uniform1f(U('uRoll'),CAM.roll);
+  gl.uniform3f(U('uL'),L.x,L.y,L.z); gl.uniform1f(U('uPix'),1.3/CAM.R);
+  gl.uniform1f(U('uK'),k); gl.uniform1f(U('uCw'),waterC(k));
+  gl.uniform1f(U('uCloud'),1-eIO((t-(T.bulge+1.2))/2.2));
+  gl.uniform1f(U('uCShift'),cloudShift(t)*D2R);
+  gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+  ctx.drawImage(glc,0,0);
+}
+
+// ---------- texto ----------
+function rise(str,x,y,size,color,tIn,tOut,now,o={}){
+  if(now<tIn||now>tOut) return;
+  const weight=o.w||700, sp=o.sp??0, align=o.align||'center', font=o.font||'Bric';
+  ctx.save(); ctx.font=`${weight} ${size}px ${font}`; ctx.letterSpacing=sp+'px'; ctx.textAlign=align; ctx.textBaseline='alphabetic';
+  const h=size*1.2, w=ctx.measureText(str).width+sp;
+  const ein=eOQ((now-tIn)/.5), eout=eIC((now-(tOut-.3))/.3), off=(1-ein)*1.2*h-eout*1.2*h;
+  const x0=align==='center'?x-w/2:(align==='left'?x:x-w);
+  ctx.beginPath(); ctx.rect(x0-16,y-h*.95,w+32,h*1.25); ctx.clip();
+  ctx.shadowColor='rgba(5,4,14,.55)'; ctx.shadowBlur=18;
+  ctx.fillStyle=color; ctx.fillText(str,x,y+off); ctx.restore();
+}
+function pill(str,x,y,size,color,tIn,tOut,now,o={}){
+  if(now<tIn-.01||now>tOut) return;
+  const w=o.w||700, align=o.align||'left';
+  ctx.save(); ctx.font=`${w} ${size}px Bric`; const tw=ctx.measureText(str).width; ctx.restore();
+  const padX=size*.55, ph=size*1.5, pw=tw+padX*2, x0=align==='left'?x:x-pw/2;
+  const k=spr(now-tIn,.5,15)*(1-eIC((now-(tOut-.25))/.25));
+  ctx.save(); ctx.translate(x0+pw/2,y-size*.34); ctx.scale(Math.max(0,k),Math.max(0,k));
+  ctx.fillStyle=o.bg||'rgba(12,10,26,.72)'; rr(ctx,-pw/2,-ph/2,pw,ph,ph/2); ctx.fill(); ctx.restore();
+  rise(str,x0+padX,y,size,color,tIn+.05,tOut-.04,now,{w,align:'left'});
+}
+// legenda principal (alto do quadro)
+function caption(l1,l2,tIn,tOut,t,y=430){
+  rise(l1,W/2,y,64,CREAM,tIn,tOut,t,{w:800});
+  if(l2) rise(l2,W/2,y+70,42,SOFT,tIn+.25,tOut,t,{w:600});
+}
+// dois relógios
+function drawClocks(t){
+  const a=clamp((t-.1)/.4)*(1-clamp((t-(END-.5))/.5));
+  if(a<=0) return;
+  ctx.save(); ctx.globalAlpha=a;
+  const y=196;
+  ctx.font='600 28px Bric'; ctx.letterSpacing='3px'; ctx.fillStyle=SOFT;
+  ctx.textAlign='left'; ctx.fillText('TEMPO REAL',90,y-62);
+  ctx.textAlign='right'; ctx.fillText('NA HISTÓRIA',W-90,y-62);
+  ctx.letterSpacing='0px';
+  ctx.font='700 58px Mono'; ctx.fillStyle=CREAM; ctx.textAlign='left'; ctx.fillText(realLabel(t),90,y);
+  const sl=storyLabel(t);
+  // o relógio da história "pula" quando muda de escala
+  const jump=[T.stop,T.day,T.bulge,28.2].reduce((m,x)=>t>x&&t-x<.6?Math.exp(-6*(t-x))*Math.sin((t-x)*18)*.12:m,0);
+  ctx.save(); ctx.translate(W-90,y-20); ctx.scale(1+jump,1+jump); ctx.font='700 58px Mono'; ctx.textAlign='right'; ctx.fillStyle=t<T.stop?SOFT:ORANGE; ctx.fillText(sl,0,20); ctx.restore();
+  // fio entre os dois
+  ctx.strokeStyle='rgba(201,193,214,.25)'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(90,y+28); ctx.lineTo(W-90,y+28); ctx.stroke();
+  ctx.restore();
+}
+
+// ---------- eventos sobre o globo ----------
+function polyOnGlobe(pts,style,width,alpha,dash){ // pts: [[lon,lat],...]
+  ctx.save(); ctx.strokeStyle=style; ctx.lineWidth=width; ctx.lineCap='round'; if(dash) ctx.setLineDash(dash.d), ctx.lineDashOffset=dash.o||0;
+  let pen=false; ctx.beginPath();
+  for(const [lo,la] of pts){ const s=toScreen(lo,la,.004); if(s.z>.04){ if(!pen){ctx.moveTo(s.x,s.y);pen=true;} else ctx.lineTo(s.x,s.y);} else pen=false; }
+  ctx.globalAlpha=alpha; ctx.stroke(); ctx.restore();
+}
+function drawEquator(t){
+  const a=clamp((t-T.eq)/.4)*(1-clamp((t-(T.stop+.6))/.5)) + clamp((t-T.bulge)/.4)*(1-clamp((t-(T.water+.8))/.5));
+  if(a<=0) return;
+  const pts=[]; for(let lo=-180;lo<=180;lo+=2) pts.push([lo,0]);
+  polyOnGlobe(pts,ORANGE,4,a*.9,{d:[14,12],o:-t*40});
+}
+const MACAPA={lon:-51.07,lat:.03}, BSB={lon:-47.88,lat:-15.79};
+function marker(p,t,tIn,tOut,label,sub,o={}){
+  if(t<tIn||t>tOut) return;
+  const s=toScreen(p.lon,p.lat); if(s.z<.1) return;
+  const k=spr(t-tIn,.45,14)*(1-eIC((t-(tOut-.3))/.3))*clamp((s.z-.1)/.15);
+  ctx.save(); ctx.translate(s.x,s.y);
+  ctx.globalAlpha=clamp(k); ctx.strokeStyle=CREAM; ctx.lineWidth=3; ctx.beginPath(); ctx.arc(0,0,16*k,0,6.283); ctx.stroke();
+  ctx.fillStyle=ORANGE; ctx.beginPath(); ctx.arc(0,0,8*k,0,6.283); ctx.fill();
+  const pu=((t-tIn)*1.2)%1; ctx.globalAlpha=clamp(k)*(1-pu)*.7; ctx.beginPath(); ctx.arc(0,0,16+pu*40,0,6.283); ctx.stroke();
+  // haste até o rótulo
+  const dx=o.dx??40, dy=o.dy??-110; ctx.globalAlpha=clamp(k); ctx.beginPath(); ctx.moveTo(0,-16*k); ctx.lineTo(dx*k,dy*k); ctx.stroke();
+  ctx.restore();
+  const lx=s.x+dx+(o.align==='right'?-10:10), ly=s.y+dy+10;
+  pill(label,lx,ly,40,CREAM,tIn+.12,tOut,t,{align:o.align==='right'?'left':'left'});
+  if(sub) pill(sub,lx+6,ly+64,32,o.subc||ORANGE,tIn+.3,tOut,t,{w:700,bg:'rgba(12,10,26,.62)'});
+}
+// vento: riscos que seguem para leste depois que o chão para
+const WIND=[...Array(70)].map((_,i)=>{const r=mulberry(300+i);return{lat:(r()*2-1)*62,lon:r()*360-180,len:10+r()*22,ph:r()}});
+function drawWind(t){
+  const a=clamp((t-T.air)/.5)*(1-clamp((t-(T.day+.6))/1.2)); if(a<=0) return;
+  const sh=cloudShift(t)*1.9;
+  for(const w of WIND){
+    const sp=Math.cos(w.lat*D2R);
+    const lo0=w.lon+sh*sp, pts=[];
+    for(let i=0;i<=12;i++) pts.push([lo0-w.len*sp*i/12,w.lat]);
+    const ap=a*(.35+.5*sp);
+    // ponta mais forte
+    polyOnGlobe(pts.slice(0,5),'rgba(250,246,236,1)',4,ap,null);
+    polyOnGlobe(pts,'rgba(250,246,236,1)',2,ap*.45,null);
+  }
+}
+// setas do inchaço do equador e fluxo para os polos
+function limbPoint(lat,side){ // ponto do paralelo mais perto da borda, lado -1/1
+  let best=null; for(let lo=-180;lo<180;lo+=1){ const s=toScreen(lo,lat); if(s.z<0) continue; const v=(s.x-CAM.cx)*side; if(!best||v>best.v) best={v,s}; } return best&&best.s;
+}
+function arrow(x,y,ang,len,col,width,alpha){
+  ctx.save(); ctx.globalAlpha=alpha; ctx.translate(x,y); ctx.rotate(ang); ctx.strokeStyle=col; ctx.fillStyle=col; ctx.lineWidth=width; ctx.lineCap='round';
+  ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(len-14,0); ctx.stroke(); ctx.beginPath(); ctx.moveTo(len,0); ctx.lineTo(len-22,-12); ctx.lineTo(len-22,12); ctx.closePath(); ctx.fill(); ctx.restore();
+}
+function drawBulge(t){
+  const a=clamp((t-(T.bulge+.3))/.4)*(1-clamp((t-(T.water+.3))/.4)); if(a<=0) return;
+  const k=spr(t-(T.bulge+.3),.4,10);
+  for(const side of [-1,1]){
+    const p=limbPoint(0,side); if(!p) continue;
+    const ang=Math.atan2(p.y-CAM.cy,p.x-CAM.cx);
+    arrow(p.x+Math.cos(ang)*14,p.y+Math.sin(ang)*14,ang,Math.max(1,70*k),ORANGE,6,a);
+  }
+  // contorno "inchado" tracejado (exagerado)
+  ctx.save(); ctx.globalAlpha=a*.7; ctx.strokeStyle=ORANGE; ctx.lineWidth=3; ctx.setLineDash([10,10]); ctx.lineDashOffset=-t*30;
+  ctx.translate(CAM.cx,CAM.cy); ctx.rotate(-CAM.roll*0); ctx.beginPath(); ctx.ellipse(0,0,CAM.R*(1+.06*k),CAM.R*(1-.02*k),CAM.roll,0,6.283); ctx.stroke(); ctx.restore();
+}
+function drawFlow(t){
+  const a=clamp((t-(T.water+.1))/.5)*(1-clamp((t-(T.can+1.2))/.8)); if(a<=0) return;
+  for(let lo=-180;lo<180;lo+=24){
+    for(const hemi of [1,-1]){
+      for(let j=0;j<2;j++){
+        const u=((t*.45+j*.5+lo*.013)%1);
+        const la=hemi*lerp(4,40,u), la2=la+hemi*5;
+        const p=toScreen(lo,la,.01), q=toScreen(lo,la2,.01); if(p.z<.15||q.z<.15) continue;
+        const al=a*Math.sin(u*Math.PI)*clamp((p.z-.15)/.2);
+        arrow(p.x,p.y,Math.atan2(q.y-p.y,q.x-p.x),Math.hypot(q.x-p.x,q.y-p.y)+10,'#eaf6ff',4,al);
+      }
+    }
+  }
+}
+// flash leve da parada (anel chapado, não estrela)
+function drawStopHit(t){
+  const d=t-T.stop; if(d<0||d>.9) return;
+  ctx.save(); ctx.globalAlpha=(1-d/.9)*.8; ctx.strokeStyle=CREAM; ctx.lineWidth=10*(1-d/.9)+2;
+  ctx.beginPath(); ctx.arc(CAM.cx,CAM.cy,CAM.R*(1+eOC(d/.9)*.35),0,6.283); ctx.stroke(); ctx.restore();
+}
+
+// ---------- grão + vinheta ----------
+const GR=[...Array(6)].map((_,i)=>{const c=document.createElement('canvas');c.width=c.height=512;const x=c.getContext('2d');const d=x.createImageData(512,512);const r=mulberry(100+i);
+  for(let j=0;j<d.data.length;j+=4){const v=r()*255;d.data[j]=d.data[j+1]=d.data[j+2]=v;d.data[j+3]=255;} x.putImageData(d,0,0); return c;});
+function finish(t){
+  const v=ctx.createRadialGradient(W/2,H*.55,H*.3,W/2,H*.55,H*.8); v.addColorStop(0,'rgba(6,4,16,0)'); v.addColorStop(1,'rgba(6,4,16,.5)');
+  ctx.fillStyle=v; ctx.fillRect(0,0,W,H);
+  const f=Math.floor(t*24), g=GR[f%6], r=mulberry(f+1); const ox=-(r()*512|0), oy=-(r()*512|0);
+  ctx.save(); ctx.globalAlpha=.06; ctx.globalCompositeOperation='overlay'; for(let x=ox;x<W;x+=512)for(let y=oy;y<H;y+=512) ctx.drawImage(g,x,y); ctx.restore();
+  const k=Math.max(clamp((t-(END-.7))/.7),1-clamp(t/.25)); if(k>0){ctx.fillStyle=`rgba(0,0,0,${k})`; ctx.fillRect(0,0,W,H);}
+}
+
+// ---------- seek ----------
+window.seek=function(t){
+  CAM=camAt(t); SUN=subsolar(t);
+  ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
+  drawSpace(t);
+  drawEarth(t);
+  drawStopHit(t);
+  drawEquator(t);
+  drawWind(t);
+  drawBulge(t);
+  drawFlow(t);
+  // marcadores presos ao globo
+  marker(MACAPA,t,T.pin,T.stop+3.4,'MACAPÁ',t<T.stop?'1.674 km/h':'0 km/h',{dx:60,dy:-130,subc:t<T.stop?ORANGE:CREAM});
+  const bsbNight=storyDays(t)>=27.5;
+  marker(BSB,t,T.dayB+.2,T.bulge+.2,'BRASÍLIA',bsbNight?'noite até o dia 210':'pôr do sol: dia 28',{dx:70,dy:-150});
+  marker({lon:-100,lat:56},t,T.can,T.eur+.6,'CANADÁ','debaixo d\'água',{dx:40,dy:-140,subc:COOL});
+  marker({lon:12,lat:50},t,T.eur,T.sup+.8,'EUROPA','debaixo d\'água',{dx:40,dy:-150,subc:COOL});
+  marker({lon:20,lat:4},t,T.sup,T.end+.2,'EQUADOR','um só continente seco',{dx:-260,dy:-180});
+  // legendas (o evento acontece junto com a linha)
+  caption('E se a Terra','parasse de girar?',T.ask,T.eq-.05,t,430);
+  caption('No equador, o chão','corre a 1.674 km/h',T.eq,T.stop-.05,t,430);
+  caption('PAROU.',null,T.stop+.02,T.air-.02,t,450);
+  caption('O chão parou.','O ar, não: segue a 1.674 km/h',T.air,T.rec-.05,t,430);
+  caption('Vento mais forte já medido:','408 km/h (Austrália, 1996)',T.rec,T.day-.05,t,430);
+  caption('Um dia passa','a durar um ano',T.day,T.night-.05,t,430);
+  caption('6 meses de sol.','6 meses de noite.',T.night,T.bulge-.05,t,430);
+  caption('O giro estica a Terra:','21 km a mais no equador',T.bulge,T.water-.05,t,430);
+  caption('Sem giro, o mar','escorre para os polos',T.water,T.can-.05,t,430);
+  caption('Dois oceanos polares','com ~11 km de fundo',T.can,T.sup-.05,t,430);
+  caption('E no meio,','terra seca de ponta a ponta',T.sup,T.end-.05,t,430);
+  caption('Calma: ela só está freando.','O dia cresce 1,8 ms por século',T.end,END,t,430);
+  drawClocks(t);
+  finish(t);
+};
+window.renderFrame=function(t){
+  const d=.55/FPS;
+  seek(t-d/4); actx.globalAlpha=1; actx.drawImage(main,0,0);
+  seek(t+d/4); octx.globalAlpha=1; octx.drawImage(acc,0,0); octx.globalAlpha=.5; octx.drawImage(main,0,0); octx.globalAlpha=1;
+  return out.toDataURL('image/jpeg',.94);
+};
+window.still=function(t){ seek(t); octx.globalAlpha=1; octx.drawImage(main,0,0); return out.toDataURL('image/jpeg',.92); };
+window.END=END;
+window.READY=Promise.all([MAPS_READY,document.fonts.load('700 30px Bric'),document.fonts.load('800 30px Bric'),document.fonts.load('600 30px Bric'),document.fonts.load('700 30px Mono')]).then(()=>true);
+</script>
+</body></html>

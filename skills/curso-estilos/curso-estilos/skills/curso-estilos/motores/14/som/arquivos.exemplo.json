@@ -1,0 +1,9 @@
+{
+ "_leia": "Copie este arquivo para som/arquivos.json e troque os caminhos pelos seus arquivos. Nenhum audio vem no pacote.",
+ "voz": "voz/narracao.mp3",
+ "trilha": "som/minha_trilha.mp3",
+ "sfx_tecla": "som/sfx/tecla_celular.wav",
+ "sfx_carta": "som/sfx/carta_pousando.wav",
+ "sfx_lapis": "som/sfx/lapis_no_papel.wav",
+ "sfx_papel": "som/sfx/folha_deslizando.wav"
+}

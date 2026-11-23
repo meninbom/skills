@@ -1,0 +1,17 @@
+[
+ {"id": "come", "dur": 4, "seed": 11, "prompt": "A person sits on a chair and eats soup with a spoon, repeatedly bringing the right hand up to the mouth."},
+ {"id": "celular", "dur": 4, "seed": 21, "prompt": "A person stands still, raises the right hand to chest height to look at a phone, and stares down at it."},
+ {"id": "corre", "dur": 4, "seed": 31, "prompt": "A person runs forward in a hurry."},
+ {"id": "trator", "dur": 4, "seed": 41, "prompt": "A person sits holding a steering wheel with the left hand, reaches the right hand forward to turn a key, then freezes and turns the head to the left."},
+ {"id": "banheira", "dur": 5, "seed": 51, "prompt": "A person stands bending forward with both hands resting on a low edge in front, watching it and shifting weight impatiently."},
+ {"id": "gerador", "dur": 5, "seed": 61, "prompt": "A person crouches down, grabs a cord with the right hand and pulls it back hard, then stays crouched."},
+ {"id": "preocupa", "dur": 3, "seed": 71, "prompt": "A person stands still and slowly turns the head to the left with a worried, tense posture."},
+ {"id": "cintura", "dur": 4, "seed": 81, "prompt": "A person stands with both hands on the hips and shakes the head in disapproval."},
+ {"id": "porteira", "dur": 4, "seed": 91, "prompt": "A person walks forward slowly, pushing a heavy gate with both hands at chest height."},
+ {"id": "cadeado", "dur": 3, "seed": 101, "prompt": "A person leans slightly forward and uses both hands at waist height to close a padlock."},
+ {"id": "escreve", "dur": 5, "seed": 111, "prompt": "A person sits at a table leaning forward and writes on paper with the right hand."},
+ {"id": "parado", "dur": 5, "seed": 121, "prompt": "A person stands relaxed with arms hanging by the sides, breathing calmly and looking ahead."},
+ {"id": "susto", "dur": 3, "seed": 131, "prompt": "A person standing still suddenly turns the head and upper body to the right, startled."},
+ {"id": "zumbi_vira", "dur": 4, "seed": 141, "prompt": "A person stands hunched like a zombie with arms hanging limply, swaying, then slowly turns the head to the left."},
+ {"id": "zumbi_anda", "dur": 5, "seed": 151, "prompt": "A person walks forward very slowly like a zombie, dragging the left foot, body leaning, the left arm reaching forward."}
+]

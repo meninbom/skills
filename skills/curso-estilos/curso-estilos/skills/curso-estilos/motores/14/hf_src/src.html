@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Emoji · agenda de purikura</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+/* DIRECAO.md: "Agenda de purikura". Uma página quadriculada; 2 objetos (foto-adesivo em retícula · adesivo de pixel 12×12);
+   uma família (Bricolage) + o LCD do celular (Pixelify, diegético); 3 técnicas (travelling da página · pouso · linha por máscara). */
+@font-face{font-family:"Bric";src:url("fonts/Bricolage.ttf") format("truetype");font-weight:200 800;font-stretch:75% 100%}
+/* japones: usa a fonte do sistema (a do exemplo original nao pode ser redistribuida). Para fixar uma, ponha Noto Sans JP (OFL) em fonts/ e troque por url("fonts/NotoSansJP-Bold.ttf") */
+@font-face{font-family:"JP";src:local("Yu Gothic Bold"),local("Yu Gothic"),local("Hiragino Sans"),local("Noto Sans CJK JP"),local("Noto Sans JP"),local("Meiryo");font-weight:700}
+@font-face{font-family:"LCD";src:url("fonts/DepartureMono.otf") format("opentype")}
+:root{--papel:#FAF8F3;--linha:#DCE2F0;--tinta:#1B1631;--apoio:#6E6A86;--rosa:#FF4FA3;--azul:#3157FF;--lima:#9ADB2A;--lcd:#EEF6D9}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#E6E1D6}
+#root{position:relative;width:1080px;height:1920px;overflow:hidden;background:#E6E1D6;font-family:"Bric",sans-serif;color:var(--tinta)}
+#cam{position:absolute;inset:0;overflow:hidden;z-index:1}
+#world{position:absolute;left:0;top:0;width:2400px;height:11600px;transform-origin:0 0}
+#pagina{position:absolute;left:0;top:0;width:2400px;height:11600px;background:var(--papel);border-radius:28px;box-shadow:0 30px 80px rgba(27,22,49,.35)}
+.grade{position:absolute;inset:0;border-radius:28px;background-position:0 0}
+.camada{position:absolute;left:0;top:0;width:2400px;height:11600px}
+#c-obj{z-index:1} #c-texto{z-index:2}
+#band{position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:2;pointer-events:none}
+.a{position:absolute}
+.st{position:absolute;filter:drop-shadow(0 14px 18px rgba(27,22,49,.22)) drop-shadow(0 2px 3px rgba(27,22,49,.25))}
+.st img{display:block;width:100%;height:auto}
+/* máscara com folga de acento/descendente; a linha sobe dentro dela */
+.m{position:absolute;overflow:hidden;padding:.24em .3em .3em;margin:-.24em -.3em -.3em}
+.tx{white-space:nowrap;line-height:1;will-change:transform}
+.h8{font-weight:800;letter-spacing:-0.04em}
+.h5{font-weight:500;letter-spacing:-0.01em}
+.lab{font-weight:650;text-transform:uppercase;letter-spacing:.07em;color:var(--apoio)}
+.jp{font-family:"JP",sans-serif;font-weight:700;letter-spacing:0}
+.risco{position:absolute;left:-10px;right:-14px;top:52%;height:22px;margin-top:-11px;background:var(--rosa);border-radius:11px;transform-origin:0 50%;transform:scaleX(0)}
+.lcd{position:absolute;background:var(--lcd);overflow:hidden;font-family:"LCD",monospace;color:#26331F}
+.lcd .scr{position:absolute;inset:0;opacity:0}
+.pxsvg{position:absolute;overflow:visible}
+</style>
+</head>
+<body>
+<div id="root" data-camada="fundo" data-composition-id="main" data-start="0" data-duration="56.4" data-width="1080" data-height="1920" data-fps="30">
+  <div id="cam" data-camada="fundo">
+    <div id="world" data-camera>
+      <div id="pagina" data-camada="fundo"><div class="grade" id="gA"></div><div class="grade" id="gB"></div></div>
+      <div class="camada" id="c-obj"></div>
+      <div class="camada" id="c-texto" data-camada="texto"></div>
+    </div>
+  </div>
+  <div id="band" data-camada="texto"></div>
+</div>
+<script>
+(function(){
+const DUR=56.4;
+const $=id=>document.getElementById(id);
+function bez(nome,x1,y1,x2,y2){
+  const b=(p1,p2,t)=>3*(1-t)*(1-t)*t*p1+3*(1-t)*t*t*p2+t*t*t;
+  gsap.registerEase(nome,p=>{let lo=0,hi=1;for(let k=0;k<40;k++){const m=(lo+hi)/2;(b(x1,x2,m)<p)?lo=m:hi=m;}return b(y1,y2,(lo+hi)/2);});
+}
+bez('mover',.75,0,.35,1);
+const Q=t=>Math.round(t*30)/30;
+const tl=gsap.timeline({paused:true});
+const OBJ=$('c-obj'), TXT=$('c-texto'), BAND=$('band');
+const ICON=/*ICONES*/null;
+
+/* ---------------- texto: linha com máscara ---------------- */
+let nId=0;
+// al: 'l' (x = borda esquerda) · 'c' (x = centro)
+function linha(cont,x,y,size,cls,html,al='l',extra='',visivel=false){
+  const id='l'+(nId++);
+  const tr=al==='c'?'transform:translateX(-50%);':'';
+  cont.insertAdjacentHTML('beforeend',`<div class="m" style="left:${x}px;top:${y}px;font-size:${size}px;${tr}${extra}"><div class="tx ${cls}" id="${id}">${html}</div></div>`);
+  if(!visivel){ tl.set('#'+id,{yPercent:175},0); gsap.set('#'+id,{yPercent:175}); }
+  return id;
+}
+function entra(ids,t,st=0.07){ [].concat(ids).forEach((id,i)=>tl.fromTo('#'+id,{yPercent:175},{yPercent:0,duration:0.5,ease:'expo.out'},Q(t+i*st))); }
+function sai(ids,t){ [].concat(ids).forEach(id=>tl.to('#'+id,{yPercent:-180,duration:0.2,ease:'expo.in'},Q(t))); }
+const W=(x,y,size,cls,html,al)=>linha(TXT,x,y,size,cls,html,al);     // texto na página
+const B=(x,y,size,cls,html,al)=>linha(BAND,x,y,size,cls,html,al);    // texto preso à tela (só nos mergulhos)
+
+/* ---------------- objetos ---------------- */
+// adesivo de foto (PNG já com borda branca). cx,cy = centro no mundo; w = largura em tela.
+function adesivo(id,src,cx,cy,w,ratio,rot=0,grupo){
+  const h=Math.round(w*ratio);
+  OBJ.insertAdjacentHTML('beforeend',`<div class="st" id="${id}" data-camada="obj" ${grupo?`data-grupo="${grupo}"`:''} style="left:${cx-w/2}px;top:${cy-h/2}px;width:${w}px;height:${h}px;transform:rotate(${rot}deg)"><img src="img/${src}.png"></div>`);
+  return {x:cx-w/2,y:cy-h/2,w,h};
+}
+// pouso: o adesivo cai na página (−40 px, 1,08 → 1, power2.in 0,34 s), sem mola
+function pousa(id,tContato,rot=0){
+  const t0=Q(Math.max(0,tContato-0.34));
+  tl.set('#'+id,{opacity:0},0); gsap.set('#'+id,{opacity:0});
+  tl.fromTo('#'+id,{opacity:0},{opacity:1,duration:0.08,ease:'none'},t0);
+  tl.fromTo('#'+id,{scale:1.08,y:-40,rotation:rot+2.5},{scale:1,y:0,rotation:rot,duration:Math.min(0.34,tContato-t0||0.34),ease:'power2.in'},t0);
+}
+// descola: o adesivo já pousado sobe um pouco (foco) e volta
+function descola(id,t,ida=0.35,fica=0.9){
+  tl.to('#'+id,{scale:1.06,duration:ida,ease:'expo.out'},Q(t));
+  tl.to('#'+id,{scale:1,duration:0.45,ease:'sine.inOut'},Q(t+ida+fica));
+}
+// adesivo de pixel em SVG (nítido em qualquer zoom). Borda branca = mesmos pixels com contorno.
+function pxSVG(nome,cor,cel){
+  const g=ICON[nome]; let r='', b='';
+  const pad=cel*0.55;
+  for(let y=0;y<12;y++)for(let x=0;x<12;x++) if(g[y][x]==='#'){
+    b+=`<rect x="${x*cel-pad}" y="${y*cel-pad}" width="${cel+2*pad}" height="${cel+2*pad}" rx="${pad}"/>`;
+    r+=`<rect x="${x*cel}" y="${y*cel}" width="${cel+0.02}" height="${cel+0.02}"/>`;
+  }
+  return `<g fill="#fff">${b}</g><g fill="${cor}" shape-rendering="crispEdges">${r}</g>`;
+}
+function pxAdesivo(id,nome,cx,cy,size,grupo,extraStyle=''){
+  const cel=size/12;
+  OBJ.insertAdjacentHTML('beforeend',`<svg class="pxsvg st" id="${id}" data-camada="obj" ${grupo?`data-grupo="${grupo}"`:''} viewBox="0 0 ${size} ${size}" style="left:${cx-size/2}px;top:${cy-size/2}px;width:${size}px;height:${size}px;${extraStyle}">${pxSVG(nome,ICON._cor[nome],cel)}</svg>`);
+}
+
+/* ================= A · gancho (e fecho) ================= */
+const A={cx:600,cy:1000};
+pxAdesivo('hA','coracao',600,680,470,'A');
+// laço: o quadro 0 = o último (coração descolado 1,06 + 'emoji'); assenta em 0,4 s
+tl.fromTo('#hA',{scale:1.06},{scale:1,duration:0.4,ease:'sine.inOut'},0);
+const tEmoji=linha(TXT,175,960,270,'h8','emoji','l','',true);   // laço: 'emoji' já está na página no quadro 0 e no último
+const tEmotion=W(183,1265,170,'h8','<span style="position:relative;display:inline-block">emotion<span class="risco" id="riscoA"></span></span>');
+entra(tEmotion,0.74);
+tl.to('#riscoA',{scaleX:1,duration:0.36,ease:'expo.out'},Q(3.40));
+const tPeca=W(185,1490,104,'h8','peça de museu.');
+
+/* ================= B · japonês ================= */
+const tKanji=W(1800,1190,250,'jp','絵文字','c');
+entra(tKanji,3.90);
+
+/* ================= C · Tóquio 1999 ================= */
+adesivo('tokio','tokio',1800,2700,760,1330/1188,-1.5);
+pousa('tokio',6.37,-1.5);
+const tTq=W(1430,3185,120,'h8','Tóquio,'), t99=W(1430,3320,210,'h8','1999');
+entra(tTq,6.30); entra(t99,6.92);
+
+/* ================= D · o celular (i-mode, NTT Docomo) ================= */
+const PH={x:160,y:3880,w:460}; PH.h=Math.round(PH.w*1797/648);
+const LCD={x:PH.x+Math.round(92*PH.w/432),y:PH.y+Math.round(305.3*PH.w/432),w:Math.round(213.3*PH.w/432),h:Math.round(295.3*PH.w/432)};
+OBJ.insertAdjacentHTML('beforeend',
+ `<div class="a" id="fone" data-camada="obj" data-grupo="fone" style="left:${PH.x}px;top:${PH.y}px;width:${PH.w}px;height:${PH.h}px">`+
+ `<div class="st" style="left:0;top:0;width:${PH.w}px"><img src="img/celular.png"></div>`+
+ `<div class="lcd" style="left:${LCD.x-PH.x}px;top:${LCD.y-PH.y}px;width:${LCD.w}px;height:${LCD.h}px">`+
+   `<div class="scr" id="lcd0" style="opacity:1"></div>`+
+   `<div class="scr" id="lcd1"><div style="position:absolute;left:14px;top:16px;font-size:13px">conectando</div>`+
+     `<div style="position:absolute;left:14px;bottom:18px;display:flex;gap:6px;align-items:flex-end">`+
+     [10,18,26,34].map((h,i)=>`<div id="bar${i}" style="width:14px;height:${h}px;background:#26331F;opacity:.15"></div>`).join('')+`</div></div>`+
+   `<div class="scr" id="lcd2"><div style="position:absolute;left:0;right:0;top:${Math.round(LCD.h/2-26)}px;text-align:center;font-size:52px;letter-spacing:-2px">i-mode</div></div>`+
+   `<div class="scr" id="lcd3"><div style="position:absolute;right:10px;top:8px;font-size:12px" id="cont">000/250</div>`+
+     `<div style="position:absolute;left:10px;right:8px;top:30px;bottom:6px;border-top:1.5px solid #26331F;padding-top:5px;font-size:12px;line-height:14.2px;word-break:normal;overflow-wrap:break-word;white-space:normal" id="msg"></div></div>`+
+ `</div></div>`);
+pousa('fone',8.62);
+const tNTT=W(680,4230,96,'h8','NTT'), tDoc=W(680,4340,96,'h8','Docomo');
+const tTw1=W(684,4700,38,'lab','um tweet hoje'), tTw2=W(680,4752,170,'h8','280');
+entra([tNTT,tDoc],11.36,0.12);
+const lcd=n=>{ ['lcd0','lcd1','lcd2','lcd3'].forEach((s,i)=>tl.set('#'+s,{opacity:i===n?1:0},0)); };
+function lcdEm(n,t){ ['lcd0','lcd1','lcd2','lcd3'].forEach((s,i)=>tl.set('#'+s,{opacity:i===n?1:0},Q(t))); }
+lcd(0);
+lcdEm(1,9.62); [0,1,2,3].forEach(i=>tl.to('#bar'+i,{opacity:1,duration:0.05},Q(9.70+i*0.16)));
+lcdEm(2,10.42);
+lcdEm(3,12.80);
+// 250 caracteres: digitação presa ao contador (13,33 → 15,04)
+const MSG='oi!! cheguei em casa agora, choveu muito no caminho e o trem atrasou de novo. amanha tem prova e eu nao estudei nada, me ajuda? ah e sabe aquele menino da sala do lado? ele perguntou de voce hoje no intervalo, juro. me liga quando der que eu te conto tudo, mas'.slice(0,250);
+const dig={n:0};
+tl.set(dig,{n:0},0);
+tl.to(dig,{n:250,duration:14.90-13.33,ease:'none',onUpdate:()=>{const k=Math.round(dig.n);$('msg').textContent=MSG.slice(0,k)+(k<250?'_':'');$('cont').textContent=String(k).padStart(3,'0')+'/250';}},Q(13.33));
+tl.set('#cont',{background:'#26331F',color:'#EEF6D9',padding:'0 3px'},Q(14.90));
+// tweet de hoje
+entra(tTw1,16.00); entra(tTw2,16.22);
+
+/* ================= F · Kurita ================= */
+adesivo('mao','mao',1800,5280,800,993/1088,1.2);
+pousa('mao',17.10,1.2);
+const tSh=W(1420,5720,124,'h8','Shigetaka'), tKu=W(1420,5850,124,'h8','Kurita');
+entra([tSh,tKu],18.06,0.5);
+pxAdesivo('hF','coracao',2150,4940,230,'mao');
+pousa('hF',20.14);
+
+/* ================= G · mangá, previsão do tempo, placa ================= */
+adesivo('manga','manga',430,5920,340,988/648,-2);
+adesivo('tempo','tempo',800,6300,380,1,1.8);
+adesivo('placa','placa',420,6680,340,758/648,-1.2);
+pousa('manga',22.04,-2); pousa('tempo',22.62,1.8); pousa('placa',23.60,-1.2);
+
+/* ================= H · 176 figurinhas ================= */
+const SH={x:1352,y:7260,cols:16,rows:11,p:56,c:48};
+const NOMES=['sol','nuvem','coracao','lampada','bomba','lua','guarda','nota','estrela','gota'];
+const ZOOM={col:7,row:5};
+let k=0; const ordem=[];
+for(let r=0;r<SH.rows;r++)for(let c=0;c<SH.cols;c++){
+  const nome=(r===ZOOM.row&&c===ZOOM.col)?'coracao':NOMES[(c*7+r*3+((c*r)%5))%NOMES.length];
+  const id='f'+r+'_'+c;
+  pxAdesivo(id,nome,SH.x+c*SH.p+SH.c/2,SH.y+r*SH.p+SH.c/2,SH.c,'folha');
+  ordem.push({id,d:Math.hypot(c-ZOOM.col,r-ZOOM.row)*0.6+((c*13+r*7)%10)*0.04});
+}
+// enchem a folha em onda (24,55 → 26,70), cada uma com um mini-pouso
+const dMax=Math.max(...ordem.map(o=>o.d));
+ordem.forEach(o=>{
+  const t=24.50+o.d/dMax*1.3;
+  tl.set('#'+o.id,{opacity:0},0); gsap.set('#'+o.id,{opacity:0});
+  tl.fromTo('#'+o.id,{opacity:0,scale:1.25},{opacity:1,scale:1,duration:0.22,ease:'power2.in'},Q(t));
+});
+const t176=W(1800,6900,250,'h8','176','c');
+entra(t176,25.72);
+const ZC={x:SH.x+ZOOM.col*SH.p+SH.c/2,y:SH.y+ZOOM.row*SH.p+SH.c/2};
+const vizinhos=ordem.map(o=>'#'+o.id).filter(s=>s!=='#f'+ZOOM.row+'_'+ZOOM.col);
+
+/* ================= I/J · a grade 12×12 e os 5 desenhos ================= */
+// grade grande por cima da figurinha (mesmo lugar, mesmo tamanho): 144 células
+{
+  const s=SH.c, cel=s/12; let cells='', linhas='';
+  for(let y=0;y<12;y++)for(let x=0;x<12;x++) cells+=`<rect id="g${y}_${x}" x="${x*cel}" y="${y*cel}" width="${cel+0.01}" height="${cel+0.01}" fill="${ICON._cor.coracao}" opacity="${ICON.coracao[y][x]==='#'?1:0}"/>`;
+  for(let i=0;i<=12;i++) linhas+=`<line x1="${i*cel}" y1="0" x2="${i*cel}" y2="${s}"/><line x1="0" y1="${i*cel}" x2="${s}" y2="${i*cel}"/>`;
+  OBJ.insertAdjacentHTML('beforeend',`<svg class="pxsvg" id="gz" data-camada="obj" data-grupo="folha" viewBox="0 0 ${s} ${s}" style="left:${ZC.x-s/2}px;top:${ZC.y-s/2}px;width:${s}px;height:${s}px;opacity:0"><rect id="gzbg" x="0" y="0" width="${s}" height="${s}" fill="#fff"/><g shape-rendering="crispEdges">${cells}</g><g id="gzl" stroke="#C9CFE0" stroke-width="0.09" opacity="0">${linhas}</g></svg>`);
+}
+tl.set('#gz',{opacity:1},Q(27.70)); tl.set('#f'+ZOOM.row+'_'+ZOOM.col,{opacity:0},Q(27.72));
+tl.to('#gzbg',{opacity:0,duration:0.4,ease:'sine.in'},Q(33.80));                         // troca invisível: a figurinha vira a grade editável
+tl.to('#gzl',{opacity:1,duration:0.5,ease:'sine.out'},Q(28.20));
+function desenha(nome,t){
+  const cor=ICON._cor[nome], g=ICON[nome];
+  for(let y=0;y<12;y++)for(let x=0;x<12;x++){
+    const on=g[y][x]==='#'; const tt=Q(t+(x+y)*0.012);
+    tl.set('#g'+y+'_'+x,{attr:{fill:cor}},tt); tl.to('#g'+y+'_'+x,{opacity:on?1:0,duration:0.05,ease:'none'},tt);
+  }
+}
+desenha('sol',30.30); desenha('nuvem',30.80); desenha('coracao',31.44); desenha('lampada',32.08); desenha('bomba',33.18);
+desenha('coracao',33.80);
+tl.to('#gzl',{opacity:0,duration:0.4,ease:'sine.in'},Q(33.80));
+tl.set('#gz',{opacity:0},Q(35.95)); tl.set('#f'+ZOOM.row+'_'+ZOOM.col,{opacity:1},Q(35.95));
+// régua: 1…12 em cima (no "12") e na esquerda (no "por 12") — presas à tela, fora da grade
+const RG={s:17,cy:1010}; const GZ=SH.c*RG.s, GX0=540-GZ/2, GY0=RG.cy-GZ/2;
+const regC=[], regL=[];
+for(let i=0;i<12;i++){
+  regC.push(B(GX0+(i+.5)*GZ/12,GY0-84,46,'lab',String(i+1),'c'));
+  regL.push(B(GX0-62,GY0+(i+.5)*GZ/12-23,46,'lab',String(i+1),'c'));
+}
+regC.forEach((id,i)=>entra(id,28.70+i*0.025,0)); regL.forEach((id,i)=>entra(id,29.18+i*0.025,0));
+sai(regC.concat(regL),30.10);
+
+/* ================= K · um desenho no lugar de uma frase ================= */
+const tFrase=B(540,540,100,'h8','tô com saudade,','c'), tFrase2=B(540,660,100,'h8','vem logo pra casa','c');
+entra([tFrase,tFrase2],33.92,0.12);
+tl.to('#'+tFrase,{scaleX:0.02,scaleY:0.3,y:470,opacity:0,duration:0.42,ease:'power3.in',transformOrigin:'50% 50%'},Q(35.00));
+tl.to('#'+tFrase2,{scaleX:0.02,scaleY:0.3,y:350,opacity:0,duration:0.42,ease:'power3.in',transformOrigin:'50% 50%'},Q(35.04));
+tl.fromTo('#gz',{scale:1},{scale:1.12,duration:0.12,ease:'power2.out',transformOrigin:'50% 50%'},Q(35.46));
+tl.to('#gz',{scale:1,duration:0.3,ease:'sine.inOut'},Q(35.58));
+
+/* ================= L · emoticon ================= */
+const L={cx:600,cy:8350};
+const tEmt=W(600,7850,130,'h8','emoticon','c');
+entra(tEmt,36.04);
+// os 3 sinais são texto (letra); o grupo gira junto
+TXT.insertAdjacentHTML('beforeend',`<div class="a" id="smileT" data-camada="texto" style="left:${L.cx-360}px;top:${L.cy-200}px;width:720px;height:400px;transform-origin:50% 50%"></div>`);
+const sT=$('smileT');
+const s1=linha(sT,120,40,300,'h8',':'), s2=linha(sT,300,40,300,'h8','-'), s3=linha(sT,480,40,300,'h8',')');
+entra(s1,37.56); entra(s2,38.52); entra(s3,39.06);
+tl.to('#smileT',{rotation:90,duration:0.7,ease:'mover'},Q(39.72));
+
+/* ================= M/N · e + moji (e emotion, coincidência) ================= */
+const M={cx:1800,cy:7250};
+const tE=W(1515,8680,210,'jp','絵','c'), tMo=W(1975,8680,210,'jp','文字','c');
+const tEr=W(1515,8990,120,'h8','e','c'), tMr=W(1975,8990,120,'h8','moji','c');
+const tEg=W(1515,9140,48,'lab','desenho','c'), tMg=W(1975,9140,48,'lab','letra','c');
+const tPlus=W(1712,8720,130,'h5','+','c');
+entra([tE,tEr],41.56,0.08); entra(tEg,42.40);
+entra(tPlus,43.10); entra([tMo,tMr],43.42,0.08); entra(tMg,44.02);
+const tNeq=W(1740,9320,130,'h8','≠ emotion','c');
+entra(tNeq,45.26);
+
+/* ================= O · MoMA ================= */
+adesivo('museu','museu',1200,10490,580,1582/1348,0.8);
+pousa('museu',47.40,0.8);
+const t16=W(1200,9860,200,'h8','2016','c');
+entra(t16,47.40);
+const tMoMA=W(1200,10880,170,'h8','MoMA','c');
+entra(tMoMA,49.50);
+
+/* ================= P · fecho no A ================= */
+entra(tPeca,54.30);
+descola('hA',53.50,0.4,1.0);
+tl.to('#hA',{scale:1.06,duration:0.4,ease:'sine.inOut'},Q(55.98));   // fecha o laço
+tl.to(['#'+tPeca,'#'+tEmotion],{opacity:0,duration:0.3,ease:'sine.in'},Q(55.90));
+
+/* ================= confete de adesivos (a página "cheia", parada, sem tremor) ================= */
+// mesmos adesivos de pixel, pequenos, só nos espaços livres: nunca sob texto nem encostando em outro objeto
+{
+  const zonas=[];
+  const add=(x0,y0,x1,y1,m)=>zonas.push([x0-m,y0-m,x1+m,y1+m]);
+  document.querySelectorAll('#c-obj > .st, #c-obj > .a, #c-obj > svg').forEach(e=>{const r=e.getBoundingClientRect(); if(r.width>0) add(r.left,r.top,r.right,r.bottom,120);});
+  document.querySelectorAll('#c-texto .m').forEach(e=>{const r=e.getBoundingClientRect(); if(r.width>0) add(r.left,r.top,r.right,r.bottom,120);});
+  // emoticon gira 90°: reserva o quadrado; folha de 176 + mergulho: reserva larga
+  add(L.cx-380,L.cy-380,L.cx+380,L.cy+380,20);
+  add(SH.x-150,SH.y-450,SH.x+SH.cols*SH.p+150,SH.y+SH.rows*SH.p+150,0);
+  let seed=7; const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647;};
+  const feitos=[]; let n=0;
+  const cand=['sol','nuvem','coracao','lampada','bomba','lua','guarda','nota','estrela','gota'];
+  for(let tent=0;tent<9000&&n<110;tent++){
+    const sz=Math.round(56+rnd()*48), x=60+rnd()*(2400-120-sz), y=60+rnd()*(11600-120-sz);
+    const box=[x,y,x+sz,y+sz];
+    const bate=z=>!(box[2]<z[0]||box[0]>z[2]||box[3]<z[1]||box[1]>z[3]);
+    if(zonas.some(bate)||feitos.some(bate)) continue;
+    feitos.push([x-34,y-34,x+sz+34,y+sz+34]);
+    const id='cf'+n; pxAdesivo(id,cand[Math.floor(rnd()*cand.length)],x+sz/2,y+sz/2,sz,'confete',`transform:rotate(${Math.round(rnd()*24-12)}deg)`);
+    n++;
+  }
+}
+
+/* ================= CÂMERA (cx, cy, escala) ================= */
+const cam={x:A.cx,y:A.cy,l:0};      // l = log(escala)
+const AX=540, AY=1000;               // ponto da tela onde mora o alvo
+function aplica(){ const s=Math.exp(cam.l); $('world').style.transform=`translate(${(AX-s*cam.x).toFixed(2)}px,${(AY-s*cam.y).toFixed(2)}px) scale(${s.toFixed(5)})`;
+  // papel quadriculado contínuo em qualquer zoom: duas grades (64/2^n e metade), a fina entra aos poucos
+  const lg=Math.max(0,Math.log2(s)), n=Math.floor(lg), f=lg-n, lw=(2/Math.max(1,s)).toFixed(4);
+  const gr=(el,esp,op)=>{ el.style.backgroundImage=`linear-gradient(#DCE2F0 ${lw}px,transparent ${lw}px),linear-gradient(90deg,#DCE2F0 ${lw}px,transparent ${lw}px)`; el.style.backgroundSize=`${esp}px ${esp}px`; el.style.opacity=op.toFixed(3); };
+  gr($('gA'),64/2**n,1); gr($('gB'),64/2**(n+1),s>1?f:0); }
+const ln=Math.log;
+const PHc={x:PH.x+PH.w/2+120,y:PH.y+PH.h/2};
+const LCc={x:LCD.x+LCD.w/2,y:LCD.y+LCD.h/2};
+const K=[ // [t, x, y, escala, ease até este ponto]
+  [0,     600,  1020, 1.05],                // laço: igual ao último quadro
+  [3.50,  610,  1010, 1.02,'sine.inOut'],
+  [4.05,  1800, 1320, 1,   'mover'],      // 絵文字
+  [5.85,  1790, 1345, 1.02,'sine.inOut'],
+  [6.40,  1800, 2920, 1,   'mover'],      // Tóquio
+  [8.15,  1810, 2935, 1.02,'sine.inOut'],
+  [8.75,  600,  4560, 1,   'mover'],      // o celular
+  [12.60, 590,  4570, 1.02,'sine.inOut'],
+  [13.35, LCc.x,LCc.y+6,3.8,'power2.inOut'], // mergulho no LCD
+  [15.20, LCc.x,LCc.y+4,3.9,'sine.inOut'],
+  [16.00, 600,  4560, 1,   'power2.inOut'], // sai pelo mesmo eixo: o celular inteiro e o tweet
+  [16.75, 605,  4565, 1.02,'sine.inOut'],
+  [17.30, 1800, 5420, 1,   'mover'],      // Kurita
+  [19.10, 1810, 5410, 1.02,'sine.inOut'],
+  [19.90, 1795, 5440, 1.08,'power2.inOut'],   // "tem uma ideia": aproxima do desenho
+  [21.45, 1800, 5440, 1.10,'sine.inOut'],
+  [22.05, 600,  6290, 1,   'mover'],      // mangá · tempo · placa
+  [24.10, 590,  6300, 1.02,'sine.inOut'],
+  [24.60, 1800, 7420, 1,   'mover'],      // a folha de 176
+  [27.50, 1800, 7440, 1.04,'sine.inOut'],
+  [28.45, ZC.x, ZC.y+(1000-RG.cy)/RG.s, RG.s,'power3.inOut'], // mergulho numa figurinha → grade 12×12
+  [33.70, ZC.x, ZC.y+(1000-RG.cy)/RG.s, RG.s*1.02,'sine.inOut'],
+  [34.25, ZC.x, ZC.y-60/9, 9,'power2.inOut'],                // recua: o coração e a frase
+  [35.80, ZC.x, ZC.y-60/9, 9.2,'sine.inOut'],
+  [36.40, 600,  8200, 1,   'power2.inOut'], // emoticon
+  [41.00, 610,  8210, 1.02,'sine.inOut'],
+  [41.55, 1765, 9040, 1,   'mover'],      // e + moji
+  [45.20, 1768, 9070, 1.02,'sine.inOut'],
+  [46.30, 1770, 9200, 1.06,'power2.inOut'],  // "pura coincidência": chega no ≠ emotion
+  [46.90, 1770, 9205, 1.07,'sine.inOut'],
+  [47.45, 1200, 10530,1,   'mover'],      // MoMA
+  [48.45, 1200, 10520,1.01,'sine.inOut'],
+  [49.55, 1200, 10600,1.06,'power2.inOut'],  // "originais" → "MoMA"
+  [51.55, 1200, 10595,1.07,'sine.inOut'],
+  [52.15, 1200, 8600, 0.32,'power2.inOut'], // o único recuo: a página cheia
+  [52.55, 1200, 8300, 0.31,'sine.inOut'],
+  [53.50, 600,  1020, 1,   'power2.inOut'], // volta ao começo
+  [56.40, 600,  1020, 1.05,'sine.inOut']
+];
+for(let i=1;i<K.length;i++){
+  const [t0]=K[i-1], [t1,x1,y1,s1,e]=K[i];
+  tl.to(cam,{x:x1,y:y1,l:ln(s1),duration:t1-t0,ease:e},t0);
+}
+tl.eventCallback('onUpdate',aplica);
+// vizinhos da figurinha somem no mergulho e voltam no recuo
+tl.to(vizinhos,{opacity:0,duration:0.5,ease:'sine.in'},Q(27.60));
+tl.to(vizinhos,{opacity:1,duration:0.6,ease:'sine.out'},Q(36.00));
+tl.to('#'+t176,{opacity:0,duration:0.3},Q(27.60)); tl.to('#'+t176,{opacity:1,duration:0.4},Q(36.0));
+
+aplica();
+tl.set({},{},DUR);
+window.__timelines=window.__timelines||{};
+window.__timelines["main"]=tl;
+})();
+</script>
+</body>
+</html>

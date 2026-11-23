@@ -1,0 +1,4 @@
+[
+  {"fx": "ToonHit", "t": 1.27, "x": 300, "y": 560, "escala": 0.75, "forca": 0.55, "cor": "gelo", "dur": 0.45, "fade": 0.18, "carga": 0.25, "seguir": "auto"},
+  {"fx": "Sword1", "t": 2.4, "x": 270, "y": 480, "escala": 1.0, "forca": 0.8, "cor": "original", "flash": 1, "flash_forca": 0.35}
+]

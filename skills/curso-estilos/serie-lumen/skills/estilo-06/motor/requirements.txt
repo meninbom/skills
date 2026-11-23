@@ -1,0 +1,6 @@
+numpy
+Pillow
+# só para capa/capa.py e montagem/rastro.py:
+opencv-python
+# só para a checagem de fala por plano (ciclo/checar_planos.py), em CPU:
+faster-whisper

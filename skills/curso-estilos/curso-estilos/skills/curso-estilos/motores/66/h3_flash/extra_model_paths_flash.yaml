@@ -1,0 +1,5 @@
+# Opcional: só se os pesos do modelo de vídeo ficam fora da pasta do ComfyUI (disco com mais espaço).
+# Troque base_path pela SUA pasta e suba o ComfyUI com: --extra-model-paths-config extra_model_paths_flash.yaml
+hyperflow_flash:
+    base_path: /caminho/para/seus_modelos/
+    diffusion_models: hyperflow_flash/

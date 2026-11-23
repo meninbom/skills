@@ -1,0 +1,4 @@
+# Só para as ferramentas opcionais em Python (trava.py, folha_poses.py, foto_gerador.py). O demo não usa.
+# O Playwright abre o Chrome que já está no sistema (_chrome.py): não precisa de "playwright install".
+playwright
+pillow

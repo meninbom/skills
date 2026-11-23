@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>Fisgada (anime em SVG, peça original 36)</title>
+    <!-- Gramática: blixvip/html-anime (MIT). Atores em dois, FX em um, 1 plano caro, hold >= 12 q, corte por mergulho de cor.
+         Roteiro de cor "Névoa de cobre": só os hexes de C. -->
+    <style>
+      html, body { margin: 0; background: #0f1d1f; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #0f1d1f; }
+      .clip { position: absolute; inset: 0; overflow: hidden; }
+      .cam { position: absolute; inset: 0; transform-origin: 50% 50%; }
+      .cam svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+      .drw { opacity: 0; }
+      .hero { opacity: 1; }
+      #dip { background: #0f1d1f; opacity: 0; z-index: 10; }
+      #vig { z-index: 8; pointer-events: none;
+        background: radial-gradient(ellipse 75% 62% at 50% 48%, rgba(15,29,31,0) 58%, rgba(15,29,31,0.5) 100%),
+                    linear-gradient(180deg, rgba(15,29,31,0.35) 0%, rgba(15,29,31,0) 14%, rgba(15,29,31,0) 84%, rgba(15,29,31,0.4) 100%); }
+      #grain { z-index: 9; pointer-events: none; opacity: 0.13; mix-blend-mode: overlay; background-size: 300px 300px; }
+    </style>
+    <script src="vendor/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="root" data-composition-id="fisgada" data-start="0" data-duration="30" data-width="1080" data-height="1920">
+      <div id="s1" class="clip" data-start="0" data-duration="4.05" data-track-index="1"><div id="cam1" class="cam"><svg id="v1" viewBox="0 0 1080 1920"></svg></div></div>
+      <div id="s2" class="clip" data-start="4" data-duration="3.55" data-track-index="2"><div id="cam2" class="cam"><svg id="v2" viewBox="0 0 1080 1920"></svg></div></div>
+      <div id="s3" class="clip" data-start="7.5" data-duration="3.55" data-track-index="1"><div id="cam3" class="cam"><svg id="v3" viewBox="0 0 1080 1920"></svg></div></div>
+      <div id="s4" class="clip" data-start="11" data-duration="2.55" data-track-index="2"><div id="cam4" class="cam"><svg id="v4" viewBox="0 0 1080 1920"></svg></div></div>
+      <div id="s5" class="clip" data-start="13.5" data-duration="6.55" data-track-index="1"><div id="cam5" class="cam"><svg id="v5" viewBox="0 0 1080 1920"></svg></div></div>
+      <div id="s6" class="clip" data-start="20" data-duration="5.55" data-track-index="2"><div id="cam6" class="cam"><svg id="v6" viewBox="0 0 1080 1920"></svg></div></div>
+      <div id="s7" class="clip" data-start="25.5" data-duration="4.5" data-track-index="1"><div id="cam7" class="cam"><svg id="v7" viewBox="0 0 1080 1920"></svg></div></div>
+      <div id="vig" class="clip" data-start="0" data-duration="30" data-track-index="4"></div>
+      <div id="grain" class="clip" data-start="0" data-duration="30" data-track-index="5"></div>
+      <div id="dip" class="clip" data-start="0" data-duration="30" data-track-index="3"></div>
+    </div>
+    <script>
+      // ---------- roteiro de cor fechado: "Névoa de cobre" ----------
+      const C = { ink: "#0f1d1f", water: "#1d3a3d", deep: "#2b5552", fog: "#93ada3", haze: "#dcc6a2", sun: "#fff0d4",
+                  glow: "#eea562", accent: "#cf4527", straw: "#c8984f", ochre: "#d9a43a", skin: "#e6b08b" };
+      const FPS = 24, F = (n) => n / FPS;
+
+      // ---------- utilitários determinísticos ----------
+      function lcg(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
+      const f1 = (v) => (Math.round(v * 10) / 10).toString();
+      const P = (p) => f1(p[0]) + "," + f1(p[1]);
+      function rot(p, a, o) { const r = a * Math.PI / 180, c = Math.cos(r), s = Math.sin(r); const x = p[0] - o[0], y = p[1] - o[1]; return [o[0] + x * c - y * s, o[1] + x * s + y * c]; }
+      function poly(pts, fill, extra) { return `<path d="M${pts.map(P).join(" L")} Z" fill="${fill}" ${extra || ""}/>`; }
+      function smooth(pts, fill, extra) {
+        const n = pts.length, mid = (a, b) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+        let d = "M" + P(mid(pts[n - 1], pts[0]));
+        for (let i = 0; i < n; i++) d += " Q" + P(pts[i]) + " " + P(mid(pts[i], pts[(i + 1) % n]));
+        return `<path d="${d} Z" fill="${fill}" ${extra || ""}/>`;
+      }
+      function stroke(pts, col, w, extra) { return `<path d="M${pts.map(P).join(" L")}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" ${extra || ""}/>`; }
+      function curve(a, c, b, col, w, extra) { return `<path d="M${P(a)} Q${P(c)} ${P(b)}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" ${extra || ""}/>`; }
+      function ik(S, T, l1, l2, bend) {
+        let dx = T[0] - S[0], dy = T[1] - S[1]; let d = Math.hypot(dx, dy);
+        d = Math.max(Math.abs(l1 - l2) + 0.5, Math.min(l1 + l2 - 0.5, d));
+        const a = Math.atan2(dy, dx), A = Math.acos(Math.max(-1, Math.min(1, (l1 * l1 + d * d - l2 * l2) / (2 * l1 * d))));
+        const e = a + bend * A;
+        return { E: [S[0] + l1 * Math.cos(e), S[1] + l1 * Math.sin(e)], W: [S[0] + d * Math.cos(a), S[1] + d * Math.sin(a)] };
+      }
+      const dirv = (deg) => [Math.cos(deg * Math.PI / 180), Math.sin(deg * Math.PI / 180)];
+      const addv = (a, b, k) => [a[0] + b[0] * (k === undefined ? 1 : k), a[1] + b[1] * (k === undefined ? 1 : k)];
+      const sub = (a, b) => [a[0] - b[0], a[1] - b[1]], vlen = (v) => Math.hypot(v[0], v[1]), nrm = (v) => { const l = vlen(v) || 1; return [v[0] / l, v[1] / l]; };
+      const at = (x, y, k, inner, extra, mirror) => `<g transform="translate(${x} ${y}) scale(${mirror ? -k : k} ${k})" ${extra || ""}>${inner}</g>`;
+      const toAbs = (o, k, p, mirror) => [o[0] + (mirror ? -p[0] : p[0]) * k, o[1] + p[1] * k];
+
+      // ---------- esqueleto comum (perfil olhando para +x; pés em 0,0) ----------
+      function rig(p) {
+        const q = Object.assign({ hip: [0, -245], lean: 0, tilt: 0, fF: [60, 0], fB: [-50, 0], hF: [70, -330], hB: [10, -300], rodLen: 560, bend: 0, rod: true, breath: 0 }, p);
+        const hip = q.hip;
+        const T = (x, y) => rot([hip[0] + x, hip[1] + y - (y < -100 ? q.breath : 0)], q.lean, hip);
+        const Nk = T(0, -190), ang = q.lean + q.tilt;
+        const Hc = addv(Nk, rot([8, -62], ang, [0, 0])), hs = 1.25;
+        const H = (x, y) => rot([Hc[0] + x * hs, Hc[1] + y * hs], ang, Hc);
+        const SF = T(12, -176), SB = T(-4, -172);
+        const aF = ik(SF, q.hF, 92, 86, 1), aB = ik(SB, q.hB, 92, 86, 1);
+        let rod = null;
+        if (q.rod) {
+          const d = nrm(sub(aF.W, aB.W)), butt = addv(aB.W, d, -55), st = addv(aB.W, d, q.rodLen);
+          const tip = rot(st, q.bend, aF.W), ctrl = addv(aF.W, d, (q.rodLen - vlen(sub(aF.W, aB.W))) * 0.5);
+          rod = { butt, hF: aF.W, hB: aB.W, ctrl, tip, d };
+        }
+        return { q, hip, T, H, Nk, Hc, ang, SF, SB, aF, aB, rod };
+      }
+
+      // ---------- os dois atores (boneco paramétrico, cel: chapado + contorno + 1 sombra dura + contraluz) ----------
+      // cos A: pescadora no trapiche (chapéu de palha de aba larga + lenço; jaqueta verde-água; botas)
+      // cos B: rapaz na canoa (capa de chuva ocre com capuz; cordões)
+      function actor(p) {
+        const q = Object.assign({ cos: "A", eye: "open", flap: 0, sil: null, rim: "front", hat: "on", wet: false, flare: 0, line: null, slack: 0, mouth: null, hoodLow: false, rodPoly: null }, p);
+        const R = rig(q), { T, H, hip } = R;
+        const S = q.sil, col = (c) => S || c;
+        const OL = S ? "" : `stroke="${C.ink}" stroke-width="5" stroke-linejoin="round"`;
+        const limb = (pts, w, fill) => S ? stroke(pts, S, w) : stroke(pts, C.ink, w + 10) + stroke(pts, fill, w);
+        const rimC = C.glow, fl = [0, 1, 2][q.flap % 3];
+        const A = q.cos === "A";
+        const coat = A ? C.deep : C.ochre, pants = A ? C.water : C.water, boots = A ? C.water : C.ink;
+        let s = "";
+        // braço de lá
+        s += limb([R.SB, R.aB.E, R.aB.W], 26, A ? C.deep : C.ochre);
+        // pernas
+        const leg = (h0, foot) => {
+          const k = ik(h0, foot, 128, 124, -1); let o = limb([h0, k.E, k.W], 32, pants);
+          const f = k.W; o += poly([[f[0] - 22, f[1] - 30], [f[0] + 14, f[1] - 30], [f[0] + 40, f[1] - 8], [f[0] + 42, f[1] + 2], [f[0] - 24, f[1] + 2]], col(boots), OL);
+          return o;
+        };
+        s += leg(T(-12, 8), R.q.fB) + leg(T(12, 8), R.q.fF);
+        // tronco
+        if (A) {
+          s += poly([T(-44, -188), T(30, -192), T(48, -120), T(50, -20), T(58, 42 + q.flare * 18), T(-60, 42), T(-52, -100)], col(coat), OL);
+          if (!S) {
+            s += poly([T(-44, -188), T(-6, -190), T(-10, 42), T(-60, 42), T(-52, -100)], C.ink, 'opacity="0.22"');
+            s += stroke([T(26, -186), T(30, -60), T(40, 36)], C.ink, 3, 'opacity="0.55"');
+            s += poly([T(-30, -196), T(30, -198), T(36, -176), T(-34, -172)], C.haze, OL);           // lenço do pescoço
+          }
+        } else {
+          const fl2 = q.flare + fl * 0.06;
+          s += poly([T(-46, -188), T(32, -192), T(50, -120), T(58, -10), T(72 + fl2 * 40, 132), T(-76 - fl2 * 30, 128), T(-58, -80)], col(coat), OL);
+          if (!S) {
+            s += poly([T(-46, -188), T(-8, -190), T(-14, 130), T(-76 - fl2 * 30, 128), T(-58, -80)], C.ink, 'opacity="0.22"');
+            s += stroke([T(30, -186), T(36, -40), T(44, 128)], C.ink, 4, 'opacity="0.6"');
+            for (let i = 0; i < 3; i++) s += `<circle cx="${f1(T(40, -150 + i * 55)[0])}" cy="${f1(T(40, -150 + i * 55)[1])}" r="5" fill="${C.ink}"/>`;
+            if (q.wet) s += poly([T(-46, -188), T(32, -192), T(50, -120), T(-58, -80)], C.ink, 'opacity="0.18"');
+          }
+        }
+        // contraluz no tronco
+        if (!S && q.rim) {
+          if (q.rim === "front") s += stroke(A ? [T(30, -190), T(48, -120), T(50, -24)] : [T(32, -190), T(50, -120), T(58, -14)], rimC, 6);
+          else s += stroke([T(-44, -186), T(-52, -100), T(-60, 30)], rimC, 6);
+        }
+        // vara + linha
+        if (R.rod) {
+          const r = R.rod;
+          s += stroke([r.butt, r.hF], S ? S : C.ink, 15) + (S ? "" : stroke([r.butt, r.hF], C.straw, 8));
+          s += curve(r.hF, r.ctrl, r.tip, S ? S : C.ink, 9) + (S ? "" : curve(r.hF, r.ctrl, r.tip, C.straw, 4));
+          if (!S) { const rl = addv(r.hB, r.d, 22); s += `<circle cx="${f1(rl[0])}" cy="${f1(rl[1] + 14)}" r="13" fill="${C.fog}" ${OL}/>`; }
+          if (q.line) {
+            const L = q.line, m = [(r.tip[0] + L[0]) / 2, (r.tip[1] + L[1]) / 2 + q.slack];
+            s += curve(r.tip, m, L, S ? S : C.sun, 3, S ? "" : 'opacity="0.95"');
+          }
+        }
+        if (q.rodPoly) s += q.rodPoly;
+        // braço de cá + mãos
+        s += limb([R.SF, R.aF.E, R.aF.W], 28, A ? C.deep : C.ochre);
+        if (!S && q.rim === "front") s += stroke([R.SF, R.aF.E], rimC, 5, 'opacity="0.8"');
+        s += `<circle cx="${f1(R.aB.W[0])}" cy="${f1(R.aB.W[1])}" r="14" fill="${col(C.skin)}" ${OL}/>`;
+        s += `<circle cx="${f1(R.aF.W[0])}" cy="${f1(R.aF.W[1])}" r="15" fill="${col(C.skin)}" ${OL}/>`;
+        // cabeça
+        const eye = (c) => {
+          if (S) return "";
+          const [x, y] = c;
+          if (q.eye === "shut") return curve([x - 9, y], [x, y + 6], [x + 8, y - 1], C.ink, 4);
+          if (q.eye === "wide") return `<ellipse cx="${f1(x)}" cy="${f1(y)}" rx="9" ry="12" fill="${C.sun}" stroke="${C.ink}" stroke-width="3"/><circle cx="${f1(x + 2)}" cy="${f1(y + 1)}" r="4.5" fill="${C.ink}"/>`;
+          if (q.eye === "down") return `<ellipse cx="${f1(x)}" cy="${f1(y + 3)}" rx="5" ry="6" fill="${C.ink}"/>` + curve([x - 9, y - 6], [x, y - 9], [x + 9, y - 5], C.ink, 3);
+          if (q.eye === "back") return `<ellipse cx="${f1(x - 3)}" cy="${f1(y)}" rx="4.5" ry="8" fill="${C.ink}"/><circle cx="${f1(x - 4)}" cy="${f1(y - 3)}" r="1.8" fill="${C.sun}"/>`;
+          return `<ellipse cx="${f1(x)}" cy="${f1(y)}" rx="4.5" ry="8.5" fill="${C.ink}"/><circle cx="${f1(x + 1)}" cy="${f1(y - 3)}" r="1.8" fill="${C.sun}"/>`;
+        };
+        if (A) {
+          s += smooth([H(-46, -30), H(-54, 12), H(-38, 44), H(-6, 48), H(8, 18), H(0, -30)], col(C.water), OL);   // lenço cobrindo a nuca
+          s += smooth([H(-6, -34), H(26, -38), H(44, -16), H(53, 2), H(43, 10), H(41, 30), H(20, 44), H(-4, 40), H(-10, 0)], col(C.skin), OL);
+          if (!S) {
+            if (q.hat === "on") s += poly([H(-8, -36), H(50, -34), H(50, -8), H(-8, -12)], C.ink, 'opacity="0.25"');
+            s += eye(H(30, -4));
+            if (q.mouth === "o") s += `<ellipse cx="${f1(H(38, 26)[0])}" cy="${f1(H(38, 26)[1])}" rx="4" ry="6" fill="${C.ink}"/>`;
+            else s += stroke([H(34, 26), H(42, 25)], C.ink, 3);
+            if (q.rim === "front") s += curve(H(44, -16), H(56, -4), H(43, 12), rimC, 4);
+          }
+          if (q.hat === "on" || q.hat === "lift") {
+            const lift = q.hat === "lift" ? -34 : 0, Hh = (x, y) => H(x, y + lift);
+            // fitas do chapéu ao vento (variam com flap)
+            if (!S) s += stroke([Hh(-50, -40), Hh(-80, -34 + fl * 6), Hh(-106, -22 + fl * 9)], C.accent, 7) + stroke([Hh(-48, -38), Hh(-70, -24 + fl * 4), Hh(-88, -6 + fl * 6)], C.accent, 6);
+            s += smooth([Hh(-52, -30), Hh(-46, -74), Hh(0, -96), Hh(48, -78), Hh(56, -30)], col(C.straw), OL);
+            if (!S) {
+              s += poly([Hh(-52, -34), Hh(56, -34), Hh(55, -48), Hh(-50, -48)], C.accent);
+              s += poly([Hh(-52, -30), Hh(-46, -74), Hh(-6, -94), Hh(-10, -30)], C.ink, 'opacity="0.2"');
+            }
+            const bc = Hh(4, -32);
+            s += `<ellipse cx="${f1(bc[0])}" cy="${f1(bc[1])}" rx="156" ry="23" transform="rotate(${f1(R.ang)} ${f1(bc[0])} ${f1(bc[1])})" fill="${col(C.straw)}" ${OL}/>`;
+            if (!S && q.rim) s += curve(Hh(-40, -82), Hh(10, -104), Hh(52, -74), rimC, 4, 'opacity="0.9"');
+          }
+        } else {
+          const hood = col(C.ochre);
+          s += smooth([H(-60, 22), H(-68, -40), H(-42, -90), H(10, -102), H(54, -74), H(64, -30), H(60, 12), H(42, 50), H(-22, 58)], hood, OL);
+          s += smooth([H(14, -54), H(44, -48), H(54, -22), H(61, -6), H(51, 4), H(49, 26), H(30, 40), H(14, 22), H(8, -18)], col(C.skin), OL);
+          if (!S) {
+            s += poly([H(8, -58), H(58, -52), H(60, -30), H(8, -32)], C.ink, 'opacity="0.3"');
+            s += eye(H(40, -16));
+            if (q.mouth === "o") s += `<ellipse cx="${f1(H(46, 24)[0])}" cy="${f1(H(46, 24)[1])}" rx="4" ry="6" fill="${C.ink}"/>`;
+            else s += stroke([H(42, 24), H(50, 23)], C.ink, 3);
+          }
+          // aba do capuz caída sobre os olhos (dormindo)
+          if (q.hoodLow) s += smooth([H(6, -60), H(48, -64), H(70, -40), H(66, -6), H(30, -12), H(8, -24)], hood, OL);
+          else s += curve(H(10, -60), H(48, -66), H(66, -34), S ? S : C.ink, 14) + (S ? "" : curve(H(10, -60), H(48, -66), H(66, -34), C.ochre, 7));
+          if (!S) {
+            s += stroke([H(-60, 0), H(-66, -40), H(-40, -88)], C.ink, 3, 'opacity="0.35"');
+            if (q.wet) s += smooth([H(-60, 22), H(-68, -40), H(-42, -90), H(10, -102), H(-20, -20)], C.ink, 'opacity="0.2"');
+            // cordões do capuz (balançam com flap)
+            s += stroke([H(36, 44), H(34 + fl * 3, 74), H(30 + fl * 6, 98)], C.haze, 3) + stroke([H(28, 46), H(22 - fl * 2, 76), H(20 - fl * 4, 96)], C.haze, 3);
+            if (q.rim === "back") s += curve(H(-62, 10), H(-74, -50), H(-30, -98), rimC, 5);
+            else if (q.rim) s += curve(H(20, -100), H(60, -80), H(66, -30), rimC, 5);
+          }
+        }
+        return s;
+      }
+
+      // ---------- cenário comum ----------
+      function defs(p) {
+        return `<defs>
+          <radialGradient id="${p}fogH"><stop offset="0" stop-color="${C.haze}" stop-opacity="0.75"/><stop offset="1" stop-color="${C.haze}" stop-opacity="0"/></radialGradient>
+          <radialGradient id="${p}fogF"><stop offset="0" stop-color="${C.fog}" stop-opacity="0.7"/><stop offset="1" stop-color="${C.fog}" stop-opacity="0"/></radialGradient>
+          <radialGradient id="${p}glow"><stop offset="0" stop-color="${C.sun}" stop-opacity="0.95"/><stop offset="0.25" stop-color="${C.glow}" stop-opacity="0.6"/><stop offset="1" stop-color="${C.glow}" stop-opacity="0"/></radialGradient>
+          <radialGradient id="${p}inkR"><stop offset="0" stop-color="${C.ink}" stop-opacity="0.8"/><stop offset="1" stop-color="${C.ink}" stop-opacity="0"/></radialGradient>
+          <filter id="${p}blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>
+          <filter id="${p}soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3"/></filter>
+        </defs>`;
+      }
+      const lin = (id, stops) => `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">${stops.map(([o, c, a]) => `<stop offset="${o}" stop-color="${c}" stop-opacity="${a === undefined ? 1 : a}"/>`).join("")}</linearGradient></defs>`;
+      const fogBlob = (p, kind, x, y, rx, ry) => `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="url(#${p}${kind})"/>`;
+      function ripples(seed, y0, y1, n, col, op, period) {          // traços de água, periódicos em x
+        const r = lcg(seed); let d = "";
+        for (let i = 0; i < n; i++) { const y = y0 + Math.pow(r(), 1.4) * (y1 - y0), w = 20 + (y - y0) / (y1 - y0) * 120 * r() + 10, x = r() * period;
+          for (let tx = -period; tx < 1080 + period; tx += period) d += `M${f1(x + tx)},${f1(y)} h${f1(w)} `; }
+        return `<path d="${d}" stroke="${col}" stroke-width="3" stroke-linecap="round" opacity="${op}" fill="none"/>`;
+      }
+      function sunPath(seed, cx, y0, y1, spread) {                 // reflexo do sol na água (3 desenhos trocados em um)
+        const r = lcg(seed); let s = "";
+        for (let i = 0; i < 26; i++) { const t = r(), y = y0 + t * (y1 - y0), w = 14 + t * 80 * r(), x = cx + (r() - 0.5) * spread * (0.3 + t);
+          s += stroke([[x - w / 2, y], [x + w / 2, y]], i % 3 ? C.glow : C.sun, 3 + t * 5, `opacity="${f1(0.9 - t * 0.5)}"`); }
+        return s;
+      }
+      function reeds(seed, x0, x1, base, h, n, col) {
+        const r = lcg(seed); let s = "";
+        for (let i = 0; i < n; i++) { const x = x0 + r() * (x1 - x0), hh = h * (0.5 + r() * 0.6), lean = (r() - 0.5) * 80;
+          s += `<path d="M${f1(x - 7)},${base} Q${f1(x + lean * 0.4)},${f1(base - hh * 0.6)} ${f1(x + lean)},${f1(base - hh)} Q${f1(x + lean * 0.4 + 6)},${f1(base - hh * 0.6)} ${f1(x + 7)},${base} Z" fill="${col}"/>`;
+          if (r() < 0.4) s += `<ellipse cx="${f1(x + lean)}" cy="${f1(base - hh)}" rx="9" ry="30" transform="rotate(${f1(lean * 0.4)} ${f1(x + lean)} ${f1(base - hh)})" fill="${col}"/>`; }
+        return s;
+      }
+      function treeline(seed, x0, x1, y, h, col, op) {
+        const r = lcg(seed); let d = `M${x0},${y + 60} L${x0},${y} `, x = x0;
+        while (x < x1) { const w = 30 + r() * 60, hh = h * (0.4 + r() * 0.7); d += `Q${f1(x + w / 2)},${f1(y - hh)} ${f1(x + w)},${f1(y - r() * 8)} `; x += w; }
+        d += `L${x1},${y + 60} Z`;
+        return `<path d="${d}" fill="${col}" opacity="${op}"/>`;
+      }
+      function canoe(cx, cy, w, k, col) {                             // canoa vista de lado
+        return `<path d="M${cx - w / 2},${cy - 20 * k} Q${cx},${cy + 70 * k} ${cx + w / 2},${cy - 26 * k} L${cx + w / 2 - 30 * k},${cy - 8 * k} Q${cx},${cy + 20 * k} ${cx - w / 2 + 30 * k},${cy - 4 * k} Z" fill="${col}" stroke="${C.ink}" stroke-width="5" stroke-linejoin="round"/>`;
+      }
+      function canoeFull(cx, cy, w, k) {
+        let s = `<path d="M${cx - w / 2},${cy - 30 * k} Q${cx - w * 0.2},${cy + 64 * k} ${cx + w * 0.1},${cy + 60 * k} Q${cx + w * 0.38},${cy + 50 * k} ${cx + w / 2},${cy - 36 * k} Q${cx},${cy - 6 * k} ${cx - w / 2},${cy - 30 * k} Z" fill="${C.water}" stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"/>`;
+        s += `<path d="M${cx - w / 2},${cy - 30 * k} Q${cx},${cy - 6 * k} ${cx + w / 2},${cy - 36 * k}" fill="none" stroke="${C.straw}" stroke-width="${10 * k}" stroke-linecap="round"/>`;
+        s += `<path d="M${cx - w / 2 + 40},${cy - 4 * k} Q${cx},${cy + 30 * k} ${cx + w / 2 - 40},${cy - 8 * k}" fill="none" stroke="${C.ink}" stroke-width="3" opacity="0.5"/>`;
+        s += `<path d="M${cx - w / 2},${cy - 30 * k} Q${cx - w * 0.2},${cy + 64 * k} ${cx + w * 0.1},${cy + 60 * k} L${cx + w * 0.1},${cy + 30 * k} Q${cx - w * 0.2},${cy + 30 * k} ${cx - w / 2 + 20},${cy - 18 * k} Z" fill="${C.ink}" opacity="0.25"/>`;
+        return s;
+      }
+      function hatAlone(cx, cy, k, ang) {                             // o chapéu sozinho (voando / boiando)
+        const H = (x, y) => rot([cx + x * k, cy + y * k], ang, [cx, cy]);
+        let s = smooth([H(-52, -30), H(-46, -74), H(0, -96), H(48, -78), H(56, -30)], C.straw, `stroke="${C.ink}" stroke-width="5"`);
+        s += poly([H(-52, -34), H(56, -34), H(55, -48), H(-50, -48)], C.accent);
+        const bc = H(4, -32);
+        s += `<ellipse cx="${f1(bc[0])}" cy="${f1(bc[1])}" rx="${126 * k}" ry="${19 * k}" transform="rotate(${f1(ang)} ${f1(bc[0])} ${f1(bc[1])})" fill="${C.straw}" stroke="${C.ink}" stroke-width="5"/>`;
+        return s;
+      }
+      function drips(id, seed, pts, fall, n) {                       // gotas caindo (em um)
+        const r = lcg(seed); let s = `<g id="${id}">`;
+        for (let i = 0; i < n; i++) { const p = pts[i % pts.length]; s += `<ellipse class="drip" data-d="${f1(0.35 + r() * 0.3)}" data-o="${f1(r() * 0.6)}" data-f="${f1(fall * (0.7 + r() * 0.5))}" cx="${f1(p[0] + (r() - 0.5) * 10)}" cy="${f1(p[1])}" rx="3.5" ry="7" fill="${C.sun}" opacity="0"/>`; }
+        return s + "</g>";
+      }
+      // 3 variações de pano (flap) para cada pose
+      const set3 = (id, fn) => [0, 1, 2].map((k) => `<g id="${id}_${k}" class="drw">${fn(k)}</g>`).join("");
+
+      // ======================= PLANO 1 · Establish (0–4 s) =======================
+      // O trapiche ao amanhecer. A pescadora sentada no balde, sozinha. Na névoa, à direita, quase invisível: a canoa.
+      const O1 = [470, 1262], K1 = 0.46;
+      (function () {
+        const p = "a";
+        let s = defs(p) + lin("a_sky", [[0, C.ink], [0.25, C.water], [0.5, C.deep], [0.72, C.fog], [0.9, C.haze]]) + lin("a_wat", [[0, C.deep], [0.25, C.water], [1, C.ink]]);
+        s += `<rect width="1080" height="1080" fill="url(#a_sky)"/>`;
+        s += fogBlob(p, "glow", 830, 1020, 420, 300) + `<circle cx="830" cy="1028" r="58" fill="${C.sun}" opacity="0.92"/>`;
+        s += treeline(11, -20, 640, 1068, 90, C.deep, 0.7) + treeline(12, -20, 420, 1072, 50, C.water, 0.8);
+        s += `<rect y="1074" width="1080" height="846" fill="url(#a_wat)"/>`;
+        s += `<g id="a_sp0" class="drw hero">${sunPath(31, 830, 1084, 1500, 260)}</g><g id="a_sp1" class="drw">${sunPath(32, 830, 1084, 1500, 260)}</g><g id="a_sp2" class="drw">${sunPath(33, 830, 1084, 1500, 260)}</g>`;
+        s += `<g id="a_rip">${ripples(41, 1090, 1900, 70, C.fog, 0.22, 360)}</g>`;
+        // a canoa plantada na névoa (quase invisível)
+        s += `<g opacity="0.42">${canoe(930, 1090, 150, 0.6, C.deep)}${at(940, 1080, 0.17, actor({ cos: "B", hip: [0, -120], lean: -22, tilt: 20, fF: [120, -10], fB: [100, 0], hF: [40, -170], hB: [20, -160], rod: false, sil: C.deep, hoodLow: true }), "", true)}</g>`;
+        s += `<g id="a_fog1">${fogBlob(p, "fogH", 900, 1070, 330, 90)}${fogBlob(p, "fogH", 700, 1110, 300, 60)}${fogBlob(p, "fogF", 300, 1080, 420, 70)}</g>`;
+        // trapiche
+        s += poly([[-30, 1312], [O1[0] + 60, 1256], [O1[0] + 60, 1278], [-30, 1342]], C.ink) + stroke([[-30, 1311], [O1[0] + 60, 1255]], C.glow, 3, 'opacity="0.8"');
+        for (const x of [40, 170, 300, 420, 520]) { const y = 1312 - (x + 30) * 0.104; s += poly([[x - 9, y + 20], [x + 9, y + 20], [x + 9, y + 150], [x - 9, y + 150]], C.ink) + poly([[x - 9, y + 160], [x + 9, y + 160], [x + 8, y + 240], [x - 8, y + 240]], C.ink, 'opacity="0.3"'); }
+        // balde
+        s += at(O1[0], O1[1], K1, poly([[-44, -150], [44, -150], [36, 0], [-36, 0]], C.fog, `stroke="${C.ink}" stroke-width="5"`) + poly([[-44, -150], [-4, -150], [-6, 0], [-36, 0]], C.ink, 'opacity="0.22"'));
+        // a pescadora: 3 desenhos (+ pano)
+        const base = { cos: "A", hip: [0, -160], lean: 4, fF: [96, 0], fB: [60, 0], hB: [40, -175], hF: [112, -205], bend: 8, rodLen: 600, line: [760, 320], slack: 60 };
+        s += `<g id="a_A">` + set3("a_s", (k) => at(O1[0], O1[1], K1, actor(Object.assign({}, base, { flap: k })))) +
+             set3("a_n", (k) => at(O1[0], O1[1], K1, actor(Object.assign({}, base, { flap: k, tilt: 16, lean: 9, eye: "shut", bend: 6 })))) + `</g>`;
+        s += `<g id="a_fog2">${fogBlob(p, "fogH", 980, 1180, 360, 120)}${fogBlob(p, "fogF", 120, 1250, 360, 80)}</g>`;
+        // primeiro plano desfocado: juncos
+        s += `<g id="a_reeds" filter="url(#${p}blur)">${reeds(51, -60, 260, 1960, 520, 16, C.ink)}${reeds(52, 860, 1140, 1960, 440, 12, C.ink)}</g>`;
+        document.getElementById("v1").innerHTML = s;
+      })();
+
+      // ======================= PLANO 2 · ela fisga (4–7,5 s) =======================
+      const O2 = [330, 1660], K2 = 1.3;
+      (function () {
+        const p = "b";
+        let s = defs(p) + lin("b_sky", [[0, C.deep], [0.35, C.fog], [0.62, C.haze]]) + lin("b_wat", [[0, C.fog], [0.15, C.deep], [1, C.ink]]);
+        s += `<rect width="1080" height="1340" fill="url(#b_sky)"/>`;
+        s += fogBlob(p, "glow", 980, 1180, 560, 420) + `<circle cx="1000" cy="1210" r="90" fill="${C.sun}" opacity="0.85"/>`;
+        s += `<g id="b_fog1">${fogBlob(p, "fogH", 760, 1200, 420, 140)}${fogBlob(p, "fogF", 200, 1150, 480, 120)}</g>`;
+        s += `<rect y="1330" width="1080" height="590" fill="url(#b_wat)"/>`;
+        s += `<g id="b_rip">${ripples(61, 1340, 1900, 46, C.fog, 0.25, 400)}</g>`;
+        s += poly([[-40, O2[1] - 10], [1120, O2[1] - 40], [1120, 1920], [-40, 1920]], C.ink) + stroke([[-40, O2[1] - 10], [1120, O2[1] - 40]], C.glow, 4, 'opacity="0.7"');
+        for (let x = 40; x < 1080; x += 120) s += stroke([[x, O2[1] - 10 - x * 0.028 + 8], [x - 30, 1920]], C.water, 5, 'opacity="0.7"');
+        s += at(O2[0], O2[1], K2, poly([[-44, -150], [44, -150], [36, 0], [-36, 0]], C.fog, `stroke="${C.ink}" stroke-width="5"`) + poly([[-44, -150], [-4, -150], [-6, 0], [-36, 0]], C.ink, 'opacity="0.22"'));
+        const sit = { cos: "A", hip: [0, -160], lean: 4, fF: [96, 0], fB: [60, 0], hB: [40, -175], hF: [112, -205], bend: 6, rodLen: 600, line: [640, 300], slack: 70 };
+        const L = (o) => Object.assign({}, sit, o);
+        s += `<g id="b_A">`;
+        s += set3("b_a", (k) => at(O2[0], O2[1], K2, actor(L({ flap: k }))));
+        s += set3("b_b", (k) => at(O2[0], O2[1], K2, actor(L({ flap: k, bend: 30, slack: 0, line: [640, 420] }))));
+        s += set3("b_c", (k) => at(O2[0], O2[1], K2, actor(L({ flap: k, bend: 36, lean: 10, eye: "wide", mouth: "o", slack: 0, line: [640, 420] }))));
+        s += set3("b_d", (k) => at(O2[0], O2[1], K2, actor(L({ flap: k, bend: 40, lean: 20, hip: [8, -150], tilt: 6, eye: "wide", slack: 0, line: [640, 420], hB: [60, -150], hF: [130, -170] }))));
+        const pull = { hip: [-30, -236], lean: -18, fF: [80, 0], fB: [-90, 0], hB: [-30, -250], hF: [50, -300], bend: 46, slack: 0, line: [640, 420], eye: "open" };
+        s += set3("b_e1", (k) => at(O2[0], O2[1], K2, actor(L(Object.assign({}, pull, { flap: k })))));
+        s += set3("b_e2", (k) => at(O2[0], O2[1], K2, actor(L(Object.assign({}, pull, { flap: k, lean: -15, hip: [-26, -238], bend: 52, tilt: -4 })))));
+        s += `</g>`;
+        s += `<g filter="url(#${p}blur)">${reeds(71, 820, 1160, 1980, 520, 12, C.ink)}</g>`;
+        document.getElementById("v2").innerHTML = s;
+      })();
+
+      // ======================= PLANO 3 · ele também fisga (7,5–11 s) =======================
+      const O3 = [610, 1470], K3 = 1.15;
+      (function () {
+        const p = "c";
+        let s = defs(p) + lin("c_sky", [[0, C.ink], [0.4, C.water], [0.68, C.deep], [0.74, C.fog]]) + lin("c_wat", [[0, C.deep], [0.3, C.water], [1, C.ink]]);
+        s += `<rect width="1080" height="1440" fill="url(#c_sky)"/>`;
+        s += fogBlob(p, "glow", 1040, 1280, 520, 380) + `<circle cx="1060" cy="1300" r="70" fill="${C.sun}" opacity="0.8"/>`;
+        s += `<g id="c_fog1">${fogBlob(p, "fogF", 300, 1300, 520, 160)}${fogBlob(p, "fogH", 900, 1340, 380, 120)}</g>`;
+        s += `<rect y="1420" width="1080" height="500" fill="url(#c_wat)"/>`;
+        s += `<g id="c_rip">${ripples(81, 1430, 1900, 40, C.fog, 0.22, 380)}</g>`;
+        s += `<g id="c_sp0" class="drw hero">${sunPath(91, 1000, 1430, 1800, 300)}</g><g id="c_sp1" class="drw">${sunPath(92, 1000, 1430, 1800, 300)}</g><g id="c_sp2" class="drw">${sunPath(93, 1000, 1430, 1800, 300)}</g>`;
+        // barco + rapaz (espelhado: olha para a esquerda)
+        let boat = canoeFull(560, 1520, 900, 1.3);
+        const sleep = { cos: "B", hip: [0, -110], lean: -24, tilt: 22, fF: [150, -30], fB: [120, -10], hF: [40, -200], hB: [20, -180], rod: false, eye: "shut", hoodLow: true, rim: "back",
+                        rodPoly: stroke([[-80, -20], [380, -330]], C.ink, 13) + stroke([[-80, -20], [380, -330]], C.straw, 6) + curve([380, -330], [460, -200], [560, -60], C.sun, 3) };
+        const S3 = (o) => Object.assign({}, sleep, o);
+        const grab = { rod: true, rodPoly: null, hoodLow: false, line: [620, 40], slack: 0 };
+        boat += `<g id="c_B">`;
+        boat += set3("c_a", (k) => at(O3[0], O3[1], K3, actor(S3({ flap: k })), "", true));
+        boat += set3("c_b", (k) => at(O3[0], O3[1], K3, actor(S3({ flap: k, tilt: -6, lean: -14, eye: "wide", mouth: "o", hoodLow: false,
+                        rodPoly: stroke([[-80, -20], [360, -300]], C.ink, 13) + stroke([[-80, -20], [360, -300]], C.straw, 6) + curve([360, -300], [470, -150], [560, -40], C.sun, 3) })), "", true));
+        boat += set3("c_c", (k) => at(O3[0], O3[1], K3, actor(S3(Object.assign({}, grab, { flap: k, lean: 26, tilt: 4, hip: [10, -120], eye: "wide", hB: [70, -150], hF: [150, -160], bend: 34 }))), "", true));
+        const haul = Object.assign({}, grab, { hip: [-10, -150], lean: -26, tilt: -4, fF: [110, -40], fB: [-60, 0], hB: [-10, -230], hF: [70, -280], bend: 48, eye: "open" });
+        boat += set3("c_d1", (k) => at(O3[0], O3[1], K3, actor(S3(Object.assign({}, haul, { flap: k }))), "", true));
+        boat += set3("c_d2", (k) => at(O3[0], O3[1], K3, actor(S3(Object.assign({}, haul, { flap: k, lean: -22, bend: 54, hip: [-6, -148] }))), "", true));
+        boat += `</g>`;
+        s += `<g id="c_boat">${boat}</g>`;
+        s += `<g id="c_wfront">${ripples(85, 1540, 1700, 14, C.fog, 0.35, 300)}</g>`;
+        s += `<g id="c_fog2">${fogBlob(p, "fogF", 100, 1500, 300, 120)}</g>`;
+        document.getElementById("v3").innerHTML = s;
+      })();
+
+      // ======================= PLANO 4 · cabo de guerra (11–13,5 s) =======================
+      (function () {
+        const p = "d";
+        let s = defs(p);
+        // painel de cima: ele (fundo frio)
+        s += `<defs><clipPath id="d_top"><path d="M0,0 L1080,0 L1080,820 L0,1060 Z"/></clipPath><clipPath id="d_bot"><path d="M0,1100 L1080,860 L1080,1920 L0,1920 Z"/></clipPath></defs>`;
+        s += lin("d_skyT", [[0, C.ink], [0.6, C.water], [1, C.deep]]) + lin("d_skyB", [[0, C.fog], [0.5, C.haze], [1, C.glow]]);
+        let top = `<rect width="1080" height="1100" fill="url(#d_skyT)"/>` + fogBlob(p, "glow", 1080, 760, 420, 320) + fogBlob(p, "fogF", 300, 800, 500, 160);
+        const OT = [700, 1200], KT = 1.5;
+        const grabB = { cos: "B", rod: true, line: [700, 120], slack: 0, rim: "back", hip: [-10, -150], lean: -26, tilt: -4, fF: [110, -40], fB: [-60, 0], hB: [-10, -230], hF: [70, -280], bend: 50 };
+        top += `<g id="d_B">` + set3("d_b1", (k) => at(OT[0], OT[1], KT, actor(Object.assign({}, grabB, { flap: k })), "", true)) +
+               set3("d_b2", (k) => at(OT[0], OT[1], KT, actor(Object.assign({}, grabB, { flap: k, lean: -22, bend: 55 })), "", true)) +
+               set3("d_b3", (k) => at(OT[0], OT[1], KT, actor(Object.assign({}, grabB, { flap: k, lean: -34, hip: [-40, -140], fB: [-110, 0], bend: 58, tilt: -10 })), "", true)) + `</g>`;
+        s += `<g clip-path="url(#d_top)"><g id="d_pt">${top}</g></g>`;
+        let bot = `<rect y="820" width="1080" height="1100" fill="url(#d_skyB)"/>` + fogBlob(p, "glow", 1000, 1500, 500, 360) + fogBlob(p, "fogH", 600, 1700, 500, 160);
+        const OB = [330, 2100], KB = 1.55;
+        const pullA = { cos: "A", hip: [-30, -236], lean: -18, fF: [80, 0], fB: [-90, 0], hB: [-30, -250], hF: [50, -300], bend: 48, line: [700, 60], slack: 0 };
+        bot += `<g id="d_A">` + set3("d_a1", (k) => at(OB[0], OB[1], KB, actor(Object.assign({}, pullA, { flap: k })))) +
+               set3("d_a2", (k) => at(OB[0], OB[1], KB, actor(Object.assign({}, pullA, { flap: k, lean: -15, bend: 54, tilt: -4 })))) +
+               set3("d_a3", (k) => at(OB[0], OB[1], KB, actor(Object.assign({}, pullA, { flap: k, lean: -30, hip: [-50, -230], fB: [-130, 0], bend: 58, tilt: -8 })))) + `</g>`;
+        s += `<g clip-path="url(#d_bot)"><g id="d_pb">${bot}</g></g>`;
+        // a borda do painel (tinta + filete de luz)
+        s += poly([[0, 1060], [1080, 820], [1080, 860], [0, 1100]], C.ink) + stroke([[0, 1062], [1080, 822]], C.haze, 3, 'opacity="0.7"');
+        document.getElementById("v4").innerHTML = s;
+      })();
+
+      // ======================= PLANO 5 · Sakuga, o plano caro (13,5–20 s) =======================
+      const O5 = [300, 1300], K5 = 1.0, WP = [930, 1442];     // pés dela; ponto onde a linha entra na água
+      const SPL = [800, 1446];                                // onde ele cai
+      const lineRel = [(WP[0] - O5[0]) / K5, (WP[1] - O5[1]) / K5];
+      const P5 = {
+        a1: { hip: [-20, -235], lean: -20, fF: [80, 0], fB: [-90, 0], hB: [-20, -250], hF: [60, -300], bend: 50, line: lineRel },
+        a2: { hip: [-16, -237], lean: -17, fF: [80, 0], fB: [-90, 0], hB: [-18, -252], hF: [62, -302], bend: 55, line: lineRel, tilt: -4 },
+        ant: { hip: [16, -196], lean: 16, tilt: 8, fF: [110, 0], fB: [-60, 0], hB: [50, -200], hF: [130, -214], bend: 18, line: lineRel, slack: 120, eye: "shut" },
+        heave: { hip: [-34, -226], lean: -28, fF: [104, 0], fB: [-100, 0], hB: [-40, -300], hF: [14, -380], bend: 40, line: lineRel, eye: "wide", flare: 1 },
+        smear: { hip: [-54, -214], lean: -40, tilt: -10, fF: [96, -10], fB: [-110, 0], hB: [-90, -380], hF: [-50, -450], bend: 28, line: lineRel, eye: "wide", flare: 1.4, hat: "lift" },
+        follow: { hip: [-74, -200], lean: -50, tilt: -12, fF: [70, -60], fB: [-110, 0], hB: [-130, -350], hF: [-110, -420], bend: 18, eye: "wide", mouth: "o", hat: "off" },
+        fall: { hip: [-120, -110], lean: -58, tilt: -10, fF: [40, -110], fB: [-40, -40], hB: [-150, -260], hF: [-120, -330], bend: 6, eye: "shut", hat: "off" },
+        sit: { hip: [-120, -36], lean: -8, tilt: 6, fF: [90, 0], fB: [60, 0], hB: [-70, -140], hF: [-10, -180], bend: 0, eye: "wide", mouth: "o", hat: "off" },
+        sit2: { hip: [-120, -36], lean: -6, tilt: 2, fF: [90, 0], fB: [60, 0], hB: [-70, -140], hF: [-10, -180], bend: 0, eye: "open", hat: "off" },
+      };
+      const A5 = (o, extra) => actor(Object.assign({ cos: "A", rodLen: 620 }, o, extra || {}));
+      const tipAbs = (pose) => { const r = rig(Object.assign({ rodLen: 620 }, pose)); return toAbs(O5, K5, r.rod.tip); };
+      function brush(seed, A, B, n, w, col, op) {          // pincel seco: traços paralelos com falhas, afinando
+        const r = lcg(seed), d = nrm(sub(B, A)), nn = [-d[1], d[0]], L = vlen(sub(B, A)); let s = "";
+        for (let i = 0; i < n; i++) {
+          const off = (r() - 0.5) * w, a0 = r() * 0.25 * L, a1 = L * (0.55 + r() * 0.45);
+          const p0 = addv(addv(A, nn, off), d, a0), p1 = addv(addv(A, nn, off * 0.6), d, a1);
+          const sw = 3 + r() * 14;
+          s += `<path d="M${P(p0)} L${P(p1)}" stroke="${col}" stroke-width="${f1(sw)}" stroke-linecap="round" opacity="${op}" stroke-dasharray="${f1(40 + r() * 200)} ${f1(6 + r() * 30)}"/>`;
+        }
+        return s;
+      }
+      function splat(seed, c, rad, n, col) {               // respingo de tinta
+        const r = lcg(seed); let s = "";
+        for (let i = 0; i < n; i++) { const a = r() * 360, dd = rad * Math.pow(r(), 0.6), p = addv(c, dirv(a), dd), rr = 3 + r() * 16 * (1 - dd / rad + 0.2);
+          s += `<circle cx="${f1(p[0])}" cy="${f1(p[1])}" r="${f1(rr)}" fill="${col}"/>`; }
+        s += smooth([addv(c, [-40, -10]), addv(c, [-10, -46]), addv(c, [36, -30]), addv(c, [50, 8]), addv(c, [10, 40]), addv(c, [-36, 28])], col);
+        return s;
+      }
+      (function () {
+        const p = "e";
+        let s = defs(p) + lin("e_sky", [[0, C.ink], [0.35, C.water], [0.62, C.deep], [0.72, C.fog], [0.75, C.haze]]) + lin("e_wat", [[0, C.fog], [0.12, C.deep], [1, C.ink]]);
+        s += `<rect width="1080" height="1440" fill="url(#e_sky)"/>`;
+        s += fogBlob(p, "glow", 860, 1380, 600, 460) + `<circle cx="860" cy="1396" r="74" fill="${C.sun}" opacity="0.9"/>`;
+        s += `<g id="e_fog1">${fogBlob(p, "fogH", 960, 1380, 380, 120)}${fogBlob(p, "fogF", 300, 1360, 500, 110)}${fogBlob(p, "fogH", 600, 1300, 300, 70)}</g>`;
+        s += `<rect y="1420" width="1080" height="500" fill="url(#e_wat)"/>`;
+        s += `<g id="e_rip">${ripples(101, 1430, 1900, 44, C.fog, 0.22, 380)}</g>`;
+        s += `<g id="e_sp0" class="drw hero">${sunPath(111, 860, 1430, 1760, 280)}</g><g id="e_sp1" class="drw">${sunPath(112, 860, 1430, 1760, 280)}</g><g id="e_sp2" class="drw">${sunPath(113, 860, 1430, 1760, 280)}</g>`;
+        // anéis do mergulho (escondidos até ele cair)
+        s += `<g id="e_ring1" class="drw"><ellipse cx="${SPL[0]}" cy="${SPL[1] + 6}" rx="60" ry="12" fill="none" stroke="${C.sun}" stroke-width="5"/></g>`;
+        s += `<g id="e_ring2" class="drw"><ellipse cx="${SPL[0]}" cy="${SPL[1] + 6}" rx="60" ry="12" fill="none" stroke="${C.fog}" stroke-width="4"/></g>`;
+        // o chapéu que boia depois
+        s += `<g id="e_hatfly" class="drw"><g id="e_hatin">${hatAlone(0, 0, 0.9, 0)}</g></g>`;
+        // trapiche (lado)
+        s += poly([[-40, O5[1]], [560, O5[1]], [560, O5[1] + 34], [-40, O5[1] + 34]], C.ink) + stroke([[-40, O5[1] + 1], [560, O5[1] + 1]], C.glow, 4, 'opacity="0.85"');
+        for (const x of [20, 200, 380, 540]) s += poly([[x - 12, O5[1] + 30], [x + 12, O5[1] + 30], [x + 12, 1470], [x - 12, 1470]], C.ink) + poly([[x - 12, 1474], [x + 12, 1474], [x + 10, 1600], [x - 10, 1600]], C.ink, 'opacity="0.3"');
+        s += at(O5[0] + 190, O5[1], 1, poly([[-44, -150], [44, -150], [36, 0], [-36, 0]], C.fog, `stroke="${C.ink}" stroke-width="5"`) + poly([[-44, -150], [-4, -150], [-6, 0], [-36, 0]], C.ink, 'opacity="0.22"'));
+        // linha de velocidade do puxão (2 desenhos em um)
+        const sl = (seed) => { const r = lcg(seed); let t = ""; for (let i = 0; i < 9; i++) { const o = [120 + r() * 800, 300 + r() * 900], d = dirv(-150); t += stroke([o, addv(o, d, 120 + r() * 200)], C.haze, 3 + r() * 3, 'opacity="0.7"'); } return t; };
+        s += `<g id="e_sl1" class="drw">${sl(121)}</g><g id="e_sl2" class="drw">${sl(122)}</g>`;
+        // a pescadora: 8+ desenhos únicos
+        let A = "";
+        A += set3("e_a1", (k) => at(O5[0], O5[1], K5, A5(P5.a1, { flap: k })));
+        A += set3("e_a2", (k) => at(O5[0], O5[1], K5, A5(P5.a2, { flap: k })));
+        A += `<g id="e_ant_0" class="drw">${at(O5[0], O5[1], K5, A5(P5.ant))}</g>`;
+        A += `<g id="e_heave_0" class="drw">${at(O5[0], O5[1], K5, A5(P5.heave))}</g>`;
+        // smear: crescente do caminho da ponta (forma, não blur) + silhueta esticada no sentido do arco
+        const smr = (() => { const c = toAbs(O5, K5, rig(Object.assign({ rodLen: 620 }, P5.smear)).aF.W), n = 22, o = [], i = [];
+          for (let j = 0; j <= n; j++) { const t = j / n, a = -30 - 110 * t, w = 110 * Math.pow(Math.sin(t * Math.PI), 0.8) * (0.3 + 0.7 * t);
+            o.push(addv(c, dirv(a), 600 + w * 0.2)); i.push(addv(c, dirv(a), 600 - w)); }
+          return poly(o.concat(i.reverse()), C.haze, 'opacity="0.95"') + curve(addv(c, dirv(-40), 560), addv(c, dirv(-85), 640), addv(c, dirv(-130), 560), C.sun, 6); })();
+        A += `<g id="e_smear_0" class="drw">${smr}<g transform="translate(${O5[0]} ${O5[1] - 250}) rotate(-35) scale(1.14 0.9) rotate(35) translate(${-O5[0]} ${-(O5[1] - 250)})">${at(O5[0], O5[1], K5, A5(P5.smear))}</g></g>`;
+        A += `<g id="e_follow_0" class="drw">${at(O5[0], O5[1], K5, A5(P5.follow))}</g>`;
+        A += `<g id="e_fall_0" class="drw">${at(O5[0], O5[1], K5, A5(P5.fall))}</g>`;
+        A += set3("e_sit", (k) => at(O5[0], O5[1], K5, A5(P5.sit, { flap: k })));
+        A += set3("e_sit2", (k) => at(O5[0], O5[1], K5, A5(P5.sit2, { flap: k })));
+        s += `<g id="e_A">${A}</g>`;
+        // linha dela até ele durante o voo (atributos animados)
+        const tipS = tipAbs(P5.sit);
+        s += `<path id="e_line" d="M${P(tipS)} L${P(WP)}" stroke="${C.sun}" stroke-width="3" fill="none" opacity="0"/>`;
+        // espirro de água ao longo da linha (3 desenhos em um)
+        const spray = (seed) => { const r = lcg(seed); let t = ""; const T0 = tipAbs(P5.heave);
+          for (let i = 0; i < 40; i++) { const u = r(), pp = [WP[0] + (T0[0] - WP[0]) * u * 0.6, WP[1] + (T0[1] - WP[1]) * u * 0.6], o = addv(pp, [(r() - 0.5) * 60, (r() - 0.5) * 60]);
+            t += `<ellipse cx="${f1(o[0])}" cy="${f1(o[1])}" rx="${f1(3 + r() * 7)}" ry="${f1(3 + r() * 5)}" fill="${r() < 0.5 ? C.sun : C.fog}"/>`; }
+          return t; };
+        s += `<g id="e_spray0" class="drw">${spray(131)}</g><g id="e_spray1" class="drw">${spray(132)}</g><g id="e_spray2" class="drw">${spray(133)}</g>`;
+        // ele, voando para fora da névoa: 3 desenhos (silhueta em contraluz), girando
+        const flyPose = [
+          { cos: "B", hip: [0, -240], lean: 20, fF: [80, -60], fB: [-80, 10], hF: [140, -380], hB: [100, -420], rodLen: 420, bend: 20, rim: false },
+          { cos: "B", hip: [0, -240], lean: -10, fF: [100, -120], fB: [-40, -30], hF: [160, -300], hB: [120, -340], rodLen: 420, bend: -10, rim: false },
+          { cos: "B", hip: [0, -240], lean: 10, fF: [40, -10], fB: [-120, -80], hF: [60, -460], hB: [30, -440], rodLen: 420, bend: 30, rim: false },
+        ];
+        s += `<g id="e_fly" class="drw"><g id="e_flyrot">` + flyPose.map((fp, i) => `<g id="e_f${i}" class="drw${i === 0 ? " hero" : ""}">${at(0, 150, 0.62, actor(Object.assign({}, fp, { sil: C.ink })), "", true)}</g>`).join("") + `</g></g>`;
+        // o mergulho: coroa de água (4 desenhos) — formas redondas, não estrela
+        const crown = (h, w, seed) => { const r = lcg(seed); let t = ""; const c = SPL;
+          for (let i = 0; i < 7; i++) { const u = (i / 6 - 0.5), x = c[0] + u * w, hh = h * (0.5 + r() * 0.6) * (1 - Math.abs(u) * 0.9);
+            t += smooth([[x - 20, c[1] + 8], [x - 10, c[1] - hh * 0.6], [x + u * 30, c[1] - hh], [x + 10, c[1] - hh * 0.6], [x + 20, c[1] + 8]], i % 2 ? C.fog : C.sun, `stroke="${C.ink}" stroke-width="4"`);
+            t += `<circle cx="${f1(x + u * 50)}" cy="${f1(c[1] - hh - 20 - r() * 30)}" r="${f1(5 + r() * 6)}" fill="${C.sun}" stroke="${C.ink}" stroke-width="3"/>`; }
+          return t + `<ellipse cx="${c[0]}" cy="${c[1] + 8}" rx="${w * 0.6}" ry="16" fill="${C.fog}" stroke="${C.ink}" stroke-width="4"/>`; };
+        s += `<g id="e_cr0" class="drw">${crown(90, 140, 141)}</g><g id="e_cr1" class="drw">${crown(220, 220, 142)}</g><g id="e_cr2" class="drw">${crown(160, 300, 143)}</g><g id="e_cr3" class="drw">${crown(60, 360, 144)}</g>`;
+        s += `<g id="e_fog2">${fogBlob(p, "fogH", 1040, 1500, 320, 120)}</g>`;
+        s += `<g filter="url(#${p}blur)" id="e_reeds">${reeds(151, -80, 220, 1990, 560, 14, C.ink)}</g>`;
+        // ---- impact frame: 3 desenhos segurados (silhueta, pincel, 1 cor) ----
+        const dirPull = nrm(sub([120, 420], WP));
+        const tipH = tipAbs(P5.smear);
+        const silA = (col) => at(O5[0], O5[1], K5, A5(P5.smear, { sil: col, line: lineRel }));
+        let if1 = `<rect width="1080" height="1920" fill="${C.water}"/>` + silA(C.fog);
+        let if2 = `<rect width="1080" height="1920" fill="${C.ink}"/>`;
+        if2 += brush(161, addv(WP, dirPull, -80), addv(WP, dirPull, 1250), 46, 520, C.sun, 0.9);
+        if2 += `<path d="M${P(WP)} Q${P([620, 700])} ${P(tipH)}" fill="none" stroke="${C.accent}" stroke-width="16" stroke-linecap="round"/>`;
+        if2 += `<path d="M${P(addv(tipH, [-60, 160]))} Q${P([60, 260])} ${P([40, 900])}" fill="none" stroke="${C.accent}" stroke-width="34" stroke-linecap="round" opacity="0.95"/>`;
+        if2 += splat(171, WP, 170, 40, C.accent) + silA(C.sun);
+        let if3 = `<rect width="1080" height="1920" fill="${C.haze}"/>`;
+        if3 += brush(161, addv(WP, dirPull, -80), addv(WP, dirPull, 1250), 46, 520, C.ink, 0.85);
+        if3 += `<path d="M${P(WP)} Q${P([620, 700])} ${P(tipH)}" fill="none" stroke="${C.accent}" stroke-width="16" stroke-linecap="round"/>`;
+        if3 += splat(172, WP, 150, 34, C.accent) + silA(C.ink);
+        s += `<g id="e_if1" class="drw">${if1}</g><g id="e_if2" class="drw">${if2}</g><g id="e_if3" class="drw">${if3}</g>`;
+        document.getElementById("v5").innerHTML = s;
+      })();
+
+      // ======================= PLANO 6 · a revelação (20–25,5 s) =======================
+      const O6A = [300, 980], K6A = 0.95, O6B = [790, 1640], K6B = 1.05, KNOT = [600, 960], WL6 = 1330;
+      const P6A = {
+        daze: { hip: [-120, -36], lean: -6, tilt: 8, fF: [100, 0], fB: [70, 0], hB: [-40, -150], hF: [30, -200], bend: 0, eye: "shut", hat: "off", rodLen: 560 },
+        look: { hip: [-120, -36], lean: 2, tilt: 10, fF: [100, 0], fB: [70, 0], hB: [-40, -150], hF: [30, -200], bend: 4, eye: "open", hat: "off", rodLen: 560 },
+        down: { hip: [-120, -36], lean: 6, tilt: 24, fF: [100, 0], fB: [70, 0], hB: [-40, -150], hF: [30, -200], bend: 4, eye: "down", hat: "off", rodLen: 560 },
+      };
+      const P6B = {
+        up: { cos: "B", hip: [0, -245], lean: 4, tilt: 8, hB: [60, -330], hF: [150, -420], bend: -6, rodLen: 470, eye: "shut", wet: true, rim: "back" },
+        open: { cos: "B", hip: [0, -245], lean: 2, tilt: -6, hB: [60, -330], hF: [150, -420], bend: -6, rodLen: 470, eye: "open", wet: true, rim: "back" },
+        blink: { cos: "B", hip: [0, -245], lean: 2, tilt: -6, hB: [60, -330], hF: [150, -420], bend: -6, rodLen: 470, eye: "shut", wet: true, rim: "back" },
+        down: { cos: "B", hip: [0, -245], lean: 6, tilt: 16, hB: [60, -330], hF: [150, -420], bend: -6, rodLen: 470, eye: "down", wet: true, rim: "back" },
+      };
+      function knot(cx, cy, k) {                                    // dois anzóis e duas boias enroscados
+        const g = (x, y) => [cx + x * k, cy + y * k]; let s = "";
+        s += curve(g(-30, -60), g(-60, 10), g(-6, 40), C.ink, 12 * k) + curve(g(-30, -60), g(-60, 10), g(-6, 40), C.fog, 6 * k);
+        s += curve(g(30, -60), g(64, 0), g(8, 44), C.ink, 12 * k) + curve(g(30, -60), g(64, 0), g(8, 44), C.fog, 6 * k);
+        s += curve(g(-6, 40), g(-20, 70), g(-34, 56), C.ink, 10 * k) + curve(g(8, 44), g(26, 76), g(40, 58), C.ink, 10 * k);
+        s += `<ellipse cx="${f1(g(-44, -70)[0])}" cy="${f1(g(-44, -70)[1])}" rx="${18 * k}" ry="${26 * k}" fill="${C.accent}" stroke="${C.ink}" stroke-width="${5 * k}"/>`;
+        s += `<ellipse cx="${f1(g(40, -64)[0])}" cy="${f1(g(40, -64)[1])}" rx="${16 * k}" ry="${24 * k}" fill="${C.haze}" stroke="${C.ink}" stroke-width="${5 * k}"/>`;
+        s += poly([g(-62, -70), g(-26, -70), g(-26, -60), g(-62, -60)], C.sun) + poly([g(24, -64), g(56, -64), g(56, -54), g(24, -54)], C.accent);
+        s += curve(g(-30, -30), g(0, -10), g(30, -34), C.ink, 5 * k) + curve(g(-20, 0), g(4, 20), g(24, -2), C.ink, 5 * k);
+        return s;
+      }
+      (function () {
+        const p = "f";
+        let s = defs(p) + lin("f_sky", [[0, C.deep], [0.3, C.fog], [0.6, C.haze], [0.7, C.glow]]) + lin("f_wat", [[0, C.fog], [0.1, C.deep], [1, C.ink]]);
+        s += `<rect width="1080" height="1340" fill="url(#f_sky)"/>`;
+        s += fogBlob(p, "glow", 920, 780, 520, 460) + `<circle cx="920" cy="780" r="92" fill="${C.sun}"/>`;
+        s += `<g id="f_fog1">${fogBlob(p, "fogH", 760, 1200, 460, 160)}${fogBlob(p, "fogF", 200, 1260, 420, 120)}${fogBlob(p, "fogH", 400, 760, 400, 120)}</g>`;
+        s += `<rect y="${WL6}" width="1080" height="${1920 - WL6}" fill="url(#f_wat)"/>`;
+        s += `<g id="f_rip">${ripples(181, WL6 + 10, 1900, 46, C.fog, 0.25, 380)}</g>`;
+        s += `<g id="f_sp0" class="drw hero">${sunPath(191, 920, WL6 + 10, 1700, 260)}</g><g id="f_sp1" class="drw">${sunPath(192, 920, WL6 + 10, 1700, 260)}</g><g id="f_sp2" class="drw">${sunPath(193, 920, WL6 + 10, 1700, 260)}</g>`;
+        // trapiche com ela
+        s += poly([[-40, O6A[1]], [600, O6A[1]], [600, O6A[1] + 40], [-40, O6A[1] + 40]], C.ink) + stroke([[-40, O6A[1] + 1], [600, O6A[1] + 1]], C.glow, 4, 'opacity="0.85"');
+        for (const x of [60, 300, 560]) s += poly([[x - 14, O6A[1] + 36], [x + 14, O6A[1] + 36], [x + 14, WL6 + 10], [x - 14, WL6 + 10]], C.ink);
+        const tA = (o) => toAbs(O6A, K6A, rig(o).rod.tip);
+        const tB = (o) => toAbs(O6B, K6B, rig(o).rod.tip, true);
+        s += `<g id="f_A">` + Object.keys(P6A).map((n) => set3("f_A" + n, (k) => at(O6A[0], O6A[1], K6A, actor(Object.assign({ cos: "A", rim: "back" }, P6A[n], { flap: k }))))).join("") + `</g>`;
+        // linhas: das pontas até o nó (o nó balança; as pontas mudam pouco)
+        const TA = tA(P6A.look), TB = tB(P6B.open);
+        s += `<path id="f_lA" d="M${P(TA)} Q${P([(TA[0] + KNOT[0]) / 2, KNOT[1] - 40])} ${P(KNOT)}" stroke="${C.sun}" stroke-width="3" fill="none"/>`;
+        s += `<path id="f_lB" d="M${P(TB)} Q${P([(TB[0] + KNOT[0]) / 2, KNOT[1] - 20])} ${P(KNOT)}" stroke="${C.sun}" stroke-width="3" fill="none"/>`;
+        s += `<g id="f_knot"><g transform="translate(${KNOT[0]} ${KNOT[1]})">${knot(0, 100, 1.35)}</g></g>`;
+        s += drips("f_kd", 201, [[KNOT[0] - 40, KNOT[1] + 190], [KNOT[0] + 46, KNOT[1] + 196]], 220, 6);
+        // ele dentro d'água
+        s += `<g id="f_B">` + Object.keys(P6B).map((n) => set3("f_B" + n, (k) => at(O6B[0], O6B[1], K6B, actor(Object.assign({}, P6B[n], { flap: k })), "", true))).join("") + `</g>`;
+        s += drips("f_bd", 211, [[O6B[0] - 70, O6B[1] - 560], [O6B[0] + 30, O6B[1] - 520], [O6B[0] - 140, O6B[1] - 470]], 280, 9);
+        // superfície da água por cima do corpo dele
+        s += `<g id="f_surf"><rect x="560" y="${WL6 + 4}" width="560" height="${1920 - WL6}" fill="${C.water}" opacity="0.9"/>${ripples(221, WL6 + 6, 1500, 18, C.fog, 0.4, 300)}<ellipse cx="${O6B[0] - 40}" cy="${WL6 + 6}" rx="230" ry="18" fill="none" stroke="${C.sun}" stroke-width="5" opacity="0.8"/></g>`;
+        s += `<g id="f_ring" ><ellipse cx="${O6B[0] - 40}" cy="${WL6 + 8}" rx="250" ry="22" fill="none" stroke="${C.fog}" stroke-width="4" opacity="0.6"/></g>`;
+        s += `<g filter="url(#${p}blur)">${reeds(231, 900, 1160, 1990, 520, 12, C.ink)}</g>`;
+        document.getElementById("v6").innerHTML = s;
+      })();
+
+      // ======================= PLANO 7 · Button (25,5–30 s) =======================
+      const KN7 = [540, 760];
+      (function () {
+        const p = "g";
+        let s = defs(p) + lin("g_bg", [[0, C.fog], [0.5, C.haze], [1, C.glow]]);
+        s += `<rect width="1080" height="1920" fill="url(#g_bg)"/>`;
+        // bokeh do sol na névoa
+        const r = lcg(241);
+        s += `<g id="g_bok">` + Array.from({ length: 14 }, () => `<circle cx="${f1(r() * 1080)}" cy="${f1(900 + r() * 1000)}" r="${f1(30 + r() * 90)}" fill="${r() < 0.5 ? C.sun : C.glow}" opacity="${f1(0.15 + r() * 0.25)}"/>`).join("") + `</g>`;
+        s += fogBlob(p, "glow", 700, 1500, 700, 600);
+        // as duas linhas descendo até o nó
+        s += `<g id="g_k">` + stroke([[KN7[0] - 300, -40], [KN7[0] - 40, KN7[1] - 200]], C.sun, 5) + stroke([[KN7[0] + 320, -40], [KN7[0] + 40, KN7[1] - 190]], C.sun, 5);
+        s += knot(KN7[0], KN7[1] - 40, 2.6);
+        // o lambari pendurado no nó (3 desenhos)
+        const fish = (bend, seed) => { const c = [KN7[0] + 20, KN7[1] + 330], g = (x, y) => rot([c[0] + x, c[1] + y], bend, [c[0], c[1] - 170]);
+          let t = stroke([[KN7[0] + 30, KN7[1] + 150], g(0, -150)], C.ink, 6);
+          t += smooth([g(0, -160), g(46, -100), g(52, 0), g(30, 90), g(0, 120), g(-30, 90), g(-52, 0), g(-46, -100)], C.fog, `stroke="${C.ink}" stroke-width="6"`);
+          t += smooth([g(0, -160), g(-46, -100), g(-52, 0), g(-30, 90), g(0, 120), g(-8, 0)], C.deep, 'opacity="0.55"');
+          t += poly([g(0, 110), g(54 + bend, 200), g(-50 + bend, 200)], C.glow, `stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"`);
+          t += `<circle cx="${f1(g(18, -110)[0])}" cy="${f1(g(18, -110)[1])}" r="13" fill="${C.sun}" stroke="${C.ink}" stroke-width="4"/><circle cx="${f1(g(20, -110)[0])}" cy="${f1(g(20, -110)[1])}" r="6" fill="${C.ink}"/>`;
+          t += curve(g(-30, -40), g(0, -30), g(30, -44), C.sun, 5, 'opacity="0.8"');
+          return t; };
+        s += `<g id="g_fi0" class="drw hero">${fish(0, 1)}</g><g id="g_fi1" class="drw">${fish(14, 2)}</g><g id="g_fi2" class="drw">${fish(-12, 3)}</g>`;
+        s += `</g>`;
+        s += drips("g_kd", 251, [[KN7[0] + 20, KN7[1] + 540], [KN7[0] - 20, KN7[1] + 200]], 380, 6);
+        // as duas mãos (A: manga verde-água; B: manga ocre molhada)
+        const hand = (side, reach, pinch) => {
+          const m = side === "A" ? 1 : -1, x0 = side === "A" ? -60 : 1140, y0 = side === "A" ? 1400 : 1340;
+          const tx = KN7[0] + 20 - m * (pinch ? 46 : 240 - reach * 120), ty = KN7[1] + 100 + (side === "A" ? 30 : -10);
+          const sleeve = side === "A" ? C.deep : C.ochre;
+          let t = stroke([[x0, y0], [tx - m * 70, ty + 30]], C.ink, 112) + stroke([[x0, y0], [tx - m * 70, ty + 30]], sleeve, 98);
+          if (side === "B") t += stroke([[x0, y0], [tx - m * 70, ty + 30]], C.ink, 98, 'opacity="0.18"');
+          t += stroke([[x0 - m * 10, y0 - 46], [tx - m * 80, ty - 14]], C.glow, 6, 'opacity="0.8"');
+          t += smooth([[tx - m * 80, ty - 20], [tx - m * 30, ty - 40], [tx + m * 10, ty - 22], [tx + m * 14, ty + 6], [tx - m * 20, ty + 40], [tx - m * 80, ty + 60]], C.skin, `stroke="${C.ink}" stroke-width="6"`);
+          t += curve([tx - m * 30, ty - 30], [tx + m * (pinch ? 30 : 40), ty - 40], [tx + m * (pinch ? 18 : 36), ty - 6], C.ink, 6) + curve([tx - m * 40, ty + 10], [tx + m * 10, ty + 12], [tx + m * 14, ty + 4], C.ink, 5);
+          return t; };
+        s += `<g id="g_hA1" class="drw">${hand("A", 0)}</g><g id="g_hA2" class="drw">${hand("A", 1)}</g><g id="g_hA3" class="drw">${hand("A", 1, true)}</g>`;
+        s += `<g id="g_hB1" class="drw">${hand("B", 0)}</g><g id="g_hB2" class="drw">${hand("B", 1)}</g><g id="g_hB3" class="drw">${hand("B", 1, true)}</g>`;
+        s += drips("g_hd", 261, [[1000, 1330], [900, 1300], [800, 1270]], 520, 8);
+        document.getElementById("v7").innerHTML = s;
+      })();
+
+      // ======================= linha do tempo (pausada, determinística) =======================
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const show = (sel, t) => tl.set(sel, { opacity: 1 }, t), hide = (sel, t) => tl.set(sel, { opacity: 0 }, t);
+      const swap = (a, b, t) => { hide(a, t); show(b, t); };
+      const STARTS = [0, 4, 7.5, 11, 13.5, 20, 25.5];
+      // ator em dois: agenda [[t, pose]] + pano trocando a cada 4 quadros (só nas poses com _0.._2)
+      function act(sched, t0, t1) {
+        let cur = null;
+        for (let f = Math.round(t0 * FPS); f < Math.round(t1 * FPS); f += 2) {
+          const t = f / FPS; let pid = sched[0][1];
+          for (const [ts, id] of sched) if (t >= ts - 1e-6) pid = id;
+          const k3 = document.getElementById(pid + "_1") ? Math.floor(f / 4) % 3 : 0;
+          const id = "#" + pid + "_" + k3;
+          if (id !== cur) { if (cur === null) { if (STARTS.includes(t0)) document.querySelector(id).classList.add("hero"); else show(id, t); } else swap(cur, id, t); cur = id; }
+        }
+      }
+      const cycle = (ids, t0, t1, every) => { let cur = null; for (let f = Math.round(t0 * FPS), i = 0; f < Math.round(t1 * FPS); f += every, i++) { const id = ids[i % ids.length]; if (cur === null) { if (STARTS.includes(t0)) document.querySelector(id).classList.add("hero"); else show(id, f / FPS); } else if (id !== cur) swap(cur, id, f / FPS); cur = id; } };
+      const loopX = (sel, period, speed, t0, dur) => tl.fromTo(sel, { x: 0 }, { x: Math.min(period, speed * dur), duration: dur, ease: "none" }, t0);
+      const drift = (sel, dx, t0, dur) => tl.fromTo(sel, { x: 0 }, { x: dx, duration: dur, ease: "none" }, t0);
+      function dripAnim(gid, t0, t1) {
+        document.getElementById(gid).querySelectorAll(".drip").forEach((el) => {
+          const d = +el.dataset.d, fall = +el.dataset.f; let t = t0 + +el.dataset.o;
+          while (t < t1 - 0.05) { tl.fromTo(el, { y: 0, opacity: 0.95 }, { y: fall, opacity: 0, duration: d, ease: "power2.in", immediateRender: false }, t); t += d + 0.25; }
+        });
+      }
+      // cortes por mergulho de cor
+      const dip = (cut, color) => { tl.set("#dip", { backgroundColor: color }, cut - 0.3); tl.to("#dip", { opacity: 1, duration: 0.25, ease: "power2.in" }, cut - 0.25); tl.to("#dip", { opacity: 0, duration: 0.35, ease: "power2.out" }, cut + 0.05); };
+      tl.set("#dip", { opacity: 0, backgroundColor: C.ink }, 0);
+      dip(4.0, C.haze); dip(7.5, C.ink); dip(11.0, C.deep); dip(13.5, C.accent); dip(20.0, C.sun); dip(25.5, C.ink);
+      tl.set("#dip", { backgroundColor: C.ink }, 29.4);
+      tl.to("#dip", { opacity: 1, duration: F(8), ease: "power1.in" }, 30 - F(8));
+      // grão: muda a cada 2 quadros (semente fixa)
+      (function () {
+        const g = `<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='1 0 0 0 0  1 0 0 0 0  1 0 0 0 0  0 0 0 0 1'/></filter><rect width='300' height='300' filter='url(#n)'/></svg>`;
+        document.getElementById("grain").style.backgroundImage = `url("data:image/svg+xml,${encodeURIComponent(g)}")`;
+        const r = lcg(999);
+        for (let f = 0; f < 720; f += 2) tl.set("#grain", { backgroundPosition: `${Math.floor(r() * 300)}px ${Math.floor(r() * 300)}px` }, f / FPS);
+      })();
+
+      // ---- 1 · establish (0–4) ----
+      tl.fromTo("#cam1", { scale: 1, x: 0, y: 0 }, { scale: 1.09, x: -70, y: 20, duration: 4.05, ease: "power1.inOut" }, 0);
+      loopX("#a_rip", 360, 30, 0, 4.1); drift("#a_fog1", -60, 0, 4.1); drift("#a_fog2", 50, 0, 4.1); drift("#a_reeds", 16, 0, 4.1);
+      cycle(["#a_sp0", "#a_sp1", "#a_sp2"], 0, 4.05, 2);
+      act([[0, "a_s"], [1.9, "a_n"], [3.0, "a_s"]], 0, 4.05);
+      // ---- 2 · ela fisga (4–7,5) ----
+      tl.fromTo("#cam2", { scale: 1, y: 0 }, { scale: 1.07, y: -30, duration: 3.55, ease: "power1.inOut" }, 4);
+      loopX("#b_rip", 400, 40, 4, 3.6); drift("#b_fog1", -70, 4, 3.6);
+      act([[4, "b_a"], [5.0, "b_b"], [5.33, "b_c"], [5.75, "b_d"], [5.92, "b_e1"], [6.25, "b_e2"], [6.58, "b_e1"], [6.92, "b_e2"], [7.25, "b_e1"]], 4, 7.55);
+      // ---- 3 · ele também (7,5–11) ----
+      tl.fromTo("#cam3", { scale: 1.02, x: 20 }, { scale: 1.08, x: -20, duration: 3.55, ease: "power1.inOut" }, 7.5);
+      loopX("#c_rip", 380, 40, 7.5, 3.6); loopX("#c_wfront", 300, 60, 7.5, 3.6); drift("#c_fog1", 60, 7.5, 3.6);
+      cycle(["#c_sp0", "#c_sp1", "#c_sp2"], 7.5, 11.05, 2);
+      tl.fromTo("#c_boat", { rotation: -1, transformOrigin: "50% 80%" }, { rotation: 1.2, duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: 0 }, 7.5);
+      tl.to("#c_boat", { rotation: 4, duration: 0.3, ease: "power2.out" }, 9.2);
+      tl.to("#c_boat", { rotation: -2.5, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 2 }, 9.5);
+      act([[7.5, "c_a"], [8.8, "c_b"], [9.17, "c_c"], [9.5, "c_d1"], [9.83, "c_d2"], [10.17, "c_d1"], [10.5, "c_d2"], [10.83, "c_d1"]], 7.5, 11.05);
+      // ---- 4 · cabo de guerra (11–13,5) ----
+      tl.fromTo("#d_pt", { x: -20, y: 10 }, { x: 30, y: -16, duration: 2.55, ease: "power1.inOut" }, 11);
+      tl.fromTo("#d_pb", { x: 20, y: -10 }, { x: -30, y: 16, duration: 2.55, ease: "power1.inOut" }, 11);
+      tl.fromTo("#cam4", { scale: 1 }, { scale: 1.05, duration: 2.55, ease: "power2.in" }, 11);
+      act([[11, "d_b1"], [11.33, "d_b2"], [11.67, "d_b1"], [12.0, "d_b2"], [12.42, "d_b3"]], 11, 13.55);
+      act([[11, "d_a2"], [11.25, "d_a1"], [11.58, "d_a2"], [11.92, "d_a1"], [12.5, "d_a3"]], 11, 13.55);
+      // ---- 5 · sakuga (13,5–20) ----
+      const T5 = 13.5, t5 = (n) => T5 + F(n);
+      loopX("#e_rip", 380, 40, T5, 6.6); drift("#e_fog1", -80, T5, 6.6); drift("#e_fog2", 60, T5, 6.6); drift("#e_reeds", 20, T5, 6.6);
+      cycle(["#e_sp0", "#e_sp1", "#e_sp2"], T5, 20.05, 2);
+      tl.fromTo("#cam5", { scale: 1.0, x: 0, y: 0 }, { scale: 1.03, x: 10, duration: F(22), ease: "none" }, T5);
+      act([[T5, "e_a1"], [t5(4), "e_a2"], [t5(8), "e_a1"], [t5(12), "e_a2"]], T5, t5(16));
+      // daqui pra frente: 1 desenho por vez, contado em quadros
+      hide("#e_a2_0, #e_a2_1, #e_a2_2, #e_a1_0, #e_a1_1, #e_a1_2", t5(16));
+      show("#e_ant_0", t5(16));                              // antecipação: 4 quadros
+      swap("#e_ant_0", "#e_heave_0", t5(20));                // puxão: 2 quadros
+      swap("#e_heave_0", "#e_smear_0", t5(22));              // smear: 2 quadros
+      show("#e_sl1", t5(20)); swap("#e_sl1", "#e_sl2", t5(21)); swap("#e_sl2", "#e_sl1", t5(22)); swap("#e_sl1", "#e_sl2", t5(23)); hide("#e_sl2", t5(24));
+      // impact frame: 2 + 4 + 3 quadros segurados
+      hide("#e_smear_0", t5(24)); show("#e_if1", t5(24));
+      swap("#e_if1", "#e_if2", t5(26));
+      swap("#e_if2", "#e_if3", t5(30));
+      hide("#e_if3", t5(33)); show("#e_follow_0", t5(33));
+      tl.fromTo("#cam5", { scale: 1.08, x: -20, y: 10 }, { scale: 1.02, x: 0, y: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, t5(33));
+      // espirro na linha (em um) logo depois do impacto
+      cycle(["#e_spray0", "#e_spray1", "#e_spray2"], t5(33), t5(45), 1); hide("#e_spray0, #e_spray1, #e_spray2", t5(45));
+      // hit-stop curto (4 q) e queda
+      swap("#e_follow_0", "#e_fall_0", t5(39));
+      hide("#e_fall_0", t5(43));
+      act([[t5(43), "e_sit"], [T5 + 4.9, "e_sit2"], [T5 + 5.0, "e_sit"], [T5 + 5.1, "e_sit2"]], t5(43), 20.05);
+      // o chapéu voa (em um)
+      show("#e_hatfly", t5(37));
+      const hatTop = addv(O5, [-150, -560]);
+      tl.fromTo("#e_hatfly", { x: hatTop[0], y: hatTop[1] }, { keyframes: [{ x: hatTop[0] - 120, y: hatTop[1] - 260, duration: 0.5, ease: "power2.out" }, { x: 140, y: 1452, duration: 1.0, ease: "power2.in" }] }, t5(37));
+      tl.fromTo("#e_hatin", { rotation: -20 }, { rotation: 380, duration: 1.5, ease: "power1.out" }, t5(37));
+      tl.to("#e_hatin", { rotation: 362, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 4 }, t5(37) + 1.5);
+      tl.to("#e_hatfly", { y: 1446, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 4 }, t5(37) + 1.5);
+      // ele sai voando da névoa (posição em um, desenhos em dois)
+      const FLY0 = t5(44), FLY1 = FLY0 + 1.05;
+      show("#e_fly", FLY0);
+      tl.fromTo("#e_fly", { x: 1060, y: 1240 }, { keyframes: [{ x: 900, y: 1010, duration: 0.5, ease: "power2.out" }, { x: SPL[0], y: SPL[1] - 60, duration: 0.55, ease: "power2.in" }] }, FLY0);
+      tl.fromTo("#e_flyrot", { rotation: 30 }, { rotation: -320, duration: 1.05, ease: "none" }, FLY0);
+      cycle(["#e_f0", "#e_f1", "#e_f2"], FLY0, FLY1, 2);
+      hide("#e_fly", FLY1);
+      const tipS = tipAbs(P5.sit);
+      show("#e_line", FLY0);
+      const lineObj = { x: 1060, y: 1240 };
+      tl.fromTo(lineObj, { x: 1060, y: 1240 }, { keyframes: [{ x: 900, y: 1010, duration: 0.5, ease: "power2.out" }, { x: SPL[0], y: SPL[1], duration: 0.55, ease: "power2.in" }],
+        onUpdate: () => document.getElementById("e_line").setAttribute("d", `M${P(tipS)} L${P([lineObj.x, lineObj.y])}`) }, FLY0);
+      tl.set("#e_line", { attr: { d: `M${P(tipS)} Q${P([(tipS[0] + SPL[0]) / 2, SPL[1] + 40])} ${P(SPL)}` } }, FLY1 + F(1));
+      // o mergulho: coroa (4 desenhos, 2 q cada) + anéis (em um)
+      show("#e_cr0", FLY1); swap("#e_cr0", "#e_cr1", FLY1 + F(2)); swap("#e_cr1", "#e_cr2", FLY1 + F(4)); swap("#e_cr2", "#e_cr3", FLY1 + F(7)); hide("#e_cr3", FLY1 + F(10));
+      show("#e_ring1", FLY1 + F(4)); tl.fromTo("#e_ring1", { scale: 0.6, opacity: 1, transformOrigin: "50% 50%" }, { scale: 4.5, opacity: 0, duration: 2.2, ease: "power2.out" }, FLY1 + F(4));
+      show("#e_ring2", FLY1 + 0.5); tl.fromTo("#e_ring2", { scale: 0.6, opacity: 0.9, transformOrigin: "50% 50%" }, { scale: 3.6, opacity: 0, duration: 2.2, ease: "power2.out" }, FLY1 + 0.5);
+      tl.to("#cam5", { scale: 1.06, x: -40, y: -20, duration: 20 - (FLY1 + 0.3), ease: "power1.inOut" }, FLY1 + 0.3);
+      // ---- 6 · revelação (20–25,5) ----
+      loopX("#f_rip", 380, 30, 20, 5.6); drift("#f_fog1", -60, 20, 5.6);
+      cycle(["#f_sp0", "#f_sp1", "#f_sp2"], 20, 25.55, 2);
+      tl.fromTo("#cam6", { scale: 1, x: 0, y: 0 }, { scale: 1.03, duration: 3.4, ease: "none" }, 20);
+      tl.to("#cam6", { scale: 1.14, x: -20, y: 90, duration: 2.15, ease: "power2.inOut" }, 23.4);
+      act([[20, "f_Adaze"], [21.4, "f_Alook"], [23.4, "f_Adown"]], 20, 25.55);
+      act([[20, "f_Bup"], [21.0, "f_Bopen"], [22.75, "f_Bblink"], [22.84, "f_Bopen"], [23.5, "f_Bdown"]], 20, 25.55);
+      tl.fromTo("#f_B", { y: 60 }, { y: 0, duration: 0.5, ease: "back.out(2)" }, 20);
+      tl.fromTo("#f_knot", { rotation: -6, svgOrigin: `${KNOT[0]} ${KNOT[1]}` }, { rotation: 6, duration: 0.9, ease: "sine.inOut", yoyo: true, repeat: 5 }, 20);
+      tl.fromTo("#f_ring", { scale: 0.7, opacity: 0.9, svgOrigin: `${O6B[0] - 40} ${WL6 + 8}` }, { scale: 1.6, opacity: 0, duration: 1.6, ease: "power1.out", repeat: 2 }, 20);
+      dripAnim("f_kd", 20, 25.5); dripAnim("f_bd", 20, 25.5);
+      // ---- 7 · button (25,5–30) ----
+      tl.fromTo("#cam7", { scale: 1.0, y: 0 }, { scale: 1.08, y: 40, duration: 4.5, ease: "power1.inOut" }, 25.5);
+      drift("#g_bok", -80, 25.5, 4.5);
+      tl.fromTo("#g_k", { rotation: -3, svgOrigin: `${KN7[0]} 0` }, { rotation: 3, duration: 0.8, ease: "sine.inOut", yoyo: true, repeat: 4 }, 25.5);
+      cycle(["#g_fi0", "#g_fi1", "#g_fi0", "#g_fi2"], 25.5, 28.6, 4);
+      hide("#g_fi0, #g_fi1, #g_fi2", 28.6); cycle(["#g_fi1", "#g_fi2"], 28.6, 30, 2);
+      tl.fromTo("#g_hA1", { x: -260, y: 120 }, { x: 0, y: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, 27.2);
+      show("#g_hA1", 27.2); swap("#g_hA1", "#g_hA2", 27.7); swap("#g_hA2", "#g_hA3", 28.1);
+      tl.fromTo("#g_hB1", { x: 260, y: 100 }, { x: 0, y: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, 27.3);
+      show("#g_hB1", 27.3); swap("#g_hB1", "#g_hB2", 27.8); swap("#g_hB2", "#g_hB3", 28.1);
+      tl.to(["#g_hA3"], { x: -40, duration: 0.2, ease: "power3.out" }, 28.75); tl.to(["#g_hB3"], { x: 40, duration: 0.2, ease: "power3.out" }, 28.75);
+      tl.to("#g_k", { y: 30, duration: 0.2, ease: "power3.out" }, 28.75);
+      dripAnim("g_kd", 25.5, 30); dripAnim("g_hd", 27.6, 30);
+      window.__timelines["fisgada"] = tl;
+    </script>
+  </body>
+</html>

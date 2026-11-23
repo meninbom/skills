@@ -1,0 +1,6 @@
+{
+ "passou": true,
+ "comando": "node gerar_cues.mjs --demo 8 && npx -y hyperframes@0.8.162 render -q draft -o renders/demo.mp4",
+ "segundos_de_render": 24,
+ "obs": "Pasta limpa, no mesmo PC em que o motor foi escrito (HyperFrames já baixado). renders/demo.mp4: 1080x1920, 8,0 s, 30 qps. Também testado na pasta limpa: bash audio/versao.sh A luz (72,7 s, -13,5 LUFS, yuv420p) e a simulação do gravar.mjs sem --confirmo-custo. NÃO testado: a gravação paga pelo gravar.mjs e a instalação em PC sem o HyperFrames em cache."
+}

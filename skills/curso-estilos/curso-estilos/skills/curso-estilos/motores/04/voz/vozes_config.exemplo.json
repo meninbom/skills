@@ -1,0 +1,9 @@
+{
+  "_como_usar": "Copie para vozes_config.json e troque cada voice_id pelo de uma voz da SUA conta ElevenLabs. As falas do falas.json têm tags entre colchetes ([calm], [tense]): use um modelo que aceite tags de emoção (confira o nome exato do modelo na sua conta), ou apague as tags.",
+  "modelo": "eleven_v4",
+  "vozes": {
+    "caio": { "voice_id": "COLOQUE_O_ID_DA_VOZ", "stability": 0.5, "style": 0.4, "speed": 1.0 },
+    "voz": { "voice_id": "COLOQUE_O_ID_DA_VOZ", "stability": 0.5, "style": 0.5, "speed": 1.0 },
+    "dono": { "voice_id": "COLOQUE_O_ID_DA_VOZ", "stability": 0.6, "style": 0.3, "speed": 1.0 }
+  }
+}

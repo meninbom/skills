@@ -1,0 +1,7 @@
+# Só para os scripts auxiliares em Python. O demo e o render usam Node (package.json).
+numpy
+pillow
+shapely
+soundfile
+requests
+rembg

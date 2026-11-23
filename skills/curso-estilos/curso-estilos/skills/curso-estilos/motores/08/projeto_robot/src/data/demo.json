@@ -1,0 +1,26 @@
+{
+ "_leia": "Roteiro do DEMO (3 s, 2 planos) no mesmo formato do src/data/cenas.json do episodio real. Imagens = placeholders de tools/placeholders.mjs. Troque 'still' e 'doc' pelos seus arquivos em public/stills e public/docs, e os tempos pelos tempos por palavra da sua voz.",
+ "flashes": [1.25],
+ "cenas": [
+  {
+   "n": 1, "t0": 0.0, "t1": 1.25, "motor": "still", "fala": "Toda palavra nasceu em algum lugar:",
+   "fonte": {"still": "demo_heroi.png"}, "matte": "demo_heroi",
+   "cam": [{"t": 0.0, "z": 1.0, "x": 540, "y": 960}, {"t": 1.25, "z": 1.06, "x": 540, "y": 900}],
+   "textos": [
+    {"t": 0.08, "txt": "PALAVRA", "x": 540, "y": 700, "s": 190, "f": "heroi", "cor": "giz", "entra": "escala", "ancora": "middle", "track": -4, "atras": true}
+   ]
+  },
+  {
+   "n": 2, "t0": 1.25, "t1": 3.0, "motor": "still", "fala": "num documento de mil novecentos e vinte.",
+   "fonte": {"still": "demo_mesa.png"},
+   "cam": [{"t": 1.25, "z": 1.0, "x": 540, "y": 960}, {"t": 3.0, "z": 1.08, "x": 540, "y": 1000}],
+   "papeis": [
+    {"t": 1.4, "doc": "demo_doc.png", "cx": 540, "cy": 1010, "w": 620, "rot": -3, "entra": "cai", "legenda": "documento-placeholder"}
+   ],
+   "textos": [
+    {"t": 1.95, "txt": "1920", "x": 540, "y": 470, "s": 230, "f": "heroi", "cor": "giz", "entra": "sobe", "ancora": "middle", "track": -2, "queima": 0.5},
+    {"t": 2.25, "txt": "a data, por extenso na voz", "x": 540, "y": 1560, "s": 46, "f": "info", "cor": "giz", "ancora": "middle", "cred": true}
+   ]
+  }
+ ]
+}

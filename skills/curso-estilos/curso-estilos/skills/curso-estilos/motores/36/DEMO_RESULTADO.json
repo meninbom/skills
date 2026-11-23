@@ -1,0 +1,6 @@
+{
+  "passou": true,
+  "comando": "DEMO_CPU=1 npm run demo",
+  "segundos_de_render": 58,
+  "obs": "Pasta limpa fora do projeto, npm install + demo com Chrome do sistema em SwiftShader (CPU). saida/demo.mp4: 540x960, 24 qps, 3,0 s, 72 quadros, h264 yuv420p (faixa tv), sem stream de áudio. Quadro conferido a olho (pescadora no trapiche, rapaz voando em silhueta). Também renderizou folha de 12 quadros do index.html e 4 quadros de chuva_lamina (fonte local carregada). Filme inteiro (npm run filme) e o caminho pelo HyperFrames com o GSAP local não foram rodados nesta limpeza. Refeito em pasta limpa depois de trocar o GSAP vendorizado por dependência do npm: passou, 39 s de render."
+}

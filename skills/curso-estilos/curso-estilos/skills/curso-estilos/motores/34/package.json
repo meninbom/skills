@@ -1,0 +1,15 @@
+{
+  "name": "curso-estilos-34-floresta-lowpoly",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Boneco 3D chapado em floresta low-poly (three.js). Demo: 3 s do plano lateral contra o sol.",
+  "scripts": {
+    "demo": "node render.mjs --video saida/demo.mp4 --ini 8 --fim 11 --qps 15 --largura 540",
+    "folha": "node render.mjs --tempos 1,6,13,20,28 --saida saida/folha.jpg --lt 360",
+    "filme": "node render.mjs --video saida/filme.mp4 --qps 30"
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}

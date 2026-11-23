@@ -1,0 +1,86 @@
+{
+ "_leia": "v4 (22/10): a mesma mix da v3 com a VOZ NOVA do fecho (voz/robot_v4.wav, igual a original ate 37,4 s) + o SFX do parafuso (opcao b, 20 dB abaixo da voz no curto prazo). Rodado por tools/mix_v4.py -> robot/mix_v4.wav. A mix.wav da v3 nao e tocada.",
+ "voz": {
+  "arquivo": "public/audio/voz_v4_-16lufs.wav",
+  "origem": "voz/robot_v4.wav (fecho novo; a voz nao vem no pacote)",
+  "origem_arquivo": "voz/robot_v4.wav",
+  "words": "voz/robot_v4.words.json",
+  "lufs": -16
+ },
+ "trilha": {
+  "arquivo": "trilhas/sua_trilha.mp3",
+  "inicio_s": 21.52,
+  "por_que": "medida, nao ouvida: faixa instrumental (o Whisper nao acha voz), Re menor, ~32% percussiva, arpejo calmo; o trecho comeca em 21,52 s para o 1o impacto da faixa cair na virada do ato 3 (37,55 s). A trilha original e de biblioteca paga e NAO vem no pacote: aponte para a sua e refaca a medida.",
+  "abaixo_da_voz_db": 12.0,
+  "fade_in_s": 0.4,
+  "fade_out_s": 1.2,
+  "sidechain": {
+   "ratio": 4,
+   "limiar_rel_fala_db": -6,
+   "attack_ms": 15,
+   "release_ms": 300,
+   "reducao_max_db": 3.0
+  },
+  "passa_alta_hz": 140
+ },
+ "ambiente_h3": {
+  "_regra": "so som diegetico do proprio H3 (passa-faixa 150 Hz-5 kHz, nada agudo); no maximo 1 a cada 3 s; cada trecho -34 LUFS (>= 18 dB abaixo da voz)",
+  "lufs": -34,
+  "trechos": [
+   {
+    "clip": "Z05",
+    "t": 8.65,
+    "dur": 2.6,
+    "de": 0.0,
+    "por_que": "vento frio no quadro de avisos (o Patent pregado)"
+   },
+   {
+    "clip": "Z06",
+    "t": 11.72,
+    "dur": 0.68,
+    "de": 0.44,
+    "por_que": "passos pesados na terra (trabalho forcado)"
+   },
+   {
+    "clip": "Z09",
+    "t": 19.42,
+    "dur": 1.1,
+    "de": 0.3,
+    "por_que": "marcha em passo (a mecanica do 'em serie')"
+   },
+   {
+    "clip": "Z14",
+    "t": 34.85,
+    "dur": 1.77,
+    "de": 0.41,
+    "por_que": "corda de relogio do robo de lata (mecanica) (v4: o plano do robo de lata comeca 0,41 s depois; o som vai junto)"
+   }
+  ],
+  "passa_alta_hz": 150,
+  "passa_baixa_hz": 5000,
+  "_v4": "22/10: saiu a risada do padeiro (Z12, 26,45 s): o padeiro saiu da imagem (item 7, foto do grupo amador)"
+ },
+ "master": {
+  "lufs": -13.5,
+  "true_peak": -1.5,
+  "codec": "aac",
+  "taxa": 48000,
+  "kbps": 192,
+  "_v4": "checar-video 22/10: celular deu -20,2 LUFS com o master a -14; regra da noite: subir o master ate -13,5 (sem mexer no EQ)"
+ },
+ "stt": "conferir a fala da mix com um STT (faster-whisper local ou a API da ElevenLabs com a sua chave) contra o roteiro",
+ "dur_s": 46.0,
+ "_v3": "v3 (17/10): trilha a 12 dB da voz medida separada (o mais alto que a regra 12-15 permite: os 2 criticos ouviram a trilha sumir no celular); sidechain continua ratio 4, mas a reducao maxima cai de 5 para 3 dB (critico 2), entao na fala a trilha fica ~14-15 dB abaixo. Ambiente do H3 reposicionado nos planos novos. Nenhum SFX de biblioteca.",
+ "sfx": {
+  "_regra": "SFX ~20 dB abaixo da voz no curto prazo (janela 3 s 16-19 s), medidos separados (regra da casa 21/10)",
+  "parafuso": {
+   "candidato": "b",
+   "arquivo": "prep/sfx_cand/s4.flac",
+   "abaixo_da_voz_db": 20.0,
+   "janela_s": [
+    16.0,
+    19.0
+   ]
+  }
+ }
+}

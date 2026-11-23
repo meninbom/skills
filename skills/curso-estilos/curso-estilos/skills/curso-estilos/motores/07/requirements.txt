@@ -1,0 +1,3 @@
+# Só para os utilitários de arte (medir.py, recortar_folha.py, recorte_chroma.py). O demo não usa Python.
+numpy
+opencv-python

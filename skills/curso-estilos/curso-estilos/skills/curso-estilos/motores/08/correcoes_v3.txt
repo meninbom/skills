@@ -1,0 +1,109 @@
+ROBOT · CARNE E NEVE · v3 (17/10/2026) — correcoes depois de 2 criticos as cegas na v2 (notas 6,4 e 7)
+Saidas: robot_v3.mp4 (1080x1920, 24 fps) · robot_v3_celular.mp4 (<= 20 MB) · folha_v3.jpg (2 fps) · previa_v3.mp4 (meia resolucao)
+Projeto: projeto/ (v2 guardada em projeto/_v2_antes/: src, tools, mix.json, mix_v2.wav, seq originais do heroi)
+
+========================================================================
+1. MONTAGEM: MENOS CORTES, MAIS RESPIRO
+========================================================================
+- v2: 47 trocas de plano em 45 s (31 cenas + cortes de camera + punch de vai-e-volta + grade 4x4).
+  v3: 23 planos, 22 cortes, 0 corte de camera, 0 punch. Plano medio 1,97 s. Movimento = push lento e continuo.
+- Juntei o que o proprio tratamento ja previa ("se ele achar picado, juntar 8+9, 24+25"):
+  servos + Tres Riches Heures -> so os servos, com tilt subindo para o casarao no "senhor";
+  automato + androide -> um so documento (o Escritor de Jaquet-Droz) com as duas palavras.
+- Planos bonitos com respiro: heroi do gancho 1,9 s (sai da janela e chega na lente), mesa do escritor 3,0 s (1920 -> Karel
+  sem corte), atelie 3,75 s (ROBOTI -> Josef sem corte), Patent 2,6 s, servos 2,1 s, geada RAB 2,5 s, braco de carne 3,5 s,
+  robo de lata 3,1 s (com o 1928 dentro), Briullov 2,7 s, heroi do fecho 2,4 s.
+- Sairam (eram cartao/legenda a mais): Paris 1924 (a foto da Theatre Guild ja mostra os robos da peca), Vesalius,
+  Tres Riches Heures, Turco, foto dos irmaos de 1927, assinatura do Karel, "domingo", "pintor · irmao mais velho".
+
+========================================================================
+2. CREDITO: 1 LINHA, DISCRETO, CONSISTENTE (honestidade mantida)
+========================================================================
+- Todo credito = 1 linha, Fixture SemiBold 44 px, preso ao objeto que credita:
+  impresso na margem de baixo da copia (Karel, Josef, Televox) ou na aresta de cima do objeto/quadro
+  (capa, Patent, foto da TG, Klicperovo, Narodni, Jaquet-Droz, OSOBY, Briullov). Claro = sombra suave; escuro = preto-la.
+- 11 creditos (v2: ~20 linhas de credito/descricao, varias de 2 linhas). Gerado continua sem data nem credito.
+- Lista: 1a edicao · Aventinum, Praga | Karel Capek · anos 1930 | Josef Capek · 1937 | decreto da robota · Boemia, 1738 |
+  Nova York, 1922 · foto F. Bruguiere | Klicperovo divadlo · foto atual | Narodni divadlo · desenho de J. Zitek |
+  o Escritor, Jaquet-Droz · sec. XVIII | Televox, Westinghouse · 1928 | elenco da 1a edicao, Praga, 1920 |
+  Karl Briullov · pintura de 1836.
+
+========================================================================
+3. DOCUMENTO NO MUNDO (fim da "foto pregada sobre desfoque" repetida)
+========================================================================
+- Karel: a foto CAI NA MESA do escritor, nitida, na mesma luz (mapa de luz das faixas de sol, tools/luz_mesa.py).
+- Josef e Televox: os 2 unicos cartoes, e sem corte: o proprio plano desfoca (rack de foco) e a copia entra na frente.
+  O ROBOTI pintado continua na tela durante o desfoque (critico 1: erro de continuidade da v2).
+- Theatre Guild: pregada na parede ATRAS da cabeca do heroi, com a sombra da cabeca (ja era assim; mantido).
+- Klicperovo e desenho do Narodni: tela cheia, 1,0x do nativo, pan lento pelo papel/fachada, sem moldura e sem fundo desfocado.
+- Jaquet-Droz: copia em tela cheia (0,95x do nativo) com as palavras no preto acima dela.
+- Patent (quadro de avisos), OSOBY (nas maos do heroi), Briullov (no cavalete): homografia no mundo, como ja era.
+- Capa de 1920: o H3 tinha redesenhado a capa real ("ROSSIIM'S" no lugar de ROSSUM'S e um logo inventado no pe a partir
+  de ~1,5 s; a v2 mostrou isso nitido por 1,4 s). Agora o scan REAL cobre a capa do clipe quadro a quadro (tools/capa_real.py:
+  alinhado a capa do H3 por ORB+RANSAC e ECC, mesma luz da mesa, dedos do H3 por cima por mascara de diferenca presa a borda
+  de baixo). O livro da avalanche pousa exatamente nessa capa. Nenhuma imagem gerada se passa por documento.
+
+========================================================================
+4. DEFEITOS DE OFICIO
+========================================================================
+- Sobrancelha serrilhada + pontinhos no cranio: tools/heroi_limpo.py nas 3 sequencias do heroi (Z01a/b/c, 372 quadros):
+  silhueta da arcada refeita (contorno linha a linha, rampa de entrada/saida de 70 linhas, borda tao macia quanto o resto do
+  cranio) com a parede limpa por tras; pontinhos claros do cranio -> mediana local. Sem H3. Originais em _v2_antes/seq.
+- "Oparafusos": vira "ZERO" (140 px) + "parafusos" (64 px) na parede escura do plano do braco; o parafuso REAL cai na mesa
+  de madeira ao lado da mao, quica 2x e para (gesto de materia, sem tarja de papel). Zona segura: topo em y ~600.
+- Mosaico 4x4 em 20,1 s: saiu. A fila em serie tem push 1,00 -> 1,08.
+- LEDEN por 0,23 s: "25." + "LEDEN" (170 px, cabe em x 72-900) + "+23 dias" ja estao no vidro no 1o quadro, 1,2 s.
+  Isso tambem tira a oval vazia do comeco da geada.
+- Restos de tira em 31,6-32,7 s: as tiras caem DENTRO da pegada do livro e o livro (a mesma capa real) cai por cima e engole
+  todas; depois do pouso nenhuma tira existe. Conferido quadro a quadro (out/folha_aval.jpg).
+- Creditos de 2 linhas: nenhum.
+- Punch de vai-e-volta no Patent (9,3 s) e no robo de lata (35,5 s): sairam, viraram push continuo.
+- ROBOTI de fonte digital chapada: agora tinta de pincel seco (borda deslocada pela trama + falhas do pincel ao longo do traco).
+- Fumaca da esponja de po (camarim): o plano enquadra so o padeiro puxando a touca; a nuvem fica fora do quadro.
+- Fecho: sem "Genserico" e sem "ROMA · 455" (entregavam o gancho). Credito neutro do Briullov.
+- Titulos fora da zona segura (KAREL/JOSEF/ache os robos): todos com topo em y >= 300.
+
+========================================================================
+5. TEXTO ESSENCIAL >= 40 px E >= 1,2 s
+========================================================================
+- tools/checar_v3.py (roda antes do render): 39 textos, todos >= 44 px, todos >= 29 quadros (1,2 s a 24 fps) na tela,
+  dentro de x 60-960 (informacao) / 60-1020 (titulo), informacao com base <= 1500. Resultado: "ok: regua v3 cumprida".
+- Para caber 1,2 s sem esticar a voz, o tipo entra ANTES da fala onde precisa (1920, KAREL CAPEK, 2. LEDEN 1921,
+  HRADEC KRALOVE, ANDROIDE, 1928, sluha = criado).
+
+========================================================================
+6. SOM (tools/mix.py + mix.json; relatorio em projeto/out/som/mix_relatorio.json)
+========================================================================
+- Voz FIXA voz/robot_tight.mp3 -> -16,0 LUFS (so ganho estatico).
+- Trilha (a mesma da v2, trecho de 21,52 s; 1o impacto na virada de 37,55) medida SEPARADA:
+  12,0 dB abaixo da voz (v2: 12,5). Sidechain ratio 4, reducao maxima 3 dB (v2: 5) -> na fala fica ~14 dB abaixo.
+  Motivo: os 2 criticos ouviram a trilha sumir no celular; 12 dB e o mais alto que a regra 12-15 permite.
+- Sem SFX de biblioteca. So diegetico baixo do proprio H3 (vento, passos, marcha, risada do padeiro, corda do robo),
+  passa-faixa 150 Hz-5 kHz, >= 3 s entre eles, 18,6-24,5 dB abaixo da voz.
+- Master -14,0 LUFS, true peak -2,0 dBTP, LRA 3,2, AAC 48 kHz 192k (celular: -14,0 LUFS, AAC 48 kHz 160k).
+- Medidas (out/som/mix_relatorio.json): voz -16,0 LUFS | trilha isolada -28,0 LUFS (12,0 dB abaixo, medida separada) |
+  sidechain ratio 4, reducao media 2,6 dB na fala, max 3,0 | trilha na fala -14,2 dB da voz | simulacao de celular
+  (300 Hz-8 kHz): mix cai 3,8 dB, trilha 3,1 dB, trilha fica -14,9 dB da fala | diegetico H3 -18,6 a -24,5 dB da voz.
+- STT gratis (ElevenLabs scribe, 0 credito) no audio final: 147/147 palavras, similaridade 1,000 com o roteiro;
+  unica etiqueta: "[musica suave]" (a trilha aparece). out/som/robot_v3_stt.json
+
+========================================================================
+6b. RENDER
+========================================================================
+- Previa: meia resolucao, concorrencia 4 (3 rodadas, folhas em projeto/out/folha_previa_v3*.jpg). Final: concorrencia 4, CRF 16.
+- Trava: .render.lock por mkdir atomico (espera 60 s se ocupada), solta no trap EXIT (tools/final_v4.sh).
+- Celular: o grao renovado a cada quadro faz CRF 23 puro dar 54 MB. Saiu com CRF 23 + teto de taxa 3,8 Mbps (VBV) =
+  19,1 MB, sem denoise (o grao e a pelicula do tratamento).
+
+========================================================================
+7. O QUE IGNOREI (contradiz o tratamento ou o pedido)
+========================================================================
+- Critico 1: tirar os creditos da tela e por na descricao. Nao: o tratamento exige autor · lugar · ano no arquivo real e o
+  pedido manda manter a honestidade. Ficaram, em 1 linha.
+- Critico 1: trilha 10-11 dB abaixo da voz e 3-4 acentos graves nos titulos. Nao: a regra do pedido e 12-15 dB e sem SFX
+  espalhados. Fui ao limite (12 dB) e reduzi o sidechain.
+- Critico 1: grade 4x4 com rostos variados. Saiu de vez (critico 2).
+- Critico 2: regerar o camarim no H3 ("no smoke"). H3 proibido nesta etapa: resolvido no enquadramento.
+- Critico 1: ROBOTI revelado por mascara de pincel letra a letra com displacement da trama em tempo real. Fiz a textura de
+  tinta seca e mantive o write-on da v2 (esquerda -> direita, o I sob o pincel).
+- Z-Image: nao foi preciso regerar still nenhum.

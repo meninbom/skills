@@ -1,0 +1,9 @@
+{
+  "name": "motor-08-microdoc-personagem",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Demo do estilo 08 (micro-doc com personagem fixo). As dependencias (Remotion) ficam em projeto_robot/ e sao instaladas pelo proprio demo na 1a vez.",
+  "scripts": {
+    "demo": "node demo.mjs"
+  }
+}

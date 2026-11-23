@@ -1,0 +1,95 @@
+{
+ "slug": "robot",
+ "conceito": "CARNE E NEVE (familia lindo)",
+ "data": "2026-10-17",
+ "fase": "montagem feita (17/10): 15 clipes H3 tratados e encaixados, heroi por sequencia, mix pronta (robot/mix.wav), previa robot/previa.mp4. Falta so o render final (fila). Detalhes: montagem_relatorio.json",
+ "motor": {
+  "escolha": "Remotion 4.0.532",
+  "por_que": [
+   "31 planos de documentario sobre clipes de video: OffthreadVideo dentro de Sequence com +3 quadros de folga resolve o corte sem quadro preto",
+   "tipo no mundo = homografia de 4 cantos -> CSS matrix3d (Patent, OSOBY, ROBOTI, Briullov) com os MESMOS numeros dos styleframes (tools/quads.py)",
+   "papel com fisica (cai, quica, desliza, prega) e camera (push, punch de 3 quadros, tilt) sao funcoes do tempo: seek-safe e deterministico",
+   "oclusao (tipo e foto ATRAS da cabeca) = o mesmo fundo de novo com mask-image do matte por quadro",
+   "a grade2 dos styleframes e ponto a ponto: virou LUT 3D (tools/lut.py, erro medio 0,5/255) aplicada no ffmpeg nos clipes e direto nos stills",
+   "HyperFrames/GSAP nao traria nada que falte aqui e o Remotion ja tem a esteira de render testada nesta maquina"
+  ],
+  "composicoes": {
+   "Robot": "1080x1920, 24 fps (= H3 e tratamento; final)",
+   "Prev30": "1080x1920, 30 fps (previas, render com --scale 0.5)"
+  },
+  "estado": "o esqueleto ja renderiza o filme inteiro com os stills graduados no lugar dos clipes (animatic). Quando cada clipe tratado cair em public/clips, ele entra sozinho (src/data/disponiveis.json)."
+ },
+ "h3": {
+  "arquivo": "robot/h3_jobs.json",
+  "clipes": 15,
+  "limite": 18,
+  "reserva": "3 clipes para refazer (prioridade: Z01a, Z03, Z04 - os que levam tipo/documento em cima)",
+  "placas": "robot/h3_in/robot_<id>.png = enquadramento FINAL do quadro-chave (mesmo view() dos styleframes), sem texto, sem documento, sem grade, 1120x1920 (7:12 = 448x768, o H3 nao corta nada). Excecao: Z03 leva a capa real composta para a luz e as maos do H3 conversarem com o livro.",
+  "upscale": "bash comfy/upscale_clip.sh IN OUT 1120 1920 (o padrao 1080x1920 achata 3,6%). tools/tratar_clipes.py faz upscale + LUT + corte 1080 + Z01a invertido + ambiente + ECC.",
+  "com_h3": {
+   "Z01a": "cenas 1 e 31 (invertido = loop)",
+   "Z01b": "cena 28",
+   "Z01c": "cena 15",
+   "Z02": "cenas 2, 11, 12",
+   "Z03": "cenas 3, 4, 23, 24, 25",
+   "Z04": "cenas 5, 6",
+   "Z05": "cena 7",
+   "Z06": "cena 8",
+   "Z07a": "cena 10",
+   "Z08": "cena 13",
+   "Z09": "cena 14",
+   "Z10": "cenas 16, 18",
+   "Z11": "cena 17",
+   "Z12": "cena 19",
+   "Z14": "cenas 26, 27"
+  },
+  "em_codigo": {
+   "Z07b (Z07_1702)": "cena 22, 1,1 s: geada crescendo das bordas por mascara (o 2o desenho de cristal ja existia)",
+   "Z13 (Z13v2_2322)": "cenas 20-21, 2,2 s: fundo desfocado + rack focus + push; lampada tremula em codigo. Movimento do H3 aqui seria so po e cortina (pouco ganho)",
+   "Z16 (Z16_2601)": "cena 29: push 1,0 -> 2,45 ate 'Robotsky sluha' + respiracao +-0,5% (ja era o plano do tratamento)",
+   "Z17 (Z17v3_2732)": "cena 30: a pintura real domina o quadro (pan + punch); a nuvem passando vira gradiente animado em codigo",
+   "documentos reais": "cenas 4, 6, 9, 11, 12, 18, 20, 24, 25, 27 + Patent, OSOBY, capa, Briullov: papel com sombra dura, luz da janela multiplicada, nunca acima de 1,0x do nativo"
+  },
+  "removido_do_plano_original": "Z07 B, Z13 e Z17 saem do H3 (o tratamento previa 18): dao movimento minimo e liberam 3 clipes de reserva. Z01b/Z01c deixam de depender do ultimo quadro do Z01a: partem do still Z01v2_open_1101 (mesma seed), entao a fila de GPU nao tem dependencia."
+ },
+ "zimage_desta_etapa": {
+  "geradas": 20,
+  "escolhidas": {
+   "Z02v2_1221": "robo de corpo inteiro no palco (tricô ardosia + cinto, igual ao heroi dos K1/K6)",
+   "Z06v2_1622": "servos no arado, feitor, casa senhorial no alto (para o tilt)",
+   "Z08v2_1821": "mao grande com veias (palma para baixo: os dedos fecham sobre a mesa)",
+   "Z09v2_1922": "fileiras identicas, o da frente centrado",
+   "Z10v2_2021": "estreia na neve, ceu no terco de cima, sem placa",
+   "Z12v2_2222": "padeiro puxando a touca careca, rindo",
+   "Z13v2_2322": "plateia vazia com a lampada de servico no proscenio",
+   "Z14v2_2422": "robo de lata maior, engrenagem do peito legivel",
+   "Z17v3_2732": "tela pendurada na parede de cal, faixas de luz da janela, balde de pinceis"
+  },
+  "descartadas": {
+   "Z02v2_1222": "boa, mas menos palco (mesa a direita)",
+   "Z06v2_1621": "casa senhorial pequena para o tilt",
+   "Z08v2_1822": "mao pequena no quadro",
+   "Z09v2_1921": "o da frente menor",
+   "Z10v2_2022": "placa na fachada, menos ceu",
+   "Z12v2_2221": "padeiro menor",
+   "Z13v2_2321": "sem a lampada de servico",
+   "Z14v2_2421": "robo pequeno",
+   "Z17v2_2721, Z17v2_2722, Z17v3_2731": "tela em retrato (o Z-Image nao fez tela paisagem em 9:16)"
+  },
+  "prompts": "_build/mk_jobs6.py (jobs6.json) e _build/jobs7.json; todos com o bloco_de_luz_v2 (chave dura da esquerda, sem fill); exteriores com sol rasante sem fill; noite com 500T"
+ },
+ "decisoes_para_rever": [
+  "Briullov entra como DETALHE quadrado (recorte central 1903x1903, sem esticar) porque a tela do Z17 saiu quase quadrada; o credito diz '(detalhe)'.",
+  "Z08: a mao saiu de palma para baixo (o tratamento pedia palma para cima); o movimento 'dedos fecham e abrem' continua valendo.",
+  "Z06: os servos empurram o arado pelas rabicas (nao puxam por corda no ombro).",
+  "Z12: quem passa po e a moca no proprio rosto, nao no padeiro; a graca (padeiro puxando a touca careca) esta la.",
+  "Placas do H3 em 1120x1920 (7:12) em vez de 1088x1920: o H3 escala sem cortar e o quadro final bate pixel a pixel com o styleframe."
+ ],
+ "ritmo": "tools/checar.py: 113 eventos de montagem em 45,4 s (1 a cada 0,40 s), 1o evento 0,05 s, nenhum buraco > 0,9 s; textos >= 44 px, dentro de x 60-960 e y 220-1500 (medidos com a Fixture real). O movimento do H3 e bonus, nao conta.",
+ "som": "projeto/mix.json + tools/mix.py: voz FIXA normalizada (-24,7 -> -16,0 LUFS, ja feito em public/audio/voz_-16lufs.wav); trilha da biblioteca a escolher OUVINDO na etapa de som, 13 dB abaixo medida separada, sidechain ratio 6; ambiente do H3 em 6 trechos (>= 3 s entre eles, -34 LUFS); master -14 LUFS, AAC 48 kHz; STT gratis no fim. Nenhum SFX escolhido por mim.",
+ "proximos_passos": [
+  "FINAL (fila): cd \".\" && npx remotion render src/index.ts Robot out/robot_mudo.mp4 --concurrency=4 --muted --crf=16 && python tools/mix.py --mux out/robot_mudo.mp4 ../robot_final.mp4",
+  "se o diretor trocar a trilha: editar mix.json (trilha.arquivo/inicio_s) e rodar python tools/mix.py antes do --mux",
+  "polimento opcional: ver montagem_relatorio.json > polimento_nao_feito"
+ ]
+}

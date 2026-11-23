@@ -1,0 +1,19 @@
+{
+  "peca": "rio_voador", "duracao_s": 63.0, "fps": 30,
+  "voz": "narr_-16.wav", "voz_inicio_s": 0.0,
+  "roteiro": "narracao.txt",
+  "clima": "curioso, bonito, colorido, explicativo animado",
+  "eventos": [
+    {"t": 4.5, "tipo": "pouso", "material": null, "intencao": "Oxi pula na folha e aponta pro rio do céu", "importancia": 2},
+    {"t": 14.55, "tipo": "corte", "material": null, "intencao": "whip pan da correnteza pro tronco", "importancia": 2},
+    {"t": 18.6, "tipo": "virada", "material": null, "intencao": "Oxi é sugado pra dentro do tronco", "importancia": 2},
+    {"t": 25.05, "tipo": "virada", "material": null, "intencao": "vapor cobre a tela e abre na floresta", "importancia": 2},
+    {"t": 42.8, "tipo": "impacto", "material": null, "intencao": "o rio voador bate nos Andes", "importancia": 3},
+    {"t": 52.35, "tipo": "pouso", "material": "água", "intencao": "Oxi-chuva cai na caixa d'água", "importancia": 3}
+  ],
+  "momentos": [
+    {"t": 28.4, "t1": 32.4, "tipo": "maxi", "nota": "zoom-out de uma árvore pra floresta inteira"},
+    {"t": 38.5, "t1": 47.0, "tipo": "virada", "nota": "mapa"},
+    {"t": 61.6, "t1": 63.0, "tipo": "fim", "nota": "sobe pro céu, laço com o começo"}
+  ]
+}

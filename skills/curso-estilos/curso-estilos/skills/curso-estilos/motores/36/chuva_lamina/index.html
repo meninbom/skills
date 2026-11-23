@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>Chuva na lâmina (html-anime, réplica de estudo)</title>
+    <!-- Método: blixvip/html-anime (MIT). Ficha em SHEET.md. Só os hexes do roteiro "Indigo moon". -->
+    <style>
+      @font-face {
+        font-family: "EB Garamond";
+        src: url("fonts/EBGaramond.ttf") format("truetype");
+        font-weight: 400 800;
+        font-style: normal;
+        font-display: block;
+      }
+      html, body { margin: 0; background: #101628; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #101628; }
+      .clip { position: absolute; inset: 0; overflow: hidden; }
+      .cam { position: absolute; inset: 0; transform-origin: 50% 50%; }
+      .cam svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+      #cam4 { transform-origin: 50% 40%; }
+      .drw { opacity: 0; }
+      .hero { opacity: 1; }
+      #dip { background: #101628; opacity: 0; z-index: 10; }
+      .fala { font-family: "EB Garamond", Georgia, serif; font-size: 70px; font-weight: 500; fill: #f0c36a; letter-spacing: 1px; }
+    </style>
+    <script src="../vendor/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="root" data-composition-id="chuva" data-start="0" data-duration="12" data-width="1080" data-height="1920">
+      <div id="s1" class="clip" data-start="0" data-duration="2.55" data-track-index="1"><div id="cam1" class="cam"><svg id="v1" viewBox="0 0 1080 1920"></svg></div></div>
+      <div id="s2" class="clip" data-start="2.5" data-duration="2.55" data-track-index="2"><div id="cam2" class="cam"><svg id="v2" viewBox="0 0 1080 1920"></svg></div></div>
+      <div id="s3" class="clip" data-start="5" data-duration="4.05" data-track-index="1"><div id="cam3" class="cam"><svg id="v3" viewBox="0 0 1080 1920"></svg></div></div>
+      <div id="s4" class="clip" data-start="9" data-duration="3" data-track-index="2"><div id="cam4" class="cam"><svg id="v4" viewBox="0 0 1080 1920"></svg></div></div>
+      <div id="dip" class="clip" data-start="0" data-duration="12" data-track-index="3"></div>
+    </div>
+    <script>
+      // ---------- paleta fechada (Indigo moon) ----------
+      const C = { sky: "#1b2d6b", ink: "#101628", moon: "#d5e2ff", accent: "#e23b4a", practical: "#f0c36a",
+                  iris: "#e7a04a", skin: "#f0c2ae", hair: "#16141c", sclera: "#f6f3ee", line: "#e7eefc" };
+      const FPS = 24, F = (n) => n / FPS;
+
+      // ---------- utilitários determinísticos ----------
+      function lcg(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
+      const f1 = (v) => (Math.round(v * 10) / 10).toString();
+      const P = (p) => f1(p[0]) + "," + f1(p[1]);
+      function rot(p, a, o) { const r = a * Math.PI / 180, c = Math.cos(r), s = Math.sin(r); const x = p[0] - o[0], y = p[1] - o[1]; return [o[0] + x * c - y * s, o[1] + x * s + y * c]; }
+      function poly(pts, fill, extra) { return `<path d="M${pts.map(P).join(" L")} Z" fill="${fill}" ${extra || ""}/>`; }
+      function smooth(pts, fill, extra) {
+        const n = pts.length, mid = (a, b) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+        let d = "M" + P(mid(pts[n - 1], pts[0]));
+        for (let i = 0; i < n; i++) d += " Q" + P(pts[i]) + " " + P(mid(pts[i], pts[(i + 1) % n]));
+        return `<path d="${d} Z" fill="${fill}" ${extra || ""}/>`;
+      }
+      function stroke(pts, col, w, extra) { return `<path d="M${pts.map(P).join(" L")}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" ${extra || ""}/>`; }
+      function curve(a, c, b, col, w, extra) { return `<path d="M${P(a)} Q${P(c)} ${P(b)}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" ${extra || ""}/>`; }
+      function ik(S, T, l1, l2, bend) {
+        let dx = T[0] - S[0], dy = T[1] - S[1]; let d = Math.hypot(dx, dy);
+        d = Math.max(Math.abs(l1 - l2) + 0.5, Math.min(l1 + l2 - 0.5, d));
+        const a = Math.atan2(dy, dx), A = Math.acos(Math.max(-1, Math.min(1, (l1 * l1 + d * d - l2 * l2) / (2 * l1 * d))));
+        const e = a + bend * A;
+        return { E: [S[0] + l1 * Math.cos(e), S[1] + l1 * Math.sin(e)], W: [S[0] + d * Math.cos(a), S[1] + d * Math.sin(a)] };
+      }
+      const dirv = (deg) => [Math.cos(deg * Math.PI / 180), Math.sin(deg * Math.PI / 180)];
+      const addv = (a, b, k) => [a[0] + b[0] * (k === undefined ? 1 : k), a[1] + b[1] * (k === undefined ? 1 : k)];
+
+      // ---------- chuva: campo periódico (sem Math.random) ----------
+      function rain(seed, period, n, len, slant, w, op) {
+        const r = lcg(seed); let d = "";
+        const base = []; for (let i = 0; i < n; i++) base.push([r() * 1180 - 50, r() * period]);
+        for (let ty = -period * 2; ty < 1920 + period; ty += period)
+          for (const b of base) d += `M${f1(b[0])},${f1(b[1] + ty)} l${slant},${len} `;
+        return `<path d="${d}" stroke="${C.line}" stroke-width="${w}" stroke-linecap="round" opacity="${op}" fill="none"/>`;
+      }
+
+      // ---------- cidade: telhados de beiral curvo ----------
+      function building(x, w, top, base, roofH, fill, win, r) {
+        let s = poly([[x, top], [x + w, top], [x + w, base], [x, base]], fill);
+        s += `<path d="M${f1(x - 18)},${f1(top + 4)} Q${f1(x + w / 2)},${f1(top - 10)} ${f1(x + w + 18)},${f1(top + 4)} L${f1(x + w - 10)},${f1(top - roofH)} L${f1(x + 10)},${f1(top - roofH)} Z" fill="${fill}"/>`;
+        if (win) { const k = Math.floor(r() * 3); for (let i = 0; i < k; i++) s += poly([[x + 12 + r() * (w - 30), top + 18 + r() * 40], [0, 0]].map((p, j) => j ? [0, 0] : p).slice(0, 1).flatMap(p => [p, [p[0] + 9, p[1]], [p[0] + 9, p[1] + 13], [p[0], p[1] + 13]]), C.practical); }
+        return s;
+      }
+      function skyline(seed, x0, x1, yTop, yJit, base, fill, roofH, win) {
+        const r = lcg(seed); let s = "", x = x0;
+        while (x < x1) { const w = 70 + r() * 130, top = yTop + r() * yJit; s += building(x, w, top, base, roofH + r() * 14, fill, win, r); x += w + 8 + r() * 20; }
+        return s;
+      }
+      function pagoda(cx, base, tiers, w0, th, fill) {
+        let s = "", y = base, w = w0;
+        for (let i = 0; i < tiers; i++) {
+          s += poly([[cx - w * 0.36, y], [cx + w * 0.36, y], [cx + w * 0.36, y - th], [cx - w * 0.36, y - th]], fill);
+          const ry = y - th;
+          s += `<path d="M${f1(cx - w / 2 - 22)},${f1(ry - 2)} Q${f1(cx - w / 2 + 10)},${f1(ry + 10)} ${f1(cx)},${f1(ry + 8)} Q${f1(cx + w / 2 - 10)},${f1(ry + 10)} ${f1(cx + w / 2 + 22)},${f1(ry - 2)} L${f1(cx + w * 0.3)},${f1(ry - th * 0.55)} L${f1(cx - w * 0.3)},${f1(ry - th * 0.55)} Z" fill="${fill}"/>`;
+          y = ry - th * 0.5; w *= 0.8;
+        }
+        s += poly([[cx - 3, y], [cx + 3, y], [cx + 1.5, y - th * 1.4], [cx - 1.5, y - th * 1.4]], fill);
+        return s;
+      }
+      function torii(x, base, w, h, fill) {
+        return poly([[x - w * 0.36, base], [x - w * 0.3, base], [x - w * 0.28, base - h], [x - w * 0.34, base - h]], fill) +
+               poly([[x + w * 0.36, base], [x + w * 0.3, base], [x + w * 0.28, base - h], [x + w * 0.34, base - h]], fill) +
+               poly([[x - w * 0.42, base - h * 0.78], [x + w * 0.42, base - h * 0.78], [x + w * 0.42, base - h * 0.7], [x - w * 0.42, base - h * 0.7]], fill) +
+               `<path d="M${f1(x - w * 0.6)},${f1(base - h - 8)} Q${f1(x)},${f1(base - h + 14)} ${f1(x + w * 0.6)},${f1(base - h - 8)} L${f1(x + w * 0.55)},${f1(base - h + 10)} Q${f1(x)},${f1(base - h + 26)} ${f1(x - w * 0.55)},${f1(base - h + 10)} Z" fill="${fill}"/>`;
+      }
+      function cloud(x, y, w, h, seed) {
+        const r = lcg(seed); let d = `M${f1(x)},${f1(y)} `; let cx = x; const n = 5 + Math.floor(r() * 3);
+        for (let i = 0; i < n; i++) { const bw = w / n; const bh = h * (0.5 + r() * 0.6); d += `Q${f1(cx + bw / 2)},${f1(y - bh)} ${f1(cx + bw)},${f1(y)} `; cx += bw; }
+        d += `L${f1(x + w - 20)},${f1(y + h * 0.35)} L${f1(x + 20)},${f1(y + h * 0.35)} Z`;
+        return `<path d="${d}" fill="${C.sky}"/><path d="${d.split("L")[0]}" fill="none" stroke="${C.moon}" stroke-width="3" opacity="0.35"/>`;
+      }
+      function moon(cx, cy, r, glintId) {
+        let s = `<circle cx="${cx}" cy="${cy}" r="${r * 1.45}" fill="${C.moon}" opacity="0.06"/><circle cx="${cx}" cy="${cy}" r="${r * 1.18}" fill="${C.moon}" opacity="0.09"/>`;
+        s += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${C.moon}"/>`;
+        s += `<path d="M${cx - r * 0.5},${cy - r * 0.2} q${r * 0.25},${-r * 0.18} ${r * 0.45},${-r * 0.05} q${r * 0.1},${r * 0.2} ${-r * 0.15},${r * 0.32} z" fill="${C.ink}" opacity="0.08"/>`;
+        s += `<path d="M${cx + r * 0.15},${cy + r * 0.3} q${r * 0.3},${-r * 0.05} ${r * 0.4},${r * 0.2} q${-r * 0.2},${r * 0.2} ${-r * 0.42},${r * 0.05} z" fill="${C.ink}" opacity="0.07"/>`;
+        const k = (px, py) => P([cx + px * r, cy + py * r]);
+        s += `<path d="M${k(0.18, -0.98)} L${k(0.1, -0.55)} L${k(0.22, -0.3)} L${k(0.05, 0.02)} L${k(-0.18, 0.28)} L${k(-0.12, 0.62)} L${k(-0.3, 0.95)} M${k(0.05, 0.02)} L${k(0.42, 0.1)} L${k(0.6, 0.38)} L${k(0.92, 0.42)} M${k(0.1, -0.55)} L${k(-0.25, -0.62)} L${k(-0.55, -0.82)}" fill="none" stroke="${C.ink}" stroke-width="${Math.max(3, r * 0.022)}" opacity="0.55" stroke-linejoin="round"/>`;
+        if (glintId) s += `<g id="${glintId}" class="drw"><circle cx="${f1(cx + 0.05 * r)}" cy="${f1(cy + 0.02 * r)}" r="${f1(r * 0.035)}" fill="${C.accent}"/><circle cx="${f1(cx + 0.05 * r)}" cy="${f1(cy + 0.02 * r)}" r="${f1(r * 0.08)}" fill="none" stroke="${C.accent}" stroke-width="${f1(r * 0.012)}" opacity="0.6"/></g>`;
+        return s;
+      }
+      function skyGrad(id, a, b, c) {
+        return `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="0.55" stop-color="${b}"/><stop offset="1" stop-color="${c}"/></linearGradient></defs><rect width="1080" height="1920" fill="url(#${id})"/>`;
+      }
+      const bars = `<rect x="0" y="0" width="1080" height="64" fill="${C.ink}"/><rect x="0" y="1856" width="1080" height="64" fill="${C.ink}"/>`;
+
+      // ---------- o espadachim: boneco 2D paramétrico (perfil, olhando para +x; pés em 0,0) ----------
+      // cel: tinta chapada + contorno ink + 1 sombra dura (ink 20%) + contraluz da lua nas bordas de cima
+      function figure(p) {
+        const q = Object.assign({ crouch: 0, lean: 0, hipX: 0, tilt: 0, flare: 0.2, R: null, L: null, bendR: 1, blade: "sheath", bang: 0, blen: 1, smear: null, sil: false, rim: true }, p);
+        const col = (c) => (q.sil ? C.ink : c);
+        const OL = q.sil ? "" : `stroke="${C.ink}" stroke-width="4" stroke-linejoin="round"`;
+        const hip = [q.hipX, -300 + q.crouch * 70];
+        const T = (x, y) => rot([hip[0] + x, hip[1] + y], q.lean, hip);
+        const N = [0, -185];
+        const H = (x, y) => { const v = rot([N[0] + x, N[1] + y], q.tilt, N); return T(v[0], v[1]); };
+        const fx = 92 + q.crouch * 50, bx = -80 - q.crouch * 40, kneeY = hip[1] * 0.42;
+        const sleeve = (S, E, W, w1, w2, hang, fill) => {      // manga de quimono: braço + aba pendurada
+          const d = [E[0] - S[0], E[1] - S[1]], l = Math.hypot(d[0], d[1]) || 1, n = [-d[1] / l, d[0] / l];
+          let o = smooth([addv(S, n, w1), addv(E, n, w2), addv(E, [0, hang]), addv(S, [0, hang * 0.5]), addv(S, n, -w1)], col(fill), OL);
+          o += stroke([E, W], C.ink, w2 * 1.6 + (q.sil ? 0 : 8)) + stroke([E, W], col(fill), w2 * 1.6);
+          return o;
+        };
+        let s = "";
+        // bainha (lado de lá)
+        const M = T(46, -12), sang = 166 + q.lean * 0.4, sd = dirv(sang), sn = [-sd[1], sd[0]];
+        const sEnd = addv(M, sd, 330);
+        s += poly([addv(M, sn, 9), addv(sEnd, sn, 7), addv(sEnd, sn, -7), addv(M, sn, -9)], col(C.hair), OL);
+        s += poly([addv(sEnd, sn, 8), addv(addv(sEnd, sd, 14), sn, 6), addv(addv(sEnd, sd, 14), sn, -6), addv(sEnd, sn, -8)], col(C.practical), OL);
+        // braço de lá (esquerdo)
+        const SL = T(-8, -164), Lt = q.L || addv(M, [-6, 4]);
+        const kl = ik(SL, Lt, 92, 88, 1);
+        s += sleeve(SL, kl.E, kl.W, 20, 15, 46, C.line);
+        s += `<circle cx="${f1(kl.W[0])}" cy="${f1(kl.W[1])}" r="11" fill="${col(C.skin)}" ${OL}/>`;
+        // capa (atrás)
+        const fl = q.flare;
+        s += smooth([T(36, -168), T(-6, -60), [hip[0] - 30, -118], [hip[0] - 70 - 50 * fl, -112 + 14 * fl], [hip[0] - 130 - 120 * fl, -150 + 60 * fl], T(-100 - 70 * fl, -70), T(-64, -158), T(-20, -188)], col(C.hair), OL);
+        // hakama (índigo) + pregas + sombra na perna de trás
+        const crotch = [hip[0] + 6 + q.crouch * 10, hip[1] + 150];
+        s += poly([T(-56, 6), T(50, 6), [fx - 4, kneeY], [fx + 44, -8], [fx - 50, -8], crotch, [bx + 46, -8], [bx - 44, -8], [bx - 12, kneeY]], col(C.sky), OL);
+        if (!q.sil) {
+          s += poly([T(-56, 6), crotch, [bx + 46, -8], [bx - 44, -8], [bx - 12, kneeY]], C.ink, 'opacity="0.2"');
+          s += stroke([T(0, 8), [hip[0] + 30, kneeY * 0.5]], C.ink, 3, 'opacity="0.6"') + stroke([T(26, 8), [fx + 4, kneeY * 0.4]], C.ink, 3, 'opacity="0.6"');
+        }
+        // botas
+        s += poly([[fx - 30, -16], [fx + 46, -12], [fx + 50, 0], [fx - 32, 0]], col(C.hair), OL);
+        s += poly([[bx - 34, -16], [bx + 34, -14], [bx + 36, 0], [bx - 36, 0]], col(C.hair), OL);
+        // tronco: quimono claro + 1 sombra dura nas costas + gola + faixa
+        s += poly([T(-52, -164), T(40, -170), T(54, -70), T(50, 8), T(-54, 8)], col(C.line), OL);
+        if (!q.sil) {
+          s += poly([T(-52, -164), T(-8, -168), T(-14, 8), T(-54, 8)], C.ink, 'opacity="0.2"');
+          s += stroke([T(32, -166), T(10, -96), T(44, -40)], C.ink, 4);
+        }
+        s += poly([T(-56, -30), T(52, -32), T(54, -4), T(-57, -2)], col(C.accent), OL);
+        // cabo na bainha
+        if (q.blade === "sheath") {
+          const hd = dirv(-18 + q.lean * 0.5), hn = [-hd[1], hd[0]], hEnd = addv(M, hd, 96);
+          s += poly([addv(addv(M, hd, 6), hn, 7), addv(hEnd, hn, 6), addv(hEnd, hn, -6), addv(addv(M, hd, 6), hn, -7)], col(C.hair), OL);
+          s += `<ellipse cx="${f1(M[0])}" cy="${f1(M[1])}" rx="6" ry="18" transform="rotate(${f1(-18 + q.lean * 0.5)} ${f1(M[0])} ${f1(M[1])})" fill="${col(C.practical)}" ${OL}/>`;
+          if (!q.sil) for (let i = 1; i < 5; i++) { const c = addv(M, hd, 6 + i * 18); s += poly([addv(c, hd, -5), addv(c, hn, 4), addv(c, hd, 5), addv(c, hn, -4)], C.line, 'opacity="0.6"'); }
+        }
+        // smear: crescente fino no caminho da ponta (não é blur)
+        if (q.smear && !q.sil) {
+          const sm = q.smear, n = 18; const outer = [], inner = [];
+          for (let i = 0; i <= n; i++) { const t = i / n, a = sm.a0 + (sm.a1 - sm.a0) * t, w = sm.w * Math.pow(Math.sin(t * Math.PI), 0.8) * (0.35 + 0.65 * t);
+            outer.push(addv(sm.S, dirv(a), sm.r + w * 0.25)); inner.push(addv(sm.S, dirv(a), sm.r - w)); }
+          s += poly(outer.concat(inner.reverse()), C.practical);
+        }
+        // espada na mão
+        const SR = T(30, -162);
+        const Rt = q.R || addv(M, dirv(-18 + q.lean * 0.5), 46);
+        if (q.blade === "drawn") {
+          const bd = dirv(q.bang), bn = [-bd[1], bd[0]];
+          const ts = addv(Rt, bd, 22), tip = addv(ts, bd, 300 * q.blen), mid = addv(addv(ts, bd, 150 * q.blen), bn, -10);
+          const hb = addv(Rt, bd, -62);
+          s += poly([addv(hb, bn, 6), addv(Rt, bn, 7), addv(Rt, bn, -7), addv(hb, bn, -6)], col(C.hair), OL);
+          s += `<path d="M${P(addv(ts, bn, 6))} Q${P(addv(mid, bn, 7))} ${P(tip)} Q${P(addv(mid, bn, -3))} ${P(addv(ts, bn, -5))} Z" fill="${q.sil ? C.ink : C.line}" stroke="${C.ink}" stroke-width="3"/>`;
+          if (!q.sil) s += curve(addv(ts, bn, -4), addv(mid, bn, -2), tip, C.practical, 2.5, 'opacity="0.9"');
+          s += `<ellipse cx="${f1(ts[0])}" cy="${f1(ts[1])}" rx="5" ry="16" transform="rotate(${f1(q.bang)} ${f1(ts[0])} ${f1(ts[1])})" fill="${col(C.practical)}" ${OL}/>`;
+        }
+        // braço de cá (direito)
+        const kr = ik(SR, Rt, 100, 94, q.bendR);
+        s += sleeve(SR, kr.E, kr.W, 24, 17, 58, C.line);
+        s += `<circle cx="${f1(kr.W[0])}" cy="${f1(kr.W[1])}" r="13" fill="${col(C.skin)}" ${OL}/>`;
+        // capuz, rosto e máscara
+        s += smooth([H(-30, -4), H(-58, -58), H(-78, -110), H(-26, -114), H(26, -100), H(48, -64), H(46, -40), H(40, -18), H(20, 4), H(-6, 6)], col(C.hair), OL);
+        if (!q.sil) {
+          s += poly([H(22, -70), H(46, -64), H(46, -45), H(24, -47)], C.skin);
+          s += poly([H(22, -70), H(46, -64), H(46, -57), H(22, -60)], C.ink, 'opacity="0.2"');
+          s += poly([H(24, -72), H(36, -70), H(30, -58)], C.hair) + poly([H(34, -70), H(46, -66), H(42, -56)], C.hair);
+          s += stroke([H(28, -57), H(46, -54)], C.hair, 4);
+          s += `<circle cx="${f1(H(41, -53)[0])}" cy="${f1(H(41, -53)[1])}" r="4.4" fill="${C.iris}"/>`;
+          s += poly([H(20, -47), H(48, -45), H(46, -24), H(36, -10), H(16, -6), H(13, -30)], C.hair);
+          s += stroke([H(22, -46), H(48, -44)], C.accent, 3);
+          s += curve(H(26, -100), H(52, -78), H(46, -42), C.accent, 4);
+        }
+        // contraluz da lua (rim)
+        if (q.rim && !q.sil) {
+          const rc = C.moon;
+          s += curve(H(-74, -110), H(-20, -124), H(26, -100), rc, 4, 'opacity="0.9"');
+          s += curve(T(-60, -160), T(-20, -192), T(36, -168), rc, 4, 'opacity="0.85"');
+          s += stroke([[hip[0] - 130 - 120 * fl, -150 + 60 * fl], T(-100 - 70 * fl, -70), T(-64, -158)], rc, 3, 'opacity="0.5"');
+        }
+        return s;
+      }
+      const at = (x, y, k, inner, extra) => `<g transform="translate(${x} ${y}) scale(${k})" ${extra || ""}>${inner}</g>`;
+
+      // ---------- PLANO 1 · Establish ----------
+      (function () {
+        let s = skyGrad("g1", C.ink, C.sky, C.ink);
+        const r = lcg(7); for (let i = 0; i < 40; i++) s += `<circle cx="${f1(r() * 1080)}" cy="${f1(80 + r() * 500)}" r="${f1(1 + r() * 1.6)}" fill="${C.line}" opacity="${f1(0.25 + r() * 0.4)}"/>`;
+        s += moon(560, 760, 240, "glint1");
+        s += cloud(40, 905, 520, 46, 3) + cloud(600, 950, 480, 40, 5) + cloud(260, 640, 300, 28, 9);
+        s += `<g opacity="0.55">${skyline(11, -40, 1120, 1180, 70, 1500, C.ink, 26, true)}${pagoda(170, 1250, 4, 170, 52, C.ink)}${pagoda(930, 1230, 3, 150, 48, C.ink)}${torii(760, 1230, 150, 120, C.ink)}</g>`;
+        // torre onde ele está: telhado de beiral curvo com cumeeira em y 1040
+        s += poly([[478, 1100], [642, 1100], [652, 1500], [468, 1500]], C.ink);
+        s += `<path d="M404,1112 Q456,1104 496,1076 L522,1040 L598,1040 L624,1076 Q664,1104 716,1112 L700,1124 Q610,1110 560,1112 Q510,1110 420,1124 Z" fill="${C.ink}"/>`;
+        s += `<path d="M396,1270 Q470,1254 500,1232 L620,1232 Q650,1254 724,1270 L700,1282 L420,1282 Z" fill="${C.ink}"/>`;
+        s += poly([[506, 1150], [520, 1150], [520, 1172], [506, 1172]], C.practical) + poly([[596, 1300], [610, 1300], [610, 1322], [596, 1322]], C.practical);
+        s += stroke([[524, 1040], [596, 1040]], C.moon, 3, 'opacity="0.7"') + stroke([[498, 1076], [404, 1112]], C.moon, 2, 'opacity="0.45"');
+        s += skyline(23, -40, 1120, 1400, 110, 1920, C.ink, 34, true);
+        s += `<path d="M0,1600 Q540,1540 1080,1600 L1080,1920 L0,1920 Z" fill="${C.ink}"/>`;
+        // 3 desenhos: a capa na ventania
+        s += at(560, 1040, 0.17, figure({ flare: 0.15 }), 'id="e1a" class="drw hero"');
+        s += at(560, 1040, 0.17, figure({ flare: 0.55 }), 'id="e1b" class="drw"');
+        s += at(560, 1040, 0.17, figure({ flare: 0.32, tilt: -10 }), 'id="e1c" class="drw"');
+        s += `<g id="r1f">${rain(101, 200, 40, 70, -10, 2, 0.2)}</g><g id="r1n">${rain(102, 240, 11, 110, -16, 3, 0.32)}</g>`;
+        s += bars;
+        document.getElementById("v1").innerHTML = s;
+      })();
+
+      // ---------- PLANO 2 · Approach ----------
+      (function () {
+        let s = skyGrad("g2", C.ink, C.sky, C.sky);
+        s += moon(760, 560, 330, "glint2");
+        s += cloud(380, 830, 700, 60, 13) + cloud(-40, 1010, 560, 50, 17);
+        s += `<g opacity="0.55">${skyline(31, -40, 1120, 1380, 80, 1920, C.ink, 30, true)}</g>`;
+        const k = 2.3, X = 380, Y = 2120;
+        s += at(X, Y, k, figure({ flare: 0.25 }), 'id="a2a" class="drw hero"');
+        s += at(X, Y, k, figure({ flare: 0.3, tilt: -16 }), 'id="a2b" class="drw"');
+        s += at(X, Y, k, figure({ flare: 0.42, tilt: -12, crouch: 0.06, R: rot([46 + 40, -310], -18, [46, -310]) }), 'id="a2c" class="drw"');
+        s += `<g id="st2" class="drw"></g>`;
+        s += `<g id="r2f">${rain(201, 200, 36, 80, -10, 2.5, 0.22)}</g><g id="r2n">${rain(202, 260, 8, 150, -18, 4, 0.36)}</g>`;
+        s += bars;
+        document.getElementById("v2").innerHTML = s;
+      })();
+
+      // ---------- PLANO 3 · Sakuga (o plano caro) ----------
+      const FX = 400, FY = 1500, FK = 1.2;            // pés do espadachim e escala
+      const HIT = [804, 560];                         // onde a estrela é cortada (no caminho da ponta da lâmina)
+      const TG = dirv(-145);                          // tangente do golpe no ponto do corte
+      const SD = (() => { const v = [-560, 560]; const l = Math.hypot(v[0], v[1]); return [v[0] / l, v[1] / l]; })(); // direção da queda
+      const SN = [SD[1], -SD[0]];                     // normal
+      function streakPath(len, w, core) {           // cabeça em 0,0; cauda para trás (-SD)
+        const tail = addv([0, 0], SD, -len), a = addv([0, 0], SN, w / 2), b = addv([0, 0], SN, -w / 2);
+        const cA = addv([0, 0], SN, core / 2), cB = addv([0, 0], SN, -core / 2), cT = addv([0, 0], SD, -len * 0.55);
+        return poly([addv([0, 0], SD, 10), a, tail, b], C.accent) + poly([addv([0, 0], SD, 6), cA, cT, cB], C.practical);
+      }
+      (function () {
+        let s = skyGrad("g3", C.ink, C.sky, C.ink);
+        s += moon(760, 760, 380, null);
+        s += cloud(420, 1080, 700, 60, 21) + cloud(-60, 1150, 520, 50, 27);
+        s += `<g opacity="0.55">${skyline(41, -40, 1120, 1210, 60, 1500, C.ink, 26, true)}${pagoda(900, 1260, 3, 160, 50, C.ink)}</g>`;
+        // cume do telhado onde ele pisa
+        s += `<path d="M-20,${FY} L1100,${FY} L1100,1920 L-20,1920 Z" fill="${C.ink}"/>`;
+        s += stroke([[-20, FY + 1], [1100, FY + 1]], C.moon, 4, 'opacity="0.55"');
+        for (let x = -10; x < 1160; x += 52) s += stroke([[x, FY + 18], [x - 90, 1920]], C.hair, 7, 'opacity="0.8"');
+        s += poly([[-20, FY - 10], [1100, FY - 10], [1100, FY + 14], [-20, FY + 14]], C.ink) + stroke([[-20, FY - 10], [1100, FY - 10]], C.moon, 3, 'opacity="0.5"');
+        // a estrela caindo
+        s += `<g id="streak">${streakPath(520, 26, 8)}</g>`;
+        // metades
+        s += `<g id="halfA" class="drw">${streakPath(230, 22, 7)}</g><g id="halfB" class="drw">${streakPath(290, 22, 7)}</g>`;
+        // linhas de velocidade (só no sakuga), 2 desenhos em um
+        const sl = (seed) => { const r = lcg(seed); let t = ""; for (let i = 0; i < 8; i++) { const o = [FX - 260 + r() * 700, FY - 960 + r() * 700], d = dirv(-125); t += stroke([o, addv(o, d, 140 + r() * 160)], C.line, 3, 'opacity="0.8"'); } return t; };
+        s += `<g id="sl1" class="drw">${sl(301)}</g><g id="sl2" class="drw">${sl(302)}</g>`;
+        // 8 desenhos únicos
+        const fig = (o) => figure(o);
+        const SRw = (o) => { const hip = [0, -300 + (o.crouch || 0) * 70]; return rot([hip[0] + 30, hip[1] - 162], o.lean || 0, hip); };
+        const D = [
+          { crouch: 0.22, lean: 4, flare: 0.2 },                                                          // 1 pronto
+          { crouch: 0.55, lean: -9, hipX: -14, tilt: 8, flare: 0.1 },                                      // 2 antecipação (o outro lado)
+          { crouch: 0.42, lean: 12, blade: "drawn", R: [128, -372], bang: 6, bendR: 1, flare: 0.55 },       // 3 saque
+          { crouch: 0.32, lean: 18, blade: "drawn", R: [96, -548], bang: -78, bendR: -1, flare: 0.9 },      // 4 smear
+          { crouch: 0.28, lean: 6, blade: "drawn", R: [-24, -640], bang: -146, bendR: -1, flare: 1.0, tilt: -8 }, // 5 follow-through
+          { crouch: 0.2, lean: 2, blade: "drawn", R: [150, -350], bang: 58, bendR: 1, flare: 0.7 },          // 6 chiburi
+          { crouch: 0.08, lean: 0, tilt: 8, flare: 0.5 },                                                  // 7 embainhou
+          { crouch: 0.08, lean: 0, tilt: 8, flare: 0.14 },                                                 // 8 a capa assenta
+        ];
+        const smearOf = (o) => { const S = SRw(o); return { S, a0: 14, a1: -118, r: 452, w: 74 }; };
+        D[3].smear = smearOf(D[3]);
+        D.forEach((o, i) => {
+          let inner = fig(o);
+          if (i === 3) inner = `<g transform="rotate(-50) scale(1.16 0.9) rotate(50)">${inner}</g>`; // silhueta esticada no sentido do arco
+          s += at(FX, FY, FK, inner, `id="d${i + 1}" class="drw${i === 0 ? " hero" : ""}"`);
+        });
+        // faíscas (em um)
+        const sp = (seed) => { const r = lcg(seed); let t = ""; for (let i = 0; i < 10; i++) { const a = -145 + (r() - 0.5) * 70 + (i % 2) * 180, d = dirv(a), o = addv(HIT, d, 20 + r() * 30); t += stroke([o, addv(o, d, 40 + r() * 70)], i % 3 ? C.practical : C.line, 4); } return t; };
+        s += `<g id="sp1" class="drw">${sp(311)}</g><g id="sp2" class="drw">${sp(312)}</g>`;
+        // brasas
+        const er = lcg(321); let emb = "";
+        for (let i = 0; i < 46; i++) { const t = er(), side = i % 2 ? 1 : -1, base = addv(addv(HIT, SD, side > 0 ? 160 * t : -200 * t), SN, side * 80);
+          const sz = 5 + er() * 8, c = er() < 0.55 ? C.accent : C.practical;
+          emb += `<path class="emb" data-dx="${f1((er() - 0.5) * 260 + side * 60)}" data-dy="${f1(80 + er() * 260)}" d="M${f1(base[0])},${f1(base[1] - sz)} l${f1(sz * 0.6)},${f1(sz)} l${f1(-sz * 0.6)},${f1(sz)} l${f1(-sz * 0.6)},${f1(-sz)} Z" fill="${c}"/>`; }
+        s += `<g id="embers" class="drw">${emb}</g>`;
+        // brilho do "clique" ao embainhar (2 quadros)
+        const mouth = (() => { const hip = [0, -300 + 0.08 * 70]; const m = rot([hip[0] + 46, hip[1] - 12], 0, hip); return [FX + m[0] * FK, FY + m[1] * FK]; })();
+        s += `<g id="click" class="drw">${stroke([addv(mouth, [-26, 0]), addv(mouth, [26, 0])], C.practical, 4)}${stroke([addv(mouth, [0, -26]), addv(mouth, [0, 26])], C.practical, 4)}</g>`;
+        // impact frame (2 quadros): valores invertidos, 1 acento
+        let imp = `<rect width="1080" height="1920" fill="${C.line}"/>`;
+        imp += poly([addv(addv(HIT, TG, 1100), [0, -14]), addv(addv(HIT, TG, 1100), [0, 14]), addv(addv(HIT, TG, -1100), [0, 22]), addv(addv(HIT, TG, -1100), [0, -22])], C.accent);
+        imp += at(FX, FY, FK, figure(Object.assign({}, D[4], { sil: true })));
+        imp += `<g transform="translate(${HIT[0] + SD[0] * 30 + SN[0] * 40} ${HIT[1] + SD[1] * 30 + SN[1] * 40})">${streakPath(230, 22, 0).replace(new RegExp(C.practical, "g"), C.accent)}</g>`;
+        imp += `<g transform="translate(${HIT[0] - SN[0] * 40} ${HIT[1] - SN[1] * 40})">${streakPath(290, 22, 0).replace(new RegExp(C.practical, "g"), C.accent)}</g>`;
+        s += `<g id="imp" class="drw">${imp}</g>`;
+        s += `<g id="r3f">${rain(301, 200, 38, 70, -10, 2, 0.2)}</g><g id="r3n">${rain(302, 240, 9, 120, -16, 3, 0.32)}</g>`;
+        s += bars;
+        document.getElementById("v3").innerHTML = s;
+      })();
+
+      // ---------- PLANO 4 · Button (close nos olhos) ----------
+      (function () {
+        let s = skyGrad("g4", C.ink, C.sky, C.ink);
+        s += `<circle cx="900" cy="260" r="260" fill="${C.moon}" opacity="0.12"/><circle cx="900" cy="260" r="150" fill="${C.moon}" opacity="0.12"/>`;
+        s += `<g id="r4">${rain(401, 220, 30, 90, -12, 3, 0.26)}</g>`;
+        // rosto
+        s += smooth([[200, 520], [880, 520], [905, 770], [850, 1010], [700, 1210], [540, 1290], [380, 1210], [230, 1010], [175, 770]], C.skin);
+        // sombra dura do capuz (ink ~20%)
+        s += `<path d="M150,500 L930,500 L930,690 Q820,668 720,700 Q630,722 540,690 Q450,660 360,702 Q260,724 150,690 Z" fill="${C.ink}" opacity="0.2"/>`;
+        // sobrancelhas em bloco (na sombra)
+        s += poly([[264, 672], [446, 700], [440, 711], [262, 686]], C.hair) + poly([[816, 672], [634, 700], [640, 711], [818, 686]], C.hair);
+        // franja: 3 massas em blocos saindo do capuz, 1 faixa dura de brilho
+        s += `<path d="M280,560 Q330,640 352,742 Q380,660 420,600 Q450,680 486,770 Q520,690 560,612 Q600,700 640,756 Q662,676 700,616 Q740,676 756,730 Q790,640 810,560 Z" fill="${C.hair}"/>`;
+        s += `<path d="M452,636 Q470,660 478,690 L492,684 Q484,656 466,632 Z" fill="${C.moon}" opacity="0.8"/>`;
+        // olhos: um olho desenhado e espelhado
+        const eye = (state) => {
+          let e = "";
+          if (state === "blink") {
+            e += curve([248, 806], [360, 846], [476, 800], C.hair, 13) + poly([[248, 806], [226, 786], [240, 812]], C.hair);
+            return e;
+          }
+          const top = state === "narrow" ? 768 : 726, ctrl = state === "narrow" ? 752 : 708;
+          const sc = `M248,806 Q${300},${ctrl} 382,${top} Q458,${top + 6} 480,792 Q430,840 336,842 Q270,836 248,806 Z`;
+          e += `<path d="${sc}" fill="${C.sclera}"/>`;
+          e += `<clipPath id="ck-${state}"><path d="${sc}"/></clipPath><g clip-path="url(#ck-${state})">`;
+          e += `<circle cx="372" cy="798" r="58" fill="${C.iris}"/><circle cx="372" cy="798" r="58" fill="none" stroke="${C.hair}" stroke-width="6"/>`;
+          e += `<path d="M318,812 Q372,842 426,812 Q372,826 318,812 Z" fill="${C.practical}"/>`;  // a lâmina refletida
+          e += `<ellipse cx="374" cy="796" rx="20" ry="27" fill="${C.hair}"/>`;
+          e += poly([[340, 760], [358, 756], [362, 780], [344, 784]], C.line) + `<circle cx="402" cy="826" r="6" fill="${C.line}"/>`;
+          e += `<path d="M240,700 L500,700 L500,${top + 18} Q440,${top} 382,${top} Q300,${ctrl + 4} 248,806 L240,806 Z" fill="${C.ink}" opacity="0.2"/></g>`;
+          e += `<path d="M236,812 Q${296},${ctrl - 6} 384,${top - 8} Q462,${top - 2} 490,790" fill="none" stroke="${C.hair}" stroke-width="15" stroke-linecap="round"/>`;
+          e += poly([[236, 812], [214, 786], [226, 778], [250, 800]], C.hair);
+          e += curve([282, 842], [334, 856], [398, 848], C.hair, 4);
+          return e;
+        };
+        const both = (state) => eye(state) + `<g transform="translate(1080 0) scale(-1 1)">${eye(state).replace(/ck-/g, "cm-")}</g>`;
+        s += `<g id="eo" class="drw hero">${both("open")}</g><g id="eb" class="drw">${both("blink")}</g><g id="en" class="drw">${both("narrow")}</g>`;
+        // máscara
+        s += `<path d="M170,1000 Q300,955 470,935 Q540,900 610,935 Q780,955 910,1000 L940,1500 L140,1500 Z" fill="${C.hair}"/>`;
+        s += `<path d="M170,1000 Q300,955 470,935 Q540,900 610,935 Q780,955 910,1000" fill="none" stroke="${C.accent}" stroke-width="7"/>`;
+        s += curve([540, 930], [560, 1040], [520, 1150], C.ink, 5, 'opacity="0.8"') + curve([360, 1000], [420, 1120], [380, 1260], C.ink, 4, 'opacity="0.6"') + curve([720, 1000], [660, 1120], [700, 1260], C.ink, 4, 'opacity="0.6"');
+        // capuz (com a abertura do rosto)
+        s += `<path fill-rule="evenodd" fill="${C.hair}" d="M40,1920 L60,900 Q90,330 540,200 Q990,330 1020,900 L1040,1920 Z M190,1500 L160,900 Q170,640 230,600 Q540,470 850,600 Q910,640 920,900 L890,1500 Z"/>`;
+        s += `<path d="M190,1500 L160,900 Q170,640 230,600 Q540,470 850,600 Q910,640 920,900 L890,1500" fill="none" stroke="${C.accent}" stroke-width="9"/>`;
+        s += `<path d="M60,900 Q90,330 540,200 Q990,330 1020,900" fill="none" stroke="${C.moon}" stroke-width="5" opacity="0.5"/>`;
+        s += `<text id="fala" class="fala" x="540" y="1540" text-anchor="middle">Nem a lua viu a lâmina.</text>`;
+        s += bars;
+        document.getElementById("v4").innerHTML = s;
+      })();
+
+      // ---------- linha do tempo (pausada, determinística) ----------
+      const tl = gsap.timeline({ paused: true });
+      const swap = (a, b, t) => { tl.set(a, { opacity: 0 }, t); tl.set(b, { opacity: 1 }, t); };
+      const rainLoop = (sel, period, speed, t0, dur) => { const cyc = period / speed; tl.fromTo(sel, { y: 0 }, { y: period, duration: cyc, ease: "none", repeat: Math.ceil(dur / cyc) + 1 }, t0); };
+      // cortes por mergulho de cor
+      const dip = (cut, color) => { tl.set("#dip", { backgroundColor: color }, cut - 0.3); tl.to("#dip", { opacity: 1, duration: 0.25, ease: "power2.in" }, cut - 0.25); tl.to("#dip", { opacity: 0, duration: 0.35, ease: "power2.out" }, cut + 0.05); };
+      tl.set("#dip", { opacity: 0, backgroundColor: C.ink }, 0);
+      dip(2.5, C.ink); dip(5.0, C.accent); dip(9.0, C.ink);
+      tl.set("#dip", { backgroundColor: C.ink }, 11.5);
+      tl.to("#dip", { opacity: 1, duration: F(8), ease: "power1.in" }, 12 - F(8));
+      // 1 · establish
+      tl.fromTo("#cam1", { scale: 1 }, { scale: 1.06, duration: 2.5, ease: "power1.inOut" }, 0);
+      rainLoop("#r1f", 200, 1300, 0, 2.6); rainLoop("#r1n", 240, 1900, 0, 2.6);
+      swap("#e1a", "#e1b", F(20)); swap("#e1b", "#e1c", F(36));
+      tl.set("#glint1", { opacity: 1 }, F(41));
+      // 2 · approach
+      tl.fromTo("#cam2", { scale: 1 }, { scale: 1.04, duration: 2.5, ease: "power1.inOut" }, 2.5);
+      rainLoop("#r2f", 200, 1300, 2.5, 2.6); rainLoop("#r2n", 260, 2100, 2.5, 2.6);
+      tl.set("#glint2", { opacity: 1 }, 2.5);
+      swap("#a2a", "#a2b", 2.5 + F(19)); swap("#a2b", "#a2c", 2.5 + F(42));
+      // 3 · sakuga
+      rainLoop("#r3f", 200, 1300, 5, 4.1); rainLoop("#r3n", 240, 1900, 5, 4.1);
+      const S0 = addv(HIT, SD, -760);
+      tl.fromTo("#streak", { x: S0[0], y: S0[1] }, { x: HIT[0], y: HIT[1], duration: 0.8, ease: "power2.in" }, 5.0);
+      const t3 = (n) => 5 + F(n);
+      swap("#d1", "#d2", t3(12));                       // antecipação: 4 quadros
+      swap("#d2", "#d3", t3(16));                       // saque: 2 quadros
+      swap("#d3", "#d4", t3(18));                       // smear: 2 quadros
+      tl.set("#sl1", { opacity: 1 }, t3(16)); swap("#sl1", "#sl2", t3(17)); swap("#sl2", "#sl1", t3(18)); swap("#sl1", "#sl2", t3(19));
+      tl.set("#streak", { opacity: 0 }, t3(20));
+      swap("#d4", "#imp", t3(20)); tl.set("#sl2", { opacity: 0 }, t3(20));   // impact frame: 2 quadros
+      swap("#imp", "#d5", t3(22));
+      // metades se separam (em um)
+      tl.set(["#halfA", "#halfB"], { opacity: 1 }, t3(22));
+      tl.fromTo("#halfA", { x: HIT[0] + SD[0] * 30 + SN[0] * 40, y: HIT[1] + SD[1] * 30 + SN[1] * 40 }, { x: HIT[0] + SD[0] * 170 + SN[0] * 120, y: HIT[1] + SD[1] * 170 + SN[1] * 120, duration: 0.8, ease: "power2.out" }, t3(22));
+      tl.fromTo("#halfB", { x: HIT[0] - SN[0] * 40, y: HIT[1] - SN[1] * 40 }, { x: HIT[0] + SD[0] * 60 - SN[0] * 130, y: HIT[1] + SD[1] * 60 - SN[1] * 130, duration: 0.8, ease: "power2.out" }, t3(22));
+      tl.to(["#halfA", "#halfB"], { opacity: 0.65, duration: 0.6, ease: "none" }, t3(40));
+      tl.set("#sp1", { opacity: 1 }, t3(22)); swap("#sp1", "#sp2", t3(23)); swap("#sp2", "#sp1", t3(24)); swap("#sp1", "#sp2", t3(25)); tl.set("#sp2", { opacity: 0 }, t3(26));
+      swap("#d5", "#d6", t3(42));                       // chiburi (hold de 20 quadros antes)
+      swap("#d6", "#d7", t3(58));                       // embainha
+      tl.set("#click", { opacity: 1 }, t3(58)); tl.set("#click", { opacity: 0 }, t3(60));
+      // as metades viram brasas
+      tl.set(["#halfA", "#halfB"], { opacity: 0 }, t3(60)); tl.set("#embers", { opacity: 1 }, t3(60));
+      document.querySelectorAll("#embers .emb").forEach((el) => {
+        tl.fromTo(el, { x: 0, y: 0, opacity: 1 }, { x: +el.dataset.dx, y: +el.dataset.dy, opacity: 0, duration: 1.5, ease: "power1.out" }, t3(60));
+      });
+      swap("#d7", "#d8", t3(66));                       // a capa assenta; hold até o corte
+      // 4 · button
+      tl.fromTo("#cam4", { scale: 1 }, { scale: 1.06, duration: 3, ease: "power1.inOut" }, 9);
+      rainLoop("#r4", 220, 1500, 9, 3.1);
+      tl.fromTo("#fala", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 9.55);
+      swap("#eo", "#eb", 9 + F(34)); swap("#eb", "#en", 9 + F(36));
+      window.__timelines = window.__timelines || {};
+      window.__timelines["chuva"] = tl;
+    </script>
+  </body>
+</html>

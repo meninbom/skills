@@ -1,0 +1,8 @@
+# Só para as ferramentas opcionais em Python (o demo não usa):
+# maos_sdf.py (poses novas de mão) e medir/ (medir câmera e legenda de uma referência)
+numpy
+scikit-image
+scipy
+pillow
+opencv-python
+rapidocr-onnxruntime

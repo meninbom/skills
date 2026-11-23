@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Estilo emoji · template</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+/* ESTILO EMOJI ("agenda de purikura"): uma página quadriculada só; 2 tipos de objeto (foto-adesivo em retícula · adesivo de pixel 12×12);
+   uma família (Bricolage Grotesque); 3 técnicas de movimento (travelling contínuo da página · pouso · linha subindo por máscara).
+   Template mínimo de ~12 s. Para um vídeo seu, troque só o bloco "ROTEIRO NA PÁGINA" e a lista K da câmera. */
+@font-face{font-family:"Bric";src:url("fonts/Bricolage.ttf") format("truetype");font-weight:200 800;font-stretch:75% 100%}
+@font-face{font-family:"LCD";src:url("fonts/DepartureMono.otf") format("opentype")}
+/* kanji: o original usou um subconjunto do Yu Gothic Bold (não redistribuível). Use Noto Sans JP Bold (OFL) se precisar: */
+/* @font-face{font-family:"JP";src:url("fonts/NotoSansJP-Bold.ttf") format("truetype");font-weight:700} */
+:root{--papel:#FAF8F3;--linha:#DCE2F0;--tinta:#1B1631;--apoio:#6E6A86;--rosa:#FF4FA3;--azul:#3157FF;--lima:#9ADB2A;--mesa:#E6E1D6}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:var(--W,1080px);height:var(--H,1920px);overflow:hidden;background:var(--mesa)}
+#root{position:relative;width:var(--W,1080px);height:var(--H,1920px);overflow:hidden;background:var(--mesa);font-family:"Bric",sans-serif;color:var(--tinta)}
+#cam{position:absolute;inset:0;overflow:hidden;z-index:1}
+#world{position:absolute;left:0;top:0;transform-origin:0 0}
+#pagina{position:absolute;left:0;top:0;background:var(--papel);border-radius:28px;box-shadow:0 30px 80px rgba(27,22,49,.35)}
+.grade{position:absolute;inset:0;border-radius:28px}
+.camada{position:absolute;left:0;top:0}
+#c-obj{z-index:1} #c-texto{z-index:2}
+#band{position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:2;pointer-events:none;transform-origin:0 0}
+.st{position:absolute;filter:drop-shadow(0 14px 18px rgba(27,22,49,.22)) drop-shadow(0 2px 3px rgba(27,22,49,.25))}
+.st img{display:block;width:100%;height:auto}
+.m{position:absolute;overflow:hidden;padding:.24em .3em .3em;margin:-.24em -.3em -.3em}  /* máscara com folga p/ acento */
+.tx{white-space:nowrap;line-height:1;will-change:transform}
+.h8{font-weight:800;letter-spacing:-0.04em}
+.lab{font-weight:650;text-transform:uppercase;letter-spacing:.07em;color:var(--apoio)}
+.jp{font-family:"JP","Bric",sans-serif;font-weight:700;letter-spacing:0}
+.risco{position:absolute;left:-10px;right:-14px;top:52%;height:22px;margin-top:-11px;background:var(--rosa);border-radius:11px;transform-origin:0 50%;transform:scaleX(0)}
+.pxsvg{position:absolute;overflow:visible}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="12" data-width="1080" data-height="1920" data-fps="30">
+  <div id="cam">
+    <div id="world">
+      <div id="pagina"><div class="grade" id="gA"></div><div class="grade" id="gB"></div></div>
+      <div class="camada" id="c-obj"></div>
+      <div class="camada" id="c-texto"></div>
+    </div>
+  </div>
+  <div id="band"></div>
+  <!-- narração/mix pronto (um arquivo só). Descomente e ajuste data-duration = DUR:
+  <audio id="mix" src="audio/mix.wav" data-start="0" data-duration="12" data-volume="1" data-track-index="1"></audio> -->
+</div>
+<script>
+(function(){
+/* ===================== PALCO (tamanho do quadro) =====================
+   Padrão 1080×1920. Outro tamanho chega pela URL: index.html?w=1920&h=1080 (o render.mjs passa isso com --vw e --vh).
+   BASE = o quadro para o qual o roteiro foi desenhado. Em outro formato, o quadro BASE aparece inteiro e centrado,
+   sem esticar nem cortar, e sobra página (ou mesa) dos lados. Para desenhar direto em horizontal, troque BASE para
+   {w:1920,h:1080} e refaça as posições do roteiro e da lista K pensando nesse quadro. */
+const BASE={w:1080,h:1920};
+const _url=new URLSearchParams(location.search);
+const PALCO={w:parseInt(_url.get('w'),10)||BASE.w,h:parseInt(_url.get('h'),10)||BASE.h};
+const ENQ=Math.min(PALCO.w/BASE.w,PALCO.h/BASE.h);                    // quanto o quadro BASE encolhe para caber
+const OX=(PALCO.w-ENQ*BASE.w)/2, OY=(PALCO.h-ENQ*BASE.h)/2;           // canto do quadro BASE dentro do palco
+document.documentElement.style.setProperty('--W',PALCO.w+'px'); document.documentElement.style.setProperty('--H',PALCO.h+'px');
+{ const r=document.getElementById('root'); r.dataset.width=PALCO.w; r.dataset.height=PALCO.h;
+  if(ENQ!==1||OX||OY) document.getElementById('band').style.transform=`translate(${OX}px,${OY}px) scale(${ENQ})`; }
+window.__palco=PALCO;
+/* ===================== CONFIG GERAL ===================== */
+const DUR=12;                       // = data-duration do #root (e do <audio>)
+const PAG={w:2400,h:5400};          // a página inteira (o original tinha 2400×11600 para 56 s)
+const AX=OX+ENQ*540, AY=OY+ENQ*1000; // ponto da tela onde a câmera "entrega" o alvo (um pouco acima do meio do quadro BASE)
+
+/* grades 12×12 dos adesivos de pixel ('#' = pixel aceso) + a cor de cada um (uma cor por ícone) */
+const ICON={"sol":["....#..#....",".....##.....",".#..####..#.","..########..","..########..",".##########.",".##########.","..########..","..########..",".#..####..#.",".....##.....","....#..#...."],"nuvem":["............","............",".....###....","....#####...","..#########.",".###########","############","############",".##########.","............","............","............"],"coracao":["............","..###..###..",".#####.####.","############","############","############",".##########.","..########..","...######...","....####....",".....##.....","............"],"lampada":["....####....","...######...","..########..","..########..","..########..","...######...","....####....","....#..#....","....####....","....####....",".....##.....","............"],"bomba":[".........#..","........#.#.",".......#....","....####....","...######...","..########..",".##########.",".##########.",".##########.","..########..","...######...","....####...."],"lua":["....####....","...###......","..###.......",".###........",".###........",".###........",".###........",".####.......","..####...#..","...#######..","....#####...","............"],"guarda":[".....##.....","...######...","..########..",".##########.","############",".....##.....",".....##.....",".....##.....",".....##.....",".....##.#...","......###...","............"],"nota":["....######..","....######..","....#....#..","....#....#..","....#....#..","....#....#..","....#....#..","..###..###..",".####.####..",".####.####..","..##...##...","............"],"estrela":[".....##.....",".....##.....","....####....","############",".##########.","..########..","...######...","...######...","..###..###..","..##....##..",".##......##.","............"],"gota":[".....##.....",".....##.....","....####....","....####....","...######...","..########..","..########..","..########..","..########..","...######...","....####....","............"],
+"_cor":{"sol":"#9ADB2A","nuvem":"#3157FF","coracao":"#FF4FA3","lampada":"#9ADB2A","bomba":"#1B1631","lua":"#3157FF","guarda":"#FF4FA3","nota":"#1B1631","estrela":"#9ADB2A","gota":"#3157FF"}};
+
+/* ===================== MOTOR (não precisa mexer) ===================== */
+const $=id=>document.getElementById(id);
+['world','pagina','c-obj','c-texto'].forEach(id=>{$(id).style.width=PAG.w+'px';$(id).style.height=PAG.h+'px';});
+function bez(nome,x1,y1,x2,y2){
+  const b=(p1,p2,t)=>3*(1-t)*(1-t)*t*p1+3*(1-t)*t*t*p2+t*t*t;
+  gsap.registerEase(nome,p=>{let lo=0,hi=1;for(let k=0;k<40;k++){const m=(lo+hi)/2;(b(x1,x2,m)<p)?lo=m:hi=m;}return b(y1,y2,(lo+hi)/2);});
+}
+bez('mover',.75,0,.35,1);           // a curva das viagens de câmera
+const Q=t=>Math.round(t*30)/30;     // tudo cai em quadro inteiro (30 fps)
+const tl=gsap.timeline({paused:true});
+const OBJ=$('c-obj'), TXT=$('c-texto'), BAND=$('band');
+
+// TEXTO: uma linha dentro de máscara; entra subindo (expo.out 0,5 s) ~0,1 s antes da palavra
+let nId=0;
+function linha(cont,x,y,size,cls,html,al='l',visivel=false){
+  const id='l'+(nId++); const tr=al==='c'?'transform:translateX(-50%);':'';
+  cont.insertAdjacentHTML('beforeend',`<div class="m" style="left:${x}px;top:${y}px;font-size:${size}px;${tr}"><div class="tx ${cls}" id="${id}">${html}</div></div>`);
+  if(!visivel){ tl.set('#'+id,{yPercent:175},0); gsap.set('#'+id,{yPercent:175}); }
+  return id;
+}
+function entra(ids,t,st=0.07){ [].concat(ids).forEach((id,i)=>tl.fromTo('#'+id,{yPercent:175},{yPercent:0,duration:0.5,ease:'expo.out'},Q(t+i*st))); }
+function sai(ids,t){ [].concat(ids).forEach(id=>tl.to('#'+id,{yPercent:-180,duration:0.2,ease:'expo.in'},Q(t))); }
+const W=(x,y,size,cls,html,al)=>linha(TXT,x,y,size,cls,html,al);   // texto colado na página (anda com a câmera)
+const B=(x,y,size,cls,html,al)=>linha(BAND,x,y,size,cls,html,al);  // texto preso à tela (só dentro de mergulhos fortes)
+
+// FOTO-ADESIVO (PNG já com retícula + borda branca). cx,cy = centro na página; w = largura.
+function adesivo(id,src,cx,cy,w,ratio,rot=0){
+  const h=Math.round(w*ratio);
+  OBJ.insertAdjacentHTML('beforeend',`<div class="st" id="${id}" style="left:${cx-w/2}px;top:${cy-h/2}px;width:${w}px;height:${h}px;transform:rotate(${rot}deg)"><img src="${src}"></div>`);
+}
+// POUSO: cai na página (−40 px, 1,08 → 1, power2.in 0,34 s), SEM mola. tContato = onset da palavra.
+function pousa(id,tContato,rot=0){
+  const t0=Q(Math.max(0,tContato-0.34));
+  tl.set('#'+id,{opacity:0},0); gsap.set('#'+id,{opacity:0});
+  tl.fromTo('#'+id,{opacity:0},{opacity:1,duration:0.08,ease:'none'},t0);
+  tl.fromTo('#'+id,{scale:1.08,y:-40,rotation:rot+2.5},{scale:1,y:0,rotation:rot,duration:Math.min(0.34,tContato-t0||0.34),ease:'power2.in'},t0);
+}
+// DESCOLA: o adesivo já pousado levanta (1,06) e volta. Usado no fecho.
+function descola(id,t,ida=0.35,fica=0.9){
+  tl.to('#'+id,{scale:1.06,duration:ida,ease:'expo.out'},Q(t));
+  tl.to('#'+id,{scale:1,duration:0.45,ease:'sine.inOut'},Q(t+ida+fica));
+}
+// ADESIVO DE PIXEL 12×12 em SVG (nítido em qualquer zoom); borda branca = os mesmos pixels engordados
+function pxSVG(nome,cel){
+  const g=ICON[nome]; let r='', b=''; const pad=cel*0.55;
+  for(let y=0;y<12;y++)for(let x=0;x<12;x++) if(g[y][x]==='#'){
+    b+=`<rect x="${x*cel-pad}" y="${y*cel-pad}" width="${cel+2*pad}" height="${cel+2*pad}" rx="${pad}"/>`;
+    r+=`<rect x="${x*cel}" y="${y*cel}" width="${cel+0.02}" height="${cel+0.02}"/>`;
+  }
+  return `<g fill="#fff">${b}</g><g fill="${ICON._cor[nome]}" shape-rendering="crispEdges">${r}</g>`;
+}
+function pxAdesivo(id,nome,cx,cy,size,extra=''){
+  OBJ.insertAdjacentHTML('beforeend',`<svg class="pxsvg st" id="${id}" viewBox="0 0 ${size} ${size}" style="left:${cx-size/2}px;top:${cy-size/2}px;width:${size}px;height:${size}px;${extra}">${pxSVG(nome,size/12)}</svg>`);
+}
+
+/* ===================== ROTEIRO NA PÁGINA (troque isto) =====================
+   Tempos = onset das palavras na narração (em segundos). Demo sem áudio:
+   "Emoji vem de emotion? Só que não. É japonês. Tóquio, 1999. E em um mês: 176 figurinhas. Ou seja... é peça de museu." */
+
+// A · gancho e fecho (o quadro 0 = o último: laço)
+pxAdesivo('hA','coracao',600,680,470);
+tl.fromTo('#hA',{scale:1.06},{scale:1,duration:0.4,ease:'sine.inOut'},0);
+linha(TXT,175,960,270,'h8','emoji','l',true);                   // já visível no quadro 0
+const tEmotion=W(183,1265,170,'h8','<span style="position:relative;display:inline-block">emotion<span class="risco" id="risco"></span></span>');
+entra(tEmotion,0.74);
+tl.to('#risco',{scaleX:1,duration:0.36,ease:'expo.out'},Q(1.90));  // "Só que não": risco físico, nunca palavra pintada
+const tPeca=W(185,1490,104,'h8','peça de museu.');
+
+// B · japonês
+const tKanji=W(1800,1190,250,'jp','絵文字','c'); entra(tKanji,2.55);
+
+// C · Tóquio, 1999 (foto-adesivo)
+adesivo('foto','img/foto_exemplo.png',1800,2700,760,1330/1188,-1.5);
+pousa('foto',4.30,-1.5);
+const tTq=W(1430,3185,120,'h8','Tóquio,'), t99=W(1430,3320,210,'h8','1999');
+entra(tTq,4.25); entra(t99,4.75);
+
+// D · avalanche: folha de figurinhas enche em onda a partir do centro + número
+const SH={x:200,y:4200,cols:14,rows:8,p:56,c:48}, CEN={col:6,row:4};
+const NOMES=Object.keys(ICON).filter(k=>k[0]!=='_');
+const ordem=[];
+for(let r=0;r<SH.rows;r++)for(let c=0;c<SH.cols;c++){
+  const id='f'+r+'_'+c; pxAdesivo(id,NOMES[(c*7+r*3+((c*r)%5))%NOMES.length],SH.x+c*SH.p+SH.c/2,SH.y+r*SH.p+SH.c/2,SH.c);
+  ordem.push({id,d:Math.hypot(c-CEN.col,r-CEN.row)*0.6+((c*13+r*7)%10)*0.04});
+}
+const dMax=Math.max(...ordem.map(o=>o.d));
+ordem.forEach(o=>{ const t=6.30+o.d/dMax*1.1;
+  tl.set('#'+o.id,{opacity:0},0); gsap.set('#'+o.id,{opacity:0});
+  tl.fromTo('#'+o.id,{opacity:0,scale:1.25},{opacity:1,scale:1,duration:0.22,ease:'power2.in'},Q(t)); });
+const t176=W(590,3850,250,'h8','176','c'); entra(t176,7.30);
+
+// E · fecho: "peça de museu." sobe ao lado do coração do começo; o coração descola e o laço fecha
+descola('hA',10.0,0.4,0.9);
+entra(tPeca,10.40);
+tl.to(['#'+tPeca,'#'+tEmotion],{opacity:0,duration:0.3,ease:'sine.in'},Q(11.50));
+tl.to('#hA',{scale:1.06,duration:0.4,ease:'sine.inOut'},Q(11.58));
+
+/* ===================== CONFETE (densidade MAXI sem disputar foco) =====================
+   adesivos de pixel pequenos (56–104 px), PARADOS, só nos espaços livres, a ≥120 px de texto/objeto */
+{
+  const zonas=[]; const add=(x0,y0,x1,y1,m)=>zonas.push([x0-m,y0-m,x1+m,y1+m]);
+  document.querySelectorAll('#c-obj > .st').forEach(e=>{const r=e.getBoundingClientRect(); if(r.width>0) add(r.left,r.top,r.right,r.bottom,120);});
+  document.querySelectorAll('#c-texto .m').forEach(e=>{const r=e.getBoundingClientRect(); if(r.width>0) add(r.left,r.top,r.right,r.bottom,120);});
+  add(SH.x-150,SH.y-450,SH.x+SH.cols*SH.p+150,SH.y+SH.rows*SH.p+150,0);   // reserva a folha
+  let seed=7; const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647;};
+  const feitos=[]; let n=0;
+  for(let tent=0;tent<6000&&n<50;tent++){
+    const sz=Math.round(56+rnd()*48), x=60+rnd()*(PAG.w-120-sz), y=60+rnd()*(PAG.h-120-sz), box=[x,y,x+sz,y+sz];
+    const bate=z=>!(box[2]<z[0]||box[0]>z[2]||box[3]<z[1]||box[1]>z[3]);
+    if(zonas.some(bate)||feitos.some(bate)) continue;
+    feitos.push([x-34,y-34,x+sz+34,y+sz+34]);
+    pxAdesivo('cf'+n,NOMES[Math.floor(rnd()*NOMES.length)],x+sz/2,y+sz/2,sz,`transform:rotate(${Math.round(rnd()*24-12)}deg)`); n++;
+  }
+}
+
+/* ===================== CÂMERA CONTÍNUA =====================
+   Cada linha: [tempo, x, y, escala, curva até chegar aqui]. (x,y) = ponto da página que fica em (AX,AY) da tela.
+   Regra: VIAGEM ('mover', ~0,5–0,6 s, chegando ~0,05 s depois do onset da palavra) → DERIVA ('sine.inOut', escala +2–3 %) → próxima viagem.
+   A câmera nunca para; o zoom é interpolado em log (mergulhos de 4× ou 17× ficam suaves). */
+const cam={x:600,y:1020,l:0};
+function aplica(){ const s=Math.exp(cam.l)*ENQ;
+  $('world').style.transform=`translate(${(AX-s*cam.x).toFixed(2)}px,${(AY-s*cam.y).toFixed(2)}px) scale(${s.toFixed(5)})`;
+  // quadriculado contínuo em qualquer zoom: duas grades (64/2^n e metade); a fina aparece aos poucos
+  const lg=Math.max(0,Math.log2(s)), n=Math.floor(lg), f=lg-n, lw=(2/Math.max(1,s)).toFixed(4);
+  const gr=(el,esp,op)=>{ el.style.backgroundImage=`linear-gradient(#DCE2F0 ${lw}px,transparent ${lw}px),linear-gradient(90deg,#DCE2F0 ${lw}px,transparent ${lw}px)`; el.style.backgroundSize=`${esp}px ${esp}px`; el.style.opacity=op.toFixed(3); };
+  gr($('gA'),64/2**n,1); gr($('gB'),64/2**(n+1),s>1?f:0); }
+const K=[
+  [0,     600,  1020, 1.05],                 // laço: igual ao último quadro
+  [2.10,  610,  1010, 1.02,'sine.inOut'],    // deriva
+  [2.65,  1800, 1320, 1,   'mover'],         // → 絵文字
+  [3.70,  1790, 1345, 1.02,'sine.inOut'],
+  [4.30,  1800, 2920, 1,   'mover'],         // → Tóquio
+  [5.70,  1810, 2935, 1.03,'sine.inOut'],
+  [6.30,  590,  4300, 1,   'mover'],         // → folha 176
+  [8.40,  600,  4320, 1.04,'sine.inOut'],
+  [9.00,  1200, 2700, 0.32,'power2.inOut'],  // o ÚNICO recuo: a página cheia (momento MAXI)
+  [9.40,  1200, 2650, 0.31,'sine.inOut'],
+  [10.30, 600,  1020, 1,   'power2.inOut'],  // volta ao coração do começo
+  [12.00, 600,  1020, 1.05,'sine.inOut']     // fecha o laço (= quadro 0)
+];
+for(let i=1;i<K.length;i++){ const [t0]=K[i-1], [t1,x1,y1,s1,e]=K[i]; tl.to(cam,{x:x1,y:y1,l:Math.log(s1),duration:t1-t0,ease:e},t0); }
+tl.eventCallback('onUpdate',aplica);
+aplica();
+tl.set({},{},DUR);
+window.__timelines=window.__timelines||{};
+window.__timelines["main"]=tl;
+})();
+</script>
+</body>
+</html>

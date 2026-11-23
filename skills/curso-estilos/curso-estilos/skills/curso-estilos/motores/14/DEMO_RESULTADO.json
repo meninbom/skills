@@ -1,0 +1,6 @@
+{
+  "passou": true,
+  "comando": "npm install && DEMO_CPU=1 npm run demo",
+  "segundos_de_render": 49,
+  "obs": "saida/demo.mp4 540x960, 3,0 s, 30 qps, h264 yuv420p, sem audio. Render por software no Chrome do sistema via puppeteer-core (sem HyperFrames, sem baixar navegador). Quadros conferidos. O exemplo completo (hf/) tambem abre e renderiza quadros soltos; a fonte japonesa cai na do sistema. Refeito em pasta limpa depois de trocar o GSAP vendorizado por dependência do npm (postinstall copia para vendor/): passou, 28 s de render."
+}

@@ -1,0 +1,1 @@
+{"passou": true, "comando": "npm install && DEMO_CPU=1 npm run demo", "segundos_de_render": 75, "obs": "Pasta limpa, Chrome do sistema por software (SwiftShader). saida/demo.mp4: 540x960, 3,0 s, 15 qps, yuv420p, sem áudio; quadro conferido (corredor do 13º andar com legenda). 55 s de quadros + abertura."}

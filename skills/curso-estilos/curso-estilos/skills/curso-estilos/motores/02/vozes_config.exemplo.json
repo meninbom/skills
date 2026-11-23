@@ -1,0 +1,7 @@
+{
+  "_como_usar": "Copie para vozes_config.json e troque o voice_id pelo de uma voz grave e calma da SUA conta ElevenLabs.",
+  "modelo": "eleven_multilingual_v2",
+  "vozes": {
+    "NAR": { "voice_id": "COLOQUE_O_ID_DA_VOZ", "stability": 0.5, "style": 0.4, "speed": 1.0 }
+  }
+}

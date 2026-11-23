@@ -1,0 +1,16 @@
+{
+ "fps": 30, "w": 1080, "h": 1920, "voz": "voz/voz.wav",
+ "segmentos": [
+  {"plano": "P01", "ancora": "PRIMEIRAS PALAVRAS DO PLANO 1", "ini": 0.0,
+   "selo": {"t0": 0.4, "t1": 2.2, "texto": "VOCÊS VOTARAM 1 · ..."}},
+  {"plano": "P02", "ancora": "PRIMEIRAS PALAVRAS DO PLANO 2", "ini": 0.0,
+   "aviso": {"t": 0.3, "dur": 1.6, "texto": "◆ HABILIDADE · ATIVA"}},
+  {"plano": "P03", "ancora": "PRIMEIRAS PALAVRAS DO PLANO 3", "ini": 0.0,
+   "raiox": {"t0": 0.2, "t1": 2.4, "titulo": "RAIO-X", "linhas": ["343 m/s", "o som chega antes da flecha"], "cx": 540, "cy": 900}},
+  {"plano": "P04", "ancora": "PRIMEIRAS PALAVRAS DO PLANO 4", "ini": 0.0,
+   "soco": 1.0, "sfx": [{"nome": "golpe", "t": 1.0, "db": -6, "alinha": "ataque"}]},
+  {"plano": "P05", "ancora": "PRIMEIRAS PALAVRAS DO PLANO 5", "ini": 0.0,
+   "cartoes": {"t": 0.6, "op1": ["1 · OPÇÃO UM", "e o custo dela"], "op2": ["2 · OPÇÃO DOIS", "e o custo dela"], "chamada": "COMENTA 1 OU 2"},
+   "loop": 0.4}
+ ]
+}

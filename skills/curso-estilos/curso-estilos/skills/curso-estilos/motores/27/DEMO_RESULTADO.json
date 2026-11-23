@@ -1,0 +1,1 @@
+{"passou": true, "comando": "pip install -r requirements.txt && python demo.py", "segundos_de_render": 6, "obs": "CPU puro (numpy + OpenCV + FFmpeg). saida/demo.mp4 540x960, 30 qps, 3,0 s, yuv420p, sem audio. Quadros conferidos: ToonHit estoura logo depois do hit-stop."}

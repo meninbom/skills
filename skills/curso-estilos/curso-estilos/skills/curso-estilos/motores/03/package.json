@@ -1,0 +1,17 @@
+{
+  "name": "curso-estilos-03-boneco-vetor",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Boneco 2D vetor articulado (Canvas 2D puro). Demo: 3 s do episódio. Kit de partida: cena curta de 7 s com cenário trocável.",
+  "scripts": {
+    "demo": "node render.mjs --pagina episodio.html --video saida/demo.mp4 --ini 18.5 --fim 21.5 --qps 30 --largura 540",
+    "kit": "node render.mjs --pagina kit_template/kit.html --video saida/kit.mp4 --qps 30",
+    "kit:folha": "node render.mjs --pagina kit_template/kit.html --tempos 0.6,2.2,3.8,5.6 --saida saida/kit_folha.jpg --lt 360",
+    "folha": "node render.mjs --pagina episodio.html --tempos 2,20,45,80,120,150 --saida saida/folha.jpg --lt 360",
+    "filme": "node render_par.mjs --pagina episodio.html --saida saida/filme.mp4 --n 6 --qps 60"
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}

@@ -1,0 +1,1 @@
+{"passou": true, "comando": "npm install && npm run demo", "segundos_de_render": 67, "obs": "Testado em pasta limpa com DEMO_CPU=1 (Chrome do sistema, SwiftShader). saida/demo.mp4: 540x960, 30 qps, 3,0 s, h264 yuv420p, sem trilha de audio. Quadro conferido (mapa, pais pintado, rotulos, placeholder de ilustracao). baixar_assets.mjs e voz.py (pago) nao foram executados."}

@@ -1,0 +1,15 @@
+{
+  "name": "curso-estilos-04-serie-voxel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Série voxel com luz assada (three.js): mundo determinístico, path tracer em CPU, planos presos às palavras da fala. Demo: assa o mundo e renderiza 3 s do EP01.",
+  "scripts": {
+    "demo": "node motor/demo.mjs",
+    "assar": "node motor/demo.mjs --so-assar",
+    "jogo": "node jogo/server.mjs"
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.0.0",
+    "three": "0.186.1"
+  }
+}

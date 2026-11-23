@@ -1,0 +1,11 @@
+{
+  "_como_usar": "Copie para vozes_config.json e troque cada voice_id pelo de uma voz da SUA conta ElevenLabs. 'filtro' é um filtro de áudio do FFmpeg aplicado antes da normalização (opcional).",
+  "modelo": "eleven_multilingual_v2",
+  "vozes": {
+    "NAR": { "voice_id": "COLOQUE_O_ID_DA_VOZ", "stability": 0.3, "style": 0.6, "speed": 1.1 },
+    "IARA": { "voice_id": "COLOQUE_O_ID_DA_VOZ", "stability": 0.35, "style": 0.6, "speed": 1.05 },
+    "NICO": { "voice_id": "COLOQUE_O_ID_DA_VOZ", "stability": 0.35, "style": 0.65, "speed": 1.05 },
+    "GEN": { "voice_id": "COLOQUE_O_ID_DA_VOZ", "stability": 0.7, "style": 0.2, "speed": 0.95,
+      "filtro": "asetrate=48000*0.9,aresample=48000,atempo=1.11,chorus=0.6:0.9:38|46:0.35|0.3:0.25|0.4:2|1.3,tremolo=f=58:d=0.45,highpass=f=140,lowpass=f=5200,aecho=0.8:0.6:22|34:0.28|0.18" }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "globo-explicativo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Globo explicativo em shader (WebGL) com geografia real. Render pelo Chrome do sistema.",
+  "scripts": {
+    "demo": "node render.mjs video saida/demo.mp4 --de 20 --dur 3 --fps 30 --largura 540",
+    "video": "node render.mjs video saida/video_mudo.mp4",
+    "stills": "node render.mjs stills 1.0,5.3,12.0,22.0,30.0",
+    "mapas": "python gen_mapas.py"
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}

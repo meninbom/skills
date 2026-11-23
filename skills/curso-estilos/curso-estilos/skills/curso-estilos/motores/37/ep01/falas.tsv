@@ -1,0 +1,14 @@
+#id	alvo_s	janela	texto (tags [ ] em inglês; Ryo em 1ª pessoa, seco, por dentro)
+n01	0.3	s01 rua 0.0-3.0	[deadpan] Meu nome é Ryo. Vinte e dois anos. Zero aventura.
+n02	3.3	s02 tédio 3.0-5.0	[bored] Eu sempre quis ser escolhido por alguma coisa.
+n03	7.0	s04 olhar 6.8-8.2 (acaba antes de 8.2)	[flat] Ah. Fui escolhido.
+n04	8.9	s06 atropelado 8.4-11.4	[deadpan] Minhas últimas palavras foram "ah".
+n05	14.2	fim da cartela 1 (depois de lida)	[sighs] É. Isso mesmo.
+n06	16.7	s08 acorda 15.4-18.0 (depois do pop 16.4)	[confused] Nada dói. Também... não tenho onde doer.
+n07	19.0	s09 mundo 18.0-21.0 (depois da mola 18.8)	[excited] Outro mundo. Agora eu sou o protagonista.
+n08	21.6	s10 corrida 21.0-24.5	[happy] Sem chefe, sem boleto, sem freio.
+n09	24.6	s11 bateria (antes do bip 25.6)	[worried] Peraí. Isso é bateria?
+n10	27.4	s12 tremor (acaba antes do rugido 29.4)	[deadpan] Óbvio. Chefão no nível um.
+n11	30.4	s14 fuga (acaba antes de 31.4)	[panicked] Corre, corre, corre...
+n12	32.4	s15 morto (depois do baque 32.1)	[deadpan] Segunda vida: dezesseis segundos.
+n13	36.3	s16 (depois da 2ª cutucada 35.9)	[flat] Isso. Cutuca mais.

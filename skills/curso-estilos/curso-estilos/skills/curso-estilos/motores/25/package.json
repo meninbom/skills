@@ -1,0 +1,15 @@
+{
+  "name": "mapa-manga",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Coordenada real (OpenStreetMap + relevo) vira cenario de manga em three.js. Render pelo Chrome do sistema.",
+  "scripts": {
+    "demo": "node scripts/render.mjs voo paulista 540x960 3 \"eixo=Avenida%20Paulista&ss=3&az=250&el=14\" --saida saida/demo.mp4",
+    "fotos": "node scripts/render.mjs fotos paulista 2400x1920 overview,alto \"eixo=Avenida%20Paulista\"",
+    "voo": "node scripts/render.mjs voo paulista 1080x1920 7 \"eixo=Avenida%20Paulista&ss=3\""
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}

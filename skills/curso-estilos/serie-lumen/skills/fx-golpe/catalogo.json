@@ -1,0 +1,786 @@
+[
+ {
+  "n": 1,
+  "nome": "00_Basic__Laser01",
+  "quadros": 42,
+  "seg": 1.4,
+  "pico": 23,
+  "vazio": false
+ },
+ {
+  "n": 2,
+  "nome": "00_Basic__Laser02",
+  "quadros": 64,
+  "seg": 2.1,
+  "pico": 22,
+  "vazio": false
+ },
+ {
+  "n": 3,
+  "nome": "00_Basic__Laser03",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 6,
+  "vazio": false
+ },
+ {
+  "n": 4,
+  "nome": "00_Basic__Simple_Distortion",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 80,
+  "vazio": false
+ },
+ {
+  "n": 5,
+  "nome": "00_Basic__Simple_Model_UV",
+  "quadros": 107,
+  "seg": 3.6,
+  "pico": 68,
+  "vazio": false
+ },
+ {
+  "n": 6,
+  "nome": "00_Basic__Simple_Ribbon_Parent",
+  "quadros": 56,
+  "seg": 1.9,
+  "pico": 34,
+  "vazio": true
+ },
+ {
+  "n": 7,
+  "nome": "00_Basic__Simple_Ribbon_Sword",
+  "quadros": 14,
+  "seg": 0.5,
+  "pico": 8,
+  "vazio": false
+ },
+ {
+  "n": 8,
+  "nome": "00_Basic__Simple_Ring_Shape1",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 0,
+  "vazio": true
+ },
+ {
+  "n": 9,
+  "nome": "00_Basic__Simple_Ring_Shape2",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 110,
+  "vazio": false
+ },
+ {
+  "n": 10,
+  "nome": "00_Basic__Simple_SpawnMethod1",
+  "quadros": 7,
+  "seg": 0.2,
+  "pico": 2,
+  "vazio": false
+ },
+ {
+  "n": 11,
+  "nome": "00_Basic__Simple_Sprite_BillBoard",
+  "quadros": 22,
+  "seg": 0.7,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 12,
+  "nome": "00_Basic__Simple_Sprite_Fixed",
+  "quadros": 51,
+  "seg": 1.7,
+  "pico": 24,
+  "vazio": false
+ },
+ {
+  "n": 13,
+  "nome": "00_Basic__Simple_Sprite_FixedYAxis",
+  "quadros": 86,
+  "seg": 2.9,
+  "pico": 49,
+  "vazio": false
+ },
+ {
+  "n": 14,
+  "nome": "00_Basic__Simple_Track1",
+  "quadros": 102,
+  "seg": 3.4,
+  "pico": 11,
+  "vazio": false
+ },
+ {
+  "n": 15,
+  "nome": "00_Basic__Simple_Turbulence_Fireworks",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 23,
+  "vazio": false
+ },
+ {
+  "n": 16,
+  "nome": "00_Basic__Simple_Turbulence_Particles",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 96,
+  "vazio": false
+ },
+ {
+  "n": 17,
+  "nome": "00_MaterialBasic__AlphaCutoff",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 25,
+  "vazio": false
+ },
+ {
+  "n": 18,
+  "nome": "00_MaterialBasic__Dissolve",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 31,
+  "vazio": false
+ },
+ {
+  "n": 19,
+  "nome": "00_MaterialBasic__Falloff",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 20,
+  "nome": "00_MaterialBasic__ImageDistortion",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 5,
+  "vazio": false
+ },
+ {
+  "n": 21,
+  "nome": "00_MaterialBasic__PolarCoords",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 16,
+  "vazio": false
+ },
+ {
+  "n": 22,
+  "nome": "00_MaterialBasic__RampMap",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 23,
+  "nome": "00_MaterialBasic__Unlit",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 24,
+  "nome": "00_MaterialBasic__VertexTransform",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 50,
+  "vazio": false
+ },
+ {
+  "n": 25,
+  "nome": "00_Version16__Aura01",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 64,
+  "vazio": false
+ },
+ {
+  "n": 26,
+  "nome": "00_Version16__Aura01_HDR",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 76,
+  "vazio": false
+ },
+ {
+  "n": 27,
+  "nome": "00_Version16__Barrior01",
+  "quadros": 102,
+  "seg": 3.4,
+  "pico": 63,
+  "vazio": false
+ },
+ {
+  "n": 28,
+  "nome": "00_Version16__Barrior01_HDR",
+  "quadros": 102,
+  "seg": 3.4,
+  "pico": 63,
+  "vazio": false
+ },
+ {
+  "n": 29,
+  "nome": "00_Version16__Barrior02",
+  "quadros": 102,
+  "seg": 3.4,
+  "pico": 64,
+  "vazio": false
+ },
+ {
+  "n": 30,
+  "nome": "00_Version16__Barrior02_HDR",
+  "quadros": 102,
+  "seg": 3.4,
+  "pico": 15,
+  "vazio": false
+ },
+ {
+  "n": 31,
+  "nome": "00_Version16__Barrior03",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 32,
+  "nome": "00_Version16__ForceFieldTornado",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 109,
+  "vazio": false
+ },
+ {
+  "n": 33,
+  "nome": "00_Version16__ProceduralPudding",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 1,
+  "vazio": false
+ },
+ {
+  "n": 34,
+  "nome": "01_AndrewFM01__actionLines_halo",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 1,
+  "vazio": false
+ },
+ {
+  "n": 35,
+  "nome": "01_AndrewFM01__actionLines_halo2",
+  "quadros": 53,
+  "seg": 1.8,
+  "pico": 1,
+  "vazio": false
+ },
+ {
+  "n": 36,
+  "nome": "01_AndrewFM01__actionLines_radial",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 1,
+  "vazio": false
+ },
+ {
+  "n": 37,
+  "nome": "01_AndrewFM01__actionLines_radial2",
+  "quadros": 53,
+  "seg": 1.8,
+  "pico": 1,
+  "vazio": false
+ },
+ {
+  "n": 38,
+  "nome": "01_AndrewFM01__actionLines_shockwave",
+  "quadros": 53,
+  "seg": 1.8,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 39,
+  "nome": "01_AndrewFM01__actionLines_strip",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 25,
+  "vazio": false
+ },
+ {
+  "n": 40,
+  "nome": "01_AndrewFM01__blue_laser",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 100,
+  "vazio": false
+ },
+ {
+  "n": 41,
+  "nome": "01_AndrewFM01__boss_death",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 119,
+  "vazio": false
+ },
+ {
+  "n": 42,
+  "nome": "01_AndrewFM01__drill",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 69,
+  "vazio": false
+ },
+ {
+  "n": 43,
+  "nome": "01_AndrewFM01__electric_dust",
+  "quadros": 112,
+  "seg": 3.7,
+  "pico": 102,
+  "vazio": false
+ },
+ {
+  "n": 44,
+  "nome": "01_AndrewFM01__fire",
+  "quadros": 31,
+  "seg": 1.0,
+  "pico": 6,
+  "vazio": false
+ },
+ {
+  "n": 45,
+  "nome": "01_AndrewFM01__hit_eff",
+  "quadros": 27,
+  "seg": 0.9,
+  "pico": 4,
+  "vazio": false
+ },
+ {
+  "n": 46,
+  "nome": "01_AndrewFM01__magic_circle",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 115,
+  "vazio": false
+ },
+ {
+  "n": 47,
+  "nome": "01_AndrewFM01__smallTexturesRibbon",
+  "quadros": 45,
+  "seg": 1.5,
+  "pico": 28,
+  "vazio": false
+ },
+ {
+  "n": 48,
+  "nome": "01_AndrewFM01__smallTexturesSquareWave_orbital",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 107,
+  "vazio": false
+ },
+ {
+  "n": 49,
+  "nome": "01_NextSoft01__HealPotion1",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 28,
+  "vazio": false
+ },
+ {
+  "n": 50,
+  "nome": "01_NextSoft01__HealPotion2",
+  "quadros": 50,
+  "seg": 1.7,
+  "pico": 32,
+  "vazio": false
+ },
+ {
+  "n": 51,
+  "nome": "01_NextSoft01__MagicCold",
+  "quadros": 66,
+  "seg": 2.2,
+  "pico": 39,
+  "vazio": false
+ },
+ {
+  "n": 52,
+  "nome": "01_NextSoft01__MagicDark",
+  "quadros": 63,
+  "seg": 2.1,
+  "pico": 32,
+  "vazio": false
+ },
+ {
+  "n": 53,
+  "nome": "01_NextSoft01__MagicFire1",
+  "quadros": 72,
+  "seg": 2.4,
+  "pico": 50,
+  "vazio": false
+ },
+ {
+  "n": 54,
+  "nome": "01_NextSoft01__MagicFire2",
+  "quadros": 59,
+  "seg": 2.0,
+  "pico": 28,
+  "vazio": false
+ },
+ {
+  "n": 55,
+  "nome": "01_NextSoft01__MagicHeal1",
+  "quadros": 58,
+  "seg": 1.9,
+  "pico": 24,
+  "vazio": false
+ },
+ {
+  "n": 56,
+  "nome": "01_NextSoft01__MagicHeal2",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 69,
+  "vazio": false
+ },
+ {
+  "n": 57,
+  "nome": "01_NextSoft01__MagicLight",
+  "quadros": 41,
+  "seg": 1.4,
+  "pico": 17,
+  "vazio": false
+ },
+ {
+  "n": 58,
+  "nome": "01_NextSoft01__MagicMeteo",
+  "quadros": 74,
+  "seg": 2.5,
+  "pico": 54,
+  "vazio": false
+ },
+ {
+  "n": 59,
+  "nome": "01_NextSoft01__MagicShield",
+  "quadros": 18,
+  "seg": 0.6,
+  "pico": 10,
+  "vazio": true
+ },
+ {
+  "n": 60,
+  "nome": "01_NextSoft01__MagicSword",
+  "quadros": 54,
+  "seg": 1.8,
+  "pico": 7,
+  "vazio": false
+ },
+ {
+  "n": 61,
+  "nome": "01_NextSoft01__MagicThunder",
+  "quadros": 31,
+  "seg": 1.0,
+  "pico": 7,
+  "vazio": false
+ },
+ {
+  "n": 62,
+  "nome": "01_NextSoft01__MagicTornade",
+  "quadros": 112,
+  "seg": 3.7,
+  "pico": 35,
+  "vazio": false
+ },
+ {
+  "n": 63,
+  "nome": "01_NextSoft01__MagicWater",
+  "quadros": 72,
+  "seg": 2.4,
+  "pico": 21,
+  "vazio": false
+ },
+ {
+  "n": 64,
+  "nome": "01_NextSoft01__PowerUp",
+  "quadros": 69,
+  "seg": 2.3,
+  "pico": 25,
+  "vazio": false
+ },
+ {
+  "n": 65,
+  "nome": "01_NextSoft01__Spear1",
+  "quadros": 13,
+  "seg": 0.4,
+  "pico": 9,
+  "vazio": false
+ },
+ {
+  "n": 66,
+  "nome": "01_NextSoft01__Spear2",
+  "quadros": 31,
+  "seg": 1.0,
+  "pico": 8,
+  "vazio": false
+ },
+ {
+  "n": 67,
+  "nome": "01_NextSoft01__Sword1",
+  "quadros": 12,
+  "seg": 0.4,
+  "pico": 7,
+  "vazio": false
+ },
+ {
+  "n": 68,
+  "nome": "01_NextSoft01__Sword2",
+  "quadros": 31,
+  "seg": 1.0,
+  "pico": 13,
+  "vazio": false
+ },
+ {
+  "n": 69,
+  "nome": "01_Pierre01__Atmosphere",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 102,
+  "vazio": true
+ },
+ {
+  "n": 70,
+  "nome": "01_Pierre01__Background",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 78,
+  "vazio": false
+ },
+ {
+  "n": 71,
+  "nome": "01_Pierre01__Flame",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 66,
+  "vazio": false
+ },
+ {
+  "n": 72,
+  "nome": "01_Pierre01__Herald",
+  "quadros": 64,
+  "seg": 2.1,
+  "pico": 25,
+  "vazio": true
+ },
+ {
+  "n": 73,
+  "nome": "01_Pierre01__HolySandstorm",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 90,
+  "vazio": false
+ },
+ {
+  "n": 74,
+  "nome": "01_Pierre01__LightningStrike",
+  "quadros": 92,
+  "seg": 3.1,
+  "pico": 11,
+  "vazio": false
+ },
+ {
+  "n": 75,
+  "nome": "01_Pierre01__MissileBoost",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 112,
+  "vazio": false
+ },
+ {
+  "n": 76,
+  "nome": "01_Pierre01__MonsterRoar",
+  "quadros": 71,
+  "seg": 2.4,
+  "pico": 23,
+  "vazio": true
+ },
+ {
+  "n": 77,
+  "nome": "01_Pierre01__PhantasmMeteor",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 81,
+  "vazio": false
+ },
+ {
+  "n": 78,
+  "nome": "01_Pierre01__PhantasmMeteor_Single",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 64,
+  "vazio": false
+ },
+ {
+  "n": 79,
+  "nome": "01_Pierre01__SonicBoom",
+  "quadros": 92,
+  "seg": 3.1,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 80,
+  "nome": "01_Pierre02__Benediction",
+  "quadros": 105,
+  "seg": 3.5,
+  "pico": 9,
+  "vazio": false
+ },
+ {
+  "n": 81,
+  "nome": "01_Pierre02__BloodLance",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 4,
+  "vazio": false
+ },
+ {
+  "n": 82,
+  "nome": "01_Pierre02__CosmicMist",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 8,
+  "vazio": false
+ },
+ {
+  "n": 83,
+  "nome": "01_Pierre02__FeatherBomb",
+  "quadros": 92,
+  "seg": 3.1,
+  "pico": 26,
+  "vazio": false
+ },
+ {
+  "n": 84,
+  "nome": "01_Pierre02__FireBall",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 96,
+  "vazio": false
+ },
+ {
+  "n": 85,
+  "nome": "01_Pierre02__GateOfCalve",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 83,
+  "vazio": false
+ },
+ {
+  "n": 86,
+  "nome": "01_Pierre02__LossOfBlood",
+  "quadros": 97,
+  "seg": 3.2,
+  "pico": 29,
+  "vazio": false
+ },
+ {
+  "n": 87,
+  "nome": "01_Pierre02__Sword_Ember",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 102,
+  "vazio": false
+ },
+ {
+  "n": 88,
+  "nome": "01_Pierre02__Sword_Lightning",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 69,
+  "vazio": false
+ },
+ {
+  "n": 89,
+  "nome": "01_Pierre02__Sword_Moonlight",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 92,
+  "vazio": false
+ },
+ {
+  "n": 90,
+  "nome": "01_Pierre02__Sword_Sacredlight",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 101,
+  "vazio": false
+ },
+ {
+  "n": 91,
+  "nome": "01_Pierre02__Sword_Storm",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 101,
+  "vazio": false
+ },
+ {
+  "n": 92,
+  "nome": "01_Suzuki01__aura",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 116,
+  "vazio": true
+ },
+ {
+  "n": 93,
+  "nome": "01_Suzuki01__snowstorm11",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 63,
+  "vazio": false
+ },
+ {
+  "n": 94,
+  "nome": "01_Suzuki01__sword",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 64,
+  "vazio": false
+ },
+ {
+  "n": 95,
+  "nome": "02_Tktk03__Light",
+  "quadros": 106,
+  "seg": 3.5,
+  "pico": 54,
+  "vazio": false
+ },
+ {
+  "n": 96,
+  "nome": "02_Tktk03__ToonHit",
+  "quadros": 59,
+  "seg": 2.0,
+  "pico": 17,
+  "vazio": false
+ },
+ {
+  "n": 97,
+  "nome": "02_Tktk03__ToonWater",
+  "quadros": 100,
+  "seg": 3.3,
+  "pico": 50,
+  "vazio": false
+ },
+ {
+  "n": 98,
+  "nome": "03_Hanmado01__hit_hanmado_0409",
+  "quadros": 65,
+  "seg": 2.2,
+  "pico": 12,
+  "vazio": false
+ }
+]

@@ -1,0 +1,390 @@
+{
+ "ep": "ep02a",
+ "speed": 1.06,
+ "blocos": [
+  {
+   "id": "A",
+   "start": 0.0,
+   "end": 2.354
+  },
+  {
+   "id": "estalo",
+   "start": 3.004,
+   "end": 3.004
+  },
+  {
+   "id": "B",
+   "start": 3.004,
+   "end": 5.042
+  },
+  {
+   "id": "C",
+   "start": 5.492,
+   "end": 8.216
+  },
+  {
+   "id": "R",
+   "start": 8.566,
+   "end": 10.978
+  },
+  {
+   "id": "D",
+   "start": 11.228,
+   "end": 12.703
+  },
+  {
+   "id": "racha",
+   "start": 13.603,
+   "end": 13.603
+  },
+  {
+   "id": "E",
+   "start": 13.603,
+   "end": 16.55
+  },
+  {
+   "id": "F",
+   "start": 16.9,
+   "end": 21.279
+  },
+  {
+   "id": "congela",
+   "start": 21.629,
+   "end": 21.629
+  },
+  {
+   "id": "G",
+   "start": 21.629,
+   "end": 24.482
+  },
+  {
+   "id": "cauda",
+   "start": 24.932,
+   "end": 24.932
+  }
+ ],
+ "palavras": [
+  {
+   "w": "Vocês",
+   "start": 0.075,
+   "end": 0.453,
+   "bloco": "A"
+  },
+  {
+   "w": "mandaram",
+   "start": 0.528,
+   "end": 0.981,
+   "bloco": "A"
+  },
+  {
+   "w": "eu",
+   "start": 1.057,
+   "end": 1.208,
+   "bloco": "A"
+  },
+  {
+   "w": "ir",
+   "start": 1.283,
+   "end": 1.358,
+   "bloco": "A"
+  },
+  {
+   "w": "até",
+   "start": 1.472,
+   "end": 1.623,
+   "bloco": "A"
+  },
+  {
+   "w": "o",
+   "start": 1.66,
+   "end": 1.698,
+   "bloco": "A"
+  },
+  {
+   "w": "lago.",
+   "start": 1.736,
+   "end": 2.415,
+   "bloco": "A"
+  },
+  {
+   "w": "Regra",
+   "start": 3.457,
+   "end": 3.759,
+   "bloco": "B"
+  },
+  {
+   "w": "três",
+   "start": 3.909,
+   "end": 4.211,
+   "bloco": "B"
+  },
+  {
+   "w": "já",
+   "start": 4.287,
+   "end": 4.438,
+   "bloco": "B"
+  },
+  {
+   "w": "era.",
+   "start": 4.513,
+   "end": 5.117,
+   "bloco": "B"
+  },
+  {
+   "w": "Não",
+   "start": 5.568,
+   "end": 5.719,
+   "bloco": "C"
+  },
+  {
+   "w": "tem",
+   "start": 5.794,
+   "end": 5.87,
+   "bloco": "C"
+  },
+  {
+   "w": "ninguém",
+   "start": 5.945,
+   "end": 6.247,
+   "bloco": "C"
+  },
+  {
+   "w": "aqui.",
+   "start": 6.323,
+   "end": 6.851,
+   "bloco": "C"
+  },
+  {
+   "w": "Só",
+   "start": 7.077,
+   "end": 7.228,
+   "bloco": "C"
+  },
+  {
+   "w": "a",
+   "start": 7.254,
+   "end": 7.278,
+   "bloco": "C"
+  },
+  {
+   "w": "lanterna",
+   "start": 7.304,
+   "end": 7.681,
+   "bloco": "C"
+  },
+  {
+   "w": "dela.",
+   "start": 7.757,
+   "end": 8.285,
+   "bloco": "C"
+  },
+  {
+   "w": "Ele",
+   "start": 11.304,
+   "end": 11.455,
+   "bloco": "D"
+  },
+  {
+   "w": "sabe",
+   "start": 11.606,
+   "end": 11.832,
+   "bloco": "D"
+  },
+  {
+   "w": "que",
+   "start": 11.87,
+   "end": 11.908,
+   "bloco": "D"
+  },
+  {
+   "w": "eu",
+   "start": 11.945,
+   "end": 11.983,
+   "bloco": "D"
+  },
+  {
+   "w": "tô",
+   "start": 12.021,
+   "end": 12.096,
+   "bloco": "D"
+  },
+  {
+   "w": "aqui?",
+   "start": 12.134,
+   "end": 12.813,
+   "bloco": "D"
+  },
+  {
+   "w": "A",
+   "start": 13.754,
+   "end": 13.829,
+   "bloco": "E"
+  },
+  {
+   "w": "lanterna",
+   "start": 13.905,
+   "end": 14.206,
+   "bloco": "E"
+  },
+  {
+   "w": "dela",
+   "start": 14.244,
+   "end": 14.357,
+   "bloco": "E"
+  },
+  {
+   "w": "apagou.",
+   "start": 14.433,
+   "end": 14.886,
+   "bloco": "E"
+  },
+  {
+   "w": "E",
+   "start": 15.263,
+   "end": 15.339,
+   "bloco": "E"
+  },
+  {
+   "w": "o",
+   "start": 15.376,
+   "end": 15.414,
+   "bloco": "E"
+  },
+  {
+   "w": "gelo",
+   "start": 15.49,
+   "end": 15.64,
+   "bloco": "E"
+  },
+  {
+   "w": "tá",
+   "start": 15.716,
+   "end": 15.791,
+   "bloco": "E"
+  },
+  {
+   "w": "cedendo.",
+   "start": 15.905,
+   "end": 16.622,
+   "bloco": "E"
+  },
+  {
+   "w": "O",
+   "start": 17.19,
+   "end": 17.266,
+   "bloco": "F"
+  },
+  {
+   "w": "rádio",
+   "start": 17.341,
+   "end": 17.568,
+   "bloco": "F"
+  },
+  {
+   "w": "me",
+   "start": 17.643,
+   "end": 17.719,
+   "bloco": "F"
+  },
+  {
+   "w": "chamou",
+   "start": 17.756,
+   "end": 17.945,
+   "bloco": "F"
+  },
+  {
+   "w": "pelo",
+   "start": 18.021,
+   "end": 18.171,
+   "bloco": "F"
+  },
+  {
+   "w": "nome.",
+   "start": 18.247,
+   "end": 18.624,
+   "bloco": "F"
+  },
+  {
+   "w": "Regra",
+   "start": 19.228,
+   "end": 19.455,
+   "bloco": "F"
+  },
+  {
+   "w": "dois:",
+   "start": 19.53,
+   "end": 20.285,
+   "bloco": "F"
+  },
+  {
+   "w": "não",
+   "start": 20.36,
+   "end": 20.511,
+   "bloco": "F"
+  },
+  {
+   "w": "responde.",
+   "start": 20.624,
+   "end": 21.417,
+   "bloco": "F"
+  },
+  {
+   "w": "Um",
+   "start": 21.705,
+   "end": 21.78,
+   "bloco": "G"
+  },
+  {
+   "w": "ou",
+   "start": 21.856,
+   "end": 21.931,
+   "bloco": "G"
+  },
+  {
+   "w": "dois?",
+   "start": 22.007,
+   "end": 22.422,
+   "bloco": "G"
+  },
+  {
+   "w": "Comenta.",
+   "start": 22.535,
+   "end": 23.101,
+   "bloco": "G"
+  },
+  {
+   "w": "O",
+   "start": 23.214,
+   "end": 23.29,
+   "bloco": "G"
+  },
+  {
+   "w": "mais",
+   "start": 23.327,
+   "end": 23.441,
+   "bloco": "G"
+  },
+  {
+   "w": "votado",
+   "start": 23.516,
+   "end": 23.818,
+   "bloco": "G"
+  },
+  {
+   "w": "decide.",
+   "start": 23.931,
+   "end": 24.573,
+   "bloco": "G"
+  }
+ ],
+ "outros": [
+  {
+   "quem": "dono",
+   "texto": "Caio. Sai do gelo. Agora.",
+   "start": 8.566,
+   "end": 10.978,
+   "bloco": "R"
+  }
+ ],
+ "duracao": 24.932
+}

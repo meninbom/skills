@@ -1,0 +1,16 @@
+[
+  {"sfx": "aviao",    "t": "h0 + .4",        "db": -22, "dur": "min(5, ini('chat') - h0 - .4)", "ambiente": true},
+  {"sfx": "vibra",    "t": "hN",             "db": -12},
+  {"sfx": "msg",      "t": "P(7, .42)",      "db": -14},
+  {"sfx": "msg",      "t": "P(7, .8)",       "db": -16},
+  {"sfx": "roupa",    "t": "E(11) - .12",    "db": -9},
+  {"sfx": "chuveiro", "t": "ini('banho')",   "db": -24, "dur": "fim('banho') - ini('banho')", "ambiente": true},
+  {"sfx": "toc",      "t": "P(24, .35)",     "db": -9},
+  {"sfx": "msg",      "t": "P(28, .62)",     "db": -14},
+  {"sfx": "botao",    "t": "P(34, .8)",      "db": -11},
+  {"sfx": "teclas",   "t": "P(35, .42)",     "db": -15, "dur": "D(35) * .55"},
+  {"sfx": "teclas",   "t": "P(37, .35)",     "db": -15, "dur": "D(37) * .6"},
+  {"sfx": "enviar",   "t": "T(38)",          "db": -12},
+  {"sfx": "msg",      "t": "P(41, .55)",     "db": -16},
+  {"sfx": "msg",      "t": "P(41, .8)",      "db": -16}
+]

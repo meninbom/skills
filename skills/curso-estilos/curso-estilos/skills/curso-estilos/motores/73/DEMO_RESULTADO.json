@@ -1,0 +1,1 @@
+{"passou": true, "comando": "npm install && DEMO_CPU=1 npm run demo", "segundos_de_render": 68, "obs": "saida/demo.mp4 540x960, 3,0 s, 30 qps, h264 yuv420p, sem audio. Render por software (SwiftShader) no Chrome do sistema; 81 s contando abrir o navegador e carregar os mapas. Quadro conferido (globo, legenda e relogios)."}

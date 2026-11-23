@@ -1,0 +1,16 @@
+{
+  "name": "pixel-indie-motor",
+  "version": "1.0.0",
+  "description": "Motor de episódio em pixel de jogo indie: buffer de pixels na CPU (Node puro) + FFmpeg.",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "demo": "node demo.mjs",
+    "placeholder": "node sprites/placeholder.mjs",
+    "sprites": "python sprites/prep.py",
+    "prints": "node ep_bau/prints.mjs",
+    "render": "node ep_bau/render.mjs",
+    "mix": "node ep_bau/gen_mix.mjs && node ep_bau/mixar.mjs"
+  }
+}

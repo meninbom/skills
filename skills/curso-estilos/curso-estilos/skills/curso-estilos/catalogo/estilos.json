@@ -1,0 +1,554 @@
+{
+ "versao": "0.3.7",
+ "vram_forte_gb": 12,
+ "minutos_instalar": {
+  "node": 3,
+  "python": 3,
+  "ffmpeg": 2,
+  "chrome": 3,
+  "blender": 5,
+  "comfyui": 60,
+  "roblox": 10,
+  "blockbench": 3
+ },
+ "nomes": {
+  "node": "Node.js",
+  "python": "Python",
+  "ffmpeg": "FFmpeg",
+  "chrome": "Chrome",
+  "blender": "Blender",
+  "comfyui": "ComfyUI + modelos",
+  "roblox": "Roblox Studio",
+  "blockbench": "Blockbench"
+ },
+ "familias": [
+  "Histórias 100% em código",
+  "IA para imagem e movimento, código para o resto",
+  "Motion e edição",
+  "Ferramentas que servem a todos os estilos"
+ ],
+ "estilos": [
+  {
+   "id": "100",
+   "previa": "100",
+   "arquivo": "100_serie_voto.md",
+   "familia": 0,
+   "nome": "Série diária com voto nos comentários",
+   "exemplo": "30 dias pra ficar igual à foto",
+   "custo": "Grátis + voz",
+   "precisa": [
+    "node",
+    "python",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "1.6",
+   "nota": "Estilo em destaque: o formato que mais engaja hoje. Um episódio, dois estilos de traço (luz e kurz). O render baixa o HyperFrames na primeira vez.",
+   "destaque": true
+  },
+  {
+   "id": "01",
+   "previa": "01_orig",
+   "arquivo": "01_toon_pov.md",
+   "familia": 0,
+   "nome": "Toon 3D em primeira pessoa",
+   "exemplo": "O elevador que para no 13º andar",
+   "custo": "Grátis",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "2.5"
+  },
+  {
+   "id": "02",
+   "previa": "02",
+   "arquivo": "02_sobrevivencia_dia1.md",
+   "familia": 0,
+   "nome": "Sobrevivência \"DIA 1\"",
+   "exemplo": "E se o apocalipse zumbi começasse no sítio?",
+   "custo": "Grátis + voz",
+   "precisa": [
+    "node",
+    "python",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "beta",
+   "aula": "2.2 e 2.3",
+   "nota": "Demo com boneco de primitivas; o roteiro de exemplo é só de estudo."
+  },
+  {
+   "id": "03",
+   "previa": "03",
+   "arquivo": "03_boneco_vetor.md",
+   "familia": 0,
+   "nome": "Boneco 2D vetor articulado",
+   "exemplo": "Episódio de série de aventura, com HUD de jogo",
+   "custo": "Grátis",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "1.1"
+  },
+  {
+   "id": "luta",
+   "previa": "luta",
+   "arquivo": "luta_luta_2d.md",
+   "familia": 0,
+   "nome": "Luta 2D em código",
+   "exemplo": "Duelo",
+   "custo": "Grátis",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "1.2"
+  },
+  {
+   "id": "04",
+   "previa": "04",
+   "arquivo": "04_serie_voxel.md",
+   "familia": 0,
+   "nome": "Série voxel com escolha nos comentários",
+   "exemplo": "O Caseiro",
+   "custo": "Grátis + voz",
+   "precisa": [
+    "node",
+    "python",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "2.1"
+  },
+  {
+   "id": "34",
+   "previa": "34_orig",
+   "arquivo": "34_floresta_lowpoly.md",
+   "familia": 0,
+   "nome": "Boneco 3D chapado em floresta low-poly",
+   "exemplo": "Corrida contra a chuva",
+   "custo": "Grátis",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "2.4"
+  },
+  {
+   "id": "35",
+   "previa": "35_orig",
+   "arquivo": "35_heroi_pbr.md",
+   "familia": 0,
+   "nome": "Herói 3D PBR a partir de arte de conceito",
+   "exemplo": "A guarda do passo",
+   "custo": "Grátis (imagem local)",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "beta",
+   "aula": "3.5",
+   "nota": "O demo roda sem placa forte. As texturas do exemplo ainda são fracas; herói próprio pede gerador de imagem e modelagem à mão."
+  },
+  {
+   "id": "36",
+   "previa": "36_orig",
+   "arquivo": "36_anime_svg.md",
+   "familia": 0,
+   "nome": "Anime em SVG \"em dois\"",
+   "exemplo": "Fisgada",
+   "custo": "Grátis",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "beta",
+   "aula": "1.5",
+   "nota": "O traço ainda fica abaixo da referência (mãos e rosto simples). GSAP é baixado do npm na instalação (licença própria)."
+  },
+  {
+   "id": "37",
+   "previa": "37",
+   "arquivo": "37_anime_vrm.md",
+   "familia": 0,
+   "nome": "Anime 3D com boneco VRM",
+   "exemplo": "Renasci como patinete",
+   "custo": "Grátis + voz",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "3.2",
+   "nota": "Vem com um boneco VRM de exemplo (CC0)."
+  },
+  {
+   "id": "60",
+   "previa": "60",
+   "arquivo": "60_pixel_indie.md",
+   "familia": 0,
+   "nome": "Pixel de jogo indie",
+   "exemplo": "Só mais um baú",
+   "custo": "Grátis + voz",
+   "precisa": [
+    "node",
+    "python",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "1.3",
+   "nota": "Sprites não vêm no pacote (licença do artista); o demo usa substitutos gerados por código."
+  },
+  {
+   "id": "61",
+   "previa": "61",
+   "arquivo": "61_masmorra_kaykit.md",
+   "familia": 0,
+   "nome": "Masmorra 3D com personagens prontos",
+   "exemplo": "Prova de combate",
+   "custo": "Grátis",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "3.1",
+   "nota": "Vem com o mínimo do KayKit (CC0)."
+  },
+  {
+   "id": "74",
+   "previa": "74_orig",
+   "arquivo": "74_whatif_cartoon.md",
+   "familia": 0,
+   "nome": "What-if em desenho 2D",
+   "exemplo": "E se você ficasse 11 dias sem dormir?",
+   "custo": "Grátis",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "1.4",
+   "nota": "Remotion: grátis até empresa de 3 pessoas."
+  },
+  {
+   "id": "07",
+   "previa": "07",
+   "arquivo": "07_explicativo_ilustrado.md",
+   "familia": 1,
+   "nome": "Explicativo ilustrado",
+   "exemplo": "Rios voadores",
+   "custo": "Grátis",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "6.2",
+   "nota": "O motor roda sozinho; as ilustrações o aluno gera (IA de imagem) ou desenha."
+  },
+  {
+   "id": "08",
+   "previa": "08",
+   "arquivo": "08_microdoc_personagem.md",
+   "familia": 1,
+   "nome": "Micro-doc com personagem fixo",
+   "exemplo": "Série de curiosidades",
+   "custo": "Grátis",
+   "precisa": [
+    "node",
+    "python",
+    "ffmpeg",
+    "comfyui"
+   ],
+   "vram_gb": 12,
+   "status": "avançado",
+   "aula": "6.3",
+   "nota": "O demo cobre a montagem (Remotion: grátis até empresa de 3 pessoas); a geração pede ComfyUI."
+  },
+  {
+   "id": "11",
+   "previa": "11",
+   "arquivo": "11_mapa_satelite.md",
+   "familia": 1,
+   "nome": "Mapa de satélite contado",
+   "exemplo": "História num globo",
+   "custo": "Grátis + voz",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "5.5",
+   "nota": "Usa a skill geo-tales do pacote."
+  },
+  {
+   "id": "13",
+   "previa": "13",
+   "arquivo": "13_nessa_cidade_roblox.md",
+   "familia": 1,
+   "nome": "\"Nessa cidade…\" no Roblox",
+   "exemplo": "Série de mistério",
+   "custo": "Grátis + voz",
+   "precisa": [
+    "python",
+    "ffmpeg",
+    "roblox"
+   ],
+   "vram_gb": 0,
+   "status": "beta",
+   "aula": "6.5",
+   "nota": "Gravado da tela do Roblox Studio, plano a plano; só a montagem tem demo. Captura só no Windows."
+  },
+  {
+   "id": "66",
+   "previa": "66",
+   "arquivo": "66_ilustracao_hud_rpg.md",
+   "familia": 1,
+   "nome": "Ilustração adulta com HUD de RPG",
+   "exemplo": "O Apagão",
+   "custo": "Grátis + voz",
+   "precisa": [
+    "python",
+    "ffmpeg",
+    "comfyui"
+   ],
+   "vram_gb": 12,
+   "status": "avançado",
+   "aula": "6.4",
+   "nota": "O demo cobre HUD e montagem; ilustração e animação pedem IA de imagem e ComfyUI."
+  },
+  {
+   "id": "14",
+   "previa": "14",
+   "arquivo": "14_camera_continua.md",
+   "familia": 2,
+   "nome": "Câmera contínua num mundo só",
+   "exemplo": "Emoji",
+   "custo": "Grátis",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "5.1",
+   "nota": "GSAP é baixado do npm na instalação (licença própria)."
+  },
+  {
+   "id": "25",
+   "previa": "25_orig",
+   "arquivo": "25_mapa_manga.md",
+   "familia": 2,
+   "nome": "Mapa que vira mangá",
+   "exemplo": "O Vão",
+   "custo": "Grátis",
+   "precisa": [
+    "node",
+    "python",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "5.4",
+   "nota": "Crédito © OpenStreetMap contributors na legenda."
+  },
+  {
+   "id": "72",
+   "previa": "72_orig",
+   "arquivo": "72_corte_3d_whatif.md",
+   "familia": 2,
+   "nome": "Corte 3D \"what if\"",
+   "exemplo": "Cavar até achar água no sertão",
+   "custo": "Grátis",
+   "precisa": [
+    "python",
+    "ffmpeg",
+    "blender"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "5.3",
+   "nota": "Precisa do Blender; render só em CPU."
+  },
+  {
+   "id": "73",
+   "previa": "73_orig",
+   "arquivo": "73_globo_explicativo.md",
+   "familia": 2,
+   "nome": "Globo explicativo em código",
+   "exemplo": "E se a Terra parasse de girar?",
+   "custo": "Grátis",
+   "precisa": [
+    "node",
+    "python",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "5.2"
+  },
+  {
+   "id": "27",
+   "previa": "27",
+   "arquivo": "27_efeito_golpe.md",
+   "familia": 3,
+   "nome": "Efeito de golpe",
+   "exemplo": "Biblioteca de impactos",
+   "custo": "Grátis",
+   "precisa": [
+    "python",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "4.3",
+   "nota": "Vem com 5 efeitos livres; a biblioteca completa o aluno monta."
+  },
+  {
+   "id": "28",
+   "previa": "28",
+   "arquivo": "28_ciclo_conferencia.md",
+   "familia": 3,
+   "nome": "Ciclo de conferência",
+   "exemplo": "Refaz só o que falhou",
+   "custo": "Grátis",
+   "precisa": [
+    "python",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "7.2",
+   "so_imagem": true,
+   "nota": "O laço de conferência; montagem e mix são do projeto do aluno."
+  },
+  {
+   "id": "29",
+   "previa": "29",
+   "arquivo": "29_checagem_objetiva.md",
+   "familia": 3,
+   "nome": "Checagem objetiva do vídeo",
+   "exemplo": "Antes de entregar",
+   "custo": "Grátis",
+   "precisa": [
+    "python",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "0.3",
+   "so_imagem": true
+  },
+  {
+   "id": "62",
+   "previa": "62_orig",
+   "arquivo": "62_poderes_game_feel.md",
+   "familia": 3,
+   "nome": "Biblioteca de poderes e game feel",
+   "exemplo": "Ina contra a Sentinela",
+   "custo": "Grátis",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "4.1"
+  },
+  {
+   "id": "impact",
+   "previa": "impact",
+   "arquivo": "impact_impact_frame.md",
+   "familia": 3,
+   "nome": "Impact frame de anime",
+   "exemplo": "O golpe congelado em desenho",
+   "custo": "Grátis",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg"
+   ],
+   "vram_gb": 0,
+   "status": "v1",
+   "aula": "4.2",
+   "nota": "Módulo para plugar num motor three.js; o demo é uma cena mínima."
+  },
+  {
+   "id": "71",
+   "previa": "71_orig",
+   "arquivo": "71_blockbench_mcp.md",
+   "familia": 3,
+   "nome": "Boneco de blocos no Blockbench",
+   "exemplo": "A encomenda do cânion",
+   "custo": "Grátis",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg",
+    "blockbench"
+   ],
+   "vram_gb": 0,
+   "status": "beta",
+   "aula": "3.4",
+   "nota": "O demo renderiza o boneco pronto; modelar pelo MCP pede o Blockbench aberto."
+  },
+  {
+   "id": "75",
+   "previa": "75_orig",
+   "arquivo": "75_cartoon_2d_mundo_3d.md",
+   "familia": 0,
+   "nome": "Cartoon 2D em mundo 3D",
+   "exemplo": "Os primeiros passageiros",
+   "custo": "Grátis + voz",
+   "precisa": [
+    "node",
+    "chrome",
+    "ffmpeg",
+    "python"
+   ],
+   "vram_gb": 0,
+   "status": "beta",
+   "aula": "2.6",
+   "nota": "Render só na CPU. Resultado em 60–65% da referência (cenário vazio, luz chapada); história nova é reescrever código. Remotion: grátis até empresa de 3 pessoas."
+  }
+ ]
+}

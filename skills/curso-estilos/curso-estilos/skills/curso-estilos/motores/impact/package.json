@@ -1,0 +1,16 @@
+{
+  "name": "curso-estilos-impact-frame",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Impact frame de anime (three.js + canvas 2D). Demo: dois volumes, um golpe, 4 desenhos segurados e hit-stop.",
+  "scripts": {
+    "demo": "node render.mjs --pagina index.html --query \"esc=0.5\" --fps 30 --saida saida/demo.mp4",
+    "demo60": "node render.mjs --pagina index.html --query \"esc=0.5\" --fps 60 --saida saida/demo_60.mp4",
+    "folha": "node render.mjs --pagina index.html --query \"esc=0.5\" --folha 1.25,1.31,1.36,1.43,1.48,1.6,1.7,2.2 --saida saida/folha.jpg",
+    "gelo": "node render.mjs --pagina index.html --query \"esc=0.5&cor=5fd6ff\" --fps 30 --saida saida/demo_gelo.mp4"
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}

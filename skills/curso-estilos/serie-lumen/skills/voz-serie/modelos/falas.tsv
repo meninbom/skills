@@ -1,0 +1,5 @@
+N1	narrador	0.45 0.25 1.0	[serious] Ninguém na vila acreditou no menino.
+C1	personagem1	0.40 0.35 1.0	[scared] Ele tá vindo. Eu juro.
+P1	PAUSA	-	1.2
+I1	personagem2	0.40 0.35 1.0	[calm] Então a gente espera ele aqui.
+N2	narrador	0.45 0.25 1.0	[tense] E pela primeira vez, ele não correu.

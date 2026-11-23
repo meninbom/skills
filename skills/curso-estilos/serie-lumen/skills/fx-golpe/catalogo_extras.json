@@ -1,0 +1,1962 @@
+[
+ {
+  "n": 101,
+  "nome": "X_Effekseer01__Homing_Laser01",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 32,
+  "vazio": false
+ },
+ {
+  "n": 102,
+  "nome": "X_Effekseer01__Laser01",
+  "quadros": 42,
+  "seg": 1.4,
+  "pico": 15,
+  "vazio": false
+ },
+ {
+  "n": 103,
+  "nome": "X_Effekseer01__Laser02",
+  "quadros": 64,
+  "seg": 2.1,
+  "pico": 22,
+  "vazio": false
+ },
+ {
+  "n": 104,
+  "nome": "X_Effekseer01__Laser03",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 6,
+  "vazio": false
+ },
+ {
+  "n": 105,
+  "nome": "X_Effekseer01__Simple_Distortion",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 98,
+  "vazio": false
+ },
+ {
+  "n": 106,
+  "nome": "X_Effekseer01__Simple_GeneratingPosition1",
+  "quadros": 7,
+  "seg": 0.2,
+  "pico": 2,
+  "vazio": false
+ },
+ {
+  "n": 107,
+  "nome": "X_Effekseer01__Simple_Model_UV",
+  "quadros": 107,
+  "seg": 3.6,
+  "pico": 68,
+  "vazio": false
+ },
+ {
+  "n": 108,
+  "nome": "X_Effekseer01__Simple_Ribbon_Parent",
+  "quadros": 56,
+  "seg": 1.9,
+  "pico": 48,
+  "vazio": false
+ },
+ {
+  "n": 109,
+  "nome": "X_Effekseer01__Simple_Ribbon_Sword",
+  "quadros": 14,
+  "seg": 0.5,
+  "pico": 8,
+  "vazio": false
+ },
+ {
+  "n": 110,
+  "nome": "X_Effekseer01__Simple_Ring_Shape1",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 0,
+  "vazio": true
+ },
+ {
+  "n": 111,
+  "nome": "X_Effekseer01__Simple_Ring_Shape2",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 110,
+  "vazio": false
+ },
+ {
+  "n": 112,
+  "nome": "X_Effekseer01__Simple_Sprite_BillBoard",
+  "quadros": 22,
+  "seg": 0.7,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 113,
+  "nome": "X_Effekseer01__Simple_Sprite_Fixed",
+  "quadros": 51,
+  "seg": 1.7,
+  "pico": 29,
+  "vazio": false
+ },
+ {
+  "n": 114,
+  "nome": "X_Effekseer01__Simple_Sprite_FixedYAxis",
+  "quadros": 86,
+  "seg": 2.9,
+  "pico": 34,
+  "vazio": false
+ },
+ {
+  "n": 115,
+  "nome": "X_Effekseer01__Simple_Track1",
+  "quadros": 102,
+  "seg": 3.4,
+  "pico": 11,
+  "vazio": false
+ },
+ {
+  "n": 116,
+  "nome": "X_Godot4Demo__Light",
+  "quadros": 106,
+  "seg": 3.5,
+  "pico": 54,
+  "vazio": false
+ },
+ {
+  "n": 117,
+  "nome": "X_Godot4Demo__ToonHit",
+  "quadros": 59,
+  "seg": 2.0,
+  "pico": 19,
+  "vazio": false
+ },
+ {
+  "n": 118,
+  "nome": "X_Godot4Demo__ToonWater",
+  "quadros": 100,
+  "seg": 3.3,
+  "pico": 48,
+  "vazio": false
+ },
+ {
+  "n": 119,
+  "nome": "X_Godot4Demo__ef_barrior01",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 120,
+  "nome": "X_Godot4Demo__ef_fire01",
+  "quadros": 58,
+  "seg": 1.9,
+  "pico": 1,
+  "vazio": false
+ },
+ {
+  "n": 121,
+  "nome": "X_Godot4Demo__ef_fire02",
+  "quadros": 92,
+  "seg": 3.1,
+  "pico": 24,
+  "vazio": false
+ },
+ {
+  "n": 122,
+  "nome": "X_Godot4Demo__ef_fire03",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 38,
+  "vazio": false
+ },
+ {
+  "n": 123,
+  "nome": "X_Godot4Demo__ef_holy01",
+  "quadros": 53,
+  "seg": 1.8,
+  "pico": 16,
+  "vazio": false
+ },
+ {
+  "n": 124,
+  "nome": "X_Godot4Demo__ef_ice01",
+  "quadros": 91,
+  "seg": 3.0,
+  "pico": 14,
+  "vazio": false
+ },
+ {
+  "n": 125,
+  "nome": "X_Godot4Demo__ef_ice02",
+  "quadros": 114,
+  "seg": 3.8,
+  "pico": 51,
+  "vazio": false
+ },
+ {
+  "n": 126,
+  "nome": "X_Godot4Demo__ef_ice03",
+  "quadros": 118,
+  "seg": 3.9,
+  "pico": 22,
+  "vazio": false
+ },
+ {
+  "n": 127,
+  "nome": "X_Godot4Demo__ef_lightning01",
+  "quadros": 57,
+  "seg": 1.9,
+  "pico": 4,
+  "vazio": false
+ },
+ {
+  "n": 128,
+  "nome": "X_Godot4Demo__ef_lightning02",
+  "quadros": 67,
+  "seg": 2.2,
+  "pico": 1,
+  "vazio": false
+ },
+ {
+  "n": 129,
+  "nome": "X_Godot4Demo__ef_lightning03",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 50,
+  "vazio": false
+ },
+ {
+  "n": 130,
+  "nome": "X_Godot4Demo__ef_parts_hit01",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 131,
+  "nome": "X_Godot4Demo__ef_parts_hit02",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 132,
+  "nome": "X_Godot4Demo__ef_wind01",
+  "quadros": 66,
+  "seg": 2.2,
+  "pico": 15,
+  "vazio": false
+ },
+ {
+  "n": 133,
+  "nome": "X_Godot4Demo__ef_wind02",
+  "quadros": 68,
+  "seg": 2.3,
+  "pico": 13,
+  "vazio": false
+ },
+ {
+  "n": 134,
+  "nome": "X_Godot4Demo__ef_wind03",
+  "quadros": 98,
+  "seg": 3.3,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 135,
+  "nome": "X_HATO01__aoi_chou",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 0,
+  "vazio": true
+ },
+ {
+  "n": 136,
+  "nome": "X_HATO01__iwai_ume",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 119,
+  "vazio": false
+ },
+ {
+  "n": 137,
+  "nome": "X_HATO01__kiroi_chou",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 0,
+  "vazio": true
+ },
+ {
+  "n": 138,
+  "nome": "X_HATO01__sakura1",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 119,
+  "vazio": false
+ },
+ {
+  "n": 139,
+  "nome": "X_MAGICALxSPIRAL__A_Gohlem1",
+  "quadros": 26,
+  "seg": 0.9,
+  "pico": 14,
+  "vazio": false
+ },
+ {
+  "n": 140,
+  "nome": "X_MAGICALxSPIRAL__A_Salamander1",
+  "quadros": 26,
+  "seg": 0.9,
+  "pico": 11,
+  "vazio": false
+ },
+ {
+  "n": 141,
+  "nome": "X_MAGICALxSPIRAL__A_Salamander4",
+  "quadros": 41,
+  "seg": 1.4,
+  "pico": 26,
+  "vazio": false
+ },
+ {
+  "n": 142,
+  "nome": "X_MAGICALxSPIRAL__A_Sylph1",
+  "quadros": 26,
+  "seg": 0.9,
+  "pico": 14,
+  "vazio": false
+ },
+ {
+  "n": 143,
+  "nome": "X_MAGICALxSPIRAL__A_Sylph2",
+  "quadros": 20,
+  "seg": 0.7,
+  "pico": 4,
+  "vazio": false
+ },
+ {
+  "n": 144,
+  "nome": "X_MAGICALxSPIRAL__A_Undine1",
+  "quadros": 26,
+  "seg": 0.9,
+  "pico": 12,
+  "vazio": false
+ },
+ {
+  "n": 145,
+  "nome": "X_MAGICALxSPIRAL__AquaPoint",
+  "quadros": 88,
+  "seg": 2.9,
+  "pico": 24,
+  "vazio": false
+ },
+ {
+  "n": 146,
+  "nome": "X_MAGICALxSPIRAL__Attack1",
+  "quadros": 22,
+  "seg": 0.7,
+  "pico": 12,
+  "vazio": false
+ },
+ {
+  "n": 147,
+  "nome": "X_MAGICALxSPIRAL__Attack2",
+  "quadros": 23,
+  "seg": 0.8,
+  "pico": 9,
+  "vazio": false
+ },
+ {
+  "n": 148,
+  "nome": "X_MAGICALxSPIRAL__Attack5",
+  "quadros": 21,
+  "seg": 0.7,
+  "pico": 11,
+  "vazio": false
+ },
+ {
+  "n": 149,
+  "nome": "X_MAGICALxSPIRAL__Attack6",
+  "quadros": 21,
+  "seg": 0.7,
+  "pico": 8,
+  "vazio": false
+ },
+ {
+  "n": 150,
+  "nome": "X_MAGICALxSPIRAL__Attack_Impact",
+  "quadros": 19,
+  "seg": 0.6,
+  "pico": 4,
+  "vazio": false
+ },
+ {
+  "n": 151,
+  "nome": "X_MAGICALxSPIRAL__Breakdown",
+  "quadros": 17,
+  "seg": 0.6,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 152,
+  "nome": "X_MAGICALxSPIRAL__FirePot1",
+  "quadros": 32,
+  "seg": 1.1,
+  "pico": 13,
+  "vazio": false
+ },
+ {
+  "n": 153,
+  "nome": "X_MAGICALxSPIRAL__FirePot2",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 5,
+  "vazio": false
+ },
+ {
+  "n": 154,
+  "nome": "X_MAGICALxSPIRAL__Gohlem1",
+  "quadros": 25,
+  "seg": 0.8,
+  "pico": 14,
+  "vazio": false
+ },
+ {
+  "n": 155,
+  "nome": "X_MAGICALxSPIRAL__Gohlem5",
+  "quadros": 26,
+  "seg": 0.9,
+  "pico": 13,
+  "vazio": false
+ },
+ {
+  "n": 156,
+  "nome": "X_MAGICALxSPIRAL__Gohlem7",
+  "quadros": 89,
+  "seg": 3.0,
+  "pico": 13,
+  "vazio": false
+ },
+ {
+  "n": 157,
+  "nome": "X_MAGICALxSPIRAL__Gohlem_Shield1",
+  "quadros": 27,
+  "seg": 0.9,
+  "pico": 12,
+  "vazio": false
+ },
+ {
+  "n": 158,
+  "nome": "X_MAGICALxSPIRAL__Holy1",
+  "quadros": 14,
+  "seg": 0.5,
+  "pico": 4,
+  "vazio": false
+ },
+ {
+  "n": 159,
+  "nome": "X_MAGICALxSPIRAL__Holy2",
+  "quadros": 19,
+  "seg": 0.6,
+  "pico": 11,
+  "vazio": false
+ },
+ {
+  "n": 160,
+  "nome": "X_MAGICALxSPIRAL__Icicle1",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 5,
+  "vazio": false
+ },
+ {
+  "n": 161,
+  "nome": "X_MAGICALxSPIRAL__Icicle2",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 162,
+  "nome": "X_MAGICALxSPIRAL__Icicle3",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 163,
+  "nome": "X_MAGICALxSPIRAL__IcicleBroken",
+  "quadros": 20,
+  "seg": 0.7,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 164,
+  "nome": "X_MAGICALxSPIRAL__IcicleLocus",
+  "quadros": 12,
+  "seg": 0.4,
+  "pico": 4,
+  "vazio": false
+ },
+ {
+  "n": 165,
+  "nome": "X_MAGICALxSPIRAL__Impact",
+  "quadros": 23,
+  "seg": 0.8,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 166,
+  "nome": "X_MAGICALxSPIRAL__Lance3",
+  "quadros": 64,
+  "seg": 2.1,
+  "pico": 32,
+  "vazio": false
+ },
+ {
+  "n": 167,
+  "nome": "X_MAGICALxSPIRAL__Lance4",
+  "quadros": 40,
+  "seg": 1.3,
+  "pico": 15,
+  "vazio": false
+ },
+ {
+  "n": 168,
+  "nome": "X_MAGICALxSPIRAL__Lance5",
+  "quadros": 40,
+  "seg": 1.3,
+  "pico": 18,
+  "vazio": false
+ },
+ {
+  "n": 169,
+  "nome": "X_MAGICALxSPIRAL__Magic1_earth",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 1,
+  "vazio": false
+ },
+ {
+  "n": 170,
+  "nome": "X_MAGICALxSPIRAL__Magic1_fire",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 171,
+  "nome": "X_MAGICALxSPIRAL__Magic1_holy",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 1,
+  "vazio": false
+ },
+ {
+  "n": 172,
+  "nome": "X_MAGICALxSPIRAL__Magic1_water",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 173,
+  "nome": "X_MAGICALxSPIRAL__Magic1_wind",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 174,
+  "nome": "X_MAGICALxSPIRAL__Magic2_earth",
+  "quadros": 14,
+  "seg": 0.5,
+  "pico": 5,
+  "vazio": false
+ },
+ {
+  "n": 175,
+  "nome": "X_MAGICALxSPIRAL__Magic2_fire",
+  "quadros": 15,
+  "seg": 0.5,
+  "pico": 5,
+  "vazio": false
+ },
+ {
+  "n": 176,
+  "nome": "X_MAGICALxSPIRAL__Magic2_holy",
+  "quadros": 14,
+  "seg": 0.5,
+  "pico": 7,
+  "vazio": false
+ },
+ {
+  "n": 177,
+  "nome": "X_MAGICALxSPIRAL__Magic2_water",
+  "quadros": 15,
+  "seg": 0.5,
+  "pico": 5,
+  "vazio": false
+ },
+ {
+  "n": 178,
+  "nome": "X_MAGICALxSPIRAL__Magic2_wind",
+  "quadros": 15,
+  "seg": 0.5,
+  "pico": 5,
+  "vazio": false
+ },
+ {
+  "n": 179,
+  "nome": "X_MAGICALxSPIRAL__MagicArea",
+  "quadros": 67,
+  "seg": 2.2,
+  "pico": 23,
+  "vazio": false
+ },
+ {
+  "n": 180,
+  "nome": "X_MAGICALxSPIRAL__Rock1",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 41,
+  "vazio": true
+ },
+ {
+  "n": 181,
+  "nome": "X_MAGICALxSPIRAL__Rock2",
+  "quadros": 31,
+  "seg": 1.0,
+  "pico": 14,
+  "vazio": false
+ },
+ {
+  "n": 182,
+  "nome": "X_MAGICALxSPIRAL__Salamander1",
+  "quadros": 15,
+  "seg": 0.5,
+  "pico": 4,
+  "vazio": false
+ },
+ {
+  "n": 183,
+  "nome": "X_MAGICALxSPIRAL__Salamander12",
+  "quadros": 28,
+  "seg": 0.9,
+  "pico": 12,
+  "vazio": false
+ },
+ {
+  "n": 184,
+  "nome": "X_MAGICALxSPIRAL__Salamander14",
+  "quadros": 61,
+  "seg": 2.0,
+  "pico": 20,
+  "vazio": false
+ },
+ {
+  "n": 185,
+  "nome": "X_MAGICALxSPIRAL__Salamander15",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 48,
+  "vazio": false
+ },
+ {
+  "n": 186,
+  "nome": "X_MAGICALxSPIRAL__Salamander2",
+  "quadros": 19,
+  "seg": 0.6,
+  "pico": 11,
+  "vazio": false
+ },
+ {
+  "n": 187,
+  "nome": "X_MAGICALxSPIRAL__Salamander5",
+  "quadros": 37,
+  "seg": 1.2,
+  "pico": 15,
+  "vazio": false
+ },
+ {
+  "n": 188,
+  "nome": "X_MAGICALxSPIRAL__Salamander6",
+  "quadros": 37,
+  "seg": 1.2,
+  "pico": 11,
+  "vazio": false
+ },
+ {
+  "n": 189,
+  "nome": "X_MAGICALxSPIRAL__Salamander7",
+  "quadros": 29,
+  "seg": 1.0,
+  "pico": 14,
+  "vazio": false
+ },
+ {
+  "n": 190,
+  "nome": "X_MAGICALxSPIRAL__Snowman1",
+  "quadros": 14,
+  "seg": 0.5,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 191,
+  "nome": "X_MAGICALxSPIRAL__StairBroken",
+  "quadros": 20,
+  "seg": 0.7,
+  "pico": 9,
+  "vazio": false
+ },
+ {
+  "n": 192,
+  "nome": "X_MAGICALxSPIRAL__StairBroken3",
+  "quadros": 41,
+  "seg": 1.4,
+  "pico": 20,
+  "vazio": false
+ },
+ {
+  "n": 193,
+  "nome": "X_MAGICALxSPIRAL__Sylph1",
+  "quadros": 15,
+  "seg": 0.5,
+  "pico": 9,
+  "vazio": false
+ },
+ {
+  "n": 194,
+  "nome": "X_MAGICALxSPIRAL__Sylph10",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 20,
+  "vazio": false
+ },
+ {
+  "n": 195,
+  "nome": "X_MAGICALxSPIRAL__Sylph11",
+  "quadros": 28,
+  "seg": 0.9,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 196,
+  "nome": "X_MAGICALxSPIRAL__Sylph13",
+  "quadros": 83,
+  "seg": 2.8,
+  "pico": 43,
+  "vazio": false
+ },
+ {
+  "n": 197,
+  "nome": "X_MAGICALxSPIRAL__Sylph15",
+  "quadros": 34,
+  "seg": 1.1,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 198,
+  "nome": "X_MAGICALxSPIRAL__Sylph2",
+  "quadros": 20,
+  "seg": 0.7,
+  "pico": 4,
+  "vazio": false
+ },
+ {
+  "n": 199,
+  "nome": "X_MAGICALxSPIRAL__Sylph3",
+  "quadros": 14,
+  "seg": 0.5,
+  "pico": 4,
+  "vazio": false
+ },
+ {
+  "n": 200,
+  "nome": "X_MAGICALxSPIRAL__Sylph4",
+  "quadros": 19,
+  "seg": 0.6,
+  "pico": 11,
+  "vazio": false
+ },
+ {
+  "n": 201,
+  "nome": "X_MAGICALxSPIRAL__Sylph5",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 75,
+  "vazio": false
+ },
+ {
+  "n": 202,
+  "nome": "X_MAGICALxSPIRAL__Sylph6",
+  "quadros": 16,
+  "seg": 0.5,
+  "pico": 8,
+  "vazio": false
+ },
+ {
+  "n": 203,
+  "nome": "X_MAGICALxSPIRAL__Sylph7",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 42,
+  "vazio": false
+ },
+ {
+  "n": 204,
+  "nome": "X_MAGICALxSPIRAL__Sylph8",
+  "quadros": 32,
+  "seg": 1.1,
+  "pico": 15,
+  "vazio": false
+ },
+ {
+  "n": 205,
+  "nome": "X_MAGICALxSPIRAL__Thunder1",
+  "quadros": 63,
+  "seg": 2.1,
+  "pico": 32,
+  "vazio": false
+ },
+ {
+  "n": 206,
+  "nome": "X_MAGICALxSPIRAL__Thunder2",
+  "quadros": 34,
+  "seg": 1.1,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 207,
+  "nome": "X_MAGICALxSPIRAL__Thunder3",
+  "quadros": 25,
+  "seg": 0.8,
+  "pico": 9,
+  "vazio": false
+ },
+ {
+  "n": 208,
+  "nome": "X_MAGICALxSPIRAL__Topwater1",
+  "quadros": 24,
+  "seg": 0.8,
+  "pico": 8,
+  "vazio": false
+ },
+ {
+  "n": 209,
+  "nome": "X_MAGICALxSPIRAL__Undine11",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 21,
+  "vazio": false
+ },
+ {
+  "n": 210,
+  "nome": "X_MAGICALxSPIRAL__Undine13",
+  "quadros": 112,
+  "seg": 3.7,
+  "pico": 61,
+  "vazio": false
+ },
+ {
+  "n": 211,
+  "nome": "X_MAGICALxSPIRAL__Undine2",
+  "quadros": 14,
+  "seg": 0.5,
+  "pico": 4,
+  "vazio": false
+ },
+ {
+  "n": 212,
+  "nome": "X_MAGICALxSPIRAL__Undine3",
+  "quadros": 19,
+  "seg": 0.6,
+  "pico": 11,
+  "vazio": false
+ },
+ {
+  "n": 213,
+  "nome": "X_MAGICALxSPIRAL__Undine4",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 37,
+  "vazio": false
+ },
+ {
+  "n": 214,
+  "nome": "X_MAGICALxSPIRAL__Undine5",
+  "quadros": 22,
+  "seg": 0.7,
+  "pico": 9,
+  "vazio": false
+ },
+ {
+  "n": 215,
+  "nome": "X_MAGICALxSPIRAL__Undine6",
+  "quadros": 57,
+  "seg": 1.9,
+  "pico": 38,
+  "vazio": false
+ },
+ {
+  "n": 216,
+  "nome": "X_MAGICALxSPIRAL__Undine8",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 20,
+  "vazio": false
+ },
+ {
+  "n": 217,
+  "nome": "X_MAGICALxSPIRAL__WHead1",
+  "quadros": 14,
+  "seg": 0.5,
+  "pico": 9,
+  "vazio": false
+ },
+ {
+  "n": 218,
+  "nome": "X_MAGICALxSPIRAL__WHead2",
+  "quadros": 18,
+  "seg": 0.6,
+  "pico": 7,
+  "vazio": true
+ },
+ {
+  "n": 219,
+  "nome": "X_MAGICALxSPIRAL__WHead3",
+  "quadros": 19,
+  "seg": 0.6,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 220,
+  "nome": "X_MAGICALxSPIRAL__Water_Impact",
+  "quadros": 24,
+  "seg": 0.8,
+  "pico": 5,
+  "vazio": false
+ },
+ {
+  "n": 221,
+  "nome": "X_MAGICALxSPIRAL__Wind_Impact",
+  "quadros": 16,
+  "seg": 0.5,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 222,
+  "nome": "X_MAGICALxSPIRAL__foot_smoke1",
+  "quadros": 9,
+  "seg": 0.3,
+  "pico": 3,
+  "vazio": false
+ },
+ {
+  "n": 223,
+  "nome": "X_MAGICALxSPIRAL__foot_smoke2",
+  "quadros": 39,
+  "seg": 1.3,
+  "pico": 13,
+  "vazio": false
+ },
+ {
+  "n": 224,
+  "nome": "X_MAGICALxSPIRAL__foot_smoke3",
+  "quadros": 29,
+  "seg": 1.0,
+  "pico": 13,
+  "vazio": true
+ },
+ {
+  "n": 225,
+  "nome": "X_MAGICALxSPIRAL__foot_smoke4",
+  "quadros": 29,
+  "seg": 1.0,
+  "pico": 16,
+  "vazio": true
+ },
+ {
+  "n": 226,
+  "nome": "X_MAGICALxSPIRAL__foot_smoke5",
+  "quadros": 29,
+  "seg": 1.0,
+  "pico": 15,
+  "vazio": false
+ },
+ {
+  "n": 227,
+  "nome": "X_MAGICALxSPIRAL__foot_smoke6",
+  "quadros": 19,
+  "seg": 0.6,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 228,
+  "nome": "X_MAGICALxSPIRAL__foot_smoke7",
+  "quadros": 29,
+  "seg": 1.0,
+  "pico": 16,
+  "vazio": true
+ },
+ {
+  "n": 229,
+  "nome": "X_MAGICALxSPIRAL__foot_smoke8",
+  "quadros": 29,
+  "seg": 1.0,
+  "pico": 16,
+  "vazio": true
+ },
+ {
+  "n": 230,
+  "nome": "X_MAGICALxSPIRAL__meteo1",
+  "quadros": 41,
+  "seg": 1.4,
+  "pico": 17,
+  "vazio": false
+ },
+ {
+  "n": 231,
+  "nome": "X_MAGICALxSPIRAL__salamander13",
+  "quadros": 54,
+  "seg": 1.8,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 232,
+  "nome": "X_tktk01__Arrow1",
+  "quadros": 20,
+  "seg": 0.7,
+  "pico": 4,
+  "vazio": false
+ },
+ {
+  "n": 233,
+  "nome": "X_tktk01__Arrow2",
+  "quadros": 65,
+  "seg": 2.2,
+  "pico": 11,
+  "vazio": false
+ },
+ {
+  "n": 234,
+  "nome": "X_tktk01__Blow1",
+  "quadros": 25,
+  "seg": 0.8,
+  "pico": 9,
+  "vazio": false
+ },
+ {
+  "n": 235,
+  "nome": "X_tktk01__Blow10",
+  "quadros": 28,
+  "seg": 0.9,
+  "pico": 6,
+  "vazio": false
+ },
+ {
+  "n": 236,
+  "nome": "X_tktk01__Blow11",
+  "quadros": 22,
+  "seg": 0.7,
+  "pico": 8,
+  "vazio": false
+ },
+ {
+  "n": 237,
+  "nome": "X_tktk01__Blow12",
+  "quadros": 63,
+  "seg": 2.1,
+  "pico": 8,
+  "vazio": false
+ },
+ {
+  "n": 238,
+  "nome": "X_tktk01__Blow13",
+  "quadros": 27,
+  "seg": 0.9,
+  "pico": 4,
+  "vazio": false
+ },
+ {
+  "n": 239,
+  "nome": "X_tktk01__Blow14",
+  "quadros": 43,
+  "seg": 1.4,
+  "pico": 7,
+  "vazio": false
+ },
+ {
+  "n": 240,
+  "nome": "X_tktk01__Blow15",
+  "quadros": 30,
+  "seg": 1.0,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 241,
+  "nome": "X_tktk01__Blow2",
+  "quadros": 18,
+  "seg": 0.6,
+  "pico": 2,
+  "vazio": false
+ },
+ {
+  "n": 242,
+  "nome": "X_tktk01__Blow3",
+  "quadros": 20,
+  "seg": 0.7,
+  "pico": 7,
+  "vazio": false
+ },
+ {
+  "n": 243,
+  "nome": "X_tktk01__Blow4",
+  "quadros": 27,
+  "seg": 0.9,
+  "pico": 6,
+  "vazio": false
+ },
+ {
+  "n": 244,
+  "nome": "X_tktk01__Blow5",
+  "quadros": 42,
+  "seg": 1.4,
+  "pico": 8,
+  "vazio": false
+ },
+ {
+  "n": 245,
+  "nome": "X_tktk01__Blow6",
+  "quadros": 24,
+  "seg": 0.8,
+  "pico": 4,
+  "vazio": false
+ },
+ {
+  "n": 246,
+  "nome": "X_tktk01__Blow7",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 2,
+  "vazio": false
+ },
+ {
+  "n": 247,
+  "nome": "X_tktk01__Blow8",
+  "quadros": 42,
+  "seg": 1.4,
+  "pico": 21,
+  "vazio": false
+ },
+ {
+  "n": 248,
+  "nome": "X_tktk01__Blow9",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 5,
+  "vazio": false
+ },
+ {
+  "n": 249,
+  "nome": "X_tktk01__Cure1",
+  "quadros": 40,
+  "seg": 1.3,
+  "pico": 16,
+  "vazio": false
+ },
+ {
+  "n": 250,
+  "nome": "X_tktk01__Cure2",
+  "quadros": 58,
+  "seg": 1.9,
+  "pico": 13,
+  "vazio": false
+ },
+ {
+  "n": 251,
+  "nome": "X_tktk01__Cure3",
+  "quadros": 40,
+  "seg": 1.3,
+  "pico": 12,
+  "vazio": false
+ },
+ {
+  "n": 252,
+  "nome": "X_tktk01__Cure4",
+  "quadros": 31,
+  "seg": 1.0,
+  "pico": 14,
+  "vazio": false
+ },
+ {
+  "n": 253,
+  "nome": "X_tktk01__Cure5",
+  "quadros": 38,
+  "seg": 1.3,
+  "pico": 5,
+  "vazio": false
+ },
+ {
+  "n": 254,
+  "nome": "X_tktk01__Cure6",
+  "quadros": 40,
+  "seg": 1.3,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 255,
+  "nome": "X_tktk01__Cure7",
+  "quadros": 44,
+  "seg": 1.5,
+  "pico": 18,
+  "vazio": false
+ },
+ {
+  "n": 256,
+  "nome": "X_tktk01__Dark1",
+  "quadros": 46,
+  "seg": 1.5,
+  "pico": 18,
+  "vazio": false
+ },
+ {
+  "n": 257,
+  "nome": "X_tktk01__Dark2",
+  "quadros": 53,
+  "seg": 1.8,
+  "pico": 30,
+  "vazio": false
+ },
+ {
+  "n": 258,
+  "nome": "X_tktk01__Dark3",
+  "quadros": 72,
+  "seg": 2.4,
+  "pico": 6,
+  "vazio": false
+ },
+ {
+  "n": 259,
+  "nome": "X_tktk01__Fire1",
+  "quadros": 102,
+  "seg": 3.4,
+  "pico": 12,
+  "vazio": false
+ },
+ {
+  "n": 260,
+  "nome": "X_tktk01__Fire2",
+  "quadros": 40,
+  "seg": 1.3,
+  "pico": 15,
+  "vazio": false
+ },
+ {
+  "n": 261,
+  "nome": "X_tktk01__Fire3",
+  "quadros": 32,
+  "seg": 1.1,
+  "pico": 18,
+  "vazio": false
+ },
+ {
+  "n": 262,
+  "nome": "X_tktk01__Fire4",
+  "quadros": 44,
+  "seg": 1.5,
+  "pico": 0,
+  "vazio": false
+ },
+ {
+  "n": 263,
+  "nome": "X_tktk01__Fire5",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 24,
+  "vazio": false
+ },
+ {
+  "n": 264,
+  "nome": "X_tktk01__Fire6",
+  "quadros": 40,
+  "seg": 1.3,
+  "pico": 19,
+  "vazio": false
+ },
+ {
+  "n": 265,
+  "nome": "X_tktk01__Fire7",
+  "quadros": 54,
+  "seg": 1.8,
+  "pico": 6,
+  "vazio": false
+ },
+ {
+  "n": 266,
+  "nome": "X_tktk01__Fire8",
+  "quadros": 60,
+  "seg": 2.0,
+  "pico": 2,
+  "vazio": false
+ },
+ {
+  "n": 267,
+  "nome": "X_tktk01__Light1",
+  "quadros": 82,
+  "seg": 2.7,
+  "pico": 31,
+  "vazio": false
+ },
+ {
+  "n": 268,
+  "nome": "X_tktk01__Light2",
+  "quadros": 19,
+  "seg": 0.6,
+  "pico": 7,
+  "vazio": false
+ },
+ {
+  "n": 269,
+  "nome": "X_tktk01__Light3",
+  "quadros": 32,
+  "seg": 1.1,
+  "pico": 16,
+  "vazio": false
+ },
+ {
+  "n": 270,
+  "nome": "X_tktk01__Light4",
+  "quadros": 82,
+  "seg": 2.7,
+  "pico": 13,
+  "vazio": false
+ },
+ {
+  "n": 271,
+  "nome": "X_tktk01__Magic1",
+  "quadros": 32,
+  "seg": 1.1,
+  "pico": 9,
+  "vazio": false
+ },
+ {
+  "n": 272,
+  "nome": "X_tktk01__Magic2",
+  "quadros": 76,
+  "seg": 2.5,
+  "pico": 28,
+  "vazio": false
+ },
+ {
+  "n": 273,
+  "nome": "X_tktk01__Soil1",
+  "quadros": 70,
+  "seg": 2.3,
+  "pico": 19,
+  "vazio": false
+ },
+ {
+  "n": 274,
+  "nome": "X_tktk01__Sword1",
+  "quadros": 31,
+  "seg": 1.0,
+  "pico": 18,
+  "vazio": false
+ },
+ {
+  "n": 275,
+  "nome": "X_tktk01__Sword10",
+  "quadros": 27,
+  "seg": 0.9,
+  "pico": 3,
+  "vazio": false
+ },
+ {
+  "n": 276,
+  "nome": "X_tktk01__Sword11",
+  "quadros": 45,
+  "seg": 1.5,
+  "pico": 20,
+  "vazio": false
+ },
+ {
+  "n": 277,
+  "nome": "X_tktk01__Sword12",
+  "quadros": 25,
+  "seg": 0.8,
+  "pico": 6,
+  "vazio": false
+ },
+ {
+  "n": 278,
+  "nome": "X_tktk01__Sword13",
+  "quadros": 30,
+  "seg": 1.0,
+  "pico": 19,
+  "vazio": false
+ },
+ {
+  "n": 279,
+  "nome": "X_tktk01__Sword14",
+  "quadros": 36,
+  "seg": 1.2,
+  "pico": 18,
+  "vazio": false
+ },
+ {
+  "n": 280,
+  "nome": "X_tktk01__Sword15",
+  "quadros": 21,
+  "seg": 0.7,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 281,
+  "nome": "X_tktk01__Sword16",
+  "quadros": 40,
+  "seg": 1.3,
+  "pico": 9,
+  "vazio": false
+ },
+ {
+  "n": 282,
+  "nome": "X_tktk01__Sword17",
+  "quadros": 55,
+  "seg": 1.8,
+  "pico": 8,
+  "vazio": false
+ },
+ {
+  "n": 283,
+  "nome": "X_tktk01__Sword18",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 11,
+  "vazio": false
+ },
+ {
+  "n": 284,
+  "nome": "X_tktk01__Sword19",
+  "quadros": 87,
+  "seg": 2.9,
+  "pico": 27,
+  "vazio": false
+ },
+ {
+  "n": 285,
+  "nome": "X_tktk01__Sword2",
+  "quadros": 28,
+  "seg": 0.9,
+  "pico": 11,
+  "vazio": false
+ },
+ {
+  "n": 286,
+  "nome": "X_tktk01__Sword20",
+  "quadros": 44,
+  "seg": 1.5,
+  "pico": 8,
+  "vazio": false
+ },
+ {
+  "n": 287,
+  "nome": "X_tktk01__Sword21",
+  "quadros": 77,
+  "seg": 2.6,
+  "pico": 9,
+  "vazio": false
+ },
+ {
+  "n": 288,
+  "nome": "X_tktk01__Sword22",
+  "quadros": 27,
+  "seg": 0.9,
+  "pico": 0,
+  "vazio": true
+ },
+ {
+  "n": 289,
+  "nome": "X_tktk01__Sword3",
+  "quadros": 34,
+  "seg": 1.1,
+  "pico": 17,
+  "vazio": false
+ },
+ {
+  "n": 290,
+  "nome": "X_tktk01__Sword4",
+  "quadros": 42,
+  "seg": 1.4,
+  "pico": 28,
+  "vazio": false
+ },
+ {
+  "n": 291,
+  "nome": "X_tktk01__Sword5",
+  "quadros": 20,
+  "seg": 0.7,
+  "pico": 8,
+  "vazio": false
+ },
+ {
+  "n": 292,
+  "nome": "X_tktk01__Sword6",
+  "quadros": 17,
+  "seg": 0.6,
+  "pico": 5,
+  "vazio": false
+ },
+ {
+  "n": 293,
+  "nome": "X_tktk01__Sword7",
+  "quadros": 22,
+  "seg": 0.7,
+  "pico": 5,
+  "vazio": false
+ },
+ {
+  "n": 294,
+  "nome": "X_tktk01__Sword8",
+  "quadros": 45,
+  "seg": 1.5,
+  "pico": 22,
+  "vazio": false
+ },
+ {
+  "n": 295,
+  "nome": "X_tktk01__Sword9",
+  "quadros": 28,
+  "seg": 0.9,
+  "pico": 12,
+  "vazio": false
+ },
+ {
+  "n": 296,
+  "nome": "X_tktk01__Wind1",
+  "quadros": 42,
+  "seg": 1.4,
+  "pico": 23,
+  "vazio": false
+ },
+ {
+  "n": 297,
+  "nome": "X_tktk01__Wind2",
+  "quadros": 22,
+  "seg": 0.7,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 298,
+  "nome": "X_tktk01__hozyo1",
+  "quadros": 40,
+  "seg": 1.3,
+  "pico": 5,
+  "vazio": false
+ },
+ {
+  "n": 299,
+  "nome": "X_tktk01__hozyo2",
+  "quadros": 39,
+  "seg": 1.3,
+  "pico": 18,
+  "vazio": false
+ },
+ {
+  "n": 300,
+  "nome": "X_tktk01__hozyo3",
+  "quadros": 26,
+  "seg": 0.9,
+  "pico": 6,
+  "vazio": false
+ },
+ {
+  "n": 301,
+  "nome": "X_tktk01__hozyo4",
+  "quadros": 74,
+  "seg": 2.5,
+  "pico": 8,
+  "vazio": false
+ },
+ {
+  "n": 302,
+  "nome": "X_tktk01__hozyo5",
+  "quadros": 74,
+  "seg": 2.5,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 303,
+  "nome": "X_tktk02__Blow1",
+  "quadros": 39,
+  "seg": 1.3,
+  "pico": 13,
+  "vazio": false
+ },
+ {
+  "n": 304,
+  "nome": "X_tktk02__Blow2",
+  "quadros": 92,
+  "seg": 3.1,
+  "pico": 9,
+  "vazio": false
+ },
+ {
+  "n": 305,
+  "nome": "X_tktk02__Blow3",
+  "quadros": 32,
+  "seg": 1.1,
+  "pico": 19,
+  "vazio": false
+ },
+ {
+  "n": 306,
+  "nome": "X_tktk02__Blow4",
+  "quadros": 33,
+  "seg": 1.1,
+  "pico": 6,
+  "vazio": false
+ },
+ {
+  "n": 307,
+  "nome": "X_tktk02__Blow5",
+  "quadros": 38,
+  "seg": 1.3,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 308,
+  "nome": "X_tktk02__Blow6",
+  "quadros": 117,
+  "seg": 3.9,
+  "pico": 57,
+  "vazio": false
+ },
+ {
+  "n": 309,
+  "nome": "X_tktk02__Claw1",
+  "quadros": 68,
+  "seg": 2.3,
+  "pico": 8,
+  "vazio": false
+ },
+ {
+  "n": 310,
+  "nome": "X_tktk02__Claw2",
+  "quadros": 38,
+  "seg": 1.3,
+  "pico": 14,
+  "vazio": false
+ },
+ {
+  "n": 311,
+  "nome": "X_tktk02__Claw3",
+  "quadros": 52,
+  "seg": 1.7,
+  "pico": 7,
+  "vazio": false
+ },
+ {
+  "n": 312,
+  "nome": "X_tktk02__Claw4",
+  "quadros": 79,
+  "seg": 2.6,
+  "pico": 58,
+  "vazio": false
+ },
+ {
+  "n": 313,
+  "nome": "X_tktk02__Dark1",
+  "quadros": 37,
+  "seg": 1.2,
+  "pico": 24,
+  "vazio": false
+ },
+ {
+  "n": 314,
+  "nome": "X_tktk02__Dark2",
+  "quadros": 51,
+  "seg": 1.7,
+  "pico": 5,
+  "vazio": false
+ },
+ {
+  "n": 315,
+  "nome": "X_tktk02__Fire1",
+  "quadros": 91,
+  "seg": 3.0,
+  "pico": 30,
+  "vazio": false
+ },
+ {
+  "n": 316,
+  "nome": "X_tktk02__Fire2",
+  "quadros": 64,
+  "seg": 2.1,
+  "pico": 20,
+  "vazio": false
+ },
+ {
+  "n": 317,
+  "nome": "X_tktk02__Fire3",
+  "quadros": 42,
+  "seg": 1.4,
+  "pico": 22,
+  "vazio": false
+ },
+ {
+  "n": 318,
+  "nome": "X_tktk02__Fire4",
+  "quadros": 77,
+  "seg": 2.6,
+  "pico": 17,
+  "vazio": false
+ },
+ {
+  "n": 319,
+  "nome": "X_tktk02__Fire5",
+  "quadros": 51,
+  "seg": 1.7,
+  "pico": 23,
+  "vazio": false
+ },
+ {
+  "n": 320,
+  "nome": "X_tktk02__Fire6",
+  "quadros": 45,
+  "seg": 1.5,
+  "pico": 10,
+  "vazio": false
+ },
+ {
+  "n": 321,
+  "nome": "X_tktk02__Fire7",
+  "quadros": 44,
+  "seg": 1.5,
+  "pico": 13,
+  "vazio": false
+ },
+ {
+  "n": 322,
+  "nome": "X_tktk02__Fire8",
+  "quadros": 82,
+  "seg": 2.7,
+  "pico": 26,
+  "vazio": false
+ },
+ {
+  "n": 323,
+  "nome": "X_tktk02__Gun1",
+  "quadros": 75,
+  "seg": 2.5,
+  "pico": 9,
+  "vazio": false
+ },
+ {
+  "n": 324,
+  "nome": "X_tktk02__Gun2",
+  "quadros": 56,
+  "seg": 1.9,
+  "pico": 19,
+  "vazio": false
+ },
+ {
+  "n": 325,
+  "nome": "X_tktk02__Gun3",
+  "quadros": 78,
+  "seg": 2.6,
+  "pico": 20,
+  "vazio": false
+ },
+ {
+  "n": 326,
+  "nome": "X_tktk02__Gun4",
+  "quadros": 69,
+  "seg": 2.3,
+  "pico": 37,
+  "vazio": false
+ },
+ {
+  "n": 327,
+  "nome": "X_tktk02__Gun5",
+  "quadros": 47,
+  "seg": 1.6,
+  "pico": 20,
+  "vazio": false
+ },
+ {
+  "n": 328,
+  "nome": "X_tktk02__Gun6",
+  "quadros": 57,
+  "seg": 1.9,
+  "pico": 6,
+  "vazio": false
+ },
+ {
+  "n": 329,
+  "nome": "X_tktk02__Gun7",
+  "quadros": 92,
+  "seg": 3.1,
+  "pico": 44,
+  "vazio": false
+ },
+ {
+  "n": 330,
+  "nome": "X_tktk02__Gun8",
+  "quadros": 67,
+  "seg": 2.2,
+  "pico": 40,
+  "vazio": false
+ },
+ {
+  "n": 331,
+  "nome": "X_tktk02__Gun9",
+  "quadros": 45,
+  "seg": 1.5,
+  "pico": 24,
+  "vazio": false
+ },
+ {
+  "n": 332,
+  "nome": "X_tktk02__Light1",
+  "quadros": 34,
+  "seg": 1.1,
+  "pico": 17,
+  "vazio": false
+ },
+ {
+  "n": 333,
+  "nome": "X_tktk02__Light2",
+  "quadros": 47,
+  "seg": 1.6,
+  "pico": 25,
+  "vazio": false
+ },
+ {
+  "n": 334,
+  "nome": "X_tktk02__Light3",
+  "quadros": 79,
+  "seg": 2.6,
+  "pico": 28,
+  "vazio": false
+ },
+ {
+  "n": 335,
+  "nome": "X_tktk02__Light4",
+  "quadros": 51,
+  "seg": 1.7,
+  "pico": 38,
+  "vazio": false
+ },
+ {
+  "n": 336,
+  "nome": "X_tktk02__Spear1",
+  "quadros": 79,
+  "seg": 2.6,
+  "pico": 43,
+  "vazio": false
+ },
+ {
+  "n": 337,
+  "nome": "X_tktk02__Spear2",
+  "quadros": 42,
+  "seg": 1.4,
+  "pico": 12,
+  "vazio": false
+ },
+ {
+  "n": 338,
+  "nome": "X_tktk02__Spear3",
+  "quadros": 67,
+  "seg": 2.2,
+  "pico": 18,
+  "vazio": false
+ },
+ {
+  "n": 339,
+  "nome": "X_tktk02__Spear4",
+  "quadros": 56,
+  "seg": 1.9,
+  "pico": 30,
+  "vazio": false
+ },
+ {
+  "n": 340,
+  "nome": "X_tktk02__Sword1",
+  "quadros": 82,
+  "seg": 2.7,
+  "pico": 26,
+  "vazio": false
+ },
+ {
+  "n": 341,
+  "nome": "X_tktk02__Sword2",
+  "quadros": 120,
+  "seg": 4.0,
+  "pico": 37,
+  "vazio": false
+ },
+ {
+  "n": 342,
+  "nome": "X_tktk02__Sword3",
+  "quadros": 76,
+  "seg": 2.5,
+  "pico": 23,
+  "vazio": false
+ },
+ {
+  "n": 343,
+  "nome": "X_tktk02__Sword4",
+  "quadros": 79,
+  "seg": 2.6,
+  "pico": 9,
+  "vazio": false
+ },
+ {
+  "n": 344,
+  "nome": "X_tktk02__Sword5",
+  "quadros": 99,
+  "seg": 3.3,
+  "pico": 42,
+  "vazio": false
+ },
+ {
+  "n": 345,
+  "nome": "X_tktk02__Sword6",
+  "quadros": 43,
+  "seg": 1.4,
+  "pico": 26,
+  "vazio": false
+ }
+]

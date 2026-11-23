@@ -1,0 +1,5 @@
+Fonte: https://effekseer.github.io/en/contributes/MAGICALxSPIRAL/index.html
+Download: https://effekseer.github.io/contributes/MAGICALxSPIRAL.zip
+Licenca (texto da pagina oficial https://effekseer.github.io/en/contribute.html):
+"These effects are distributed under CC-0 License. We'd appreciate it if you could credit Effekseer and a contributor somewhere in your works."
+CC0: http://creativecommons.org/share-your-work/public-domain/cc0

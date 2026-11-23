@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Régis · 30 dias · EP01 v2</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+@font-face { font-family: "Bricolage"; src: url("fonts/Bricolage.ttf"); font-weight: 200 800; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #0f0a24; font-family: "Bricolage", sans-serif; color: #fff; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; --k: #17112b; }
+#stage, .mundo, .cam { position: absolute; inset: 0; }
+.mundo { opacity: 0; overflow: hidden; }
+.cam > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.abs { position: absolute; }
+#hud { position: absolute; left: 0; right: 0; top: 128px; display: flex; justify-content: center; gap: 18px; z-index: 30; }
+.pill { height: 86px; border-radius: 22px; background: rgba(15,10,36,.9); border: 4px solid rgba(255,255,255,.9); display: flex; align-items: center; padding: 0 22px; gap: 12px; opacity: 0; }
+.pill small { font-weight: 700; font-size: 21px; letter-spacing: 2px; opacity: .7; line-height: 1.05; }
+.pill b { font-weight: 800; font-size: 56px; line-height: 1; color: #ffd23f; }
+#p-foto b { color: #ff5a8a; }
+.barra { width: 170px; height: 22px; border-radius: 11px; background: #2f2850; overflow: hidden; }
+.barra i { display: block; width: 100%; height: 100%; background: #ff5a8a; border-radius: 11px; }
+#caps { position: absolute; left: 0; right: 0; top: 1360px; height: 200px; z-index: 40; }
+.cap { position: absolute; left: 50px; right: 50px; top: 0; text-align: center; opacity: 0; font-weight: 800; font-size: 80px; line-height: 1.02; text-transform: uppercase; -webkit-text-stroke: 14px var(--k); paint-order: stroke fill; }
+.cap .a { color: #ffd23f; } .cap .r { color: #ff8fc0; } .cap .v { color: #ff6b6b; } .cap .g { color: #8cf06a; } .cap .z { color: #6fd2ff; }
+#vig { position: absolute; inset: 0; z-index: 20; background: radial-gradient(ellipse at 52% 48%, transparent 45%, rgba(7,4,26,.7) 100%); }
+#grao { position: absolute; inset: 0; z-index: 21; opacity: .16; mix-blend-mode: overlay; width: 100%; height: 100%; }
+#poeira { position: absolute; inset: 0; z-index: 19; }
+.po { position: absolute; border-radius: 50%; background: #cfeaff; }
+.mosca { position: absolute; width: 14px; height: 11px; border-radius: 50%; background: var(--k); }
+.mosca::before, .mosca::after { content: ""; position: absolute; top: -7px; width: 11px; height: 8px; border-radius: 50%; background: rgba(190,240,255,.8); }
+.mosca::before { left: -4px; } .mosca::after { right: -4px; }
+/* chips: mesma linguagem da notificação do celular */
+.chip { position: absolute; opacity: 0; display: flex; align-items: center; gap: 14px; background: #fff; color: var(--k); border: 6px solid var(--k); border-radius: 30px; padding: 14px 26px; font-weight: 800; font-size: 38px; line-height: 1.05; white-space: nowrap; box-shadow: 0 10px 0 rgba(23,17,43,.35); }
+.chip i { width: 58px; height: 58px; border-radius: 50%; background: #ff7eb6; border: 5px solid var(--k); display: grid; place-items: center; font-style: normal; font-weight: 800; flex: none; }
+.chip small { display: block; font-size: 22px; opacity: .55; font-weight: 700; }
+.chip.v { background: #ff5a5a; color: #fff; } .chip.a { background: #ffd23f; } .chip.g { background: #8cf06a; } .chip.esc { background: var(--k); color: #fff; border-color: #fff; }
+.balao { position: absolute; opacity: 0; background: #fff; color: var(--k); border: 7px solid var(--k); border-radius: 40px; padding: 24px 32px; font-weight: 800; font-size: 46px; line-height: 1.1; box-shadow: 0 10px 0 rgba(23,17,43,.35); }
+/* celular */
+#fone { position: absolute; left: 120px; top: 240px; width: 840px; height: 1090px; border-radius: 96px; border: 16px solid var(--k); background: #fbf6ec; overflow: hidden; box-shadow: 0 0 120px rgba(95,224,255,.45), 0 30px 0 rgba(0,0,0,.35); }
+.ph-top { height: 150px; background: #fff; border-bottom: 7px solid var(--k); display: flex; align-items: center; gap: 22px; padding: 0 40px; color: var(--k); }
+.ph-av { width: 92px; height: 92px; border-radius: 50%; background: #ff7eb6; border: 6px solid var(--k); display: grid; place-items: center; font-weight: 800; font-size: 48px; }
+.ph-top b { font-size: 48px; font-weight: 800; display: block; line-height: 1; }
+.ph-top small { font-size: 28px; font-weight: 600; opacity: .6; }
+.scr { position: absolute; left: 0; right: 0; top: 150px; bottom: 0; opacity: 0; }
+.msgs { position: absolute; left: 0; right: 0; top: 0; bottom: 140px; display: flex; flex-direction: column; justify-content: flex-end; gap: 20px; padding: 30px 36px; overflow: hidden; }
+.bub { max-width: 600px; padding: 22px 30px; border-radius: 38px; border: 6px solid var(--k); font-weight: 700; font-size: 44px; line-height: 1.12; color: var(--k); background: #fff; align-self: flex-start; opacity: 0; }
+.bub.eu { align-self: flex-end; background: #7a5cff; color: #fff; }
+.bub.mini { height: 58px; padding: 0; border-width: 5px; border-radius: 29px; opacity: 1; flex: none; }
+.ph-in { position: absolute; left: 30px; right: 30px; bottom: 34px; height: 96px; border-radius: 48px; border: 6px solid var(--k); background: #fff; display: flex; align-items: center; padding: 0 34px; font-weight: 700; font-size: 42px; color: var(--k); }
+.cursor { display: inline-block; width: 5px; height: 48px; background: #7a5cff; margin-left: 4px; }
+#sB { background: #201a3c; } #sB .ph-in { background: #2c2452; color: #9a93c2; }
+.carta { position: absolute; background: #fff; border: 7px solid var(--k); box-shadow: 0 16px 0 rgba(0,0,0,.35); overflow: hidden; opacity: 0; }
+.carta .leg { height: 92px; display: grid; place-items: center; font-weight: 800; font-size: 50px; color: var(--k); background: #fff; position: absolute; left: 0; right: 0; bottom: 0; border-top: 7px solid var(--k); }
+
+/* pele kurz: sem contorno, cartões lisos, brilho */
+.kurz .chip { border: none; border-radius: 26px; box-shadow: 0 12px 34px rgba(10,4,40,.4); }
+.kurz .chip i { border: none; }
+.kurz .balao, .kurz .carta, .kurz .bub { border: none; }
+.kurz .balao, .kurz .carta { box-shadow: 0 14px 40px rgba(10,4,40,.4); border-radius: 30px; }
+.kurz .carta .leg { border-top: none; }
+.kurz #fone { border-color: #1b0f4a; box-shadow: 0 0 140px rgba(127,240,255,.5), 0 30px 0 rgba(10,4,40,.3); }
+.kurz .ph-top { border-bottom: none; box-shadow: 0 6px 0 rgba(27,15,74,.08); }
+.kurz .ph-av { border: none; }
+.kurz .ph-in { border: none; background: #efe9ff; }
+.kurz .pill { border: none; background: rgba(27,15,74,.88); }
+.kurz .cap { -webkit-text-stroke: 11px #1b0f4a; }
+.kurz #grao { opacity: .1; }
+.kurz #vig { background: radial-gradient(ellipse at 52% 48%, transparent 50%, rgba(18,6,60,.6) 100%); }
+.kurz .mosca { background: #1b0f4a; }
+.kz-luz { position: absolute; left: 90px; top: 430px; width: 900px; height: 900px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(168,104,255,.34) 0%, rgba(122,69,224,.2) 38%, rgba(122,69,224,0) 70%); mix-blend-mode: screen; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="72.7">
+  <div id="stage"></div>
+  <div id="poeira"></div>
+  <div id="vig"></div>
+  <svg id="grao" viewBox="0 0 1080 1920"><filter id="fGrao2"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1 0"/></filter><rect width="1080" height="1920" filter="url(#fGrao2)"/></svg>
+  <div id="hud">
+    <div class="pill" id="p-dias"><small>FALTAM</small><b>30</b><small>DIAS</small></div>
+    <div class="pill" id="p-foto"><small>IGUAL<br>À FOTO</small><div class="barra"><i id="p-fill"></i></div><b>4%</b></div>
+  </div>
+  <div id="caps"></div>
+</div>
+<script src="lines.js"></script>
+<script src="cues.js"></script>
+<script src="personagem.js"></script>
+<script src="regis.js"></script>
+<script src="quartoA.js"></script>
+<script src="mundo.js"></script>
+<script src="estilo.js"></script>
+<script src="pele_kurz.js"></script>
+<script src="ep.js"></script>
+<script>
+  document.fonts.ready.then(() => { const tl = window.__montarEp(); window.__timelines["main"] = tl; });
+</script>
+</body>
+</html>

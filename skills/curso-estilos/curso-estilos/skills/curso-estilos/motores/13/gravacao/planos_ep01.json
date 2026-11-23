@@ -1,0 +1,7 @@
+{
+ "_leia": "Duração de cada plano em segundos de tempo real (sem contar os 0,6 s parados no começo e no fim). 'slow' = quantas vezes mais lento a cena foi gravada. 'recorte' = crop depois de girar (largura:altura:x:y) dentro de 752x1336.",
+ "slow": 3,
+ "recorte": "728:1294:12:42",
+ "planos": {"01_aereo": 6, "02_maquina": 5, "03_cai": 4.5, "04_teo": 5, "05_tonho": 6, "06_bia": 6, "07_jairo": 5, "08_regra": 4, "09_multidao": 6, "10_alavanca": 3.5,
+  "11_tubo": 4, "12_olhando": 5, "13_casa": 5.5, "14_caixa": 5, "15_penas": 5, "16_bichos": 5, "17_sombra": 6, "18_olho": 6, "19_coleira": 5, "20_teo": 6}
+}

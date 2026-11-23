@@ -1,0 +1,6 @@
+# Só para as ferramentas opcionais de malha/ (boneco gerado + movimento). O demo não usa.
+# rig_blender.py roda DENTRO do Blender (blender -b -P ...), não precisa de pip.
+numpy
+scipy
+pillow
+rembg

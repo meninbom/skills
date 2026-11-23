@@ -1,0 +1,25 @@
+{
+  "name": "microdoc-personagem",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Micro-doc com personagem fixo: montagem em Remotion a partir de src/data/cenas.json. Remotion tem licenca propria (remotion.dev/license).",
+  "scripts": {
+    "demo": "node ../demo.mjs",
+    "studio": "remotion studio",
+    "previa": "remotion render src/index.ts Prev30 out/previa_mudo.mp4 --scale=0.5 --concurrency=4 --muted",
+    "quadros": "remotion still src/index.ts Prev30 out/quadro.jpg --frame 9",
+    "final": "remotion render src/index.ts Robot out/robot_mudo.mp4 --concurrency=4 --muted --crf=16"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.532",
+    "@remotion/cli": "4.0.532",
+    "@remotion/renderer": "4.0.532",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.532"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "typescript": "5.8.3"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "curso-estilos-02-sobrevivencia-dia1",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sobrevivência DIA 1 (three.js): sítio em 3D com luz de cinema, HUD e legenda. Demo: 3 s do bloco 1.",
+  "scripts": {
+    "demo": "node render.mjs --pagina \"index.html?pbr=1&z2=1\" --video saida/demo.mp4 --ini 21 --fim 24 --qps 15 --largura 540",
+    "folha": "node render.mjs --pagina \"index.html?pbr=1&z2=1\" --tempos 2,8,14,22,31,40,52 --saida saida/folha.jpg --lt 420",
+    "prancha": "node render.mjs --pagina \"estudio.html?pbr=1&o=trator\" --tempos 0 --saida saida/prancha.jpg --lt 1080",
+    "filme": "node render.mjs --pagina \"index.html?pbr=1&z2=1&voz=A\" --video saida/filme.mp4 --qps 30"
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}

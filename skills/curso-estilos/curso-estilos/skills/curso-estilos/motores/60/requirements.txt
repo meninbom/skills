@@ -1,0 +1,4 @@
+# só para os scripts em Python (o demo não precisa de nenhum)
+Pillow>=10      # sprites/prep.py e ep_bau/prancha.py
+numpy>=1.26     # ep_bau/junta_voz.py
+soundfile>=0.12 # ep_bau/junta_voz.py

@@ -1,0 +1,1567 @@
+{
+ "_leia": "v3 (tools/montagem_v3.py): 23 planos. Tempos pela voz robot_tight (FIXA). Coordenadas no quadro 1080x1920; textos com y = LINHA DE BASE. cam: chaves {t, z, x, y}. rack = desfoque de foco dentro do plano. fonte.pano = documento real em tela cheia. Credito = 1 linha, 44 px (cred) ou impresso na margem da copia (legenda). | v4 (21/10): ver prep/montar_v4.py (variantes por inputProps: rab, elenco, amador, fecho).",
+ "flashes": [
+  8.65,
+  22.03,
+  37.55
+ ],
+ "cenas": [
+  {
+   "n": 1,
+   "t0": 0.0,
+   "t1": 1.9,
+   "motor": "h3",
+   "fonte": {
+    "clip": "Z01a",
+    "still": "Z01a",
+    "de": 0.0,
+    "ritmo": 1.15,
+    "seq": "Z01a"
+   },
+   "matte": "Z01a",
+   "cam": [
+    {
+     "t": 0.0,
+     "z": 1.0
+    },
+    {
+     "t": 1.9,
+     "z": 1.035
+    }
+   ],
+   "textos": [
+    {
+     "t": 0.05,
+     "txt": "ROBÔ",
+     "x": 536,
+     "y": 652,
+     "s": 262,
+     "f": "heroi",
+     "cor": "giz",
+     "entra": "escala",
+     "ancora": "middle",
+     "track": -4,
+     "atras": true
+    }
+   ],
+   "nota": "heroi sai da janela e chega na lente no fim do plano (1,9 s de respiro no gancho)",
+   "fala": "Robô nasceu numa peça de teatro:"
+  },
+  {
+   "n": 2,
+   "t0": 1.9,
+   "t1": 4.9,
+   "motor": "h3",
+   "fonte": {
+    "clip": "Z03",
+    "still": "Z03",
+    "de": 0.0,
+    "ritmo": 1.0
+   },
+   "capa_real": {
+    "por_quadro": "public/capa_real (tools/capa_real.py)"
+   },
+   "cam": [
+    {
+     "t": 1.9,
+     "z": 1.0,
+     "x": 540,
+     "y": 960
+    },
+    {
+     "t": 4.9,
+     "z": 1.05,
+     "x": 560,
+     "y": 980
+    }
+   ],
+   "textos": [
+    {
+     "t": 2.0,
+     "txt": "1920",
+     "x": 538,
+     "y": 462,
+     "s": 236,
+     "f": "heroi",
+     "cor": "la",
+     "ancora": "middle",
+     "tinta": 0.17,
+     "ate": 3.34,
+     "esvai": 0.1
+    },
+    {
+     "t": 2.02,
+     "txt": "1ª edição · Aventinum, Praga",
+     "x": 262,
+     "y": 540,
+     "s": 44,
+     "f": "info",
+     "cor": "la",
+     "cred": true,
+     "ate": 3.34,
+     "esvai": 0.1
+    },
+    {
+     "t": 3.36,
+     "txt": "KAREL",
+     "x": 540,
+     "y": 396,
+     "s": 120,
+     "f": "heroi",
+     "cor": "la",
+     "ancora": "middle",
+     "tinta": 0.17
+    },
+    {
+     "t": 3.36,
+     "txt": "ČAPEK",
+     "x": 540,
+     "y": 534,
+     "s": 130,
+     "f": "heroi",
+     "cor": "la",
+     "ancora": "middle",
+     "tinta": 0.17
+    }
+   ],
+   "papeis": [
+    {
+     "t": 3.3,
+     "doc": "karel30",
+     "cx": 690,
+     "cy": 1080,
+     "w": 500,
+     "rot": 5.0,
+     "entra": "cai",
+     "borda": 16,
+     "legenda": "Karel Čapek · anos 1930",
+     "luz": "z03"
+    }
+   ],
+   "nota": "mesa do escritor sem corte: capa real (scan) por cima da capa redesenhada pelo H3; a foto do Karel CAI na mesa, na mesma luz",
+   "fala": "escrita em 1920 pelo tcheco Karel Čapek,"
+  },
+  {
+   "n": 3,
+   "t0": 4.9,
+   "t1": 8.65,
+   "motor": "h3",
+   "fonte": {
+    "clip": "Z04",
+    "still": "Z04",
+    "de": 0.0,
+    "ritmo": 1.0
+   },
+   "especial": [
+    "roboti"
+   ],
+   "rack": {
+    "t": 7.15,
+    "dur": 0.4,
+    "blur": 11,
+    "luz": 0.86
+   },
+   "cam": [
+    {
+     "t": 4.9,
+     "z": 1.0
+    },
+    {
+     "t": 7.15,
+     "z": 1.03
+    },
+    {
+     "t": 8.65,
+     "z": 1.04
+    }
+   ],
+   "textos": [
+    {
+     "t": 7.4,
+     "txt": "JOSEF",
+     "x": 540,
+     "y": 420,
+     "s": 150,
+     "f": "heroi",
+     "cor": "la",
+     "ancora": "middle"
+    }
+   ],
+   "papeis": [
+    {
+     "t": 7.3,
+     "doc": "josef1937",
+     "cx": 540,
+     "cy": 1010,
+     "w": 560,
+     "rot": 2.5,
+     "entra": "prega",
+     "borda": 14,
+     "tachas": true,
+     "legenda": "Josef Čapek · 1937",
+     "plx": true
+    }
+   ],
+   "nota": "atelie sem corte: ROBOTI pintado continua na tela durante o desfoque; a foto real do Josef e pregada na frente",
+   "fala": "e quem inventou o termo, segundo o próprio Karel, foi o irmão dele, Josef.",
+   "roboti": {
+    "t0": 5.17,
+    "t1": 5.88,
+    "t2": 6.01
+   }
+  },
+  {
+   "n": 4,
+   "t0": 8.65,
+   "t1": 11.28,
+   "motor": "h3",
+   "fonte": {
+    "clip": "Z05",
+    "still": "Z05",
+    "de": 0.0,
+    "ritmo": 1.0
+   },
+   "especial": [
+    "patent"
+   ],
+   "cam": [
+    {
+     "t": 8.65,
+     "z": 1.0,
+     "x": 540,
+     "y": 960
+    },
+    {
+     "t": 11.28,
+     "z": 1.1,
+     "x": 525,
+     "y": 920
+    }
+   ],
+   "textos": [
+    {
+     "t": 9.2,
+     "txt": "decreto da robota · Boêmia, 1738",
+     "x": 126,
+     "y": 392,
+     "s": 44,
+     "f": "info",
+     "cor": "giz",
+     "cred": true
+    }
+   ],
+   "nota": "push continuo (sem o punch de vai-e-volta)",
+   "fala": "Em tcheco, robota é trabalho forçado,"
+  },
+  {
+   "n": 5,
+   "t0": 11.28,
+   "t1": 13.4,
+   "motor": "h3",
+   "fonte": {
+    "clip": "Z06",
+    "still": "Z06",
+    "seq": "Z06v4",
+    "de": 0.0,
+    "ritmo": 1.0,
+    "freio": {
+     "t": 11.55,
+     "ate": 0.54
+    }
+   },
+   "cam": [
+    {
+     "t": 11.28,
+     "z": 1.32,
+     "x": 560,
+     "y": 1150
+    },
+    {
+     "t": 12.3,
+     "z": 1.32,
+     "x": 555,
+     "y": 1120
+    },
+    {
+     "t": 13.3,
+     "z": 1.3,
+     "x": 540,
+     "y": 760
+    },
+    {
+     "t": 13.4,
+     "z": 1.3,
+     "x": 540,
+     "y": 752
+    }
+   ],
+   "nota": "servos (8+9 juntos, como o tratamento previa): tilt sobe para o casarao no \"senhor\"",
+   "fala": "aquele que os servos faziam nas terras do senhor,",
+   "textos": [],
+   "trat": {}
+  },
+  {
+   "n": 6,
+   "t0": 13.4,
+   "t1": 15.9,
+   "motor": "h3",
+   "fonte": {
+    "clip": "Z07a",
+    "still": "Z07a",
+    "de": 0.0,
+    "ritmo": 1.0
+   },
+   "cam": [
+    {
+     "t": 13.4,
+     "z": 1.0
+    },
+    {
+     "t": 15.9,
+     "z": 1.05
+    }
+   ],
+   "textos": [
+    {
+     "t": 13.7,
+     "txt": "RAB",
+     "x": 544,
+     "y": 600,
+     "s": 320,
+     "f": "heroi",
+     "cor": "la",
+     "ancora": "middle",
+     "track": -4,
+     "entra": "limpa"
+    },
+    {
+     "t": 14.45,
+     "txt": "= escravo",
+     "x": 544,
+     "y": 692,
+     "s": 68,
+     "f": "info",
+     "cor": "la",
+     "ancora": "middle",
+     "entra": "limpa"
+    }
+   ],
+   "nota": "a cadeia termina em ROBOT enquanto a voz diz \"os robos\"",
+   "fala": "e vem de rab, escravo. Na peça, os",
+   "variantes": {
+    "rab": {
+     "c": {
+      "t1": 16.3,
+      "textos": [
+       {
+        "t": 13.7,
+        "txt": "RAB",
+        "x": 544,
+        "y": 600,
+        "s": 320,
+        "f": "heroi",
+        "cor": "la",
+        "ancora": "middle",
+        "track": -4,
+        "entra": "limpa"
+       },
+       {
+        "t": 14.45,
+        "txt": "= escravo",
+        "x": 544,
+        "y": 692,
+        "s": 68,
+        "f": "info",
+        "cor": "la",
+        "ancora": "middle",
+        "entra": "limpa"
+       },
+       {
+        "t": 14.95,
+        "txt": "RABOTA",
+        "x": 110,
+        "y": 1262,
+        "s": 72,
+        "f": "heroi",
+        "cor": "la",
+        "track": -1,
+        "entra": "limpa"
+       },
+       {
+        "t": 15.09,
+        "txt": "servidão",
+        "x": 518,
+        "y": 1262,
+        "s": 48,
+        "f": "info",
+        "cor": "la",
+        "entra": "limpa"
+       },
+       {
+        "t": 15.4,
+        "txt": "ROBOTA",
+        "x": 110,
+        "y": 1350,
+        "s": 72,
+        "f": "heroi",
+        "cor": "la",
+        "track": -1,
+        "entra": "limpa"
+       },
+       {
+        "t": 15.540000000000001,
+        "txt": "trabalho forçado",
+        "x": 522,
+        "y": 1350,
+        "s": 48,
+        "f": "info",
+        "cor": "la",
+        "entra": "limpa"
+       },
+       {
+        "t": 15.84,
+        "txt": "ROBOT",
+        "x": 110,
+        "y": 1438,
+        "s": 72,
+        "f": "heroi",
+        "cor": "la",
+        "track": -1,
+        "entra": "limpa"
+       },
+       {
+        "t": 15.98,
+        "txt": "robô",
+        "x": 459,
+        "y": 1438,
+        "s": 48,
+        "f": "info",
+        "cor": "la",
+        "entra": "limpa"
+       }
+      ],
+      "cam": [
+       {
+        "t": 13.4,
+        "z": 1.0
+       },
+       {
+        "t": 16.3,
+        "z": 1.06
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "n": 7,
+   "t0": 15.9,
+   "t1": 19.42,
+   "motor": "h3",
+   "fonte": {
+    "still": "Z08_mesa"
+   },
+   "especial": [
+    "parafuso"
+   ],
+   "parafuso": {
+    "t": 16.86,
+    "x": 600,
+    "y": 1330,
+    "w": 290,
+    "v4": true
+   },
+   "cam": [
+    {
+     "t": 15.9,
+     "z": 1.0,
+     "x": 540,
+     "y": 960
+    },
+    {
+     "t": 19.42,
+     "z": 1.06,
+     "x": 520,
+     "y": 1000
+    }
+   ],
+   "textos": [
+    {
+     "t": 16.86,
+     "txt": "ZERO",
+     "x": 72,
+     "y": 700,
+     "s": 140,
+     "f": "heroi",
+     "cor": "giz",
+     "entra": "corte"
+    },
+    {
+     "t": 16.86,
+     "txt": "parafusos",
+     "x": 76,
+     "y": 786,
+     "s": 64,
+     "f": "info",
+     "cor": "giz"
+    }
+   ],
+   "nota": "v4: mesa vazia (sem o braco), mesma perspectiva; o parafuso cai, quica 2x e rola ate parar",
+   "fala": "robôs nem tinham parafuso: eram seres artificiais de carne,",
+   "variantes": {
+    "rab": {
+     "c": {
+      "t0": 16.3
+     }
+    }
+   }
+  },
+  {
+   "n": 8,
+   "t0": 19.42,
+   "t1": 20.52,
+   "motor": "h3",
+   "fonte": {
+    "clip": "Z09",
+    "still": "Z09",
+    "de": 0.3,
+    "ritmo": 1.0
+   },
+   "cam": [
+    {
+     "t": 19.42,
+     "z": 1.0
+    },
+    {
+     "t": 20.52,
+     "z": 1.08
+    }
+   ],
+   "nota": "fila em serie com push 1,00-1,08 (sem o mosaico 4x4)",
+   "fala": "fabricados em série,",
+   "textos": [],
+   "trat": {}
+  },
+  {
+   "n": 9,
+   "t0": 20.52,
+   "t1": 22.03,
+   "motor": "h3",
+   "fonte": {
+    "clip": "Z01c",
+    "still": "Z01c",
+    "de": 2.13,
+    "ritmo": 1.7,
+    "seq": "Z01c"
+   },
+   "matte": "Z01c",
+   "sombra_heroi": {
+    "dx": 34,
+    "dy": 12,
+    "blur": 9,
+    "opacidade": 0.38
+   },
+   "cam": [
+    {
+     "t": 20.52,
+     "z": 1.0
+    },
+    {
+     "t": 22.03,
+     "z": 1.03
+    }
+   ],
+   "textos": [
+    {
+     "t": 20.6,
+     "txt": "ache os robôs.",
+     "x": 126,
+     "y": 352,
+     "s": 68,
+     "f": "info",
+     "cor": "giz"
+    },
+    {
+     "t": 20.75,
+     "txt": "Nova York, 1922 · foto F. Bruguière",
+     "x": 126,
+     "y": 412,
+     "s": 44,
+     "f": "info",
+     "cor": "giz",
+     "cred": true
+    }
+   ],
+   "papeis": [
+    {
+     "t": 20.52,
+     "doc": "tg1",
+     "cx": 502,
+     "cy": 676,
+     "w": 737,
+     "rot": -0.7,
+     "entra": "baixa",
+     "de": "cima",
+     "borda": 12,
+     "tachas": true,
+     "atras": true
+    }
+   ],
+   "fala": "que dava pra confundir com gente."
+  },
+  {
+   "n": 10,
+   "t0": 22.03,
+   "t1": 22.84,
+   "motor": "h3",
+   "fonte": {
+    "clip": "Z10",
+    "still": "Z10",
+    "de": 0.0,
+    "ritmo": 1.0
+   },
+   "cam": [
+    {
+     "t": 22.03,
+     "z": 1.0
+    },
+    {
+     "t": 22.84,
+     "z": 1.04
+    }
+   ],
+   "fala": "A estreia foi em",
+   "textos": [],
+   "trat": {}
+  },
+  {
+   "n": 11,
+   "t0": 22.84,
+   "t1": 24.96,
+   "motor": "h3",
+   "fonte": {
+    "clip": "Z11s",
+    "still": "Z11",
+    "de": 0.0,
+    "ritmo": 0.92
+   },
+   "cam": [
+    {
+     "t": 22.84,
+     "z": 1.0
+    },
+    {
+     "t": 24.96,
+     "z": 1.03
+    }
+   ],
+   "textos": [
+    {
+     "t": 22.9,
+     "txt": "2",
+     "x": 72,
+     "y": 580,
+     "s": 300,
+     "f": "heroi",
+     "cor": "giz",
+     "entra": "corte"
+    },
+    {
+     "t": 23.5,
+     "txt": "DE JANEIRO",
+     "x": 72,
+     "y": 740,
+     "s": 108,
+     "f": "heroi",
+     "cor": "giz",
+     "entra": "corte"
+    },
+    {
+     "t": 23.76,
+     "txt": "DE 1921",
+     "x": 72,
+     "y": 920,
+     "s": 150,
+     "f": "heroi",
+     "cor": "giz",
+     "entra": "corte"
+    }
+   ],
+   "fala": "2 de janeiro de 1921,"
+  },
+  {
+   "n": 12,
+   "t0": 24.96,
+   "t1": 26.45,
+   "motor": "doc",
+   "fonte": {
+    "pano": {
+     "doc": "klicpera_hoje",
+     "escurece_topo": 760,
+     "chaves": [
+      {
+       "t": 24.96,
+       "x": -1080,
+       "y": 0,
+       "w": 2560
+      },
+      {
+       "t": 26.45,
+       "x": -760,
+       "y": 0,
+       "w": 2560
+      }
+     ]
+    }
+   },
+   "cam": [
+    {
+     "t": 24.96,
+     "z": 1.0
+    },
+    {
+     "t": 26.45,
+     "z": 1.0
+    }
+   ],
+   "textos": [
+    {
+     "t": 25.1,
+     "txt": "HRADEC",
+     "x": 540,
+     "y": 400,
+     "s": 120,
+     "f": "heroi",
+     "cor": "giz",
+     "ancora": "middle"
+    },
+    {
+     "t": 25.1,
+     "txt": "KRÁLOVÉ",
+     "x": 540,
+     "y": 548,
+     "s": 120,
+     "f": "heroi",
+     "cor": "giz",
+     "ancora": "middle"
+    },
+    {
+     "t": 25.25,
+     "txt": "Klicperovo divadlo · foto atual",
+     "x": 540,
+     "y": 626,
+     "s": 44,
+     "f": "info",
+     "cor": "giz",
+     "cred": true,
+     "ancora": "middle"
+    }
+   ],
+   "nota": "foto real em tela cheia, 1,0x do nativo, pan lento pela fachada (sem moldura, sem fundo desfocado)",
+   "fala": "na cidade de Hradec Králové,"
+  },
+  {
+   "n": 13,
+   "t0": 26.45,
+   "t1": 27.7,
+   "motor": "doc",
+   "fonte": {
+    "pano": {
+     "doc": "teatro_amador",
+     "chaves": [
+      {
+       "t": 26.45,
+       "x": -600,
+       "y": 0,
+       "w": 2368
+      },
+      {
+       "t": 27.7,
+       "x": -840,
+       "y": 0,
+       "w": 2368
+      }
+     ]
+    }
+   },
+   "cam": [
+    {
+     "t": 26.45,
+     "z": 1.0
+    },
+    {
+     "t": 27.7,
+     "z": 1.0
+    }
+   ],
+   "textos": [
+    {
+     "t": 26.5,
+     "txt": "GRUPO",
+     "x": 540,
+     "y": 400,
+     "s": 120,
+     "f": "heroi",
+     "cor": "la",
+     "ancora": "middle"
+    },
+    {
+     "t": 26.5,
+     "txt": "AMADOR",
+     "x": 540,
+     "y": 548,
+     "s": 120,
+     "f": "heroi",
+     "cor": "la",
+     "ancora": "middle"
+    },
+    {
+     "t": 26.62,
+     "txt": "foto ilustrativa · teatro amador, c. 1930",
+     "x": 540,
+     "y": 626,
+     "s": 44,
+     "f": "info",
+     "cor": "la",
+     "cred": true,
+     "ancora": "middle"
+    }
+   ],
+   "nota": "v4: sai o padeiro (H3); entra foto real de grupo amador (PRONI D2886/D/5, H. Allison & Co., c. 1930)",
+   "fala": "com um grupo amador, porque",
+   "variantes": {
+    "amador": {
+     "cz": {
+      "fonte": {
+       "pano": {
+        "doc": "teatro_amador_cz",
+        "chaves": [
+         {
+          "t": 26.45,
+          "x": -900,
+          "y": 0,
+          "w": 3094
+         },
+         {
+          "t": 27.7,
+          "x": -1180,
+          "y": 0,
+          "w": 3094
+         }
+        ]
+       }
+      },
+      "textos": [
+       {
+        "t": 26.5,
+        "txt": "GRUPO",
+        "x": 540,
+        "y": 400,
+        "s": 120,
+        "f": "heroi",
+        "cor": "giz",
+        "ancora": "middle",
+        "queima": 0.55
+       },
+       {
+        "t": 26.5,
+        "txt": "AMADOR",
+        "x": 540,
+        "y": 548,
+        "s": 120,
+        "f": "heroi",
+        "cor": "giz",
+        "ancora": "middle"
+       },
+       {
+        "t": 26.62,
+        "txt": "ochotníci de Zaběhlá, Boêmia · c. 1930",
+        "x": 540,
+        "y": 626,
+        "s": 44,
+        "f": "info",
+        "cor": "giz",
+        "cred": true,
+        "ancora": "middle"
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "n": 14,
+   "t0": 27.7,
+   "t1": 28.95,
+   "motor": "doc",
+   "fonte": {
+    "pano": {
+     "doc": "narodni_zitek",
+     "chaves": [
+      {
+       "t": 27.7,
+       "x": -560,
+       "y": -20,
+       "w": 1836
+      },
+      {
+       "t": 28.95,
+       "x": -330,
+       "y": -40,
+       "w": 1872
+      }
+     ]
+    }
+   },
+   "cam": [
+    {
+     "t": 27.7,
+     "z": 1.0
+    },
+    {
+     "t": 28.95,
+     "z": 1.0
+    }
+   ],
+   "textos": [
+    {
+     "t": 27.75,
+     "txt": "PRAGA",
+     "x": 540,
+     "y": 1450,
+     "s": 190,
+     "f": "heroi",
+     "cor": "la",
+     "ancora": "middle"
+    }
+   ],
+   "nota": "desenho real da fachada em tela cheia, pan pelo papel (critico 2), sem cair",
+   "fala": "o Teatro Nacional de Praga"
+  },
+  {
+   "n": 15,
+   "t0": 28.95,
+   "t1": 29.72,
+   "motor": "codigo",
+   "fonte": {
+    "still": "Z13"
+   },
+   "cam": [
+    {
+     "t": 28.95,
+     "z": 1.0,
+     "x": 540,
+     "y": 960
+    },
+    {
+     "t": 29.72,
+     "z": 1.05,
+     "x": 540,
+     "y": 900
+    }
+   ],
+   "nota": "teatro vazio com a lampada de servico (respiro antes da data)",
+   "fala": "só estrearia em",
+   "textos": []
+  },
+  {
+   "n": 16,
+   "t0": 29.72,
+   "t1": 30.93,
+   "motor": "codigo",
+   "fonte": {
+    "still": "Z07b"
+   },
+   "especial": [
+    "geada"
+   ],
+   "cam": [
+    {
+     "t": 29.72,
+     "z": 1.0
+    },
+    {
+     "t": 30.93,
+     "z": 1.04
+    }
+   ],
+   "textos": [
+    {
+     "t": 29.72,
+     "txt": "25",
+     "x": 540,
+     "y": 760,
+     "s": 300,
+     "f": "heroi",
+     "cor": "la",
+     "ancora": "middle",
+     "entra": "corte"
+    },
+    {
+     "t": 29.72,
+     "txt": "DE JANEIRO",
+     "x": 540,
+     "y": 935,
+     "s": 100,
+     "f": "heroi",
+     "cor": "la",
+     "ancora": "middle",
+     "entra": "corte"
+    }
+   ],
+   "nota": "v4: o cartao da v3 em portugues (25 / DE JANEIRO), sem +23 dias",
+   "fala": "25 de janeiro. A"
+  },
+  {
+   "n": 17,
+   "t0": 30.93,
+   "t1": 32.76,
+   "motor": "codigo",
+   "fonte": {
+    "clip": "Z03",
+    "still": "Z03",
+    "de": 3.3,
+    "ritmo": 1.0
+   },
+   "capa_real": {
+    "por_quadro": "public/capa_real (tools/capa_real.py)"
+   },
+   "especial": [],
+   "cam": [
+    {
+     "t": 30.93,
+     "z": 1.0,
+     "x": 540,
+     "y": 1000
+    },
+    {
+     "t": 32.76,
+     "z": 1.35,
+     "x": 640,
+     "y": 890
+    }
+   ],
+   "nota": "v4: sem a avalanche de tiras; push ate ROBOTS na capa real (a palavra que vai engolir as outras)",
+   "fala": "palavra engoliu termos mais velhos,",
+   "textos": []
+  },
+  {
+   "n": 18,
+   "t0": 32.76,
+   "t1": 34.85,
+   "motor": "doc",
+   "fonte": {
+    "pano": {
+     "doc": "jaquet1",
+     "chaves": [
+      {
+       "t": 32.76,
+       "x": -27,
+       "y": 652,
+       "w": 1134
+      },
+      {
+       "t": 34.85,
+       "x": -52,
+       "y": 620,
+       "w": 1178
+      }
+     ],
+     "plx": true
+    }
+   },
+   "cam": [
+    {
+     "t": 32.76,
+     "z": 1.0
+    },
+    {
+     "t": 34.44,
+     "z": 1.0
+    }
+   ],
+   "textos": [
+    {
+     "t": 32.78,
+     "txt": "o Escritor, Jaquet-Droz · séc. 18",
+     "x": 540,
+     "y": 600,
+     "s": 44,
+     "f": "info",
+     "cor": "giz",
+     "cred": true,
+     "ancora": "middle",
+     "engole": 34.4
+    },
+    {
+     "t": 32.97,
+     "txt": "AUTÔMATO",
+     "x": 540,
+     "y": 396,
+     "s": 110,
+     "f": "heroi",
+     "cor": "giz",
+     "ancora": "middle",
+     "entra": "limpa",
+     "engole": 34.4
+    },
+    {
+     "t": 33.7,
+     "txt": "ANDROIDE",
+     "x": 540,
+     "y": 532,
+     "s": 110,
+     "f": "heroi",
+     "cor": "giz",
+     "ancora": "middle",
+     "entra": "limpa",
+     "engole": 34.4
+    }
+   ],
+   "nota": "24+25 juntos (como o tratamento previa): um so documento em tela cheia, sem moldura",
+   "fala": "como autômato e androide,",
+   "especial": [
+    "engole"
+   ],
+   "engole": {
+    "t": 34.4,
+    "dur": 0.42,
+    "cx": 540,
+    "cy": 470,
+    "w": 900
+   }
+  },
+  {
+   "n": 19,
+   "t0": 34.85,
+   "t1": 37.55,
+   "motor": "h3",
+   "fonte": {
+    "clip": "Z14",
+    "still": "Z14",
+    "de": 0.41,
+    "ritmo": 1.0
+   },
+   "rack": {
+    "t": 36.3,
+    "dur": 0.35,
+    "blur": 12,
+    "luz": 0.72
+   },
+   "cam": [
+    {
+     "t": 34.44,
+     "z": 1.0,
+     "x": 540,
+     "y": 960
+    },
+    {
+     "t": 36.3,
+     "z": 1.12,
+     "x": 570,
+     "y": 930
+    },
+    {
+     "t": 37.55,
+     "z": 1.13,
+     "x": 570,
+     "y": 930
+    }
+   ],
+   "textos": [],
+   "papeis": [
+    {
+     "t": 36.3,
+     "doc": "televox1928",
+     "cx": 540,
+     "cy": 1010,
+     "w": 661,
+     "rot": -1.5,
+     "entra": "cai",
+     "borda": 14,
+     "tela": true,
+     "legenda": "Televox, Westinghouse · 1928",
+     "plx": true
+    }
+   ],
+   "nota": "robo de lata com push continuo (sem punch de vai-e-volta); a foto de 1928 entra no desfoque de foco, sem corte",
+   "fala": "e o robô de lata e engrenagem que a gente imagina veio depois."
+  },
+  {
+   "n": 20,
+   "t0": 37.55,
+   "t1": 40.3,
+   "motor": "h3",
+   "fonte": {
+    "clip": "Z01b",
+    "still": "Z01b",
+    "de": 0.84,
+    "ritmo": 1.4,
+    "seq": "Z01b"
+   },
+   "matte": "Z01b",
+   "cam": [
+    {
+     "t": 37.55,
+     "z": 1.0
+    },
+    {
+     "t": 38.84,
+     "z": 1.03
+    }
+   ],
+   "textos": [
+    {
+     "t": 37.6,
+     "txt": "ROBÔ",
+     "x": 536,
+     "y": 652,
+     "s": 262,
+     "f": "heroi",
+     "cor": "giz",
+     "entra": "escala",
+     "ancora": "middle",
+     "track": -4,
+     "atras": true,
+     "sobe": {
+      "t": 39.28,
+      "dur": 0.36,
+      "dy": -150
+     }
+    },
+    {
+     "t": 39.68,
+     "txt": "rab = escravo",
+     "x": 540,
+     "y": 590,
+     "s": 64,
+     "f": "info",
+     "cor": "giz",
+     "ancora": "middle",
+     "atras": true,
+     "entra": "sobe",
+     "de_baixo": 96
+    }
+   ],
+   "fala": "Ou seja, o robô já",
+   "variantes": {
+    "elenco": {
+     "c": {
+      "t1": 38.84,
+      "textos": [
+       {
+        "t": 37.6,
+        "txt": "ROBÔ",
+        "x": 536,
+        "y": 652,
+        "s": 262,
+        "f": "heroi",
+        "cor": "giz",
+        "entra": "escala",
+        "ancora": "middle",
+        "track": -4,
+        "atras": true
+       }
+      ]
+     }
+    },
+    "fecho": {
+     "c": {
+      "t1": 40.51,
+      "textos": [
+       {
+        "t": 37.6,
+        "txt": "ROBÔ",
+        "x": 536,
+        "y": 652,
+        "s": 262,
+        "f": "heroi",
+        "cor": "giz",
+        "entra": "escala",
+        "ancora": "middle",
+        "track": -4,
+        "atras": true,
+        "sobe": {
+         "t": 39.4,
+         "dur": 0.36,
+         "dy": -150
+        }
+       },
+       {
+        "t": 39.84,
+        "txt": "rab = escravo",
+        "x": 540,
+        "y": 590,
+        "s": 64,
+        "f": "info",
+        "cor": "giz",
+        "ancora": "middle",
+        "atras": true,
+        "entra": "sobe",
+        "de_baixo": 96
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "n": 21,
+   "t0": 38.84,
+   "t1": 40.6,
+   "motor": "codigo",
+   "fonte": {
+    "still": "Z16"
+   },
+   "especial": [
+    "osoby"
+   ],
+   "livre": true,
+   "cam": [
+    {
+     "t": 38.84,
+     "z": 1.0,
+     "x": 540,
+     "y": 960
+    },
+    {
+     "t": 39.32,
+     "z": 2.3,
+     "x": 368,
+     "y": 1112
+    },
+    {
+     "t": 40.3,
+     "z": 2.4,
+     "x": 363,
+     "y": 1115
+    }
+   ],
+   "textos": [
+    {
+     "t": 39.1,
+     "txt": "elenco da 1ª edição, Praga, 1920",
+     "x": 162,
+     "y": 1306,
+     "s": 44,
+     "f": "info",
+     "cor": "la",
+     "cred": true,
+     "tela": true
+    },
+    {
+     "t": 39.68,
+     "txt": "sluha = criado",
+     "x": 160,
+     "y": 1238,
+     "s": 80,
+     "f": "info",
+     "cor": "la",
+     "tela": true,
+     "entra": "limpa"
+    }
+   ],
+   "fala": "nasceu com cara de escravo...",
+   "so": {
+    "elenco": [
+     "c"
+    ]
+   },
+   "marca": {
+    "t": 39.41,
+    "dur": 0.24
+   },
+   "nota": "v4 c: o elenco fica; marca-texto em ROBOTSKY SLUHA no \"cara\" e \"sluha = criado\" no \"escravo\""
+  },
+  {
+   "n": 22,
+   "t0": 40.3,
+   "t1": 43.0,
+   "motor": "codigo",
+   "fonte": {
+    "still": "Z17"
+   },
+   "especial": [
+    "briullov"
+   ],
+   "cam": [
+    {
+     "t": 40.3,
+     "z": 1.0,
+     "x": 540,
+     "y": 960
+    },
+    {
+     "t": 43.0,
+     "z": 1.3,
+     "x": 590,
+     "y": 1000
+    }
+   ],
+   "textos": [
+    {
+     "t": 40.45,
+     "txt": "Karl Briullov · pintura de 1836",
+     "x": 126,
+     "y": 474,
+     "s": 44,
+     "f": "info",
+     "cor": "la",
+     "cred": true,
+     "tela": true,
+     "ate": 42.6,
+     "esvai": 0.3
+    }
+   ],
+   "nota": "sem \"Genserico\" e sem \"ROMA 455\": o fecho guarda o assunto; push continuo, sem o corte de camera",
+   "fala": "mas tem um povo inteiro que virou sinônimo de destruição,",
+   "plx": true,
+   "so": {
+    "fecho": [
+     "a",
+     "b"
+    ]
+   },
+   "variantes": {
+    "fecho": {
+     "b": {
+      "t1": 45.4,
+      "cam": [
+       {
+        "t": 40.3,
+        "z": 1.0,
+        "x": 540,
+        "y": 960
+       },
+       {
+        "t": 47.2,
+        "z": 2.9,
+        "x": 560,
+        "y": 990
+       }
+      ],
+      "nota": "v4 b: sem volta ao robo; push continuo para dentro da pintura ate o fim; o loop corta no movimento"
+     }
+    },
+    "elenco": {
+     "c": {
+      "t0": 40.6
+     }
+    }
+   }
+  },
+  {
+   "n": 24,
+   "t0": 40.51,
+   "t1": 46.0,
+   "motor": "codigo",
+   "so": {
+    "fecho": [
+     "c"
+    ]
+   },
+   "fonte": {
+    "clip": "Z03",
+    "still": "Z03",
+    "de": 3.3,
+    "ritmo": 0.32
+   },
+   "capa_real": {
+    "por_quadro": "public/capa_real"
+   },
+   "cam": [
+    {
+     "t": 40.51,
+     "z": 1.06,
+     "x": 540,
+     "y": 990
+    },
+    {
+     "t": 41.95,
+     "z": 1.95,
+     "x": 382,
+     "y": 1358
+    },
+    {
+     "t": 47.5,
+     "z": 2.45,
+     "x": 376,
+     "y": 1368
+    }
+   ],
+   "foco": {
+    "t": 41.92,
+    "dur": 0.5,
+    "blur": 9,
+    "cx": 505,
+    "cy": 965,
+    "rx": 360,
+    "ry": 200
+   },
+   "textos": [
+    {
+     "t": 43.28,
+     "txt": "?",
+     "x": 880,
+     "y": 1050,
+     "s": 150,
+     "f": "heroi",
+     "cor": "giz",
+     "tela": true,
+     "cred": true
+    }
+   ],
+   "fala": "e o nome da fábrica da peça, Rossum, também esconde uma palavra tcheca, mas essa fica pra outro dia.",
+   "nota": "v4 c (voz nova): a capa real na mesa; a camera vai ate ROSSUM'S no 'Rossum', o resto desfoca, um ? discreto; loop por corte no movimento"
+  },
+  {
+   "n": 23,
+   "t0": 43.0,
+   "t1": 45.4,
+   "motor": "h3",
+   "fonte": {
+    "clip": "Z01a_rev",
+    "still": "Z01a",
+    "de": 2.365,
+    "ritmo": 1.15,
+    "seq": "Z01a",
+    "rev": true
+   },
+   "matte": "Z01a_rev",
+   "cam": [
+    {
+     "t": 43.0,
+     "z": 1.02
+    },
+    {
+     "t": 45.4,
+     "z": 1.0
+    }
+   ],
+   "textos": [
+    {
+     "t": 43.0,
+     "txt": "ROBÔ",
+     "x": 536,
+     "y": 652,
+     "s": 262,
+     "f": "heroi",
+     "cor": "giz",
+     "ate": 44.6,
+     "esvai": 0.25,
+     "ancora": "middle",
+     "track": -4,
+     "atras": true
+    }
+   ],
+   "nota": "o mesmo clipe ao contrario: o ultimo quadro e o quadro 0 do plano 1 (loop)",
+   "fala": "e essa fica pra outro dia.",
+   "so": {
+    "fecho": [
+     "a"
+    ]
+   }
+  }
+ ]
+}

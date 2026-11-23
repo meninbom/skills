@@ -1,0 +1,19 @@
+{
+  "name": "camera-continua",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Camera continua num mundo so: pagina unica em HTML + GSAP, renderizada quadro a quadro no Chrome do sistema.",
+  "scripts": {
+    "postinstall": "node lib/copiar_gsap.mjs",
+    "demo": "node render.mjs kit_template --de 3.9 --dur 3 --fps 30 --largura 540 --saida saida/demo.mp4",
+    "branco": "node render.mjs kit_branco --saida saida/branco.mp4",
+    "branco:deitado": "node render.mjs kit_branco --vw 1920 --vh 1080 --saida saida/branco_deitado.mp4",
+    "template": "node render.mjs kit_template --saida saida/template_mudo.mp4",
+    "exemplo": "node render.mjs hf --saida saida/exemplo_mudo.mp4"
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.0.0",
+    "gsap": "3.12.5"
+  }
+}

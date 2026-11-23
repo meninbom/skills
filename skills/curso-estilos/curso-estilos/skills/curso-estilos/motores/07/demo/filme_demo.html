@@ -1,0 +1,39 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0;background:#000}canvas{display:block}</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script src="../motor/motor.js"></script><script src="arte_demo.js"></script>
+<script>
+// FILME DEMO (3 s): duas cenas ligadas por uma transição de objeto (o mascote vira vapor e a câmera atravessa).
+// Cada cena = placa + sprites + câmera, tudo função pura do tempo t. Para usar a SUA arte, troque os canvas por caminhos:
+//   iniciar({ floresta: 'arte/placas/floresta.png', ceu: 'arte/placas/ceu.png' }, { gota: 'arte/sprites/pose_00.png', ... });
+iniciar({ floresta: placaFloresta(), ceu: placaCeu() }, { gota: gota('normal'), feliz: gota('feliz'), vapor: gota('vapor') });
+window.END = 3.0;
+const FITA = [[1.02, .2], [.75, .26], [.52, .34], [.6, .44], [.42, .52], [.2, .58], [-.05, .66]]; // caminho do rio de vapor (coordenadas da placa)
+
+// CENA 1 (0–1,5 s): o mascote cai na clareira, amassa no pouso, comemora e toma impulso
+function clareira(t) {
+  plate('floresta', { cx: .5, cy: kf(t, [[0, .62], [.55, .8, eo], [1.5, .78]]), z: kf(t, [[0, 1.0], [.55, 1.35, eo], [1.5, 1.6]]) }); // câmera com destino: desce junto e fecha
+  const [x, chao] = P(.5, .945), tPouso = .5;
+  X.fillStyle = 'rgba(90,30,140,.35)'; X.beginPath(); X.ellipse(x, chao + 6, 150 * cl(.3 + t / tPouso * .7), 22, 0, 0, 7); X.fill(); // sombra de contato
+  if (t < tPouso) { const f = ei(seg(t, 0, tPouso)); spr('gota', x, lerp(chao - 1500, chao, f), 400, { sy: 1 + .3 * f }); }                     // cai esticando
+  else if (t < 1.2) { const s = t - tPouso; spr(s < .25 ? 'gota' : 'feliz', x, chao, 400, { sy: .62 + .38 * spring(s, 2.6, 6) });               // squash no pouso + mola
+    for (let i = 0; i < 8 && s < .5; i++) { const g = seg(s, 0, .5); X.fillStyle = `rgba(255,236,170,${1 - g})`; X.beginPath(); X.arc(x + Math.cos(i * .8) * 260 * eo(g), chao - Math.abs(Math.sin(i * .8)) * 120 * Math.sin(g * Math.PI), 12, 0, 7); X.fill(); } }
+  else { const s = seg(t, 1.2, 1.5); spr('feliz', x, chao - 120 * ei(s), 400, { sy: s < .5 ? 1 - .3 * Math.sin(s * 2 * Math.PI) : 1 + .25 * s }); } // antecipação e sobe
+  etiqueta(t, .75, 1.45, 540, 520, 150, 'placa + sprite', 'arte-substituta por código', { rot: -.04 });
+}
+// CENA 2 (1,5–3 s): já vapor, surfa o rio do céu com a família; a câmera acompanha
+function rioDoCeu(t) {
+  const f = io(seg(t, 1.5, 3.2)) * .8 + .08, [u, v] = path(FITA, f);
+  plate('ceu', { cx: lerp(u, .5, .5), cy: v, z: kf(t, [[1.5, 1.7], [3.0, 1.25]]) });
+  X.save(); X.globalCompositeOperation = 'screen'; X.strokeStyle = '#9CF4FF'; X.lineCap = 'round';                                               // fita brilhante em 2 passadas
+  [[150, .25, 28], [46, .8, 6]].forEach(([lw, a, bl]) => { X.globalAlpha = a + .08 * Math.sin(t * 5); X.lineWidth = lw * CAM.z; X.filter = `blur(${bl}px)`; X.beginPath(); for (let k = 0; k <= 1.001; k += .02) { const [px, py] = P(...path(FITA, k)); k ? X.lineTo(px, py) : X.moveTo(px, py); } X.stroke(); });
+  X.restore();
+  for (let i = 0; i < 7; i++) { const k = ((t * .16 + i / 7) % 1); const [a, b] = path(FITA, k); wspr('vapor', a, b + wob(t, 1.1, .004, i), .035 * (.7 + .5 * rnd(i)), { ay: .5, rot: wob(t, .9, .15, i * .2), a: cl(k * 8) * cl((1 - k) * 8) * .85 }); }
+  wspr('vapor', u, v, .11, { ay: .5, rot: -.25 + wob(t, 1.2, .08), sx: 1.12, sy: .92 });
+  etiqueta(t, 2.0, 2.95, 540, 1560, 150, 'câmera com destino', 'tudo no tempo t');
+}
+window.render = t => {
+  if (t < 1.4) clareira(t);
+  else if (t < 1.8) zoomThru(t, 1.4, 1.8, () => clareira(t), () => rioDoCeu(t), 540, 700);
+  else rioDoCeu(t);
+};
+</script></body></html>

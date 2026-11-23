@@ -1,0 +1,6 @@
+{
+  "passou": true,
+  "comando": "npm install && DEMO_CPU=1 npm run demo",
+  "segundos_de_render": 41,
+  "obs": "Cópia limpa em pasta temporária, npm install limpo (282 pacotes, 22 s, ~600 MB), Chrome do sistema sem baixar navegador, GL swiftshader (sem placa de vídeo). saida/demo.mp4: 3,0 s, 90 quadros, 540x960, 30 qps, h264 yuv420p, sem faixa de áudio. Também testado na mesma pasta: npm run prancha (6 quadros, ~4 s cada), npm run filme com DEMO_CPU=1 (825 quadros 1080x1920 em 6 min, yuv420p, sem quadro preto nem congelado) e python audio/balao_mix.py sem voz e com voz. NÃO testado: node render.mjs filme --2k, extras/tts_onecore.ps1 e extras/voz_prep.py nesta pasta (rodaram na produção do exemplo), macOS e Linux."
+}

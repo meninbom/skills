@@ -1,0 +1,26 @@
+{
+ "peca": "01_patinete", "duracao_s": 38.0, "fps": 30, "voz": null,
+ "clima": "comédia anime: slice-of-life na rua, corte seco no atropelamento, fanfarra de aventura no outro mundo que morre junto com a bateria",
+ "eventos": [
+  {"t": 5.0, "tipo": "aproximação", "material": "motor elétrico", "intencao": "patinete vem zunindo pela calçada", "importancia": 2},
+  {"t": 8.2, "tipo": "impacto", "material": null, "intencao": "atropelamento (impact frames)", "importancia": 3},
+  {"t": 11.5, "tipo": "virada", "material": null, "intencao": "renascimento na luz branca, cartela", "importancia": 2},
+  {"t": 16.4, "tipo": "pop", "material": "tela", "intencao": "o display abre os olhos", "importancia": 1},
+  {"t": 18.8, "tipo": "pouso", "material": "mola", "intencao": "levanta sozinho com pulinho", "importancia": 2},
+  {"t": 21.0, "tipo": "whoosh", "material": null, "intencao": "sai correndo pelo campo", "importancia": 1},
+  {"t": 25.6, "tipo": "bip", "material": "eletrônico", "intencao": "bateria 5% piscando", "importancia": 2},
+  {"t": 27.3, "tipo": "tremor", "material": "terra", "intencao": "Rei Slime sobe atrás da colina", "importancia": 2},
+  {"t": 29.4, "tipo": "rugido", "material": null, "intencao": "slime ruge", "importancia": 3},
+  {"t": 31.4, "tipo": "desliga", "material": "eletrônico", "intencao": "bateria 0%, tela apaga", "importancia": 3},
+  {"t": 32.1, "tipo": "queda", "material": "metal na grama", "intencao": "patinete tomba", "importancia": 1},
+  {"t": 34.4, "tipo": "pop", "material": "gelatina", "intencao": "slime cutuca", "importancia": 1},
+  {"t": 35.9, "tipo": "pop", "material": "gelatina", "intencao": "slime cutuca de novo", "importancia": 1}
+ ],
+ "momentos": [
+  {"t": 0.0, "t1": 8.2, "tipo": "respiro", "nota": "rua, música leve japonesa; corta seco no impacto"},
+  {"t": 8.2, "t1": 15.6, "tipo": "reservado", "nota": "sem música: atropelado + luz branca"},
+  {"t": 21.0, "t1": 24.5, "tipo": "maxi", "nota": "corrida feliz"},
+  {"t": 31.4, "t1": 33.6, "tipo": "respiro", "nota": "a música morre com a bateria"},
+  {"t": 33.6, "t1": 38.0, "tipo": "fim", "nota": "cartela capítulo 2"}
+ ]
+}

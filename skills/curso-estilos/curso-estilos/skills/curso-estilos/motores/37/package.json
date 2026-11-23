@@ -1,0 +1,15 @@
+{
+  "name": "motor-anime-vrm",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Anime 3D com boneco VRM em cel shading (three.js r160 + three-vrm), render por Chrome headless",
+  "type": "module",
+  "scripts": {
+    "demo": "node demo.mjs",
+    "cartelas": "node ep01/cards.mjs",
+    "video": "node ep01/render.mjs video"
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}

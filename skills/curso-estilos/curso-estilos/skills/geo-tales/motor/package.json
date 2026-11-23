@@ -1,0 +1,15 @@
+{
+  "name": "geo-tales-motor",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Motor de mapa de satélite contado: three.js + camada 2D, render quadro a quadro pelo Chrome do sistema.",
+  "scripts": {
+    "demo": "node render.mjs --cena demo/cena_demo --video saida/demo.mp4 --fps 30 --largura 540",
+    "quadros": "node render.mjs --cena demo/cena_demo --times 0.4,1.2,2.0,2.8 --tw 360 --out saida/quadros.jpg",
+    "baixar": "node baixar_assets.mjs"
+  },
+  "dependencies": {
+    "puppeteer-core": "^23.0.0"
+  }
+}

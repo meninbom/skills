@@ -1,0 +1,26 @@
+{
+  "name": "whatif-cartoon-74",
+  "version": "1.0.0",
+  "private": true,
+  "description": "What-if em desenho 2D: cada quadro é SVG desenhado em código e renderizado pelo Remotion.",
+  "scripts": {
+    "demo": "node render.mjs demo",
+    "filme": "node render.mjs filme",
+    "prancha": "node stills.mjs board",
+    "studio": "remotion studio src/index.ts --port 3430",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.530",
+    "@remotion/cli": "4.0.530",
+    "@remotion/fonts": "4.0.530",
+    "@remotion/renderer": "4.0.530",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "remotion": "4.0.530"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.0",
+    "typescript": "5.8.2"
+  }
+}

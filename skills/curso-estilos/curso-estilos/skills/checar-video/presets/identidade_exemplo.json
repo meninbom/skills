@@ -1,0 +1,6 @@
+{
+  "paleta": ["#FFFFFF", "#121211", "#ED3821"],
+  "acento": "#ED3821",
+  "ignorar_faixas": [[0.0, 0.08]],
+  "texto_min_px": 52
+}

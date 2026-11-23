@@ -1,0 +1,6 @@
+{
+ "passou": true,
+ "comando": "python demo.py",
+ "segundos_de_render": 54,
+ "obs": "DEMO_CPU=1, pasta limpa em TEMP. 3,0 s, 540x960, 24 qps, yuv420p, sem áudio; quadros conferidos (HUD completa nos 3 planos). 23 s na 1ª rodada, 54 s com a máquina ocupada. Cobre só HUD + montagem em código sobre imagens-placeholder; ilustração (Flow) e animação (ComfyUI/GPU) ficam documentadas, sem rodar. Também rodaram: v2/montar_v2.py --quadros, v2/prancha_v2.py e v2/mix.py (com sons sintéticos)."
+}

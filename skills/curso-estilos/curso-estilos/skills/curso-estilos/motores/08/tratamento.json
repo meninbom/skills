@@ -1,0 +1,826 @@
+{
+ "slug": "robot",
+ "familia": "lindo",
+ "fase": "tratamento + styleframes ajustados (17/10, depois de 2 criticos as cegas); nenhum render de video",
+ "data": "2026-10-17",
+ "voz": {
+  "audio": "voz/robot_tight.mp3",
+  "palavras": "voz/robot_tight.words.json",
+  "roteiro": "roteiros/robot.txt",
+  "duracao_video_s": 45.4,
+  "fim_da_voz_s": 44.6
+ },
+ "julgamento": {
+  "regua": "lindo de verdade · personalidade · legível no celular · honesto · produzível (Z-Image + H3 local + código)",
+  "conceito_1_CARNE_E_NEVE": {
+   "nota": 8.5,
+   "veredito": "VENCEDOR",
+   "por_que": "É o único em que a IMAGEM em si é bonita (luz de janela de inverno, pele, neve, papel), e repete as duas receitas que o diretor aprovou: movimento real de IA com o jeito em código (faraó v2) e Z-Image com bloco de fotografia (Lamborghini), com assinatura própria (lente esférica, janela sempre à esquerda, high-key). Tem herói reconhecível que abre e fecha o loop, graça (o padeiro de touca careca), e a prova entra como OBJETO na mesma luz, não como cartão sobre fundo cinza.",
+   "fraquezas": "Risco de identidade do herói em 5 imagens independentes; 13 planos 'papel cai sobre fundo desfocado' podem virar fórmula; tipo flutuando atrás das cabeças sem motivo físico; Archivo coincide com o conceito de criador do sabotage; a paleta nublada ardósia + 1 prático quente encosta no boycott (Atlântico nublado)."
+  },
+  "conceito_2_CORPO_DE_LETRA": {
+   "nota": 7.0,
+   "veredito": "não",
+   "por_que": "Ideia forte (a palavra muda de matéria com o sentido) e macro de matéria é lindo; mas aposta tudo em Z-Image escrevendo palavra física e em H3 que derrete letras; figurinhas 1:87 arriscam o 'visual infantil' que ele já reprovou; ROBOT de lata é metal; e boycott e sabotage também têm um conceito 'tipografia + matéria', então seria o template repetido da série."
+  },
+  "conceito_3_AZUL_DE_FABRICA": {
+   "nota": 6.5,
+   "veredito": "não",
+   "por_que": "É o mais próximo da régua 'brabo' (react de criador, recortes, match cut), mas é o menos LINDO: placa azul chapada com chave de cor tende a vetor de app e não a cinema; e colide de frente com o conceito 3 do sabotage (bleu de travail ~#1E3E8F, Archivo, colagem), então quebraria a regra dos 3 lindos diferentes."
+  }
+ },
+ "enxertos": [
+  "do 3: o herói REAGE como apresentador de criador, e todos os closes dele saem de UM still mestre (Z01) animado em 3 clipes encadeados (a: abre os olhos; b e c gerados a partir do último quadro de a). Isso resolve o risco principal do conceito 1 (rosto mudando entre sementes) e elimina o Z15.",
+  "do 3: layout eduardojcruz em 'confundir com gente' (cena 15): herói na metade de baixo, foto real da Theatre Guild pregada na parede acima, o olhar dele é o caminho do olho e o 'gente' cai na lente: o espectador percebe que vem olhando para um robô desde o quadro 0.",
+  "do 3: match cut por forma e janela→janela: as fotos da Theatre Guild têm janelões quadriculados, que rimam com a janela da esquerda de todo plano gerado; a túnica com cinto do robô real de Paris rima com a do nosso herói (o figurino do herói ganhou o cinto largo por isso).",
+  "do 3: grade de 12 cópias no 'série' (6 quadros), e punch-ins secos de 3 quadros nos substantivos-chave (ritmo de criador por cima do filme).",
+  "do 3: título tcheco completo 'Rossumovi Univerzální Roboti' na tela (cena 2), '+23 dias' e 'domingo'.",
+  "do 2: 'LABOŘI' riscado com 'achou “meio de papel”' (a palavra rejeitada que a voz não diz), e ROBOTI PINTADO na tela nua do ateliê em write-on de tinta: tipo no mundo, motivado, em vez de palavra flutuando atrás do pintor.",
+  "do 2: na foto de Paris, a câmera começa no cartaz real do cenário onde está pintado ROBOTS e desce até o robô de corpo inteiro.",
+  "do 2: os irmãos juntos (foto real de 1927) antes do retrato solo de Josef, e 'ROMA · 455' como pista do fecho.",
+  "próprio do tratamento: fonte trocada para Fixture Expanded (local) para não repetir a Archivo do sabotage, e a luz empurrada para HIGH-KEY (branco de cal e neve, sombras abertas, sem névoa) para não encostar no cinza molhado do boycott."
+ ],
+ "conceito": {
+  "nome": "CARNE E NEVE",
+  "logline": "A palavra 'robô' nasceu num janeiro de neve, numa peça sobre homens feitos de carne. O vídeo é um curta de inverno com UMA luz só, a janela fria à esquerda, como os interiores de Hammershøi. O herói é o robô de carne (careca, sem sobrancelha, túnica ardósia com cinto): abre os olhos no 1º quadro, reage ao que a tela mostra, baixa os olhos no 'escravo' e fecha os olhos no último quadro (o mesmo clipe ao contrário fecha o loop).",
+  "como_funciona": [
+   "Encenação = Z-Image com bloco de fotografia + movimento real do H3 (respiração, pincel, arado, marcha, geada, neve, padeiro rindo, robô de lata andando). Nunca leva data nem crédito.",
+   "Prova = arquivo real como OBJETO na mesma luz: a capa na mesa do escritor, o Patent pregado no mourão, as fotos dos irmãos pregadas no ateliê, a OSOBY nas mãos do próprio robô, o Briullov encostado no ateliê. As outras fotos caem como cópias de papel com sombra sobre um clipe vivo desfocado. Sempre com autor · lugar · ano.",
+   "Datas e etimologia = 'intertítulos de matéria': número gigante na vidraça congelada e no céu sobre a neve na lã.",
+   "Ritmo de criador por cima do filme: corte seco 0,05–0,1 s antes do onset, punch-in de 3 quadros nos substantivos, step-print e grade no 'série', avalanche de papel no 'engoliu'."
+  ],
+  "por_que_so_deste_video": "A peça estreou em janeiro, com neve, e os robôs eram de carne: luz de inverno sobre pele é o próprio assunto. A janela também é o elo com o arquivo: os cenários reais da Theatre Guild são janelões.",
+  "diferente_dos_outros_lindos": "boycott = cinza molhado do Atlântico, anamórfica, ninguém olha para a câmera; robot = high-key de neve e cal, lente esférica, o herói ENCARA a lente. sabotage (criador/bleu de travail/Archivo) = nada disso aqui: sem placa chapada, sem Archivo. faraó = P&B de spray; Lamborghini = chiaroscuro teal-âmbar.",
+  "graça": "o padeiro puxando a touca careca para virar robô; o parafuso que cai num '0'; o livro que engole as palavras velhas; o robô segurando a própria lista de elenco onde está escrito 'criado'; o 'gente' dito olhando para você."
+ },
+ "look": {
+  "paleta": {
+   "branco_giz": "#E8EBEB (tipo sobre cena; altas da grade)",
+   "cal": "#F1F2EF (paredes e neve no high-key; nunca creme)",
+   "cinza_estanho": "#8B9197",
+   "ardosia": "#46576A (túnica do herói, parede do ECU, sombras do split tone)",
+   "preto_la": "#15171A (tipo sobre papel/geada clara; ponto preto da grade, nunca 0)",
+   "pratico_quente": "#E0A05A (só como LUZ: lâmpada, estufa, lampião, sol baixo; nunca em texto)",
+   "documentos": "cada arquivo mantém a cor própria (ouro velho do Patent, marrom da capa, azul e ouro das Très Riches Heures, P&B das fotos, cor plena do Briullov) e por isso salta",
+   "proibido": "teal-and-amber, creme + serifa + terracota, laranja de destaque, palavra colorida, pílula, marca-texto, glow, halation, partícula de código, fundo escuro tech"
+  },
+  "tipografia": {
+   "heroi": "Fixture Expanded Black (fonte comercial, instalada à parte), caixa alta, 120–320 px. Branco-giz sobre cena, preto-lã sobre papel/parede clara. Sempre TIPO NO MUNDO: atrás da cabeça do herói (matte por quadro), deitado na perspectiva da mesa, na parede (homografia), pintado na tela, no vidro limpo da geada, no céu sobre a neve. Nunca cartão.",
+   "informacao": "Fixture SemiBold. Dado-chave de cada quadro 56-80 px; credito 44-48 px; no maximo 2 linhas. NUNCA no mesmo lugar em todo quadro: cada informacao se prende a uma aresta real da imagem (aresta de cima do papel no K4, aresta de cima da capa no K2, coluna de texto da propria pagina no K8, borda esquerda da foto pregada no K6, parede acima da tela no K3).",
+   "regras": "1 família só (Fixture cobre Č ř ý á é ô ŭ — conferido). Não usar o glifo '→' (a Fixture não tem): cadeias viram linhas empilhadas ou ' · '. Nada abaixo de 44 px; essencial ≥ 48 px. Ênfase só por escala, peso e oclusão. Sem legenda da narração. Zona segura do Reels: informação entre y 220 e y 1500, x 60–960.",
+   "google_fallback": "Se a Fixture não puder ir para o render, Schibsted Grotesk (Google Fonts) 900/600 — não usar Archivo (reservada ao sabotage).",
+   "tipo_no_mundo_v2": "K1/K6: matte do heroi por GrabCut (cabeca na frente do tipo e da foto pregada, com sombra da cabeca na parede). K2: 1920 deitado na mesa vista de cima, recebendo as faixas de luz da janela e o veio da madeira. K3: ROBOTI em tinta (Fixture Condensed Black) por homografia no plano da tela, numa linha so, na diagonal, com o I pela metade sob o pincel. K5: cristais por cima so das PONTAS das letras."
+  },
+  "textura": "Película Kodak Vision3 fina (250D de dia, 500T à noite): ponto de 1 px com blur 0,7, renovado a cada quadro, intensidade ~3% de luminância (meia força sobre documentos). Gate weave 0,5 px. Sem halation, sem glow, sem partícula: neve, pó, geada e vapor são só os reais do H3. Documentos: papel com borda e curvatura leve, sombra DURA para a direita (luz da janela da esquerda), gradiente da janela multiplicado sobre o papel para ele morar na mesma luz. 'Flash de fim de rolo' de 1 quadro só nas 3 viradas de ato (8,65 / 22,03 / 37,55 s).",
+  "camera": "24 fps (= H3). Lentes esféricas vintage (Cooke Panchro), não anamórficas. A janela SEMPRE à esquerda: a luz atravessa o filme na mesma direção e costura cena e documento. Herói ≥ 60% da altura; contra-plongée nos corpos, close em rostos e mãos; caminho do olho de cima para baixo. Movimento real vem do H3; o código faz a física do papel (cair, quicar, deslizar, pregar), push-ins contínuos (deriva ≥ 0,5%/s: nunca quadro parado) e punch-ins de 3 quadros no onset (1,00→1,05–1,06). Documentos nunca acima de 1,0× do nativo. Cortes secos 0,05–0,1 s antes do onset. Match cuts: cabeça na mesma posição (1→2), túnica com cinto (Paris ↔ herói), janela ↔ janela (Theatre Guild ↔ planos gerados), olhar para baixo → mãos (28→29). O filme abre e fecha no mesmo olho.",
+  "grade_de_cor": {
+   "ordem": "aplicar em código, por quadro, nos clipes gerados (documentos só recebem curva leve + grão)",
+   "exposicao": "high-key de cal nas altas (ponto branco 242), mas preto MAIS FUNDO: ponto preto 12 (preto-la, nunca 0). Era 20 e deixava tudo cinza-lavado.",
+   "curva": "S mais forte: sombras -14% em 25%, altas +4% em 75% (lib.grade2). A luz tem LADO DE SOMBRA; pelo menos 1 quadro em cada 3 com ~30% da area em sombra funda (K1, K6, K7).",
+   "split_tone": "sombras para ardósia #46576A a 12%; altas neutras (sem âmbar)",
+   "saturacao": "global 0,62; faixa de matiz 20–45° (práticos quentes, pele) preservada a 0,9 para a lâmpada e a pele não morrerem",
+   "vinheta": "leve, −8% nas bordas, elíptica",
+   "proibido": "halation, bloom, teal-and-orange, LUT pronta",
+   "noite": "geada e neve: ponto branco 230; geada com saturacao 0,62 para os brilhos quentes dos cristais nao virarem glitter"
+  },
+  "som_fase3": "discreto, só da biblioteca de efeitos própria: papel caindo e tacha (passa-baixa 4–5 kHz), vento de neve baixo, pincel; nada agudo; validar no simulador de celular.",
+  "bloco_de_luz_v2": {
+   "por_que": "o bloco antigo pedia 'soft gentle contrast with open luminous shadows' + 'white snow bounce filling the shadows': saiu luz chapada, sem lado de sombra (critica 1). O novo pede UMA chave dura da janela, sem preenchimento.",
+   "texto": "Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses. Lighting: a single hard key of low winter daylight from a tall window at frame left, no fill light at all, the side away from the window falls off into deep slate-blue shadow, strong 4:1 contrast with a crisp edge between light and shadow, in the manner of a Vilhelm Hammershoi interior, chalk-white highlights and deep slate shadows, muted palette of chalk white, pewter grey, slate blue and wool black, natural skin texture with visible pores, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs.",
+   "regra": "vale para todo prompt de interior; exteriores trocam a janela por sol baixo rasante da esquerda, tambem sem fill"
+  }
+ },
+ "producao": {
+  "zimage": {
+   "total_prompts": 16,
+   "imagens": 49,
+   "tempo_estimado": "~49 imagens × 11 s ≈ 9 min de fila (compartilhada)",
+   "pasta_saida": "zimg",
+   "prompts": [
+    {
+     "id": "Z01",
+     "seeds": [
+      1101,
+      1102,
+      1103
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z01\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Cinematic vertical 9:16 photograph, dramatized reconstruction inspired by a 1920s Czech stage play. Extreme close-up portrait of a tall artificial man from a 1920s stage play who looks fully human and made of living flesh: perfectly smooth pale skin, a completely hairless shaved head, no eyebrows, calm light-grey eyes, a face slightly too symmetrical, wearing a plain slate-blue heavy canvas worker tunic buttoned up to a high stand collar with a wide dark leather belt, no metal parts, no seams, no wires; his eyes gently closed as if not yet awake, the head and shoulders filling the lower two thirds of the frame, face turned three-quarters toward the window light at frame left, a plain mid-tone slate-blue-grey limewashed wall behind with a large empty band of wall above the head, perfectly still air, no snow, no dust, nothing on the wall. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems.",
+     "ajuste_1710": {
+      "seeds": [
+       1101
+      ],
+      "arquivos": [
+       "zimg/Z01v2_half_1101.png (K1, olhando a janela)",
+       "zimg/Z01v2_open_1101.png (K6, olhos na lente)"
+      ],
+      "limpeza_em_codigo": "_build/hero_fix.py: sobrancelha loira removida, clipe de microfone (half) e botao moderno (open) clonados com textura do tricô",
+      "prompt_half": "Cinematic vertical 9:16 photograph, dramatized reconstruction inspired by a 1920s Czech stage play. Extreme close-up portrait of a tall artificial man who looks fully human and made of living flesh: smooth pale skin with fine visible pores and a faint redness at the eyelids, a completely hairless shaved head, no eyebrows at all, no visible eyelashes, smooth bare brow ridge, heavy eyelids only half open, light-grey eyes just waking up, perfectly still and unblinking, a face slightly too symmetrical, wearing a collarless slate-grey heavy wool work tunic with a plain round neck, no buttons, no collar, a small plain stitched cloth triangle patch on the left chest. Composition: his head and shoulders sit LOW and slightly RIGHT of center in the frame, the top of his bald head at the middle of the frame height, his face turned three-quarters toward the window at frame left, his shoulders cut by the bottom edge; the entire upper half of the frame is an empty wall. Behind him a flat matte deep slate-blue painted plaster wall, much darker than his skin, completely empty. The window is outside the frame at left: its hard daylight lights the left half of his face brightly, the right half of his face falls into deep slate shadow, perfectly still air, no snow, no dust. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses. Lighting: a single hard key of low winter daylight from a tall window at frame left, no fill light at all, the side away from the window falls off into deep slate-blue shadow, strong 4:1 contrast with a crisp edge between light and shadow, in the manner of a Vilhelm Hammershoi interior, chalk-white highlights and deep slate shadows, muted palette of chalk white, pewter grey, slate blue and wool black, natural skin texture with visible pores, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs.",
+      "prompt_open": "Cinematic vertical 9:16 photograph, dramatized reconstruction inspired by a 1920s Czech stage play. Extreme close-up portrait of a tall artificial man who looks fully human and made of living flesh: smooth pale skin with fine visible pores and a faint redness at the eyelids, a completely hairless shaved head, no eyebrows at all, no visible eyelashes, smooth bare brow ridge, eyes fully open, calm light-grey eyes looking straight into the camera lens, perfectly still and unblinking, a face slightly too symmetrical, wearing a collarless slate-grey heavy wool work tunic with a plain round neck, no buttons, no collar, a small plain stitched cloth triangle patch on the left chest. Composition: his head and shoulders sit LOW and slightly RIGHT of center in the frame, the top of his bald head at the middle of the frame height, his face turned three-quarters toward the window at frame left, his shoulders cut by the bottom edge; the entire upper half of the frame is an empty wall. Behind him a flat matte deep slate-blue painted plaster wall, much darker than his skin, completely empty. The window is outside the frame at left: its hard daylight lights the left half of his face brightly, the right half of his face falls into deep slate shadow, perfectly still air, no snow, no dust. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses. Lighting: a single hard key of low winter daylight from a tall window at frame left, no fill light at all, the side away from the window falls off into deep slate-blue shadow, strong 4:1 contrast with a crisp edge between light and shadow, in the manner of a Vilhelm Hammershoi interior, chalk-white highlights and deep slate shadows, muted palette of chalk white, pewter grey, slate blue and wool black, natural skin texture with visible pores, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs."
+     }
+    },
+    {
+     "id": "Z02",
+     "seeds": [
+      1201,
+      1202,
+      1203
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z02\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Cinematic vertical 9:16 photograph, dramatized reconstruction, a small provincial Central European town theatre during a daytime winter rehearsal around 1920. A tall artificial man from a 1920s stage play who looks fully human and made of living flesh: perfectly smooth pale skin, a completely hairless shaved head, no eyebrows, calm light-grey eyes, a face slightly too symmetrical, wearing a plain slate-blue heavy canvas worker tunic buttoned up to a high stand collar with a wide dark leather belt, no metal parts, no seams, no wires, stands alone at center stage, full body, filling about seventy percent of the frame height, seen from a low angle from the front row, on bare worn pale wooden floorboards; behind him plain unpainted canvas scenery flats lean against a whitewashed wall, ropes and sandbags hang from the fly gallery, a tall side window at frame left with snow outside throws a long shaft of pale daylight across the stage, a single bare work-light bulb on an iron stand glows warm, a few specks of dust in the window light. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems."
+    },
+    {
+     "id": "Z03",
+     "seeds": [
+      1301,
+      1302,
+      1303
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z03\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Cinematic vertical 9:16 photograph, dramatized reconstruction, a writer's desk in a Prague apartment in winter 1920. High three-quarter view of a pale scrubbed oak desk under a frosted window at frame left with snow falling outside; a black typewriter, an inkwell and a few loose blank sheets; in the center, large in the frame, two male hands with white shirt cuffs and dark wool suit sleeves set down a closed hardcover book whose dark brown cloth cover is completely plain and blank, nothing printed on it, the book lying flat and square to the camera; a small brass desk lamp with a warm bulb at the back right. No faces. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems.",
+     "ajuste_1710": {
+      "seed": 1312,
+      "arquivo": "zimg/Z03v3_1312.png",
+      "descartada": "zimg/Z03v2_1311.png (3 maos)",
+      "nota": "vista de cima 90 graus; o livro gerado saiu deitado (paisagem) e foi COBERTO pela capa real em retrato; os dedos ficam por cima da capa",
+      "prompt": "Cinematic vertical 9:16 photograph, dramatized reconstruction, a writer's desk in a Prague apartment in winter 1920, seen from directly overhead, a top-down 90-degree view straight down onto a pale scrubbed oak desktop that fills the whole frame, the wood grain running vertically. Exactly one closed hardcover book, tall portrait format, clearly taller than wide, lies flat in the center of the frame, large, about two thirds of the frame width, square to the frame edges, its dark brown cloth cover completely plain and blank. The upper third of the frame is bare oak with only the front edge of a black typewriter at the very top edge. The writer's two hands, one left and one right hand of the same man, rest flat on the oak just below the two bottom corners of the book, his forearms in dark wool suit sleeves with white shirt cuffs entering from the bottom edge of the frame. Nothing else on the desk, no other books, no papers, no extra hands. Hard low winter daylight from a window beyond the left edge rakes across the desk, the book and the hands cast crisp shadows toward the right, the right side of the desk falls into cool slate shadow. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses. Lighting: a single hard key of low winter daylight from a tall window at frame left, no fill light at all, the side away from the window falls off into deep slate-blue shadow, strong 4:1 contrast with a crisp edge between light and shadow, in the manner of a Vilhelm Hammershoi interior, chalk-white highlights and deep slate shadows, muted palette of chalk white, pewter grey, slate blue and wool black, natural skin texture with visible pores, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs."
+     }
+    },
+    {
+     "id": "Z04",
+     "seeds": [
+      1401,
+      1402,
+      1403
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z04\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Cinematic vertical 9:16 photograph, dramatized reconstruction, a painter's studio in Prague, winter around 1920. A painter in a paint-stained linen work smock, seen from behind and slightly in profile with his face turned away and not visible, holds a long paintbrush crosswise between his teeth while he reaches toward a large primed canvas with another brush; the canvas is completely bare and pale, filling the right half of the frame, facing the camera at a slight angle; a tall north window at frame left with snow falling outside, canvases stacked against the walls, a small iron stove with a warm glow at the back, an empty pale grey wall in the upper third of the frame. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems.",
+     "ajuste_1710": {
+      "seed": 1411,
+      "arquivo": "zimg/Z04v2_1411.png",
+      "nota": "tela grande com o braco do pintor so na metade de baixo: a palavra cabe numa linha e o pincel cai no I. Mastro e garra do cavalete apagados em codigo; po branco gerado limpo do cabelo.",
+      "prompt": "Cinematic vertical 9:16 photograph, dramatized reconstruction, a painter's studio in Prague, winter around 1920. A wide horizontal landscape-format primed canvas, completely bare and pale, stands on a tall easel and spans the upper middle of the frame from the left third to the right edge, square to the camera. A painter in a paint-stained linen work smock stands in the lower left of the frame seen from directly behind, the back of his head with dark tousled hair, his face completely hidden; a second paintbrush is held crosswise in his teeth; he stretches his right arm up and far to the right so the brush in his hand touches the bare canvas near its right end. A tall window at frame left with snow outside, a small iron stove with a warm glow in the lower corner, a plain pale plaster wall above the canvas, nothing hangs on it, no snowflakes indoors. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses. Lighting: a single hard key of low winter daylight from a tall window at frame left, no fill light at all, the side away from the window falls off into deep slate-blue shadow, strong 4:1 contrast with a crisp edge between light and shadow, in the manner of a Vilhelm Hammershoi interior, chalk-white highlights and deep slate shadows, muted palette of chalk white, pewter grey, slate blue and wool black, natural skin texture with visible pores, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs."
+     }
+    },
+    {
+     "id": "Z05",
+     "seeds": [
+      1501,
+      1502,
+      1503
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z05\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Cinematic vertical 9:16 photograph, dramatized historical reconstruction, the edge of a Bohemian village at dawn in late winter, 1730s. Close-medium shot of a weathered wooden gate post with one large sheet of blank aged paper nailed to it with four iron nails, the blank sheet filling the center of the frame, perfectly flat, square to the camera and clean, nothing written on it; behind, out of focus, a field patched with old snow, bare trees and the pale silhouette of a castle on a distant hill. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, crisp low winter sun from frame left as the single key light, old snow bouncing pale light into the shadows, frosty clear air, muted palette of chalk white, pewter grey, slate blue and wet-earth black, the first warm sunlight as the only warm note, soft gentle contrast with open shadows, breath visible in the cold air, Kodak Vision3 250D fine film grain, no bloom, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems.",
+     "ajuste_1710": {
+      "seed": 1511,
+      "arquivo": "zimg/Z05v2_1511.png",
+      "nota": "quadro de avisos de tabuas mais largo que o papel, sol rasante com sombra longa de cada prego; SEM castelo (o castelo gerado sob reino da Boemia insinuava um castelo real)",
+      "prompt": "Cinematic vertical 9:16 photograph, dramatized historical reconstruction, the edge of a Bohemian village at dawn in late winter, 1730s. Close shot of an old weathered wooden notice board made of thick vertical silver-grey planks with deep cracks and a thin crust of frost, much wider than the paper: one large sheet of blank aged paper is nailed flat onto the planks with four hand-forged iron nails, the sheet in the center of the frame, square to the camera, wood visible on both sides of it and below it, nothing written on the sheet. Hard raking low sun from frame left grazes across the planks and the paper, each nail casts a long sharp shadow to the right, the paper casts a thin hard shadow on the wood. Behind and above, far out of focus, a snowy field with bare trees in pale morning haze. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, single hard low sun as the only key light, no fill, deep slate shadows in the wood grain, muted palette of chalk white, pewter grey, slate blue and wet-earth black, the first warm sunlight as the only warm note, Kodak Vision3 250D fine film grain, no bloom, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs."
+     }
+    },
+    {
+     "id": "Z06",
+     "seeds": [
+      1601,
+      1602,
+      1603
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z06\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Cinematic vertical 9:16 photograph, dramatized historical reconstruction, Bohemian countryside at dawn in late winter, 1730s. In the foreground, large in the frame from the chest up, a gaunt serf peasant in rough undyed linen and a worn sheepskin vest leans forward with a thick rope over his shoulder, pulling a heavy wooden plough, his breath steaming, his face strained; behind him a line of other serfs pulls in step through dark wet earth patched with old snow; far behind a mounted overseer watches, and on a distant hill stands the pale silhouette of the lord's castle. Low angle from the furrow. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, crisp low winter sun from frame left as the single key light, old snow bouncing pale light into the shadows, frosty clear air, muted palette of chalk white, pewter grey, slate blue and wet-earth black, the first warm sunlight as the only warm note, soft gentle contrast with open shadows, breath visible in the cold air, Kodak Vision3 250D fine film grain, no bloom, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems."
+    },
+    {
+     "id": "Z07",
+     "seeds": [
+      1701,
+      1702,
+      1703,
+      1704
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z07\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Vertical 9:16 macro photograph of frost ferns growing across an old window pane, intricate white ice crystals spreading inward from all four edges, the center of the glass still clear, behind the glass a soft out-of-focus slate-blue winter dusk, razor-sharp crystal detail, shot on ARRI Alexa 35 with a vintage macro lens, Kodak Vision3 250D fine film grain, no bloom, no teal and orange grade. No text, no letters, no numbers, no logos, no signs, no emblems.",
+     "ajuste_1710": {
+      "seed": 1711,
+      "arquivo": "zimg/Z07v2_1711.png",
+      "nota": "geada de samambaia de verdade; no vidro limpo, um servo curvado puxando a carga na neve (o H3 anima o passo). A meia-lua lisa gerada no ceu foi apagada em codigo (_build/k5v2.py).",
+      "prompt": "Vertical 9:16 macro photograph of real window frost on an old single-pane glass in deep winter: feathery fern frost, ice flowers, fine dendritic feather-like ice crystals growing inward from the edges of the pane, delicate and white, backlit by the last blue twilight. An irregular asymmetric thawed patch of clear glass sits slightly above the center, not an oval, with ragged frosty edges. Through the clear patch, out of focus, a snowy field at blue dusk and the dark silhouette of one stooped peasant pulling a wooden plough by a rope over his shoulder, clearly readable, about a fifth of the frame height. Razor-sharp crystal detail in the foreground, shot on ARRI Alexa 35 with a 100mm macro lens, Kodak Vision3 250D fine film grain, no bloom, no teal and orange grade. No text, no letters, no numbers, no logos, no signs."
+     }
+    },
+    {
+     "id": "Z08",
+     "seeds": [
+      1801,
+      1802,
+      1803
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z08\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Cinematic vertical 9:16 photograph, dramatized reconstruction inspired by a 1920s Czech stage play. Close-up of the bare forearm and open hand of an artificial man who looks fully human and made of living flesh, perfectly smooth pale hairless skin, faint blue veins at the wrist, the slate-blue heavy canvas sleeve rolled up, no metal parts, no seams, no wires; the hand rests palm up on a pale scrubbed wooden table in window light from frame left, the hand large and filling the lower half of the frame, empty table surface in the upper half. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems."
+    },
+    {
+     "id": "Z09",
+     "seeds": [
+      1901,
+      1902,
+      1903
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z09\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Cinematic vertical 9:16 photograph, dramatized reconstruction inspired by a 1920s Czech stage play. Rows of identical artificial workers who look fully human and made of living flesh, men and women with the same perfectly smooth pale faces, hairless shaved heads and no eyebrows, all in plain slate-blue heavy canvas tunics buttoned up to a high stand collar with wide dark leather belts, no metal parts, march in perfect step toward the camera through a long whitewashed factory hall with tall gridded windows full of snowy daylight on the left wall; the front one large in the frame from the waist up, his head in the upper third, symmetrical composition, low angle, one warm tungsten lamp hanging far back. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems."
+    },
+    {
+     "id": "Z10",
+     "seeds": [
+      2001,
+      2002,
+      2003
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z10\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Cinematic vertical 9:16 photograph, dramatized reconstruction, a small Central European provincial town on a January evening around 1920. Snow is falling over a modest generic town theatre with warm glowing windows and an iron lantern above the entrance; in the foreground, large in the frame and seen from behind and in profile, a woman in a dark wool coat and fur hat and a man in a bowler hat and scarf walk toward the open door; a few other townspeople follow. Low shot from the snowy street. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, deep blue snowy dusk at blue hour, falling snow, warm gaslight as the only warm note, slate blue, pewter and wool black palette, gentle contrast with open shadows, breath visible in the cold air, Kodak Vision3 500T fine film grain, no bloom, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems."
+    },
+    {
+     "id": "Z11",
+     "seeds": [
+      2101,
+      2102,
+      2103
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z11\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Vertical 9:16 macro photograph, large snowflakes slowly falling and settling on the dark charcoal wool shoulder of a winter overcoat, the wool texture filling the lower half of the frame, a deep blue dusk sky in the upper half, a warm out-of-focus gaslight glow far behind at frame right, shallow depth of field, shot on ARRI Alexa 35 with vintage Cooke Panchro lenses, Kodak Vision3 500T fine film grain, no bloom, no teal and orange grade. No text, no letters, no numbers, no logos, no signs, no emblems.",
+     "ajuste_1710": {
+      "tentativa": "zimg/Z11v2_2111.png (seed 2111) DESCARTADA: flocos-icone de 6 pontas, pecinhas de plastico, poste de rodovia e gola laranja",
+      "usado": "zimg/Z11_2101.png original, reenquadrado 1,15x sem a cabeca de gorro e com os flocos-pipoca encolhidos/amaciados em codigo",
+      "para_fase_2": "se der para gastar 1 imagem: 'fine dry powder snow' NAO resolveu; tentar macro de la com 'a light dusting of tiny ice crystals, no large flakes'"
+     }
+    },
+    {
+     "id": "Z12",
+     "seeds": [
+      2201,
+      2202,
+      2203
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z12\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Cinematic vertical 9:16 photograph, dramatized reconstruction, the cramped backstage dressing room of a small amateur town theatre around 1920. A plump middle-aged baker with flour still on his forearms pulls a tight pale bald cap over his hair to look hairless, grinning, while a thin schoolteacher with round spectacles buttons up a plain slate-blue canvas tunic to a high collar behind him; a young woman dabs white face powder on the baker's cheek with a puff, a small cloud of powder in the air; a mirror framed with bare warm bulbs, the baker large in the frame, playful mood. Cold winter daylight from a small window at frame left as the key light. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems."
+    },
+    {
+     "id": "Z13",
+     "seeds": [
+      2301,
+      2302,
+      2303
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z13\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Cinematic vertical 9:16 photograph, a grand nineteenth-century opera house auditorium in winter, completely empty: rows of faded dark crimson velvet seats, gilded tiers of balconies rising to the top of the frame, a heavy closed stage curtain, and a single bare work-light bulb on a tall iron stand glowing alone on the stage apron; pale daylight leaking from a high side door at frame left, a few specks of dust in it. Wide symmetrical shot from the center aisle of the stalls. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black with faded crimson, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems."
+    },
+    {
+     "id": "Z14",
+     "seeds": [
+      2401,
+      2402,
+      2403
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z14\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Cinematic vertical 9:16 photograph, a 1930s wind-up tin toy robot with a boxy riveted body, chipped matte slate-blue paint, round glass eyes and a big brass winding key in its back, walking toward the camera across a pale scrubbed wooden table beside a frosted window at frame left, small brass gears visible through a round hole in its chest, worn and matte, nothing chrome. Low macro shot at table level, the toy filling the lower two thirds of the frame. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems."
+    },
+    {
+     "id": "Z16",
+     "seeds": [
+      2601,
+      2602,
+      2603
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z16\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Cinematic vertical 9:16 photograph, dramatized reconstruction inspired by a 1920s Czech stage play. Close-up of two smooth pale hairless hands with slate-blue heavy canvas cuffs holding one large blank sheet of aged off-white paper upright at chest height, the sheet square to the camera and filling most of the frame, perfectly clean, nothing printed on it, thumbs at the lower corners, the soft blurred chest of the slate-blue canvas tunic and dark leather belt behind. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems."
+    },
+    {
+     "id": "Z17",
+     "seeds": [
+      2701,
+      2702,
+      2703
+     ],
+     "comando": "python comfy/zimage.py --out \"zimg/Z17\" --w 1088 --h 1920 --seed N \"<prompt>\"",
+     "prompt": "Cinematic vertical 9:16 photograph, a painter's studio in Prague in winter around 1920. A huge unframed stretched canvas in landscape orientation leans against a whitewashed wall, its surface completely blank and pale, square to the camera and filling most of the frame width, a wooden stepladder and a bucket of brushes beside it, a tall window at frame left throwing pale winter daylight across the canvas, snow outside. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems."
+    }
+   ],
+   "escolha": "por semente: limpeza das áreas em branco (livro, folha, tela, mourão), pele humana (não manequim), luz vinda da esquerda; Z07 precisa de 2 sementes com desenhos diferentes."
+  },
+  "h3_fase2": {
+   "clipes": [
+    "Z01a (olhos abrem; invertido no fecho)",
+    "Z01b (do último quadro de Z01a: olhos descem às mãos)",
+    "Z01c (do último quadro de Z01a: olhos sobem à foto e voltam à lente)",
+    "Z02",
+    "Z03",
+    "Z04",
+    "Z05",
+    "Z06",
+    "Z07 A",
+    "Z07 B",
+    "Z08",
+    "Z09",
+    "Z10",
+    "Z11",
+    "Z12",
+    "Z13",
+    "Z14",
+    "Z17"
+   ],
+   "total": 18,
+   "nota": "448×768 → upscale 1080×1920; 5 s a 24 fps; Z16 fica still com respiração em código."
+  },
+  "arquivo_real": [
+   "img/raw/capa1920.png",
+   "img/raw/karel30.jpg",
+   "img/raw/assin_karel.png",
+   "img/raw/bratri1927.jpg",
+   "img/raw/josef1937.jpg",
+   "img/raw/patent1738.jpg",
+   "img/raw/berry_mars.jpg",
+   "img/raw/paris1.jpg",
+   "img/parafuso.png",
+   "img/raw/vesalius.jpg",
+   "img/raw/tg1.jpg",
+   "img/raw/klicpera_hoje.jpg",
+   "img/raw/narodni_zitek.png",
+   "img/raw/turco.jpg",
+   "img/raw/jaquet1.jpg",
+   "img/raw/televox1928.jpg",
+   "img/raw/cz1920_8.jpg",
+   "img/raw/briullov.jpg"
+  ],
+  "nao_usar": "feuer2.jpg, capekrur.jpg, klicpera_full.jpg (sem origem registrada); capekplay.jpg (produção não identificada)"
+ },
+ "cenas": [
+  {
+   "n": 1,
+   "t0": 0.0,
+   "t1": 0.8,
+   "fala": "Robô nasceu numa",
+   "familia": "heroi (clipe)",
+   "visual": "ECU do robô de carne: cabeça e ombros nos 2/3 de baixo, rosto a 3/4 virado para a janela da esquerda, parede ardósia média lisa em cima. Quadro 0 = olhos fechados (é também o último quadro do vídeo). Em 0,05 s 'ROBÔ' (Fixture Expanded Black, ~300 px, branco-giz #E8EBEB, centrado no terço de cima, y 260–560) bate ATRÁS da cabeça: o crânio cobre a base das letras.",
+   "movimento": "H3 Z01a: olhos abrem e pousam na lente (remapear a abertura para 0,10–0,60 s), uma respiração. Código: push-in contínuo 1,00→1,02; 'ROBÔ' entra em 2 quadros (escala 1,04→1,00, sem blur longo); matte do herói por quadro (rembg) para a oclusão. 1º evento visual a 0,05 s.",
+   "asset_tipo": "zimage+h3",
+   "asset": "Z01 · Cinematic vertical 9:16 photograph, dramatized reconstruction inspired by a 1920s Czech stage play. Extreme close-up portrait of a tall artificial man from a 1920s stage play who looks fully human and made of living flesh: perfectly smooth pale skin, a completely hairless shaved head, no eyebrows, calm light-grey eyes, a face slightly too symmetrical, wearing a plain slate-blue heavy canvas worker tunic buttoned up to a high stand collar with a wide dark leather belt, no metal parts, no seams, no wires; his eyes gently closed as if not yet awake, the head and shoulders filling the lower two thirds of the frame, face turned three-quarters toward the window light at frame left, a plain mid-tone slate-blue-grey limewashed wall behind with a large empty band of wall above the head, perfectly still air, no snow, no dust, nothing on the wall. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems. || H3 Z01a: static camera, the eyes slowly open and settle on the lens, one slow breath, nothing else moves.",
+   "tela_sabe_mais": "",
+   "ajuste_1710": "Ver K1_olho (ajuste 17/10): parede ardosia funda, rosto com lado de sombra, ROBÔ branco-giz atras do cranio."
+  },
+  {
+   "n": 2,
+   "t0": 0.8,
+   "t1": 1.9,
+   "fala": "peça de teatro:",
+   "familia": "cena gerada",
+   "visual": "Corte seco 0,07 s antes de 'peça': contra-plongée da 1ª fila, o MESMO robô de pé no centro de um palco de província num ensaio de dia, corpo inteiro com ~70% da altura; faixa de luz da janela da esquerda cruzando o tablado, lâmpada de serviço acesa. Em 1,27 ('teatro') entra no assoalho, embaixo à esquerda, a linha de informação 'R.U.R. · Rossumovi Univerzální Roboti' (Fixture SemiBold 52 px, branco-giz, 1 linha, y≈1480).",
+   "movimento": "H3 Z02: pó no feixe, um cenário de lona desliza ao fundo, o robô vira o rosto para a câmera. Código: push-in 1,00→1,03; match de posição: a cabeça do plano 1 e a do plano 2 ficam no mesmo eixo x.",
+   "asset_tipo": "zimage+h3",
+   "asset": "Z02 · Cinematic vertical 9:16 photograph, dramatized reconstruction, a small provincial Central European town theatre during a daytime winter rehearsal around 1920. A tall artificial man from a 1920s stage play who looks fully human and made of living flesh: perfectly smooth pale skin, a completely hairless shaved head, no eyebrows, calm light-grey eyes, a face slightly too symmetrical, wearing a plain slate-blue heavy canvas worker tunic buttoned up to a high stand collar with a wide dark leather belt, no metal parts, no seams, no wires, stands alone at center stage, full body, filling about seventy percent of the frame height, seen from a low angle from the front row, on bare worn pale wooden floorboards; behind him plain unpainted canvas scenery flats lean against a whitewashed wall, ropes and sandbags hang from the fly gallery, a tall side window at frame left with snow outside throws a long shaft of pale daylight across the stage, a single bare work-light bulb on an iron stand glows warm, a few specks of dust in the window light. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems. || H3: dust drifts in the light shaft, a stagehand in the background slides a canvas flat, the man slowly turns his face to the camera.",
+   "tela_sabe_mais": "título tcheco completo da peça"
+  },
+  {
+   "n": 3,
+   "t0": 1.9,
+   "t1": 3.3,
+   "fala": "escrita em 1920",
+   "familia": "documento na cena",
+   "visual": "Mesa do escritor no inverno: as mãos (só punhos de terno, sem rosto) pousam um livro de capa lisa. A capa REAL da 1ª edição (escada R/U/R de Josef Čapek) é composta no livro por homografia, com o gradiente da janela multiplicado e grão a meia força. A câmera empurra até a capa encher ~75% do quadro. Em 2,41 ('1920'): '1920' (Fixture Expanded Black ~260 px, preto-lã #15171A) deitado na perspectiva da mesa, acima do livro, e o crédito 'capa da 1ª edição · Aventinum, Praga, 1920' (Fixture SemiBold 46 px).",
+   "movimento": "H3 Z03 com câmera travada: as mãos soltam o livro e saem, neve cai na janela; o livro não se mexe, então a homografia é fixa (checar deriva com ECC; plano B = still com push em código). Código: push-in 1,0→1,8×, sem passar do nativo da capa.",
+   "asset_tipo": "zimage+h3+arquivo_real",
+   "asset": "Z03 · Cinematic vertical 9:16 photograph, dramatized reconstruction, a writer's desk in a Prague apartment in winter 1920. High three-quarter view of a pale scrubbed oak desk under a frosted window at frame left with snow falling outside; a black typewriter, an inkwell and a few loose blank sheets; in the center, large in the frame, two male hands with white shirt cuffs and dark wool suit sleeves set down a closed hardcover book whose dark brown cloth cover is completely plain and blank, nothing printed on it, the book lying flat and square to the camera; a small brass desk lamp with a warm bulb at the back right. No faces. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems. || H3: locked-off camera, the hands slowly let go of the book and withdraw out of frame, snow falls outside the window, the book does not move. || + arquivo real: img/raw/capa1920.png (3840×5720, DP, Commons)",
+   "tela_sabe_mais": "Aventinum, Praga; capa desenhada pelo próprio Josef (não afirmar na tela sem fonte; só a imagem)",
+   "ajuste_1710": "Ver K2_capa (ajuste 17/10): mesa vista de cima, capa real no livro retrato, '1920' deitado acima, credito preso a capa. Para o H3: camera travada, so os dedos se mexem e as faixas de luz respiram."
+  },
+  {
+   "n": 4,
+   "t0": 3.3,
+   "t1": 4.9,
+   "fala": "pelo tcheco Karel Čapek,",
+   "familia": "arquivo como objeto",
+   "visual": "Cópia em papel da foto REAL de Karel Čapek (anos 1930, de chapéu) cai sobre a mesa (fundo = clipe Z03 desfocado, neve viva), borda branca de papel fotográfico e sombra dura para a direita. Ocupa ~85% da largura, rosto no terço de cima. Embaixo, 'KAREL ČAPEK' (Fixture Expanded Black ~150 px, preto-lã) deitado na perspectiva da mesa. Em 4,24 ('Čapek') a assinatura real se escreve na margem branca da foto. Crédito: 'escritor tcheco · 1890–1938 · foto dos anos 1930' (44 px).",
+   "movimento": "Código: queda com micro-quique de 0,25 s (sombra encolhe no pouso), push-in até ~1:1 da foto; traço da assinatura revelado em 0,5 s seguindo o caminho do SVG.",
+   "asset_tipo": "arquivo_real",
+   "asset": "img/raw/karel30.jpg (1867×2378, DP) + img/raw/assin_karel.png (DP; preferir o SVG do Commons, baixado com UA genérico sem e-mail) + fundo Z03 desfocado",
+   "tela_sabe_mais": "1890–1938, escritor"
+  },
+  {
+   "n": 5,
+   "t0": 4.9,
+   "t1": 7.15,
+   "fala": "e quem inventou o termo, segundo o próprio Karel,",
+   "familia": "cena gerada + tipo no mundo",
+   "visual": "Ateliê de inverno: o pintor de costas, rosto invisível, pincel atravessado nos dentes; tela grande e nua na metade direita, janela de neve à esquerda. Em 5,05 ('quem') aparece na parede do terço de cima 'LABOŘI' (Fixture Expanded Black ~130 px, preto-lã, com textura de giz) e em 5,47 ('inventou') um traço de carvão grosso o risca; embaixo dele, 'a 1ª ideia de Karel · achou “meio de papel”' (46 px). Em 5,74 ('termo') 'ROBOTI' se PINTA na tela nua (Fixture Expanded Black ~200 px, tinta a óleo preto-lã com crista de tinta, write-on da esquerda para a direita em 0,55 s). Em 6,41 ('próprio') a fonte: 'o próprio Karel conta · Lidové noviny, 24/12/1933' (44 px). O crédito é da FALA, não da imagem.",
+   "movimento": "H3 Z04: o braço dá pinceladas, a cabeça inclina, neve cai. Código: tipo da parede e da tela por homografia fixa (câmera travada), luz da janela multiplicada no tipo; write-on de ROBOTI com textura de pincel (deslocamento por luminância); punch-in 1,00→1,05 em 3 quadros no 'termo'.",
+   "asset_tipo": "zimage+h3",
+   "asset": "Z04 · Cinematic vertical 9:16 photograph, dramatized reconstruction, a painter's studio in Prague, winter around 1920. A painter in a paint-stained linen work smock, seen from behind and slightly in profile with his face turned away and not visible, holds a long paintbrush crosswise between his teeth while he reaches toward a large primed canvas with another brush; the canvas is completely bare and pale, filling the right half of the frame, facing the camera at a slight angle; a tall north window at frame left with snow falling outside, canvases stacked against the walls, a small iron stove with a warm glow at the back, an empty pale grey wall in the upper third of the frame. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems. || H3: static camera, the painter's arm makes slow brush strokes toward the canvas, his head tilts, snow falls outside.",
+   "tela_sabe_mais": "1ª ideia de Karel (laboři) · Josef respondeu de pincel na boca (Karel Čapek, Lidové noviny, 24/12/1933)",
+   "ajuste_1710": "Ver K3_atelie (ajuste 17/10): LABOŘI a carvao riscado na parede + ROBOTI na diagonal da tela, revelado da esquerda para a direita (mascara de write-on) ate o I que o pincel do H3 termina."
+  },
+  {
+   "n": 6,
+   "t0": 7.15,
+   "t1": 8.65,
+   "fala": "foi o irmão dele, Josef.",
+   "familia": "arquivo como objeto",
+   "visual": "No mesmo ateliê (Z04 desfocado, pintor ainda se mexendo), em 7,34 ('irmão') a foto REAL dos dois irmãos juntos (1927, com o cachorro) é pregada com tacha na parede, ~860 px de largura, crédito 'Karel e Josef Čapek · 1927' (44 px). Em 8,07 ('Josef') a foto REAL de Josef (1937) é pregada por cima, inclinada 4°, a 1:1 nativo (~694 px), e entra 'JOSEF ČAPEK' (Fixture Expanded Black ~150 px, preto-lã) na parede acima e 'pintor · irmão mais velho · 1887–1945' (44 px) abaixo. Agora o rosto aparece: a foto real responde quem era o homem de costas. A foto de 1927 NÃO aponta quem é quem.",
+   "movimento": "Código: cada foto entra girando e é pregada com micro-quique, sombra dura na parede; push-in 4%. Flash de fim de rolo (1 quadro) em 8,65: virada do ato 1.",
+   "asset_tipo": "arquivo_real",
+   "asset": "img/raw/bratri1927.jpg (804×1077, DP) + img/raw/josef1937.jpg (694×1024, DP) + fundo Z04 desfocado",
+   "tela_sabe_mais": "pintor, mais velho, 1887–1945, os dois juntos em 1927"
+  },
+  {
+   "n": 7,
+   "t0": 8.65,
+   "t1": 11.28,
+   "fala": "Em tcheco, robota é trabalho forçado,",
+   "familia": "documento na cena",
+   "visual": "Mourão de aldeia boêmia ao amanhecer com o Robott-Patent REAL de 1738 pregado no lugar da folha em branco (homografia + sol rasante da esquerda + sombra dos 4 pregos). Abre no mourão inteiro com o castelo desfocado ao fundo; em 9,38 ('robota') o título fraktur 'Robott-PATENT' enche a largura. Em 10,05 ('trabalho forçado') entra o crédito: 'Robott-Patent · decreto de 1738 sobre a robota no reino da Boêmia' (46 px, 2 linhas, branco-giz sobre a parte escura do mourão).",
+   "movimento": "H3 Z05 com câmera travada: galhos balançam, luz do sol sobe; a folha não se mexe (homografia fixa). Código: push-in contínuo 1,0→2,2× até o nativo de 2248 px; ênfase só por recorte e escala, sem marca-texto.",
+   "asset_tipo": "zimage+h3+arquivo_real",
+   "asset": "Z05 · Cinematic vertical 9:16 photograph, dramatized historical reconstruction, the edge of a Bohemian village at dawn in late winter, 1730s. Close-medium shot of a weathered wooden gate post with one large sheet of blank aged paper nailed to it with four iron nails, the blank sheet filling the center of the frame, perfectly flat, square to the camera and clean, nothing written on it; behind, out of focus, a field patched with old snow, bare trees and the pale silhouette of a castle on a distant hill. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, crisp low winter sun from frame left as the single key light, old snow bouncing pale light into the shadows, frosty clear air, muted palette of chalk white, pewter grey, slate blue and wet-earth black, the first warm sunlight as the only warm note, soft gentle contrast with open shadows, breath visible in the cold air, Kodak Vision3 250D fine film grain, no bloom, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems. || H3: locked-off camera, bare branches sway gently, the low sun slowly brightens, the nailed sheet stays perfectly still. || + arquivo real: img/raw/patent1738.jpg (2248×3543, CC0)",
+   "tela_sabe_mais": "a palavra existia num decreto de 1738",
+   "ajuste_1710": "Ver K4_patent (ajuste 17/10): quadro de avisos de tabuas, documento inteiro sem esticar, sem castelo. Para o H3: so o fundo (galhos, nevoa) se mexe; o papel treme 1-2 px no codigo."
+  },
+  {
+   "n": 8,
+   "t0": 11.28,
+   "t1": 12.4,
+   "fala": "aquele que os servos faziam",
+   "familia": "cena gerada",
+   "visual": "Servos puxando o arado: o da frente enorme, do peito para cima, corda no ombro, vapor da respiração; atrás a fila, o feitor a cavalo e o castelo do senhor no morro. Sem texto.",
+   "movimento": "H3 Z06: puxam passo a passo, a corda estica, sai vapor. Código: corte seco em 11,72 (antes de 'servos'); tilt de baixo para cima (servo → castelo) começando em 11,78.",
+   "asset_tipo": "zimage+h3",
+   "asset": "Z06 · Cinematic vertical 9:16 photograph, dramatized historical reconstruction, Bohemian countryside at dawn in late winter, 1730s. In the foreground, large in the frame from the chest up, a gaunt serf peasant in rough undyed linen and a worn sheepskin vest leans forward with a thick rope over his shoulder, pulling a heavy wooden plough, his breath steaming, his face strained; behind him a line of other serfs pulls in step through dark wet earth patched with old snow; far behind a mounted overseer watches, and on a distant hill stands the pale silhouette of the lord's castle. Low angle from the furrow. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, crisp low winter sun from frame left as the single key light, old snow bouncing pale light into the shadows, frosty clear air, muted palette of chalk white, pewter grey, slate blue and wet-earth black, the first warm sunlight as the only warm note, soft gentle contrast with open shadows, breath visible in the cold air, Kodak Vision3 250D fine film grain, no bloom, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems. || H3: the serfs lean and pull forward step by step, the rope tightens, breath steams.",
+   "tela_sabe_mais": ""
+  },
+  {
+   "n": 9,
+   "t0": 12.4,
+   "t1": 13.4,
+   "fala": "nas terras do senhor,",
+   "familia": "arquivo como objeto",
+   "visual": "A página REAL de março das Très Riches Heures como objeto: pergaminho com borda visível, luz da esquerda, em tela cheia a 1:1 (recorte 1080×1920 do campo e do castelo). Crédito honesto: 'Très Riches Heures · França, c. 1412–16 · servos arando ao pé do castelo' (44 px). Nunca dizer Boêmia.",
+   "movimento": "Código: tilt de baixo (terras, 12,58) para cima (castelo, 12,95), na mesma direção do plano anterior (continuidade de movimento); grão a meia força.",
+   "asset_tipo": "arquivo_real",
+   "asset": "img/raw/berry_mars.jpg (1684×2400, DP)",
+   "tela_sabe_mais": "a mesma cena 300 anos antes, pintada"
+  },
+  {
+   "n": 10,
+   "t0": 13.4,
+   "t1": 15.03,
+   "fala": "e vem de rab, escravo.",
+   "familia": "intertítulo de geada",
+   "visual": "Intertítulo de geada nº 1: vidraça com a geada crescendo das bordas para o centro. No vidro limpo do centro, em 13,88 ('rab'), 'RAB' (Fixture Expanded Black ~320 px, branco-giz). Em 14,45 ('escravo') entram embaixo, empilhadas: 'rabŭ · eslavo antigo · escravo' (52 px) e 'rabota · robota · robot' (52 px).",
+   "movimento": "H3 Z07 (semente A): os cristais crescem para o centro. Código: 'RAB' revelado de cima para baixo, como mão limpando o vidro embaçado (máscara com borda de névoa); push-in 1,00→1,04.",
+   "asset_tipo": "zimage+h3",
+   "asset": "Z07 (semente A) · Vertical 9:16 macro photograph of frost ferns growing across an old window pane, intricate white ice crystals spreading inward from all four edges, the center of the glass still clear, behind the glass a soft out-of-focus slate-blue winter dusk, razor-sharp crystal detail, shot on ARRI Alexa 35 with a vintage macro lens, Kodak Vision3 250D fine film grain, no bloom, no teal and orange grade. No text, no letters, no numbers, no logos, no signs, no emblems. || H3: static camera, the frost crystals slowly grow inward across the glass.",
+   "tela_sabe_mais": "rabŭ, a cadeia rabota → robota → robot",
+   "ajuste_1710": "Ver K5_geada (ajuste 17/10): RAB no ceu do vidro limpo, o servo puxando a carga no meio, a cadeia RABOTA/ROBOTA/ROBOT entra palavra a palavra embaixo, em escala decrescente."
+  },
+  {
+   "n": 11,
+   "t0": 15.03,
+   "t1": 16.8,
+   "fala": "Na peça, os robôs nem tinham",
+   "familia": "arquivo como objeto",
+   "visual": "Cópia em papel da foto REAL de R.U.R. em Paris (1924) deslizando sobre o assoalho do palco de ensaio (fundo = clipe Z02 desfocado). Abre no cartaz do próprio cenário, onde está pintado 'ROBOTS' (a palavra em matéria, de verdade), e desce até o robô de túnica escura e cinto largo, à esquerda (o recorte rob_a da v7), que chega a ~1000 px de altura no 'robôs' (15,96). Crédito: 'R.U.R. em Paris · Comédie des Champs-Élysées, 26/3/1924 · foto Henri Manuel' (44 px, 2 linhas).",
+   "movimento": "Código: a foto desliza no assoalho e para (sombra dura); tilt/pan do cartaz ao robô a ≤1,0× do nativo de 3840 px. Match cut por forma: a túnica com cinto do robô real rima com a do nosso herói.",
+   "asset_tipo": "arquivo_real",
+   "asset": "img/raw/paris1.jpg (3840×2743, DP) + fundo Z02 desfocado. Conferir no recorte que o cartaz do cenário diz ROBOTS e que a figura escolhida é robô (= rob_a.png).",
+   "tela_sabe_mais": "Paris, 1924, Henri Manuel; o figurino real"
+  },
+  {
+   "n": 12,
+   "t0": 16.8,
+   "t1": 17.62,
+   "fala": "parafuso:",
+   "familia": "objeto em código",
+   "visual": "O parafuso REAL (recorte) cai sobre a foto de Paris, quica e rola para fora do quadro. Na área clara do papel bate '0 parafusos' (Fixture Expanded Black: '0' ~240 px, 'parafusos' ~90 px, preto-lã). Sem X colorido: o próprio '0' é o gráfico.",
+   "movimento": "Código: queda com 2 quiques e rolagem, sombra dura da janela; o '0' bate em 16,86 com tremor de câmera de 2 quadros.",
+   "asset_tipo": "arquivo_real",
+   "asset": "img/parafuso.png (2472×638, Holzschraube, Dmitry Makeev, CC BY 3.0; atribuição na legenda do post)",
+   "tela_sabe_mais": ""
+  },
+  {
+   "n": 13,
+   "t0": 17.62,
+   "t1": 19.42,
+   "fala": "eram seres artificiais de carne,",
+   "familia": "cena gerada + arquivo",
+   "visual": "A mão aberta do robô enorme na metade de baixo: pele lisa, veias azuis no pulso, manga ardósia arregaçada. Em 18,16 ('artificiais') entra no tampo, acima da mão, 'pele · nervos · artérias · de fábrica' (48 px, preto-lã). Em 18,99 ('carne') a gravura REAL do homem-músculo de Vesalius cai na metade de cima, ao lado da mão, com sombra; crédito 'Andreas Vesalius, séc. XVI · Wellcome Collection, CC BY 4.0' (44 px).",
+   "movimento": "H3 Z08 câmera travada: os dedos fecham devagar e abrem. Código: queda da gravura com pouso suave e sombra dura para a direita.",
+   "asset_tipo": "zimage+h3+arquivo_real",
+   "asset": "Z08 · Cinematic vertical 9:16 photograph, dramatized reconstruction inspired by a 1920s Czech stage play. Close-up of the bare forearm and open hand of an artificial man who looks fully human and made of living flesh, perfectly smooth pale hairless skin, faint blue veins at the wrist, the slate-blue heavy canvas sleeve rolled up, no metal parts, no seams, no wires; the hand rests palm up on a pale scrubbed wooden table in window light from frame left, the hand large and filling the lower half of the frame, empty table surface in the upper half. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems. || H3: static camera, the fingers slowly close into a loose fist and open again. || + arquivo real: img/raw/vesalius.jpg (1036×1785, CC BY 4.0)",
+   "tela_sabe_mais": "pele, nervos, artérias feitos na fábrica"
+  },
+  {
+   "n": 14,
+   "t0": 19.42,
+   "t1": 20.52,
+   "fala": "fabricados em série,",
+   "familia": "cena gerada + avalanche",
+   "visual": "Fábrica caiada: fileiras de robôs idênticos marchando para a câmera, janelões quadriculados de neve à esquerda; o da frente da cintura para cima, cabeça no terço de cima, simétrico. Em 19,60 entra 'montados “como automóveis”' (48 px). Em 20,06 ('série') o quadro se repete em grade 3×4 (12 cópias do mesmo clipe, defasadas 2 quadros cada) por 6 quadros e volta.",
+   "movimento": "H3 Z09: marcham no passo. Código: step-print em 20,06 (o mesmo passo repetido 3× a 0,12 s) + grade de 12 por 0,25 s, depois corte seco.",
+   "asset_tipo": "zimage+h3",
+   "asset": "Z09 · Cinematic vertical 9:16 photograph, dramatized reconstruction inspired by a 1920s Czech stage play. Rows of identical artificial workers who look fully human and made of living flesh, men and women with the same perfectly smooth pale faces, hairless shaved heads and no eyebrows, all in plain slate-blue heavy canvas tunics buttoned up to a high stand collar with wide dark leather belts, no metal parts, march in perfect step toward the camera through a long whitewashed factory hall with tall gridded windows full of snowy daylight on the left wall; the front one large in the frame from the waist up, his head in the upper third, symmetrical composition, low angle, one warm tungsten lamp hanging far back. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems. || H3: they march toward the camera in perfect step.",
+   "tela_sabe_mais": "'como automóveis' (concepção de Čapek)"
+  },
+  {
+   "n": 15,
+   "t0": 20.52,
+   "t1": 22.03,
+   "fala": "que dava pra confundir com gente.",
+   "familia": "herói + arquivo (layout de criador)",
+   "visual": "Volta o herói: ECU do robô na metade de baixo (still mestre Z01, clipe c). Na parede ardósia acima da cabeça, a cópia REAL da foto da Theatre Guild (Ato 1, Nova York) está pregada a 1:1 (921 px, ~85% da largura, y 240–830): robôs de uniforme lado a lado com humanos, diante de janelões quadriculados (rima com a nossa janela). Em cima da foto, 'robôs e humanos no mesmo palco' (52 px); embaixo dela, 'R.U.R. · Theatre Guild, Nova York, 1922 · foto Francis Bruguière' (44 px). Ele olha PARA CIMA, para a foto; em 21,56 ('gente') baixa os olhos para a lente. O caminho do olho é o olhar dele: foto → rosto → você.",
+   "movimento": "H3 Z01c (gerado do ÚLTIMO quadro do Z01a, olhos abertos): os olhos sobem até o alto do quadro, seguram, e descem até a lente. Código: a foto entra deslizando de cima e é pregada em 20,62; push-in 1,00→1,03; punch-in 1,00→1,06 em 3 quadros no 'gente'.",
+   "asset_tipo": "zimage+h3+arquivo_real",
+   "asset": "Z01 (mesmo still mestre) · H3 Z01c a partir do último quadro de Z01a: static camera, his eyes slowly rise to look up at the top of the frame, hold, then come back down to the lens. || + arquivo real: img/raw/tg1.jpg (921×586, DP)",
+   "tela_sabe_mais": "Nova York, 1922 · foto Francis Bruguière (a manchete 'robôs e humanos no mesmo palco' saiu: descrevia a foto)",
+   "ajuste_1710": "Ver K6_gente (ajuste 17/10): foto da Theatre Guild ATRAS da cabeca, 'ache os robôs.' no lugar da manchete descritiva; olhos em y~1112 (fora da faixa da legenda do Reels)."
+  },
+  {
+   "n": 16,
+   "t0": 22.03,
+   "t1": 22.84,
+   "fala": "A estreia foi em",
+   "familia": "cena gerada (noite)",
+   "visual": "Noite de estreia: rua de neve de cidade pequena, um casal de casacos de lã enorme no 1º plano, de costas e de perfil, indo para a porta quente de um teatro genérico (não é o Klicperovo). Sem texto.",
+   "movimento": "H3 Z10: neve cai, o casal anda, vapor da respiração. Flash de fim de rolo (1 quadro) em 22,03: virada do ato 2.",
+   "asset_tipo": "zimage+h3",
+   "asset": "Z10 · Cinematic vertical 9:16 photograph, dramatized reconstruction, a small Central European provincial town on a January evening around 1920. Snow is falling over a modest generic town theatre with warm glowing windows and an iron lantern above the entrance; in the foreground, large in the frame and seen from behind and in profile, a woman in a dark wool coat and fur hat and a man in a bowler hat and scarf walk toward the open door; a few other townspeople follow. Low shot from the snowy street. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, deep blue snowy dusk at blue hour, falling snow, warm gaslight as the only warm note, slate blue, pewter and wool black palette, gentle contrast with open shadows, breath visible in the cold air, Kodak Vision3 500T fine film grain, no bloom, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems. || H3: snow falls, the couple walks toward the warm doorway, breath steams.",
+   "tela_sabe_mais": ""
+  },
+  {
+   "n": 17,
+   "t0": 22.84,
+   "t1": 24.96,
+   "fala": "2 de janeiro de 1921,",
+   "familia": "intertítulo de neve",
+   "visual": "Intertítulo de neve: ombro de casaco de lã escura recebendo flocos, metade de cima céu azul de crepúsculo. A data se monta no céu, palavra por palavra, branco-giz: '2.' (Fixture Expanded Black ~300 px) em 22,90; 'LEDEN' (~200 px, janeiro em tcheco) em 23,72; '1921' (~240 px) em 24,55. Em 24,10 entra embaixo, sobre a lã, 'domingo' (64 px).",
+   "movimento": "H3 Z11: flocos caem e pousam na lã. Código: cada número entra no onset com corte de 2 quadros, sem deslizar; flocos do clipe passam POR CIMA do tipo (matte de luminância dos flocos).",
+   "asset_tipo": "zimage+h3",
+   "asset": "Z11 · Vertical 9:16 macro photograph, large snowflakes slowly falling and settling on the dark charcoal wool shoulder of a winter overcoat, the wool texture filling the lower half of the frame, a deep blue dusk sky in the upper half, a warm out-of-focus gaslight glow far behind at frame right, shallow depth of field, shot on ARRI Alexa 35 with vintage Cooke Panchro lenses, Kodak Vision3 500T fine film grain, no bloom, no teal and orange grade. No text, no letters, no numbers, no logos, no signs, no emblems. || H3: static camera, snowflakes fall and land on the wool.",
+   "tela_sabe_mais": "leden = janeiro; era domingo (1/1/1921 foi sábado)",
+   "ajuste_1710": "Ver K7_neve (ajuste 17/10): reenquadrado sem a cabeca no canto; data com topo abaixo de y 300."
+  },
+  {
+   "n": 18,
+   "t0": 24.96,
+   "t1": 26.58,
+   "fala": "na cidade de Hradec Králové,",
+   "familia": "arquivo como objeto",
+   "visual": "Cópia em papel da foto REAL do Klicperovo divadlo (noite, fachada acesa, recorte sem os carros) cai sobre a rua de neve desfocada. Acima, no céu azul, 'HRADEC KRÁLOVÉ' (Fixture Expanded Black ~140 px, 2 linhas, branco-giz); embaixo, 'Klicperovo divadlo · onde o grupo amador estreou a peça · foto atual' (44 px, 2 linhas). A justaposição é honesta: reconstituição genérica antes, prédio real de hoje agora.",
+   "movimento": "Código: queda com quique + push-in até ~1:1 (2560 px); neve viva atrás (clipe Z10 desfocado). Nome entra em 25,53 ('Hradec').",
+   "asset_tipo": "arquivo_real",
+   "asset": "img/raw/klicpera_hoje.jpg (2560×1920, DP, Boris7) + fundo Z10 desfocado",
+   "tela_sabe_mais": "nome do teatro, foto atual"
+  },
+  {
+   "n": 19,
+   "t0": 26.58,
+   "t1": 27.5,
+   "fala": "com um grupo amador,",
+   "familia": "cena gerada (graça)",
+   "visual": "Camarim dos amadores: o padeiro com farinha nos braços puxa uma touca careca para virar robô, a moça empoa a bochecha dele, o professor de óculos abotoa a túnica ardósia; espelho de lâmpadas. Em 26,83 ('grupo') entra no espelho 'ochotníci = amadores · grupo Klicpera' (46 px, branco-giz).",
+   "movimento": "H3 Z12: a esponja bate, a nuvem de pó sobe, o padeiro ri e puxa a touca.",
+   "asset_tipo": "zimage+h3",
+   "asset": "Z12 · Cinematic vertical 9:16 photograph, dramatized reconstruction, the cramped backstage dressing room of a small amateur town theatre around 1920. A plump middle-aged baker with flour still on his forearms pulls a tight pale bald cap over his hair to look hairless, grinning, while a thin schoolteacher with round spectacles buttons up a plain slate-blue canvas tunic to a high collar behind him; a young woman dabs white face powder on the baker's cheek with a puff, a small cloud of powder in the air; a mirror framed with bare warm bulbs, the baker large in the frame, playful mood. Cold winter daylight from a small window at frame left as the key light. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems. || H3: the powder puff taps, a small cloud of powder rises, the baker laughs and tugs the cap down.",
+   "tela_sabe_mais": "ochotníci, grupo Klicpera"
+  },
+  {
+   "n": 20,
+   "t0": 27.5,
+   "t1": 28.88,
+   "fala": "porque o Teatro Nacional de Praga",
+   "familia": "arquivo como objeto",
+   "visual": "O desenho REAL da fachada do Národní divadlo (Josef Zítek) desce como folha grande de arquitetura sobre a plateia vazia desfocada. Em 28,54 ('Praga') 'PRAGA' (Fixture Expanded Black ~220 px, preto-lã) sobre o papel; crédito 'Národní divadlo · Teatro Nacional · fachada desenhada por Josef Zítek' (44 px).",
+   "movimento": "Código: a folha desce e assenta (27,55); em 28,70 ela sobe e sai por cima enquanto o fundo entra em foco (rack focus que já é o plano seguinte).",
+   "asset_tipo": "arquivo_real",
+   "asset": "img/raw/narodni_zitek.png (1872×1986, DP) + fundo Z13 desfocado",
+   "tela_sabe_mais": "Národní divadlo, Zítek"
+  },
+  {
+   "n": 21,
+   "t0": 28.88,
+   "t1": 29.74,
+   "fala": "só estrearia em",
+   "familia": "cena gerada",
+   "visual": "Plateia grandiosa VAZIA: veludo carmim desbotado, frisas douradas até o topo, cortina fechada, uma única lâmpada de serviço no proscênio. Genérica, não reconstrói o Národní. Sem texto.",
+   "movimento": "H3 Z13: lâmpada tremula de leve, a cortina balança. Código: push-in 1,00→1,03.",
+   "asset_tipo": "zimage+h3",
+   "asset": "Z13 · Cinematic vertical 9:16 photograph, a grand nineteenth-century opera house auditorium in winter, completely empty: rows of faded dark crimson velvet seats, gilded tiers of balconies rising to the top of the frame, a heavy closed stage curtain, and a single bare work-light bulb on a tall iron stand glowing alone on the stage apron; pale daylight leaking from a high side door at frame left, a few specks of dust in it. Wide symmetrical shot from the center aisle of the stalls. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black with faded crimson, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems. || H3: a few specks of dust drift, the bare bulb flickers faintly, the curtain sways slightly.",
+   "tela_sabe_mais": ""
+  },
+  {
+   "n": 22,
+   "t0": 29.74,
+   "t1": 30.86,
+   "fala": "25 de janeiro.",
+   "familia": "intertítulo de geada",
+   "visual": "Intertítulo de geada nº 2 (outra semente de Z07, outro desenho de cristal): no vidro limpo, '25.' (~300 px) em 29,81 e 'LEDEN' (~200 px) em 30,61; entre eles, em 30,25, '+23 dias' (64 px).",
+   "movimento": "H3 Z07 (semente B): a geada cresce. Código: entradas no onset em 2 quadros.",
+   "asset_tipo": "zimage+h3",
+   "asset": "Z07 (semente B, outro desenho) · mesmo prompt da cena 10 || H3: static camera, the frost crystals slowly grow inward across the glass.",
+   "tela_sabe_mais": "+23 dias"
+  },
+  {
+   "n": 23,
+   "t0": 30.86,
+   "t1": 32.76,
+   "fala": "A palavra engoliu termos mais velhos,",
+   "familia": "avalanche em código",
+   "visual": "Avalanche na mesa do escritor (Z03 desfocado): 8–10 tiras de papel com os termos antigos em várias línguas ('automaton', 'Automat', 'automate', 'automa', 'autómata', 'android', 'Androide', 'androïde') chovem e se empilham, palavras de 60–110 px em preto-lã Fixture. Em 31,44 ('engoliu') o livro R.U.R. (capa real) cai por cima e cobre a pilha.",
+   "movimento": "Código: chuva de papel com física (rotação, atrito, sombra para a direita) a partir de 30,89; o livro bate em 31,44 com sopro de pó e tremor de 3%; a pilha escorrega por baixo até 32,70.",
+   "asset_tipo": "codigo",
+   "asset": "código (PIL ou HTML→PNG) + img/raw/capa1920.png + fundo Z03 desfocado",
+   "tela_sabe_mais": "os termos em 7 línguas"
+  },
+  {
+   "n": 24,
+   "t0": 32.76,
+   "t1": 33.6,
+   "fala": "como autômato",
+   "familia": "arquivo como objeto",
+   "visual": "A gravura REAL do Turco enxadrista (armário aberto) escorrega de baixo do livro a 1:1 (600 px). Acima, 'AUTÔMATO' (Fixture Expanded Black ~150 px); embaixo, 'o Turco (1770) escondia um enxadrista humano · gravura de 1789' (44 px, 2 linhas).",
+   "movimento": "Código: desliza de baixo do livro e para; push 3%; fundo vivo.",
+   "asset_tipo": "arquivo_real",
+   "asset": "img/raw/turco.jpg (600×513, DP, Racknitz 1789)",
+   "tela_sabe_mais": "o Turco tinha gente dentro (a piada da peça antes da peça)"
+  },
+  {
+   "n": 25,
+   "t0": 33.6,
+   "t1": 34.44,
+   "fala": "e androide,",
+   "familia": "arquivo como objeto",
+   "visual": "O cartão-postal REAL do Escritor de Jaquet-Droz desliza por cima e ocupa ~90% da largura. 'ANDROIDE' (~150 px) e 'o Escritor, de Jaquet-Droz, séc. XVIII · “androides” em inglês desde 1728' (44 px, 2 linhas).",
+   "movimento": "Código: entra deslizando sobre o Turco e pousa; push 3%.",
+   "asset_tipo": "arquivo_real",
+   "asset": "img/raw/jaquet1.jpg (1200×1654, cartão-postal, Gallica btv1b53158563h, DP)",
+   "tela_sabe_mais": "1728"
+  },
+  {
+   "n": 26,
+   "t0": 34.44,
+   "t1": 36.62,
+   "fala": "e o robô de lata e engrenagem que a gente imagina",
+   "familia": "cena gerada",
+   "visual": "Robô de lata de corda andando na mesa até a câmera, enorme nos 2/3 de baixo, pintura ardósia fosca e lascada, chave de latão girando, engrenagens no buraco do peito. Sem texto e sem data: é o robô da imaginação, gerado.",
+   "movimento": "H3 Z14: anda duro, a chave gira. Código: em 35,39 ('engrenagem') punch-in rápido 1,0→1,6× no buraco do peito em 4 quadros.",
+   "asset_tipo": "zimage+h3",
+   "asset": "Z14 · Cinematic vertical 9:16 photograph, a 1930s wind-up tin toy robot with a boxy riveted body, chipped matte slate-blue paint, round glass eyes and a big brass winding key in its back, walking toward the camera across a pale scrubbed wooden table beside a frosted window at frame left, small brass gears visible through a round hole in its chest, worn and matte, nothing chrome. Low macro shot at table level, the toy filling the lower two thirds of the frame. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems. || H3: the toy walks stiffly toward the camera, the key turns, the gears spin.",
+   "tela_sabe_mais": ""
+  },
+  {
+   "n": 27,
+   "t0": 36.62,
+   "t1": 37.55,
+   "fala": "veio depois.",
+   "familia": "arquivo como objeto",
+   "visual": "Foto REAL do Televox a 1:1 (661 px) cai sobre o clipe do robô de lata desfocado. '1928' (Fixture Expanded Black ~240 px, preto-lã) acima e 'Televox, Westinghouse · foto de 1928, 7 anos depois da estreia' (44 px).",
+   "movimento": "Código: queda e pouso, fundo vivo. Flash de fim de rolo (1 quadro) em 37,55: virada para o epílogo.",
+   "asset_tipo": "arquivo_real",
+   "asset": "img/raw/televox1928.jpg (661×615, DP, Acme/NEA)",
+   "tela_sabe_mais": "1928, Westinghouse"
+  },
+  {
+   "n": 28,
+   "t0": 37.55,
+   "t1": 38.84,
+   "fala": "Ou seja, o robô já",
+   "familia": "herói (clipe)",
+   "visual": "Volta o ECU do herói (still mestre Z01), olhando a lente; atrás da cabeça, de novo, 'ROBÔ' (~300 px, mesma posição do 1º quadro). Em 38,38 ('robô') ele baixa os olhos para as próprias mãos, fora do quadro.",
+   "movimento": "H3 Z01b (gerado do último quadro de Z01a): olhar na lente, depois os olhos descem devagar para baixo do quadro e o rosto fica sério. Código: push-in 1,00→1,03; o corte para o plano 29 é raccord de olhar (ele olha para baixo, corta para as mãos).",
+   "asset_tipo": "zimage+h3",
+   "asset": "Z01 (mesmo still mestre) · H3 Z01b a partir do último quadro de Z01a: static camera, he holds the gaze, then slowly lowers his eyes to his hands below the frame, his face turning serious.",
+   "tela_sabe_mais": ""
+  },
+  {
+   "n": 29,
+   "t0": 38.84,
+   "t1": 40.28,
+   "fala": "nasceu com cara de escravo...",
+   "familia": "documento na cena",
+   "visual": "As mãos do robô seguram a página REAL 'OSOBY' (elenco) da 1ª edição, composta na folha em branco. A câmera desce pela lista (ROBOT PRIMUS, ROBOTKA HELENA) e empurra até a linha 'Robotský sluha' encher a largura em 39,68 ('escravo'). Embaixo, 'sluha = criado · elenco da 1ª edição, Praga, 1920' (48 px). O robô segura a própria lista de elenco, onde já está escrito o que ele é.",
+   "movimento": "Código sobre o still: push-in 1,0→2,6× até o nativo de 2097 px da página; respiração ±0,5% de escala a 0,3 Hz nas mãos e na página juntas (nunca parado).",
+   "asset_tipo": "zimage+arquivo_real",
+   "asset": "Z16 · Cinematic vertical 9:16 photograph, dramatized reconstruction inspired by a 1920s Czech stage play. Close-up of two smooth pale hairless hands with slate-blue heavy canvas cuffs holding one large blank sheet of aged off-white paper upright at chest height, the sheet square to the camera and filling most of the frame, perfectly clean, nothing printed on it, thumbs at the lower corners, the soft blurred chest of the slate-blue canvas tunic and dark leather belt behind. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems. || + arquivo real: img/raw/cz1920_8.jpg (2097×3281, archive.org rurrossumsuniver00apekuoft, DP)",
+   "tela_sabe_mais": "Robotský sluha, sluha = criado",
+   "ajuste_1710": "Ver K8_sluha (ajuste 17/10): 'sluha = criado' 80 px na coluna da pagina."
+  },
+  {
+   "n": 30,
+   "t0": 40.28,
+   "t1": 43.0,
+   "fala": "mas tem um povo inteiro que virou sinônimo de destruição,",
+   "familia": "documento na cena",
+   "visual": "No ateliê de inverno, a pintura REAL de Briullov (O saque de Roma) composta na tela grande encostada na parede, em cor plena: a única explosão de cor quente do filme. Começa no quadro inteiro e atravessa a pintura da esquerda para a direita (a multidão no 'povo', 40,72); em 42,25 ('destruição') punch-in no saque. Crédito: 'Karl Briullov · Genserico saqueia Roma · pintura de 1836' (44 px) e, em 41,52, 'ROMA · 455' (Fixture Expanded Black ~120 px, preto-lã) na parede caiada acima da tela. A palavra do próximo episódio NÃO aparece.",
+   "movimento": "H3 Z17 câmera travada: a luz da janela escurece e volta com uma nuvem; a tela não se mexe (homografia fixa). Código: pan horizontal 40,58→42,10 e punch-in 1,4× em 42,25.",
+   "asset_tipo": "zimage+h3+arquivo_real",
+   "asset": "Z17 · Cinematic vertical 9:16 photograph, a painter's studio in Prague in winter around 1920. A huge unframed stretched canvas in landscape orientation leans against a whitewashed wall, its surface completely blank and pale, square to the camera and filling most of the frame width, a wooden stepladder and a bucket of brushes beside it, a tall window at frame left throwing pale winter daylight across the canvas, snow outside. Cinematic film still from a prestige European period drama, shot on ARRI Alexa 35 with vintage Cooke Panchro spherical lenses, bright high-key overcast winter daylight from a tall window at frame left as the single key light, white snow bounce filling the shadows, airy luminous interior in the manner of a Vilhelm Hammershoi painting, muted palette of chalk white, pewter grey, slate blue and wool black, one small warm tungsten practical as the only warm note, soft gentle contrast with open luminous shadows, natural skin texture, Kodak Vision3 250D fine film grain, no bloom, no haze, no teal and orange grade, shallow depth of field. No text, no letters, no numbers, no logos, no signs, no emblems. || H3: locked-off camera, the window light slowly dims and returns as a cloud passes, the canvas does not move. || + arquivo real: img/raw/briullov.jpg (2560×1903, DP)",
+   "tela_sabe_mais": "Roma, 455, Briullov 1836 (pista sem dizer a palavra)"
+  },
+  {
+   "n": 31,
+   "t0": 43.0,
+   "t1": 45.4,
+   "fala": "e essa fica pra outro dia.",
+   "familia": "herói (clipe, loop)",
+   "visual": "Volta o ECU do 1º plano: o robô olha a lente com 'ROBÔ' atrás da cabeça. Em 44,13 ('dia') os olhos fecham; 'ROBÔ' sai em 44,60. Cauda de 0,7 s nos olhos fechados, idêntica ao quadro 0: o loop fecha.",
+   "movimento": "H3: o MESMO clipe Z01a tocado ao contrário (os olhos fecham). Por isso Z01 não pode ter neve, pó nem nada que se mexa além do rosto. Código: último quadro = quadro 0 (bit a bit antes do grão; o grão continua vivo).",
+   "asset_tipo": "zimage+h3",
+   "asset": "Z01 · clipe Z01a invertido",
+   "tela_sabe_mais": ""
+  }
+ ],
+ "quadros_chave": [
+  {
+   "id": "K1_olho",
+   "t": 0.3,
+   "descricao": "ECU do robo de carne (Z01v2_half): parede ardosia funda, janela fora do quadro a esquerda; lado esquerdo do rosto na luz, lado direito cai para sombra ardosia. Sem sobrancelha, palpebras avermelhadas, olhar para a janela. 'ROBÔ' Fixture Expanded Black 262 px branco-giz, base y 652, o cranio (matte GrabCut) cobre a base do O e do B. Push 1,2x sem a vidraca clara.",
+   "descricao_v1": "ECU do robô de carne em 1080×1920: cabeça e ombros ocupam y 640–1920, rosto a 3/4 virado para a janela da esquerda (luz branca de neve no lado esquerdo do rosto, sombra aberta ardósia no direito), olhos meio abertos. Parede ardósia média #46576A lisa em cima. 'ROBÔ' em Fixture Expanded Black ~300 px, branco-giz, centrado em y 260–560, com a base do Ô coberta pelo crânio. Nada mais no quadro. Grão fino, sem glow.",
+   "styleframe": "frames/f01.png"
+  },
+  {
+   "id": "K2_capa",
+   "t": 2.9,
+   "descricao": "Mesa de carvalho VISTA DE CIMA (Z03v3), faixas diagonais de luz da janela. Capa REAL da 1a edicao (scan cz1920_2, sem distorcer) num livro retrato de 560 px (0,28x do nativo), girado -1,2 graus, sombra dura para a direita, os dedos do escritor por cima da borda de baixo. '1920' Fixture Expanded Black 236 px preto-la deitado na mesa acima do livro (topo y~298), recebendo as faixas de luz; credito '1ª edição · Aventinum, Praga' 48 px preso a aresta de cima da capa.",
+   "descricao_v1": "Mesa de carvalho claro vista de 3/4 alto, janela congelada à esquerda com neve caindo. A capa REAL de R.U.R. 1920 (escada R/U/R, marrom) enche ~75% da largura no centro, iluminada pela esquerda, com o gradiente da janela por cima. '1920' em Fixture Expanded Black ~260 px, preto-lã, deitado na perspectiva da mesa acima do livro (y≈300). Crédito 'capa da 1ª edição · Aventinum, Praga, 1920' 46 px embaixo do livro (y≈1450). Máquina de escrever desfocada à direita, lâmpada de latão como única nota quente.",
+   "styleframe": "frames/f02.png"
+  },
+  {
+   "id": "K3_atelie",
+   "t": 6.2,
+   "descricao": "Ateliê de inverno (Z04v2): Josef de costas, pincel atravessado na boca. Na tela grande, 'ROBOTI' numa linha so, na diagonal, tinta a oleo (Fixture Condensed Black ~250, homografia no plano da tela, relevo, trama da tela por baixo): ROBOT pronto e o I pela metade, molhado, com o pincel em cima. Na parede: 'LABOŘI' a carvao riscado por um traco limpo (sem passar no hacek), '1ª ideia de Karel' 56 px e 'Josef respondeu de pincel na boca' 44 px.",
+   "descricao_v1": "Ateliê de inverno: pintor de costas no terço esquerdo-baixo, pincel atravessado na boca, braço estendido para a tela nua que ocupa a metade direita. Na parede do terço de cima, 'LABOŘI' ~130 px preto-lã cortado por um traço de carvão, e abaixo '1ª ideia de Karel · achou “meio de papel”' 46 px. Na tela, 'ROBOTI' ~200 px em tinta a óleo preto-lã já pintado até o T, com crista de tinta e sombra de relevo. Janela de neve à esquerda, estufa quente ao fundo.",
+   "styleframe": "frames/f03.png"
+  },
+  {
+   "id": "K4_patent",
+   "t": 10.4,
+   "descricao": "Quadro de avisos de tabuas na aldeia ao amanhecer (Z05v2), as duas bordas das tabuas no quadro (push 1,12x). O Robott-Patent REAL de 1738 inteiro, sem esticar, pregado por 3 pregos em cima; a luz rasante e as sombras dos pregos do papel gerado passam para o documento. 'decreto de 1738' 64 px + 'a robota no reino da Boêmia' 44 px branco-giz na madeira, presos a aresta de cima do papel. Sem castelo.",
+   "descricao_v1": "Close do mourão de madeira ao amanhecer com o Robott-Patent REAL de 1738 pregado por 4 pregos; o push-in já está em ~1,8×: o título fraktur 'Robott-PATENT' em ouro velho e preto enche a largura do quadro, sol rasante da esquerda desenhando a sombra de cada prego e o relevo do papel. Atrás, desfocado, campo com neve velha e o castelo pálido no morro. Crédito em 2 linhas 46 px, branco-giz, sobre a madeira escura embaixo (y≈1380).",
+   "styleframe": "frames/f04.png"
+  },
+  {
+   "id": "K5_geada",
+   "t": 14.7,
+   "descricao": "Vidraca com geada de samambaia (Z07v2), no vidro limpo o crepusculo e um servo curvado puxando a carga na neve. 'RAB' 320 px preto-la no ceu, cristais por cima so das pontas; 'rabŭ, eslavo antigo: escravo' 50 px logo abaixo. Abaixo do servo, a cadeia desce em escala: RABOTA 100 / ROBOTA 86 / ROBOT 74. Caminho do olho: RAB > servo > ROBOT.",
+   "descricao_v1": "Vidraça congelada em tela cheia: samambaias de gelo brancas crescendo das 4 bordas, centro limpo mostrando crepúsculo ardósia desfocado. 'RAB' em Fixture Expanded Black ~320 px branco-giz no vidro limpo (y 620–940), e embaixo, empilhadas, 'rabŭ · eslavo antigo · escravo' e 'rabota · robota · robot' a 52 px. Os cristais das bordas passam por cima das pontas das letras.",
+   "styleframe": "frames/f05.png"
+  },
+  {
+   "id": "K6_gente",
+   "t": 21.6,
+   "descricao": "ECU do heroi olhando a lente (Z01v2_open), olhos em y~1112. A copia em papel da foto REAL da Theatre Guild (0,8x do nativo) pregada na parede ATRAS da cabeca: o cranio cobre o pe da foto e faz sombra nela. Acima, presos a borda esquerda da foto: 'ache os robôs.' 68 px e 'Nova York, 1922 · foto Francis Bruguière' 44 px. Nao rotulamos quem e quem (a legenda original nao diz).",
+   "descricao_v1": "Layout de criador dentro do filme: ECU do herói na metade de baixo (y 960–1920), olhos acabando de descer para a lente. Na parede ardósia acima, a cópia em papel da foto REAL da Theatre Guild a 1:1 (921×586 px, y 260–846), pregada com 2 tachas e sombra dura para a direita: robôs de uniforme e humanos diante de janelões quadriculados. 'robôs e humanos no mesmo palco' 52 px acima da foto (y≈190), crédito 44 px logo abaixo dela. O olho vai foto → rosto → lente.",
+   "styleframe": "frames/f06.png"
+  },
+  {
+   "id": "K7_neve",
+   "t": 24.8,
+   "descricao": "Ombro de casaco de la com neve (Z11_2101 reenquadrado 1,15x, sem a cabeca de gorro no canto), poste quente desfocado no alto a direita. '2.' 300 / 'LEDEN' 200 / '1921' 240 branco-giz empilhados a esquerda, topo em y~345; 'domingo' 68 px. Flocos-pipoca encolhidos e amaciados em codigo.",
+   "descricao_v1": "Metade de baixo: ombro de casaco de lã carvão com flocos pousando, textura de lã nítida. Metade de cima: céu de crepúsculo azul-ardósia com brilho quente de lampião desfocado à direita. Montado no céu, em branco-giz Fixture Expanded Black: '2.' ~300 px, 'LEDEN' ~200 px, '1921' ~240 px, empilhados à esquerda (x 80), com flocos passando por cima das letras. 'domingo' 64 px sobre a lã (y≈1420).",
+   "styleframe": "frames/f07.png"
+  },
+  {
+   "id": "K8_sluha",
+   "t": 39.9,
+   "descricao": "As maos do robo seguram a pagina REAL OSOBY (2,45x): a lista desce ate 'ROBOTSKÝ SLUHA'. 'sluha = criado' 80 px + 'elenco da 1ª edição, Praga, 1920' 46 px alinhados a coluna de texto da propria pagina. Luz da janela cai da esquerda para a direita sobre a pagina; dedo com matte na resolucao do quadro e sombra macia.",
+   "descricao_v1": "As mãos lisas e pálidas do robô, punhos ardósia, seguram a página REAL OSOBY (papel off-white da 1ª edição) que já está ampliada a ~2,4×: a linha 'Robotský sluha' atravessa o quadro em ~900 px de largura no centro, letras impressas nítidas com a textura do papel, polegares nos cantos de baixo, cinto de couro desfocado atrás. Luz da janela da esquerda caindo em gradiente sobre a página. 'sluha = criado · elenco da 1ª edição, Praga, 1920' 48 px preto-lã na margem de baixo da página (y≈1400).",
+   "styleframe": "frames/f08.png"
+  }
+ ],
+ "honestidade": [
+  "Gerado nunca leva data, crédito nem rótulo de época; o herói é personagem de ficção. Os Čapek só aparecem com rosto nas fotos reais (o pintor gerado fica de costas; o escritor gerado é só mãos).",
+  "Teatros e cidade gerados são genéricos; o Klicperovo aparece só na foto real 'atual'.",
+  "Très Riches Heures = 'França, c. 1412–16', nunca Boêmia. A foto de 1927 não aponta quem é Karel e quem é Josef.",
+  "A citação de 1933 leva a fonte da FALA (Lidové noviny), não da imagem.",
+  "Antes do render, entrar no FATOS_E_CREDITOS: Turco 1770 com operador escondido (en.wikipedia The Turk), Josef irmão mais velho e pintor, Jaquet-Droz séc. XVIII, 'achou meio de papel' (cs.wikiquote Robot), cartaz ROBOTS no cenário de Paris (conferir no recorte), atribuições CC BY (parafuso, Wellcome).",
+  "Downloads novos (SVG da assinatura) só pela thumb.php do Commons, UA genérico, sem e-mail, 8 s entre pedidos.",
+  "Ajuste 17/10: o castelo gerado saiu do K4 (logo abaixo de 'reino da Boêmia' insinuava um castelo real). Fundo = campo de neve e arvores genericas.",
+  "Ajuste 17/10: o pintor gerado nao recebe rotulo 'Josef' (seria uma imagem gerada se passando por retrato). Quem ele e vem da anedota contada pelo proprio Karel ('Josef respondeu de pincel na boca'); o rosto real do Josef continua so na foto de 1937 (cena 6). O Z04v2 mostra perfil perdido (bochecha, ponta do nariz), nao retrato.",
+  "Ajuste 17/10: 'ache os robôs.' nao aponta quem e robo na foto da Theatre Guild: a legenda original (Commons, 'Act 1') nao identifica os atores. O distintivo triangular no peito de dois atores esta na foto; nao afirmamos o que significa.",
+  "Ajuste 17/10: o Robott-Patent entra INTEIRO e sem esticar (aspecto real 2248x3543); os 2 pregos de baixo do papel gerado sairam porque caiam sobre 'De Anno 1738' e liam como letra. A capa de 1920 tambem entra sem distorcao (vista de cima)."
+ ],
+ "riscos": [
+  "Herói: Z01 é o único rosto; Z02/Z09 dependem da silhueta (careca, sem sobrancelha, túnica ardósia, cinto). Se o Z-Image virar manequim ou ciborgue, trocar a semente; se Z02/Z09 não baterem, enquadrar de costas/perfil.",
+  "Homografia de documento em clipe H3: só em clipes de câmera travada, validar deriva com ECC; plano B = still com push em código e o clipe só no fundo.",
+  "Z-Image escrevendo lixo em áreas 'em branco' (livro, folha, tela, mourão): escolher a semente limpa; a composição cobre a área.",
+  "Upscale 448→1080 pode amolecer a pele dos closes; se amolecer, usar o still Z01 nítido com máscara nos olhos sobre o clipe.",
+  "Ritmo: 31 planos em 45 s; se ele achar picado, juntar 8+9, 24+25 e 26+27."
+ ],
+ "ajuste_1710": {
+  "fonte": "ajustes.txt (o que mudou, o que foi ignorado e por que)",
+  "imagens_zimage_novas": 8,
+  "prancha": "prancha.jpg (v1 guardada em frames_v1/prancha_v1.jpg)",
+  "scripts": [
+   "_build/frames3.py (K1, K2, K6 + junta tudo)",
+   "_build/k3v2.py",
+   "_build/k4v2.py",
+   "_build/k5v2.py",
+   "_build/k78v2.py",
+   "_build/hero_fix.py",
+   "_build/hero_matte.py",
+   "_build/prancha.py"
+  ]
+ }
+}

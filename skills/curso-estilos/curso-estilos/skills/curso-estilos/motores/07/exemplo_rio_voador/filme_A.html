@@ -1,0 +1,120 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0;background:#000}canvas{display:block}</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script src="../motor/motor.js"></script><script src="cenas.js"></script>
+<script>
+// FILME A: "A gota que bateu nos Andes". Uma gota só, começando pelo meio. Os tempos vêm das palavras da narração (53,7 s).
+// A arte (placas e sprites) não vem no pacote: ponha a sua em arte/placas e arte/sprites com estes nomes, ou veja rodar com os substitutos.
+const PL = 'arte/placas/', SP = 'arte/sprites/';
+const placas = {}; Object.entries({ andes: 'andes', raiz: 'raiz', elev: 'elevador', cano: 'cano', copo: 'copo', rio: 'rio', esto: 'estomato', dossel: 'dossel', mapa: 'mapa', sp: 'sao_paulo' }).forEach(([k, f]) => placas[k] = PL + f + '.png');
+const sprites = {}; ['pose_04', 'pose_06', 'pose_07', 'pose_08', 'oxi_00', 'oxi_04', 'oxi_06', 'oxi_08', 'oxi_09', 'fam_03', 'fam_04', 'fam_05', 'fam_06', 'fam_07', 'fam_08', 'fam_09', 'fam_10', 'fam_11', 'prop_04', 'frente_04',
+  'ox5_00', 'ox5_01', 'ox5_02', 'ox5_04', 'ox5_05', 'ox5_06'].forEach(k => sprites[k] = SP + k + '.png');
+iniciar(placas, sprites);
+window.END = 55.5;
+// ---- A1/A6: paredão dos Andes. Trombada (4,77) e, na volta, quique e descida (38–43,5)
+function andes(t, fase) {
+  const tSlam = fase === 1 ? 4.77 : 38.0;
+  const z = fase === 1 ? kf(t, [[0, 1.0], [4.6, 1.25], [4.77, 1.45, eo], [7.3, 1.55]]) : kf(t, [[37.9, 1.45], [40.5, 1.5], [41.5, 1.25], [43.4, 1.15]]);
+  const cyc = fase === 1 ? .45 : kf(t, [[37.9, .45], [41.5, .5], [43.4, .78]]);
+  const shake = t > tSlam && t < tSlam + .45 ? wob(t, 24, .006) * (1 - seg(t, tSlam, tSlam + .45)) : 0;
+  plate('andes', { cx: (fase === 1 ? kf(t, [[0, .35], [4.77, .55]]) : .55) + shake, cy: cyc, z });
+  const [wx, wy] = P(.6, .44);
+  if (t < tSlam) { // voa da esquerda pro paredão, acelerando
+    const f = fase === 1 ? seg(t, 0, tSlam) : seg(t, 37.3, tSlam), [x0, y0] = P(.05, .52);
+    spr('oxi_08', lerp(x0, wx - 160, ei(f) * .7 + f * .3), lerp(y0, wy, f) + wob(t, 1.2, 14), 360, { ay: .5, rot: .15, sx: 1 + .25 * f, sy: 1 - .12 * f });
+    for (let i = 0; i < 5; i++) spr('fam_0' + (4 + i % 3), lerp(x0, wx - 160, ei(f) * .7 + f * .3) - 120 - i * 70, lerp(y0, wy, f) + (i % 2 ? 30 : -30), 110 - i * 12, { ay: .5, a: .5 - i * .08 });
+  } else if (fase === 1 || t < 40.6) { // amassado no paredão, careta, chips de gelo
+    const s = t - tSlam; spr('ox5_04', wx - 70, wy + 30 + Math.min(s, 2.5) * 18, 330, { ay: .5, sx: .9 + .1 * spring(s, 2, 4), rot: -1.2 });
+    for (let i = 0; i < 10 && s < 1.4; i++) { const g = seg(s, 0, 1.2); X.fillStyle = `rgba(220,245,255,${1 - g})`; const a = rnd(i) * 6.28; X.beginPath(); X.arc(wx - 60 + Math.cos(a) * 260 * eo(g), wy + Math.sin(a) * 220 * eo(g) + 200 * g * g, 9, 0, 7); X.fill(); }
+    if (fase === 1 && t > 6.9) { X.save(); X.globalAlpha = .55 * seg(t, 6.9, 7.2); X.fillStyle = '#1a1050'; X.fillRect(0, 0, W, H); X.restore(); } // congela
+  } else { // fase 2: quica tonto (40,6) e desce pro sul seguindo a fita (41,5)
+    const s = seg(t, 40.6, 41.4), d = seg(t, 41.5, 43.3);
+    if (t < 41.5) spr('ox5_05', wx - 160 - 200 * eo(s), wy + 40 - 120 * Math.sin(s * Math.PI), 300, { ay: .5, rot: wob(t, 3, .2) });
+    else { const [ex, ey] = P(.15, .95); spr('oxi_08', lerp(wx - 360, ex, io(d)), lerp(wy + 40, ey, io(d)), 300 * (1 - .4 * d), { ay: .5, rot: .4 * d, sx: 1 + .3 * Math.sin(d * Math.PI) }); }
+  }
+}
+// ---- A2: na terra, debaixo da castanheira (9,1–14,9)
+function raiz(t) {
+  plate('raiz', { cx: .47, cy: kf(t, [[8.9, .5], [13.6, .6], [14.9, .55]]), z: kf(t, [[8.9, 1.2], [13.6, 1.75, io], [14.9, 2.2, ei]]) });
+  const [x, y] = P(.47, .655);
+  if (t < 13.75) spr('ox5_01', x, y, 230, { ay: .9, sy: 1 + wob(t, .45, .04) });
+  else if (t < 14.15) spr('oxi_06', x, y - 30 * eo(seg(t, 13.75, 13.95)), 240, { ay: .9, sy: 1 + .1 * (1 - spring(t - 13.75)) });
+  else { const s = seg(t, 14.15, 14.9); const [rx, ry] = P(.36, .5); spr('ox5_00', lerp(x, rx, ei(s)), lerp(y, ry, ei(s)), 300 * (1 + .4 * s), { ay: .9, rot: -.5 * s }); }
+}
+// ---- A3: elevador do tronco (14,9–20,6)
+function elevador(t) {
+  const f = io(seg(t, 15.0, 20.2)); plate('elev', { cx: .5, cy: lerp(.86, .14, f), z: 1.3 });
+  for (let i = 0; i < 6; i++) { const g = ((t * .18 + i / 6) % 1); wspr('oxi_00', .5 + wob(t, .4, .01, i), lerp(.85, .1, g), .022, { ay: .5, a: .7 }); }
+  const [x, y] = P(.5, lerp(.86, .14, f) + .02); const vel = Math.sin(seg(t, 15.0, 20.2) * Math.PI);
+  spr('ox5_00', x, y, 340 * (1 + .2 * vel), { ay: .5, sx: 1 - .15 * vel });
+  etiqueta(t, 16.0, 20.2, 270, 760, 120, '40 metros', 'da raiz até a folha', { rot: -.05 });
+}
+// ---- A5: floresta inteira → rio do céu (24,7–33,1)
+function floresta(t) { cenaDossel(t, 24.4, 24.8, 30.0); etiqueta(t, 27.2, 30.2, 540, 600, 190, '20 bilhões', 'de toneladas por dia', { bg: '#9CF4FF' }); }
+function rioCeu(t) {
+  cenaRioCeu(t, { cx: kf(t, [[30.2, .62], [33.0, .5], [35.2, .5], [37.0, .2]]), cy: kf(t, [[30.2, .16], [32.2, .34], [33.0, .3], [35.2, .2]]), z: kf(t, [[30.2, 1.45], [32.2, 1.0], [33.0, 1.05], [35.2, 1.3], [37.0, 1.6]]) }, () => {
+    const a = pop(t, 31.0); if (a > 0) { const [x, y] = P(.62, .19); sign(x, y, 140 * a, '20 bi t', 'no céu, por dia', { bg: '#FFFFFF' }); }
+    const b = pop(t, 31.6); if (b > 0) { const [x, y] = P(.42, .6); sign(x, y, 130 * b, '17 bi t', 'no rio, pro mar'); }
+    if (t > 33.0) { const f = ((t - 33.0) * .12 + .55) % 1; const [u, v] = path(RIB1, f); wspr('pose_06', u, v - .01, .06, { rot: wob(t, .8, .08), flip: 1 }); }
+  });
+}
+// ---- A7: mapa, Andes → sul (35,3–46,3)
+function mapa1(t) { cenaMapa(t, 35.3, 37.4, 99, 100, { cx: [[35.3, .55], [37.4, .28]], cy: [[35.3, .26], [37.4, .3]], z: [[35.3, 2.0], [37.4, 2.6]] }); }
+function mapa2(t) {
+  cenaMapa(t, 30, 31, 43.3, 46.2, { cx: [[43.3, .28], [46.2, .52]], cy: [[43.3, .36], [46.2, .52]], z: [[43.3, 1.9], [46.2, 1.7]] }, true);
+  const lab = [[43.72, .33, .4, 'Rondônia'], [44.44, .46, .46, 'Mato Grosso'], [45.48, .58, .52, 'Minas']];
+  lab.forEach(([t0, u, v, n]) => { const p = pop(t, t0); if (p > 0) { const [x, y] = P(u, v); sign(x, y - 40, 115 * p, n, '', { bg: '#FFFFFF' }); } });
+}
+// ---- A8: cano (49,7–52,2)
+const CANO = [[.15, .17], [.15, .32], [.15, .5], [.16, .66], [.24, .74], [.45, .745], [.68, .735], [.79, .8], [.8, .98]];
+function cano(t) {
+  const f = io(seg(t, 49.8, 52.0)); const [u, v] = path(CANO, f);
+  plate('cano', { cx: lerp(.3, .7, f), cy: v, z: 1.6 });
+  const [x1, y1] = P(u, v), [x2, y2] = P(...path(CANO, Math.min(1, f + .02))); let ang = Math.atan2(y2 - y1, x2 - x1); const fl = Math.cos(ang) < 0; if (fl) ang = ang - Math.PI;
+  spr('ox5_02', x1, y1, .085 * CAM.ph * sc(), { ay: .5, rot: ang, flip: fl });
+}
+// ---- A9: o copo (52,1–55,5)
+function copo(t) {
+  const z = kf(t, [[52.0, 1.2], [52.9, 1.25], [53.4, 1.45, back], [55.5, 1.5]]);
+  plate('copo', { cx: .52, cy: kf(t, [[52.0, .48], [52.9, .6], [55.5, .62]]), z });
+  const tap = P(.58, .42), gl = P(.5, .64);
+  if (t < 52.45) { const f = seg(t, 52.0, 52.45); spr('oxi_09', tap[0], lerp(tap[1], gl[1], ei(f)), 120, { ay: .5, sy: 1 + .4 * f }); }
+  else { const s = t - 52.45; const wl = P(0, .6)[1]; X.save(); X.beginPath(); X.rect(0, 0, W, wl + 40); X.clip();
+    spr('ox5_06', gl[0], gl[1] + 120 - 80 * eo(seg(s, 0, .5)), 300 * (1 + .1 * (1 - spring(s))), { ay: 1, rot: wob(t, 1.2, .05) }); X.restore();
+    for (let i = 0; i < 8 && s < 1; i++) { const g = seg(s, 0, .9); X.fillStyle = `rgba(200,240,255,${1 - g})`; X.beginPath(); X.arc(gl[0] + Math.cos(i * .8) * 140 * eo(g), wl - Math.sin(g * 3.14) * 90 * (.5 + rnd(i)), 10, 0, 7); X.fill(); }
+  }
+}
+// ---- rebobinar (7,6–9,2): A1 → rio do céu → copa → terra, de ré, rápido
+function rebobina(t) {
+  const s = seg(t, 7.55, 9.15);
+  if (s < .35) cenaRioCeu(t, { cx: lerp(.15, .7, s / .35), cy: lerp(.4, .05, s / .35), z: 1.6 });
+  else if (s < .7) plate('dossel', { cx: .5, cy: lerp(.4, .74, (s - .35) / .35), z: lerp(1.2, 3.4, (s - .35) / .35) });
+  else plate('raiz', { cx: .47, cy: lerp(.1, .5, (s - .7) / .3), z: 1.2 });
+  X.save(); X.globalAlpha = .25; X.fillStyle = '#9CF4FF'; for (let y = (t * 4000) % 24; y < H; y += 24) X.fillRect(0, y, W, 2); X.restore(); // linhas de rebobinar
+  X.save(); X.globalAlpha = .9; X.fillStyle = '#FFFFFF'; X.font = '900 90px "Segoe UI Black",sans-serif'; X.fillText('◀◀', 70, 180); X.restore();
+}
+window.render = t => {
+  if (t < 7.55) andes(t, 1);
+  else if (t < 9.15) rebobina(t);
+  else if (t < 14.75) raiz(t);
+  else if (t < 15.15) zoomThru(t, 14.75, 15.15, () => raiz(t), () => elevador(t), 380, 900);
+  else if (t < 20.45) elevador(t);
+  else if (t < 20.85) zoomThru(t, 20.45, 20.85, () => elevador(t), () => cenaEstomato(t, 20.6, 21.84, 23.52), 540, 300);
+  else if (t < 24.55) cenaEstomato(t, 20.6, 21.84, 23.52);
+  else if (t < 25.0) { const s = seg(t, 24.55, 25.0); if (s < .5) { cenaEstomato(t, 20.6, 21.84, 23.52); spr('oxi_08', 540, 660, lerp(500, 5200, ei(s * 2)), { ay: .5 }); } else { floresta(t); X.save(); X.globalAlpha = 1 - eo((s - .5) * 2); X.fillStyle = '#E6FFF9'; X.fillRect(0, 0, W, H); X.restore(); } }
+  else if (t < 30.0) floresta(t);
+  else if (t < 30.45) { const s = seg(t, 30.0, 30.45); if (s < .5) { floresta(t); spr('frente_04', 540, lerp(2400, 1000, eo(s * 2)), 2600, { ay: .5 }); } else { rioCeu(t); spr('frente_04', 540, lerp(1000, -600, eo((s - .5) * 2)), 2600, { ay: .5 }); } }
+  else if (t < 35.1) rioCeu(t);
+  else if (t < 35.5) mix(t, 35.1, 35.5, () => rioCeu(t), () => mapa1(t));
+  else if (t < 37.25) mapa1(t);
+  else if (t < 37.65) zoomThru(t, 37.25, 37.65, () => mapa1(t), () => andes(t, 2), 400, 960);
+  else if (t < 43.2) andes(t, 2);
+  else if (t < 43.6) mix(t, 43.2, 43.6, () => andes(t, 2), () => mapa2(t));
+  else if (t < 46.15) mapa2(t);
+  else if (t < 46.55) mix(t, 46.15, 46.55, () => mapa2(t), () => cenaSPCaixa(t, 46.4, 48.35));
+  else if (t < 49.55) cenaSPCaixa(t, 46.4, 48.35);
+  else if (t < 49.95) whip(t, 49.55, 49.95, () => cenaSPCaixa(t, 46.4, 48.35), () => cano(t), -1, 1);
+  else if (t < 51.95) cano(t);
+  else if (t < 52.25) whip(t, 51.95, 52.25, () => cano(t), () => copo(t), -1, 1);
+  else copo(t);
+};
+</script></body></html>

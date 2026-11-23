@@ -1,0 +1,15 @@
+{
+  "name": "curso-estilos-01-toon-pov",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Toon 3D em primeira pessoa (three.js): cubemap duplo, olho de peixe, contorno em pixel de saída. Demo: 3 s da porta do elevador abrindo.",
+  "scripts": {
+    "demo": "node render.mjs --pagina \"index.html?ss=1&cube=1024\" --video saida/demo.mp4 --ini 5 --fim 8 --qps 15 --largura 540",
+    "folha": "node render.mjs --pagina \"index.html?ss=1&cube=1024\" --tempos 0.5,5,9,12,13.5 --saida saida/folha.jpg --lt 360",
+    "filme": "node render.mjs --video saida/filme.mp4 --qps 30"
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}

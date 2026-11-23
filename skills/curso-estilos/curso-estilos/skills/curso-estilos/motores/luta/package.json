@@ -1,0 +1,16 @@
+{
+  "name": "curso-estilos-luta-2d",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Luta 2D em código (Canvas 2D puro, mesmo boneco do estilo 03). Demo: 3 s com um golpe forte e impact frame.",
+  "scripts": {
+    "demo": "node render.mjs --pagina lab_luta.html --video saida/demo.mp4 --ini 6.5 --fim 9.5 --qps 30 --largura 540",
+    "folha": "node render.mjs --pagina lab_luta.html --tempos 3.4,7.4,9,15.8,19.3,20.1 --saida saida/folha.jpg --lt 360",
+    "raiox": "node render.mjs --pagina \"lab_luta.html?folha\" --tempos 0 --saida saida/raiox.jpg --lt 1080",
+    "filme": "node render.mjs --pagina lab_luta.html --video saida/filme.mp4 --qps 60"
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}

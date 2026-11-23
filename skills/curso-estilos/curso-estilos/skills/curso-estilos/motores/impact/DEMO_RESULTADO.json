@@ -1,0 +1,1 @@
+{"passou": true, "comando": "npm install && npm run demo", "segundos_de_render": 7, "obs": "DEMO_CPU=1 (SwiftShader). Cena three.js minima com dois volumes, golpe em 1,3 s, impactFrame2 (4 desenhos) + hit-stop: saida/demo.mp4 540x960, 30 qps, 3 s, yuv420p, sem audio. Tambem testados: npm run folha e npm run gelo. Com o PC carregado chegou a 26 s."}

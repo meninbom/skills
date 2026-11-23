@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>Página em branco</title>
+<!-- GSAP = a biblioteca que anima. Não vem no pacote: o "npm install" baixa e o render copia para vendor/. Não mexa nesta linha. -->
+<script src="vendor/gsap.min.js"></script>
+<style>
+/* PÁGINA EM BRANCO: o mínimo que o render.mjs precisa para virar vídeo.
+   Copie esta pasta inteira com outro nome (ex.: minha_peca) e troque o que está marcado com TROQUE. */
+
+/* TROQUE (fonte): esta é a fonte que já vem no motor. Para usar outra, ponha o arquivo numa pasta fonts/ aqui dentro
+   e aponte o caminho (ex.: url("fonts/MinhaFonte.ttf")). Se o arquivo não for achado, entra a fonte do sistema. */
+@font-face{font-family:"Titulo";src:url("../kit_template/fonts/Bricolage.ttf") format("truetype");font-weight:200 800}
+
+/* TROQUE (cores): mude aqui e vale para a página toda. */
+:root{--fundo:#FAF8F3;--tinta:#1B1631;--cor1:#FF4FA3;--cor2:#3157FF;--cor3:#9ADB2A}
+
+*{margin:0;padding:0;box-sizing:border-box}
+/* --W e --H são a largura e a altura do quadro. Quem preenche é o bloco PALCO lá embaixo. */
+html,body{width:var(--W,1080px);height:var(--H,1920px);overflow:hidden;background:var(--fundo)}
+#root{position:relative;width:var(--W,1080px);height:var(--H,1920px);overflow:hidden;background:var(--fundo);
+  font-family:"Titulo","Segoe UI",Arial,sans-serif;color:var(--tinta)}
+.forma{position:absolute}
+#bola{border-radius:50%;background:var(--cor1)}
+#barra{border-radius:999px;background:var(--cor2)}
+#quadrado{background:var(--cor3)}
+#titulo{position:absolute;white-space:nowrap;font-weight:800;line-height:1;letter-spacing:-0.03em}
+#legenda{position:absolute;white-space:nowrap;font-weight:500;line-height:1;opacity:.7}
+</style>
+</head>
+<body>
+<!-- A RAIZ: tudo o que aparece no vídeo fica aqui dentro.
+     data-duration = quantos segundos o vídeo tem (TROQUE junto com DUR lá embaixo; os dois têm de ser iguais).
+     data-width e data-height são preenchidos sozinhos pelo bloco PALCO. -->
+<div id="root" data-composition-id="main" data-start="0" data-duration="4" data-width="1080" data-height="1920" data-fps="30">
+  <!-- TROQUE (elementos): ponha aqui as suas formas, imagens e textos. Cada um com um id para animar depois. -->
+  <div class="forma" id="bola"></div>
+  <div class="forma" id="barra"></div>
+  <div class="forma" id="quadrado"></div>
+  <div id="titulo">Seu título aqui</div>
+  <div id="legenda">troque este texto</div>
+</div>
+
+<script>
+(function(){
+/* ===================== PALCO (tamanho do quadro) =====================
+   BASE = o tamanho quando você não diz nada: 1080 de largura por 1920 de altura (vídeo em pé).
+   Outro tamanho chega pelo comando de render:  --vw 1920 --vh 1080  (vídeo deitado).
+   O render passa isso para a página como  index.html?w=1920&h=1080  e este bloco lê.
+   Não apague este bloco: sem ele a página só sai em 1080 por 1920. */
+const BASE={w:1080,h:1920};
+const _url=new URLSearchParams(location.search);
+const PALCO={w:parseInt(_url.get('w'),10)||BASE.w,h:parseInt(_url.get('h'),10)||BASE.h};
+document.documentElement.style.setProperty('--W',PALCO.w+'px');
+document.documentElement.style.setProperty('--H',PALCO.h+'px');
+{ const r=document.getElementById('root'); r.dataset.width=PALCO.w; r.dataset.height=PALCO.h; }
+window.__palco=PALCO;                 // o render confere este valor
+
+/* ===================== MEDIDAS =====================
+   Para a mesma página servir em pé e deitada, nada aqui usa número fixo de tela:
+   L = largura do quadro, A = altura, U = régua (1 U = 1 pixel num quadro cujo lado menor mede 1080).
+   Posição: fração do quadro (L*0.5 = meio da largura). Tamanho: múltiplo de U (200*U).
+   DEITADO diz se o quadro é mais largo que alto, para você arrumar a cena de outro jeito em cada formato. */
+const L=PALCO.w, A=PALCO.h, U=Math.min(L,A)/1080, DEITADO=L>A;
+
+/* TROQUE (duração): segundos do vídeo. Tem de ser igual ao data-duration da raiz. */
+const DUR=4;
+
+/* ===================== CENA (onde cada coisa fica) =====================
+   TROQUE: tamanho e lugar de cada elemento. x e y são o CENTRO do elemento.
+   Em cada (DEITADO ? a : b), "a" vale para o vídeo deitado e "b" para o vídeo em pé. */
+function por(id,{x,y,w,h}){ gsap.set(id,{left:x-w/2,top:y-h/2,width:w,height:h}); }
+por('#bola',    {x:L*(DEITADO?0.20:0.50), y:A*(DEITADO?0.50:0.26), w:300*U, h:300*U});
+por('#barra',   {x:L*(DEITADO?0.62:0.50), y:A*(DEITADO?0.74:0.72), w:(DEITADO?760:620)*U, h:36*U});
+por('#quadrado',{x:L*(DEITADO?0.88:0.78), y:A*(DEITADO?0.22:0.86), w:150*U, h:150*U});
+gsap.set('#titulo', {left:L*(DEITADO?0.62:0.50), top:A*(DEITADO?0.44:0.50), xPercent:-50, yPercent:-50, fontSize:(DEITADO?112:118)*U});
+gsap.set('#legenda',{left:L*(DEITADO?0.62:0.50), top:A*0.58, xPercent:-50, yPercent:-50, fontSize:46*U});
+
+/* ===================== ANIMAÇÃO =====================
+   A timeline é a linha do tempo. Ela nasce PAUSADA: quem anda com o tempo é o render, quadro a quadro.
+   Cada linha: o quê, como, e em que segundo começa (o último número).
+   Não use setTimeout, relógio do computador nem sorteio (Math.random): o vídeo tem de sair igual toda vez.
+   TROQUE: apague estas linhas e escreva as suas. */
+const tl=gsap.timeline({paused:true, defaults:{ease:'power3.out'}});
+tl.from('#bola',    {scale:0, duration:0.6, ease:'back.out(1.8)'}, 0.2);
+tl.from('#titulo',  {y:90*U, opacity:0, duration:0.6}, 0.5);
+tl.from('#legenda', {y:50*U, opacity:0, duration:0.5}, 0.8);
+tl.from('#barra',   {scaleX:0, transformOrigin:'0% 50%', duration:0.7}, 0.9);
+tl.from('#quadrado',{scale:0, rotation:-90, duration:0.6, ease:'back.out(1.6)'}, 1.2);
+// movimento que continua até o fim, para a tela não ficar parada
+tl.to('#bola',    {y:-50*U, duration:1.2, ease:'sine.inOut', yoyo:true, repeat:1}, 1.4);
+tl.to('#quadrado',{rotation:180, duration:2.2, ease:'sine.inOut'}, 1.8);
+tl.to('#barra',   {scaleX:0.6, transformOrigin:'0% 50%', duration:1.0, ease:'sine.inOut', yoyo:true, repeat:1}, 1.8);
+// garante que a timeline dura exatamente DUR segundos
+tl.set({}, {}, DUR);
+
+/* ===================== ENTREGA PARA O RENDER =====================
+   Não mexa: é por aqui que o render acha a animação. O nome "main" é o mesmo do data-composition-id da raiz. */
+window.__timelines=window.__timelines||{};
+window.__timelines["main"]=tl;
+})();
+</script>
+</body>
+</html>

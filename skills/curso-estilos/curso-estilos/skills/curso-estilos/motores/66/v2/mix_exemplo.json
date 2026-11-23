@@ -1,0 +1,21 @@
+{
+  "_": "Exemplo com os tempos do EP01. Copie para mix.json e troque os arquivos pelos da SUA biblioteca de efeitos (ou de um pack CC0). db = dB em relação à voz.",
+  "voz": "../voz/dialogo.wav",
+  "timeline": "../voz/timeline.json",
+  "alvo_lufs": -14,
+  "ambiente_dos_clipes": -14,
+  "camas": [
+    {"arquivo": "sons/chuva.wav", "de": 0.0, "ate": 8.5, "db": -21},
+    {"arquivo": "sons/chuva.wav", "de": 27.0, "ate": 49.4, "db": -21}
+  ],
+  "sfx": [
+    {"arquivo": "sons/whoosh_curto.wav", "t": 8.4, "db": -15},
+    {"arquivo": "sons/ui_select.wav", "t": 22.4, "db": -14},
+    {"arquivo": "sons/ui_click.wav", "t": 27.2, "db": -13},
+    {"arquivo": "sons/metal_impacto.wav", "t": 38.6, "db": -11},
+    {"arquivo": "sons/trovao.wav", "t": 38.7, "db": -11, "dur": 2.0},
+    {"arquivo": "sons/relogio_tique.wav", "t": 42.0, "db": -19, "dur": 10.0}
+  ],
+  "musica": {"arquivo": "sons/musica.wav", "entra": 31.0, "sai": 49.3, "db": -12, "cauda": 2.2},
+  "silencio_de": 49.3
+}

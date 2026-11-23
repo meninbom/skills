@@ -1,0 +1,8 @@
+{
+ "segmentos": [
+  {"plano": "P1", "t": 0.0, "dur": 1.2},
+  {"plano": "P2", "t": 1.2, "dur": 1.2},
+  {"plano": "P3", "t": 2.4, "dur": 1.2}
+ ],
+ "checagem": {"max_parado": 0.8, "janela_parado": 0.4, "limiar_parado": 1.0}
+}

@@ -1,0 +1,14 @@
+{
+  "name": "explicativo-ilustrado",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Motor de explicativo ilustrado: canvas 2D (placa + sprites + câmera) renderizado quadro a quadro com o Chrome do sistema.",
+  "scripts": {
+    "demo": "node demo.mjs",
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "puppeteer-core": "^23.11.1"
+  }
+}

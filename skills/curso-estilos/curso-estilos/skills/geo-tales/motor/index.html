@@ -1,0 +1,231 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:MontX;src:url(vendor/Montserrat-ExtraBold.ttf)}
+@font-face{font-family:MontS;src:url(vendor/Montserrat-SemiBold.ttf)}
+html,body{margin:0;background:#111}
+#c{width:540px;height:960px;display:block}
+</style></head><body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script type="module">
+// MOTOR GEO: mapa mercator em three.js + camada 2D de rótulos. Cena = módulo com camera[], mundo(t), tela(t).
+import * as THREE from './vendor/three.module.js';
+const Q = new URLSearchParams(location.search);
+const { CENA } = await import('./' + (Q.get('cena') || 'demo/cena_demo') + '.js');
+
+const W = 1080, H = 1920, D2R = Math.PI / 180;
+const merc = lat => Math.log(Math.tan(Math.PI / 4 + lat * D2R / 2)) / D2R;
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, t) => a + (b - a) * t;
+const sstep = (a, b, v) => { const s = clamp((v - a) / (b - a)); return s * s * (3 - 2 * s); };
+const ease = { io: t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2, out: t => 1 - Math.pow(1 - t, 3), in: t => t * t * t, lin: t => t, s: t => t * t * (3 - 2 * t),
+  expo: t => t >= 1 ? 1 : 1 - Math.pow(2, -10 * t),
+  mv: (() => { const x1 = .76, y1 = 0, x2 = .24, y2 = 1, B = (a, b, u) => 3 * a * u * (1 - u) * (1 - u) + 3 * b * u * u * (1 - u) + u * u * u;
+    return t => { if (t <= 0 || t >= 1) return clamp(t); let lo = 0, hi = 1, u = t; for (let i = 0; i < 22; i++) { u = (lo + hi) / 2; if (B(x1, x2, u) < t) lo = u; else hi = u; } return B(y1, y2, u); }; })(),
+  back: t => { const c = 1.9; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); } };
+const seg = (t, a, b, e = 'io') => ease[e](clamp((t - a) / (b - a)));
+const rnd = s => { let v = Math.sin(s * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
+
+// ---------- WebGL ----------
+const gl = document.createElement('canvas'); gl.width = W; gl.height = H;
+const R = new THREE.WebGLRenderer({ canvas: gl, antialias: true, preserveDrawingBuffer: true });
+R.setPixelRatio(1); R.setSize(W, H, false); R.outputColorSpace = THREE.LinearSRGBColorSpace; R.setClearColor(0x1b3f93, 1);
+const scene = new THREE.Scene();
+const cam = new THREE.PerspectiveCamera(26, W / H, 0.5, 6000);
+const UN = { uD: { value: 1 }, uHaze: { value: 0 } };
+const NEVOA = `float h=smoothstep(1.05,2.6,vD/uD)*uHaze; `;
+const loadTex = src => new Promise((ok, no) => new THREE.TextureLoader().load(src, t => {
+  t.colorSpace = THREE.NoColorSpace; t.anisotropy = 8; t.generateMipmaps = true; t.minFilter = THREE.LinearMipmapLinearFilter; ok(t); }, undefined, no));
+
+// Blue Marble: grade que leva o original escuro para o oceano turquesa + terra viva
+const matBM = tex => new THREE.ShaderMaterial({ uniforms: { map: { value: tex }, ...UN },
+  vertexShader: `varying vec2 vUv; varying float vD; void main(){ vUv=uv; vec4 mv=modelViewMatrix*vec4(position,1.); vD=-mv.z; gl_Position=projectionMatrix*mv; }`,
+  fragmentShader: `uniform sampler2D map; uniform float uD, uHaze; varying vec2 vUv; varying float vD;
+    void main(){ vec3 c=texture2D(map,vUv).rgb; float mx=max(c.r,c.g); float oc=smoothstep(0.02,0.10,c.b-mx);
+      float branco=smoothstep(0.55,0.85,min(c.r,min(c.g,c.b)));
+      vec3 t=pow(c,vec3(0.72))*1.22; float l=dot(t,vec3(.3,.59,.11)); t=mix(vec3(l),t,1.22);
+      float d=smoothstep(0.12,0.80,c.b); vec3 o=mix(vec3(0.085,0.265,0.365),vec3(0.27,0.60,0.66),d); o*=0.90+0.35*(c.b-0.3);
+      vec3 r=mix(t,o,oc); r=mix(r,vec3(0.96),branco*0.9); ${NEVOA} r=mix(r,vec3(.78,.87,.93),h*.8); gl_FragColor=vec4(r,1.); }` });
+function grade(lon0, lon1, lat0, lat1, z, nx, ny, alt) {
+  const pos = [], uv = [], al = [], idx = [], la0 = Math.min(lat0, 85), la1 = Math.max(lat1, -85);
+  for (let j = 0; j <= ny; j++) for (let i = 0; i <= nx; i++) {
+    const lon = lerp(lon0, lon1, i / nx), lat = lerp(la0, la1, j / ny);
+    pos.push(lon, merc(lat), z); uv.push((lon - lon0) / (lon1 - lon0), (lat - lat1) / (lat0 - lat1)); al.push(alt ? alt[j * (nx + 1) + i] : 0);
+  }
+  for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) { const a = j * (nx + 1) + i, b = a + 1, c = a + nx + 1, d = c + 1; idx.push(a, c, b, b, c, d); }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  g.setAttribute('aAlt', new THREE.Float32BufferAttribute(al, 1)); g.setIndex(idx); return g;
+}
+async function mapaBase(src, lon0, lon1, lat0, lat1, z = 0) { const m = new THREE.Mesh(grade(lon0, lon1, lat0, lat1, z, 48, 160), matBM(await loadTex(src))); m.frustumCulled = false; scene.add(m); return m; }
+// recorte de perto (já tratado no prepara.py), com relevo e borda esfumada
+async function recorte(nome, lon0, lon1, lat0, lat1, { z = .004, ordem = 1, n = 383 } = {}) {
+  const [tex, buf] = await Promise.all([loadTex(`dados/gen/${nome}.jpg`), fetch(`dados/gen/${nome}_alt.bin`).then(r => r.arrayBuffer())]);
+  const alt = new Float32Array(buf), k = 1 / 111200;
+  const mat = new THREE.ShaderMaterial({ transparent: true, uniforms: { map: { value: tex }, exag: { value: 0 }, alfa: { value: 1 }, ...UN },
+    vertexShader: `attribute float aAlt; uniform float exag; varying vec2 vUv; varying float vD; void main(){ vUv=uv; vec2 e=smoothstep(0.,.08,uv)*smoothstep(0.,.08,1.-uv);
+      vec3 p=position; p.z+=aAlt*exag*${k.toFixed(9)}*e.x*e.y; vec4 mv=modelViewMatrix*vec4(p,1.); vD=-mv.z; gl_Position=projectionMatrix*mv; }`,
+    fragmentShader: `uniform sampler2D map; uniform float alfa, uD, uHaze; varying vec2 vUv; varying float vD; void main(){ vec2 e=smoothstep(0.,.10,vUv)*smoothstep(0.,.10,1.-vUv); ${NEVOA}
+      gl_FragColor=vec4(mix(texture2D(map,vUv).rgb,vec3(.78,.87,.93),h*.8),e.x*e.y*alfa); }` });
+  const m = new THREE.Mesh(grade(lon0, lon1, lat0, lat1, z, n, n, alt), mat); m.frustumCulled = false; m.renderOrder = ordem; scene.add(m);
+  return { mesh: m, set exag(v) { mat.uniforms.exag.value = v; }, get exag() { return mat.uniforms.exag.value; }, set alfa(v) { mat.uniforms.alfa.value = v; m.visible = v > .003; },
+    altura(lon, lat) { const u = (lon - lon0) / (lon1 - lon0), v = (lat0 - lat) / (lat0 - lat1); if (u < 0 || u > 1 || v < 0 || v > 1) return 0;
+      const i = Math.round(u * n), j = Math.round(v * n), e = sstep(0, .08, u) * sstep(0, .08, 1 - u) * sstep(0, .08, 1 - v) * sstep(0, .08, v);
+      return z + alt[j * (n + 1) + i] * mat.uniforms.exag.value * k * e; } };
+}
+// mesa azul com grade + moldura (só aparece se a câmera sair do mapa)
+{ const m = new THREE.ShaderMaterial({ vertexShader: `varying vec2 p; void main(){ p=position.xy; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+    fragmentShader: `varying vec2 p; void main(){ vec2 q=abs(fract(p/14.)-.5); float l=smoothstep(.47,.5,max(q.x,q.y)); gl_FragColor=vec4(mix(vec3(.105,.25,.58),vec3(.19,.36,.70),l),1.); }` });
+  const mesa = new THREE.Mesh(new THREE.PlaneGeometry(4000, 4000), m); mesa.position.z = -0.6; scene.add(mesa);
+  const yT = merc(85), b = 5, mold = new THREE.Mesh(new THREE.PlaneGeometry(360 + 2 * b, 2 * yT + 2 * b), new THREE.MeshBasicMaterial({ color: 0xf4f4f0 })); mold.position.z = -0.2; scene.add(mold); }
+
+// ---------- países / regiões ----------
+const v3 = (lon, lat) => new THREE.Vector3(Math.cos(lat * D2R) * Math.cos(lon * D2R), Math.cos(lat * D2R) * Math.sin(lon * D2R), Math.sin(lat * D2R));
+const ll = v => [Math.atan2(v.y, v.x) / D2R, Math.asin(clamp(v.z, -1, 1)) / D2R];
+function quatArco(a1, a2, b1, b2) { // leva o arco a1→a2 para o arco b1→b2 na esfera (voo em "tamanho real")
+  const fr = (p, q) => { const A = v3(...p), B = v3(...q), c = A.clone().add(B).normalize(), n = A.clone().cross(B).normalize(), t = n.clone().cross(c).normalize(); return new THREE.Matrix4().makeBasis(c, t, n); };
+  const MA = fr(a1, a2), MB = fr(b1, b2); return new THREE.Quaternion().setFromRotationMatrix(MB.multiply(MA.transpose())); }
+const matPais = (cor, alfa) => new THREE.ShaderMaterial({ transparent: true, depthTest: false,
+  uniforms: { cor: { value: new THREE.Color(cor).convertLinearToSRGB() }, alfa: { value: alfa }, corte: { value: -999 }, sentido: { value: 1 }, fio: { value: 0 }, larg: { value: 1 } },
+  vertexShader: `attribute float aLat; varying float vLat; void main(){ vLat=aLat; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+  fragmentShader: `uniform vec3 cor; uniform float alfa, corte, sentido, fio, larg; varying float vLat; void main(){ if((vLat-corte)*sentido<0.) discard;
+    float e=(1.-smoothstep(0.,larg,abs(vLat-corte)))*fio; gl_FragColor=vec4(mix(cor,vec3(1.),e*.85),mix(alfa,1.,e*.6)*step(.001,alfa)); }` });
+class Pais {
+  constructor(feat, { cor = '#e3262d', alfa = .92, minPts = 8, z = .05, ordem = 6, sombra = .30 } = {}) {
+    const polys = feat.geometry.type === 'MultiPolygon' ? feat.geometry.coordinates : [feat.geometry.coordinates];
+    const lonlat = [], idx = []; this.aneis = [];
+    for (const poly of polys) { if (poly[0].length < minPts) continue;
+      const cont = poly[0].slice(0, -1).map(p => new THREE.Vector2(p[0], p[1])), furos = poly.slice(1).map(h => h.slice(0, -1).map(p => new THREE.Vector2(p[0], p[1])));
+      const tris = THREE.ShapeUtils.triangulateShape(cont, furos), base = lonlat.length;
+      cont.concat(...furos).forEach(p => lonlat.push([p.x, p.y])); tris.forEach(t => idx.push(base + t[0], base + t[1], base + t[2]));
+      this.aneis.push(poly[0].map(p => [p[0], p[1]])); }
+    this.aneis.sort((a, b) => b.length - a.length);
+    this.lonlat = lonlat; this.unit = lonlat.map(p => v3(p[0], p[1]));
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(lonlat.length * 3), 3));
+    g.setAttribute('aLat', new THREE.Float32BufferAttribute(lonlat.map(p => p[1]), 1)); g.setIndex(idx); this.g = g; this.z = z; this.fs = sombra;
+    this.sombra = new THREE.Mesh(g, matPais('#000000', 0)); this.sombra.frustumCulled = false; this.sombra.renderOrder = ordem - .5; scene.add(this.sombra);
+    this.mesh = new THREE.Mesh(g, matPais(cor, alfa)); this.mesh.frustumCulled = false; this.mesh.renderOrder = ordem; scene.add(this.mesh);
+    this.alfa = alfa; this.q = new THREE.Quaternion(); this.aplica(this.q); this.set({ visivel: false });
+  }
+  aplica(q) { this.q.copy(q); const a = this.g.attributes.position.array, t = new THREE.Vector3();
+    this.unit.forEach((u, i) => { t.copy(u).applyQuaternion(q); const [lo, la] = ll(t); a[i * 3] = lo; a[i * 3 + 1] = merc(la); a[i * 3 + 2] = this.z; }); this.g.attributes.position.needsUpdate = true; }
+  ponto(lon, lat) { return ll(v3(lon, lat).applyQuaternion(this.q)); }
+  set({ corte = -999, sentido = 1, alfa = this.alfa, altura = 0, visivel = true, cor, esc = 1, fio = 0 }) {
+    const u = this.mesh.material.uniforms; u.fio.value = fio; u.larg.value = cam.span * .016; u.corte.value = corte; u.sentido.value = sentido; u.alfa.value = alfa; if (cor) u.cor.value.set(cor).convertLinearToSRGB();
+    const s = this.sombra.material.uniforms; s.corte.value = corte; s.sentido.value = sentido; s.alfa.value = this.fs * (alfa / this.alfa);
+    this.sombra.position.set((.25 + altura * 1.6) * esc, (-.35 - altura * 2.2) * esc, -.01); this.mesh.visible = this.sombra.visible = visivel && alfa > .003; }
+}
+
+// ---------- câmera ----------
+function camSet(s) { // {lon, lat, span (altura visível em graus-mercator), tilt, az}
+  const d = (s.span / 2) / Math.tan(cam.fov * D2R / 2), ti = (s.tilt || 0) * D2R, az = (s.az || 0) * D2R;
+  const alvo = new THREE.Vector3(s.lon, merc(s.lat), 0);
+  cam.position.set(alvo.x + d * Math.sin(ti) * Math.sin(az), alvo.y - d * Math.sin(ti) * Math.cos(az), d * Math.cos(ti));
+  cam.near = d * .04; cam.far = d * 60 + 800; cam.up.set(-Math.sin(az), Math.cos(az), 0.0001); cam.lookAt(alvo); cam.updateMatrixWorld(); cam.updateProjectionMatrix(); cam.span = s.span; UN.uD.value = d; UN.uHaze.value = sstep(18, 58, s.tilt || 0);
+}
+function camEm(t, kf) {
+  let i = 0; while (i < kf.length - 2 && t > kf[i + 1].t) i++;
+  const a = kf[i], b = kf[i + 1], u = ease[b.e || 'io'](clamp((t - a.t) / (b.t - a.t)));
+  const o = {}; for (const k of ['lon', 'lat', 'tilt', 'az']) o[k] = lerp(a[k] || 0, b[k] || 0, u);
+  o.span = Math.exp(lerp(Math.log(a.span), Math.log(b.span), u)) * (1 + (b.arco || 0) * Math.sin(Math.PI * u)); return o;
+}
+const tela = (lon, lat, z = 0) => { const p = new THREE.Vector3(lon, merc(lat), z).project(cam); return [(p.x * .5 + .5) * W, (-p.y * .5 + .5) * H, p.z]; };
+
+// ---------- 2D ----------
+const cv = document.getElementById('c'), x = cv.getContext('2d');
+const T = {
+  texto(s, px, py, { tam = 60, fonte = null, cor = '#fff', rot = 0, alfa = 1, esc = 1, sombra = 14, contorno = 0, alinh = 'center', dy = 0, esp = 0 } = {}) {
+    if (alfa <= 0 || esc <= 0) return; x.save(); x.translate(px, py + dy); x.rotate(rot); x.scale(esc, esc); x.globalAlpha = clamp(alfa);
+    x.font = `${tam}px ${fonte || (tam >= 90 ? 'MontX' : 'MontS')}`; x.letterSpacing = esp + 'px'; x.textAlign = alinh; x.textBaseline = 'middle'; x.fillStyle = cor;
+    x.shadowColor = 'rgba(0,10,24,.55)'; x.shadowBlur = tam * .32; x.shadowOffsetY = tam * .05; x.fillText(s, 0, 0); x.fillText(s, 0, 0);
+    x.shadowColor = 'rgba(0,10,24,.8)'; x.shadowBlur = Math.max(2, tam * .04); x.shadowOffsetY = Math.max(2, tam * .035); x.fillText(s, 0, 0); x.restore(); },
+  emoji(s, p, tam, { esc = 1, rot = 0, alfa = 1, espelha = false } = {}) { if (esc <= 0 || alfa <= 0) return; x.save(); x.translate(p[0], p[1]); x.rotate(rot); x.scale(esc * (espelha ? -1 : 1), esc); x.globalAlpha = alfa;
+    x.font = `${tam}px "Segoe UI Emoji"`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.shadowColor = 'rgba(0,0,0,.5)'; x.shadowBlur = 10; x.shadowOffsetY = 4; x.fillText(s, 0, 0); x.restore(); },
+  legenda(s, u = 1) { T.texto(s, W / 2, H * .705, { tam: 52, fonte: 'MontS', alfa: clamp(u * 2.5), dy: 14 * (1 - ease.expo(clamp(u))), sombra: 10, contorno: 6 }); },
+  // linha em pixels já projetados; u = quanto desenhar (0..1); devolve a ponta
+  traco(pts, u, { cor = '#ffe14a', larg = 8, alfa = 1, traco = null, borda = 0 } = {}) { if (u <= 0 || alfa <= 0 || pts.length < 2) return null;
+    let tot = 0; const L = [0]; for (let i = 1; i < pts.length; i++) { tot += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); L.push(tot); }
+    const fim = tot * clamp(u); x.save(); x.globalAlpha = alfa; x.lineCap = 'round'; x.lineJoin = 'round'; if (traco) x.setLineDash(traco);
+    x.beginPath(); x.moveTo(pts[0][0], pts[0][1]); let ponta = pts[0];
+    for (let i = 1; i < pts.length; i++) { if (L[i] <= fim) { x.lineTo(pts[i][0], pts[i][1]); ponta = pts[i]; } else { const k = (fim - L[i - 1]) / (L[i] - L[i - 1]); ponta = [lerp(pts[i - 1][0], pts[i][0], k), lerp(pts[i - 1][1], pts[i][1], k)]; x.lineTo(ponta[0], ponta[1]); break; } }
+    if (borda) { x.strokeStyle = 'rgba(8,18,30,.8)'; x.lineWidth = larg + borda; x.stroke(); }
+    x.shadowColor = 'rgba(0,0,0,.45)'; x.shadowBlur = borda ? 0 : 8; x.strokeStyle = cor; x.lineWidth = larg; x.stroke(); x.restore(); return ponta; },
+  geo(ll_, u, o, alt) { return T.traco(ll_.map(p => tela(p[0], p[1], alt ? alt(p[0], p[1]) : 0)), u, o); },
+  pino(p, nome, u, lado = [0, -50], { tam = 50, cor = '#e3262d' } = {}) { if (u <= 0) return; const e = ease.back(clamp(u)); x.save(); x.shadowColor = 'rgba(0,0,0,.6)'; x.shadowBlur = 10;
+    x.fillStyle = '#fff'; x.beginPath(); x.arc(p[0], p[1], 13 * e, 0, 7); x.fill(); x.fillStyle = cor; x.beginPath(); x.arc(p[0], p[1], 7 * e, 0, 7); x.fill(); x.restore();
+    const k = ease.expo(clamp(u)); T.texto(nome, p[0] + lado[0], p[1] + lado[1], { tam, alinh: lado[2] || 'center', esc: lerp(1.14, 1, k), dy: 14 * (1 - k), alfa: clamp(u * 3), contorno: 9 }); },
+  ponto(p, r, cor, alfa = 1) { if (alfa <= 0 || r <= 0) return; x.save(); x.globalAlpha = alfa; x.fillStyle = cor; x.shadowColor = 'rgba(0,0,0,.5)'; x.shadowBlur = 5; x.beginPath(); x.arc(p[0], p[1], r, 0, 7); x.fill(); x.restore(); },
+  // gota com carinha: olhar = [-1..1, -1..1]
+  gota(p, tam, { esc = 1, olhar = [0, 0], pisca = 0, boca = 0, rot = 0 } = {}) { if (esc <= 0) return; x.save(); x.translate(p[0], p[1]); x.rotate(rot); x.scale(esc * tam / 100, esc * tam / 100);
+    x.shadowColor = 'rgba(0,0,0,.5)'; x.shadowBlur = 14; x.shadowOffsetY = 6;
+    x.beginPath(); x.moveTo(0, -78); x.bezierCurveTo(14, -48, 52, -20, 52, 16); x.bezierCurveTo(52, 48, 28, 66, 0, 66); x.bezierCurveTo(-28, 66, -52, 48, -52, 16); x.bezierCurveTo(-52, -20, -14, -48, 0, -78); x.closePath();
+    const g = x.createLinearGradient(0, -78, 0, 66); g.addColorStop(0, '#8adcff'); g.addColorStop(1, '#1f8fe6'); x.fillStyle = g; x.fill(); x.shadowColor = 'transparent'; x.lineWidth = 6; x.strokeStyle = '#0b3d6b'; x.stroke();
+    x.fillStyle = 'rgba(255,255,255,.55)'; x.beginPath(); x.ellipse(-26, -8, 7, 15, .4, 0, 7); x.fill();
+    for (const s of [-1, 1]) { x.fillStyle = '#fff'; x.beginPath(); x.ellipse(s * 19, 12, 14, 16 * (1 - pisca * .9), 0, 0, 7); x.fill(); x.fillStyle = '#10243a'; x.beginPath(); x.arc(s * 19 + olhar[0] * 6, 12 + olhar[1] * 7, 7 * (1 - pisca), 0, 7); x.fill(); }
+    x.strokeStyle = '#10243a'; x.lineWidth = 4; x.lineCap = 'round'; x.beginPath(); if (boca > 0) x.arc(0, 36, 10, .15 * Math.PI, .85 * Math.PI); else { x.moveTo(-7, 42); x.lineTo(7, 42); } x.stroke(); x.restore(); },
+  // caranguejo de chapéu (colono do séc. 17): fase mexe as patas
+  siri(p, tam, { esc = 1, rot = 0, fase = 0, olhar = [0, 0] } = {}) { if (esc <= 0) return; x.save(); x.translate(p[0], p[1]); x.rotate(rot); x.scale(esc * tam / 130, esc * tam / 130);
+    x.shadowColor = 'rgba(0,0,0,.5)'; x.shadowBlur = 12; x.shadowOffsetY = 5; x.lineCap = 'round'; x.lineJoin = 'round';
+    x.strokeStyle = '#8e1019'; x.lineWidth = 9;
+    for (const s of [-1, 1]) for (let i = 0; i < 3; i++) { const w = Math.sin(fase + i * 2.1 + (s > 0 ? 1.5 : 0)) * 7; x.beginPath(); x.moveTo(s * 34, 6 + i * 8); x.lineTo(s * 54, 10 + i * 9 - 6); x.lineTo(s * (62 + i * 2), 26 + i * 8 + w); x.stroke(); }
+    for (const s of [-1, 1]) { const w = Math.sin(fase * .5 + s) * 4; x.beginPath(); x.moveTo(s * 34, -8); x.lineTo(s * 56, -24 + w); x.stroke();
+      x.fillStyle = '#e8303a'; const a0 = (s > 0 ? -.75 : -.55) * Math.PI; x.beginPath(); x.moveTo(s * 62, -36 + w); x.arc(s * 62, -36 + w, 17, a0 + .28 * Math.PI, a0 + 2 * Math.PI); x.closePath(); x.fill(); x.lineWidth = 4; x.stroke(); x.lineWidth = 9; }
+    const g = x.createLinearGradient(0, -30, 0, 30); g.addColorStop(0, '#ff6a55'); g.addColorStop(1, '#d81f2a'); x.fillStyle = g; x.beginPath(); x.ellipse(0, 0, 44, 30, 0, 0, 7); x.fill(); x.shadowColor = 'transparent'; x.lineWidth = 5; x.stroke();
+    for (const s of [-1, 1]) { x.fillStyle = '#fff'; x.beginPath(); x.arc(s * 15, -14, 11, 0, 7); x.fill(); x.fillStyle = '#10243a'; x.beginPath(); x.arc(s * 15 + olhar[0] * 4.5, -14 + olhar[1] * 4.5, 5.5, 0, 7); x.fill(); }
+    x.strokeStyle = '#6b0d14'; x.lineWidth = 4; x.beginPath(); x.arc(0, 6, 9, .15 * Math.PI, .85 * Math.PI); x.stroke();
+    x.rotate(-.1); x.fillStyle = '#17171d'; x.beginPath(); x.ellipse(0, -30, 46, 9, 0, 0, 7); x.fill(); x.beginPath(); x.moveTo(-23, -31); x.lineTo(-19, -56); x.quadraticCurveTo(0, -64, 19, -56); x.lineTo(23, -31); x.closePath(); x.fill();
+    x.strokeStyle = '#c9a23a'; x.lineWidth = 5; x.beginPath(); x.moveTo(-21, -38); x.lineTo(21, -38); x.stroke();
+    x.strokeStyle = '#fff'; x.lineWidth = 7; x.beginPath(); x.moveTo(16, -52); x.quadraticCurveTo(34, -78, 52, -62); x.stroke(); x.restore(); },
+  // ilustração pintada (PNG com alfa); tam = altura em px; base = ancora pelo pé
+  img(im, p, tam, { esc = 1, rot = 0, alfa = 1, espelha = false, base = false } = {}) { if (esc <= 0 || alfa <= 0) return; const h = tam, w = tam * im.width / im.height; x.save(); x.translate(p[0], p[1]); x.rotate(rot); x.scale(esc * (espelha ? -1 : 1), esc); x.globalAlpha = clamp(alfa);
+    x.shadowColor = 'rgba(0,8,20,.55)'; x.shadowBlur = tam * .1; x.shadowOffsetY = tam * .05; x.drawImage(im, -w / 2, base ? -h : -h / 2, w, h); x.restore(); },
+  // touceira de cana
+  cana(p, tam, { esc = 1, rot = 0 } = {}) { if (esc <= 0) return; x.save(); x.translate(p[0], p[1]); x.rotate(rot); x.scale(esc * tam / 100, esc * tam / 100); x.lineCap = 'round'; x.lineJoin = 'round';
+    x.shadowColor = 'rgba(0,0,0,.5)'; x.shadowBlur = 10; x.shadowOffsetY = 4;
+    for (const [a, h] of [[-.34, 62], [.3, 66], [-.02, 80]]) { x.save(); x.rotate(a);
+      x.strokeStyle = '#17401c'; x.lineWidth = 15; x.beginPath(); x.moveTo(0, 30); x.lineTo(0, 30 - h); x.stroke(); x.shadowColor = 'transparent';
+      x.strokeStyle = '#a8d84a'; x.lineWidth = 9; x.beginPath(); x.moveTo(0, 30); x.lineTo(0, 30 - h); x.stroke();
+      x.strokeStyle = '#4f8f2a'; x.lineWidth = 3; for (let y = 14; y > 30 - h + 8; y -= 17) { x.beginPath(); x.moveTo(-4.5, y); x.lineTo(4.5, y); x.stroke(); }
+      for (const s of [-1, 1]) { x.strokeStyle = '#17401c'; x.lineWidth = 11; x.beginPath(); x.moveTo(0, 32 - h); x.quadraticCurveTo(s * 16, 12 - h, s * 30, 26 - h); x.stroke();
+        x.strokeStyle = '#3fae45'; x.lineWidth = 6; x.beginPath(); x.moveTo(0, 32 - h); x.quadraticCurveTo(s * 16, 12 - h, s * 30, 26 - h); x.stroke(); }
+      x.restore(); }
+    x.restore(); },
+  // nau de duas velas com a cruz
+  nau(p, tam, { esc = 1, rot = 0, espelha = false } = {}) { if (esc <= 0) return; x.save(); x.translate(p[0], p[1]); x.rotate(rot); x.scale(esc * tam / 100 * (espelha ? -1 : 1), esc * tam / 100); x.lineCap = 'round'; x.lineJoin = 'round';
+    x.shadowColor = 'rgba(0,0,0,.5)'; x.shadowBlur = 10; x.shadowOffsetY = 4; x.strokeStyle = '#2a1608'; x.lineWidth = 5;
+    x.fillStyle = '#8a4f24'; x.beginPath(); x.moveTo(-50, 16); x.lineTo(52, 12); x.quadraticCurveTo(44, 40, 24, 42); x.lineTo(-30, 42); x.quadraticCurveTo(-46, 36, -50, 16); x.closePath(); x.fill(); x.shadowColor = 'transparent'; x.stroke();
+    x.strokeStyle = '#d9a25a'; x.lineWidth = 3; x.beginPath(); x.moveTo(-40, 26); x.lineTo(42, 23); x.stroke();
+    x.strokeStyle = '#2a1608'; x.lineWidth = 5; for (const mx of [-18, 20]) { x.beginPath(); x.moveTo(mx, 14); x.lineTo(mx, mx < 0 ? -44 : -58); x.stroke(); }
+    const vela = (cx, top, w, hh) => { x.fillStyle = '#fbf7ec'; x.beginPath(); x.moveTo(cx - w, top); x.lineTo(cx + w, top); x.quadraticCurveTo(cx + w + 12, top + hh / 2, cx + w - 2, top + hh); x.lineTo(cx - w + 2, top + hh); x.quadraticCurveTo(cx - w + 12, top + hh / 2, cx - w, top); x.closePath(); x.fill(); x.lineWidth = 4; x.stroke();
+      x.strokeStyle = '#d3232b'; x.lineWidth = 6; x.beginPath(); x.moveTo(cx + 5, top + hh * .22); x.lineTo(cx + 5, top + hh * .78); x.moveTo(cx + 5 - w * .5, top + hh * .5); x.lineTo(cx + 5 + w * .5, top + hh * .5); x.stroke(); x.strokeStyle = '#2a1608'; };
+    vela(-18, -40, 15, 40); vela(20, -54, 20, 54);
+    x.fillStyle = '#d3232b'; x.beginPath(); x.moveTo(20, -58); x.lineTo(40, -66); x.lineTo(20, -72); x.closePath(); x.fill(); x.restore(); },
+  vinheta() { const g = x.createRadialGradient(W / 2, H / 2, H * .35, W / 2, H / 2, H * .78); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,10,25,.42)'); x.fillStyle = g; x.fillRect(0, 0, W, H); },
+  x
+};
+
+// ---------- carga ----------
+await Promise.all([document.fonts.load('60px MontX'), document.fonts.load('40px MontS')]);
+const jget = u => fetch(u).then(r => r.json());
+const img = src => new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = src; });
+const ctx = { THREE, T, W, H, Pais, quatArco, tela, seg, ease, lerp, clamp, sstep, merc, rnd, mapaBase, recorte, jget, img, cam };
+const cena = await CENA(ctx);
+window.DUR = cena.dur;
+const desenha = t => { camSet(camEm(t, cena.camera)); cena.mundo(t); R.render(scene, cam); x.clearRect(0, 0, W, H); x.drawImage(gl, 0, 0); T.vinheta(); cena.tela(t); };
+const graos = [0, 1, 2, 3, 4].map(k => { const c = document.createElement('canvas'); c.width = c.height = 512; const g = c.getContext('2d'), im = g.createImageData(512, 512); let s = 1234567 + k * 7919;
+  for (let i = 0; i < im.data.length; i += 4) { s = (s * 1664525 + 1013904223) >>> 0; const a = (s >>> 8) / 16777216, b = ((s = (s * 1664525 + 1013904223) >>> 0) >>> 8) / 16777216, v = 128 + (a + b - 1) * 150; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; } g.putImageData(im, 0, 0); return c; });
+const grao = t => { const k = Math.round(t * 30); x.save(); x.globalCompositeOperation = 'overlay'; x.globalAlpha = +(Q.get('grao') ?? .075); x.fillStyle = x.createPattern(graos[k % 5], 'repeat'); x.translate(-(k * 173 % 512), -(k * 311 % 512)); x.fillRect(0, 0, W + 512, H + 512); x.restore(); };
+const L2 = new Float32Array(256).map((_, i) => Math.pow(i / 255, 2.2)), S2 = new Uint8ClampedArray(4097).map((_, i) => Math.round(255 * Math.pow(i / 4096, 1 / 2.2)));
+let acc = null;
+window.seek = async (t, fps = 0) => {
+  let n = 1; const sh = fps ? .5 / fps : 0;
+  if (fps) { const c = camEm(t, cena.camera), d = c.span * .3, P = [[c.lon, c.lat], [c.lon - d, c.lat + d * .6], [c.lon + d, c.lat - d * .6]]; let D = 0;
+    camSet(camEm(t - sh / 2, cena.camera)); const A = P.map(p => tela(p[0], p[1])); camSet(camEm(t + sh / 2, cena.camera)); P.forEach((p, i) => { const b = tela(p[0], p[1]); D = Math.max(D, Math.hypot(b[0] - A[i][0], b[1] - A[i][1])); });
+    n = D < 3 ? 1 : Math.min(16, Math.max(4, Math.ceil(D / 5))); }
+  if (n === 1) desenha(t);
+  else { acc = acc || new Float32Array(W * H * 3); acc.fill(0);
+    for (let i = 0; i < n; i++) { desenha(t + ((i + .5) / n - .5) * sh); const d = x.getImageData(0, 0, W, H).data; for (let j = 0, k = 0; j < d.length; j += 4, k += 3) { acc[k] += L2[d[j]]; acc[k + 1] += L2[d[j + 1]]; acc[k + 2] += L2[d[j + 2]]; } }
+    const im = x.createImageData(W, H), o = im.data, q = 4096 / n; for (let j = 0, k = 0; j < o.length; j += 4, k += 3) { o[j] = S2[acc[k] * q | 0]; o[j + 1] = S2[acc[k + 1] * q | 0]; o[j + 2] = S2[acc[k + 2] * q | 0]; o[j + 3] = 255; } x.putImageData(im, 0, 0); }
+  grao(t); window.NSUB = n; };
+await window.seek(0); window.READY = true;
+if (Q.has('play')) { const t0 = performance.now() - (+Q.get('play') || 0) * 1000; const f = () => { window.seek(((performance.now() - t0) / 1000) % cena.dur); requestAnimationFrame(f); }; f(); }
+</script></body></html>

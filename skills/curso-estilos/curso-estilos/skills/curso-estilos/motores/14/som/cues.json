@@ -1,0 +1,52 @@
+[
+ {
+  "t": 6.37,
+  "arquivo": "carta_pousando.wav",
+  "abaixo_voz_db": 14
+ },
+ {
+  "t": 13.36,
+  "arquivo": "tecla_celular.wav",
+  "abaixo_voz_db": 17
+ },
+ {
+  "t": 13.62,
+  "arquivo": "tecla_celular.wav",
+  "abaixo_voz_db": 19
+ },
+ {
+  "t": 13.9,
+  "arquivo": "tecla_celular.wav",
+  "abaixo_voz_db": 17
+ },
+ {
+  "t": 14.18,
+  "arquivo": "tecla_celular.wav",
+  "abaixo_voz_db": 19
+ },
+ {
+  "t": 14.47,
+  "arquivo": "tecla_celular.wav",
+  "abaixo_voz_db": 17
+ },
+ {
+  "t": 14.76,
+  "arquivo": "tecla_celular.wav",
+  "abaixo_voz_db": 19
+ },
+ {
+  "t": 30.32,
+  "arquivo": "lapis_no_papel.wav",
+  "abaixo_voz_db": 15
+ },
+ {
+  "t": 47.4,
+  "arquivo": "carta_pousando.wav",
+  "abaixo_voz_db": 14
+ },
+ {
+  "t": 52.05,
+  "arquivo": "folha_deslizando.wav",
+  "abaixo_voz_db": 13
+ }
+]

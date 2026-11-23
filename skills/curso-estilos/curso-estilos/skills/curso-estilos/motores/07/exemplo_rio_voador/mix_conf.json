@@ -1,0 +1,11 @@
+{
+ "_nota": "Receita do som do filme de 63 s. Os arquivos (video mudo, voz, trilha) sao os SEUS: ponha nesta pasta com estes nomes ou troque os caminhos. Rode: node mixar.mjs exemplo_rio_voador/mix_conf.json",
+ "nome": "rio_voador", "duracao_s": 63.0,
+ "video": "filme_mudo.mp4",
+ "voz": "narr_-16.wav", "voz_inicio_s": 0.0,
+ "trilha": {"arquivo": "trilha.mp3", "inicio_no_arquivo_s": 0.0,
+            "entra_t": 0.4, "entra_rampa_s": 0.4, "sai_t": 61.9, "sai_rampa_s": 1.1,
+            "abaixo_voz_db": 11, "duck_db": 4},
+ "master_lufs": -13.2, "teto_dbtp": -1.5,
+ "saida": "filme_final_1080.mp4"
+}

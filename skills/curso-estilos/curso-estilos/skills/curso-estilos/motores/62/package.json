@@ -1,0 +1,18 @@
+{
+  "name": "curso-estilos-62-poderes-game-feel",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Kit de juice + biblioteca de poderes (three.js). Demo: 3 s do poder de gelo (soltura, impacto, cristais).",
+  "scripts": {
+    "demo": "node render.mjs --pagina poder/poder.html --query \"p=gelo&esc=0.5&ss=1\" --ini 2.2 --fim 5.2 --fps 30 --saida saida/demo.mp4",
+    "poder": "node poder.mjs",
+    "modulos": "node modulos.mjs",
+    "probe": "node render.mjs --pagina arena/arena.html --w 1080 --h 1920 --probe",
+    "folha": "node render.mjs --pagina arena/arena.html --w 1080 --h 1920 --folha 2,4,7,9.5,12.5,15,17,20 --saida saida/folha_arena.jpg",
+    "filme": "node render.mjs --pagina arena/arena.html --w 1080 --h 1920 --fps 30 --saida saida/arena.mp4"
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}

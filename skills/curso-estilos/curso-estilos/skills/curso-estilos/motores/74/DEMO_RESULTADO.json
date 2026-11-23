@@ -1,0 +1,6 @@
+{
+  "passou": true,
+  "comando": "npm install && DEMO_CPU=1 npm run demo",
+  "segundos_de_render": 108,
+  "obs": "Cópia limpa em pasta temporária, npm install limpo (255 pacotes, ~3 min, ~260 MB), Chrome do sistema sem baixar navegador, GL swiftshader. saida/demo.mp4: 3,0 s, 90 quadros, 540x960, 30 qps, h264 yuv420p, sem faixa de áudio, 0,4 MB; quadro conferido (personagem, HUD, card e fontes locais ok). 1a tentativa saiu em yuvj420p (quadros JPEG); corrigido com imageFormat png. Também testado: node stills.mjs board S1 e tsc --noEmit. Testado só em Windows."
+}

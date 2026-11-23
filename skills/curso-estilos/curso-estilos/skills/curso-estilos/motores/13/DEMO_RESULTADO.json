@@ -1,0 +1,7 @@
+{
+ "passou": false,
+ "comando": "python demo.py",
+ "segundos_de_render": 42,
+ "obs": "Beta: o estilo é gravado da tela do Roblox Studio (cena por script via MCP + captura com gdigrab), o que não roda por um comando nem sem o Studio aberto. O demo.py cobre só a parte em código e essa parte PASSOU em pasta limpa com DEMO_CPU=1: brutos-placeholder desenhados por código -> gravacao/montar.py -> gravacao/editar.py -> saida/demo.mp4 (540x960, 30 qps, 3,0 s, yuv420p, sem áudio; quadro conferido). Não testados aqui: gravação no Studio, voz paga (gerar_voz.py só foi rodado sem --confirmo-custo), mix com sons e a costura do céu com imagens reais.",
+ "demo_montagem": {"passou": true, "segundos_de_render": 42, "saida": "saida/demo.mp4"}
+}

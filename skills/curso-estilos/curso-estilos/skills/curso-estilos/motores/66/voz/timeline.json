@@ -1,0 +1,987 @@
+{
+ "speed": 1.08,
+ "take": "narr_a",
+ "blocos": [
+  {
+   "rotulo": "P1",
+   "start": 0.0,
+   "end": 8.385
+  },
+  {
+   "rotulo": "P2",
+   "start": 8.535,
+   "end": 12.5
+  },
+  {
+   "rotulo": "P3",
+   "start": 12.5,
+   "end": 14.36
+  },
+  {
+   "rotulo": "P4",
+   "start": 14.36,
+   "end": 18.235
+  },
+  {
+   "rotulo": "P5",
+   "start": 18.235,
+   "end": 20.063
+  },
+  {
+   "rotulo": "P6",
+   "start": 20.063,
+   "end": 24.494
+  },
+  {
+   "rotulo": "P7",
+   "start": 24.494,
+   "end": 26.284
+  },
+  {
+   "rotulo": "P8",
+   "start": 26.384,
+   "end": 28.395
+  },
+  {
+   "rotulo": "P9",
+   "start": 28.545,
+   "end": 32.386
+  },
+  {
+   "rotulo": "P10",
+   "start": 32.386,
+   "end": 33.901
+  },
+  {
+   "rotulo": "POR",
+   "start": 33.951,
+   "end": 36.106
+  },
+  {
+   "rotulo": "P11",
+   "start": 36.206,
+   "end": 38.603
+  },
+  {
+   "rotulo": "sil",
+   "start": 38.603,
+   "end": 39.353
+  },
+  {
+   "rotulo": "P12",
+   "start": 39.353,
+   "end": 41.589
+  },
+  {
+   "rotulo": "P13",
+   "start": 41.589,
+   "end": 43.98
+  },
+  {
+   "rotulo": "sil",
+   "start": 43.98,
+   "end": 44.28
+  },
+  {
+   "rotulo": "P14",
+   "start": 44.28,
+   "end": 51.417
+  },
+  {
+   "rotulo": "sil",
+   "start": 51.417,
+   "end": 52.217
+  }
+ ],
+ "palavras": [
+  {
+   "w": "Faltam",
+   "start": 0.074,
+   "end": 0.519,
+   "bloco": "P1"
+  },
+  {
+   "w": "oito",
+   "start": 0.556,
+   "end": 0.741,
+   "bloco": "P1"
+  },
+  {
+   "w": "minutos",
+   "start": 0.815,
+   "end": 1.259,
+   "bloco": "P1"
+  },
+  {
+   "w": "pra",
+   "start": 1.296,
+   "end": 1.333,
+   "bloco": "P1"
+  },
+  {
+   "w": "você",
+   "start": 1.407,
+   "end": 1.63,
+   "bloco": "P1"
+  },
+  {
+   "w": "perder",
+   "start": 1.704,
+   "end": 1.852,
+   "bloco": "P1"
+  },
+  {
+   "w": "a",
+   "start": 1.889,
+   "end": 1.926,
+   "bloco": "P1"
+  },
+  {
+   "w": "voz",
+   "start": 2.0,
+   "end": 2.222,
+   "bloco": "P1"
+  },
+  {
+   "w": "pra",
+   "start": 2.296,
+   "end": 2.37,
+   "bloco": "P1"
+  },
+  {
+   "w": "sempre.",
+   "start": 2.519,
+   "end": 3.148,
+   "bloco": "P1"
+  },
+  {
+   "w": "Você",
+   "start": 3.333,
+   "end": 3.556,
+   "bloco": "P1"
+  },
+  {
+   "w": "não",
+   "start": 3.63,
+   "end": 3.704,
+   "bloco": "P1"
+  },
+  {
+   "w": "consegue",
+   "start": 3.815,
+   "end": 4.148,
+   "bloco": "P1"
+  },
+  {
+   "w": "abrir",
+   "start": 4.185,
+   "end": 4.37,
+   "bloco": "P1"
+  },
+  {
+   "w": "uma",
+   "start": 4.444,
+   "end": 4.519,
+   "bloco": "P1"
+  },
+  {
+   "w": "porta.",
+   "start": 4.593,
+   "end": 5.074,
+   "bloco": "P1"
+  },
+  {
+   "w": "E",
+   "start": 5.259,
+   "end": 5.333,
+   "bloco": "P1"
+  },
+  {
+   "w": "pra",
+   "start": 5.407,
+   "end": 5.481,
+   "bloco": "P1"
+  },
+  {
+   "w": "ajudar...",
+   "start": 5.556,
+   "end": 6.37,
+   "bloco": "P1"
+  },
+  {
+   "w": "apareceu",
+   "start": 6.444,
+   "end": 6.741,
+   "bloco": "P1"
+  },
+  {
+   "w": "um",
+   "start": 6.815,
+   "end": 6.889,
+   "bloco": "P1"
+  },
+  {
+   "w": "cachorro",
+   "start": 6.988,
+   "end": 7.407,
+   "bloco": "P1"
+  },
+  {
+   "w": "querendo",
+   "start": 7.481,
+   "end": 7.63,
+   "bloco": "P1"
+  },
+  {
+   "w": "te",
+   "start": 7.704,
+   "end": 7.778,
+   "bloco": "P1"
+  },
+  {
+   "w": "pegar.",
+   "start": 7.852,
+   "end": 8.444,
+   "bloco": "P1"
+  },
+  {
+   "w": "Hoje,",
+   "start": 8.742,
+   "end": 9.142,
+   "bloco": "P2"
+  },
+  {
+   "w": "às",
+   "start": 9.216,
+   "end": 9.327,
+   "bloco": "P2"
+  },
+  {
+   "w": "seis",
+   "start": 9.364,
+   "end": 9.512,
+   "bloco": "P2"
+  },
+  {
+   "w": "e",
+   "start": 9.586,
+   "end": 9.661,
+   "bloco": "P2"
+  },
+  {
+   "w": "sete",
+   "start": 9.735,
+   "end": 9.846,
+   "bloco": "P2"
+  },
+  {
+   "w": "da",
+   "start": 9.883,
+   "end": 9.957,
+   "bloco": "P2"
+  },
+  {
+   "w": "manhã,",
+   "start": 10.031,
+   "end": 10.549,
+   "bloco": "P2"
+  },
+  {
+   "w": "todas",
+   "start": 10.623,
+   "end": 10.846,
+   "bloco": "P2"
+  },
+  {
+   "w": "as",
+   "start": 10.92,
+   "end": 10.994,
+   "bloco": "P2"
+  },
+  {
+   "w": "línguas",
+   "start": 11.031,
+   "end": 11.29,
+   "bloco": "P2"
+  },
+  {
+   "w": "do",
+   "start": 11.327,
+   "end": 11.364,
+   "bloco": "P2"
+  },
+  {
+   "w": "mundo",
+   "start": 11.438,
+   "end": 11.661,
+   "bloco": "P2"
+  },
+  {
+   "w": "sumiram.",
+   "start": 11.735,
+   "end": 12.475,
+   "bloco": "P2"
+  },
+  {
+   "w": "Ninguém",
+   "start": 12.524,
+   "end": 12.772,
+   "bloco": "P3"
+  },
+  {
+   "w": "falava.",
+   "start": 12.846,
+   "end": 13.438,
+   "bloco": "P3"
+  },
+  {
+   "w": "Ninguém",
+   "start": 13.512,
+   "end": 13.735,
+   "bloco": "P3"
+  },
+  {
+   "w": "lia.",
+   "start": 13.809,
+   "end": 14.327,
+   "bloco": "P3"
+  },
+  {
+   "w": "Aí",
+   "start": 14.392,
+   "end": 14.475,
+   "bloco": "P4"
+  },
+  {
+   "w": "o",
+   "start": 14.512,
+   "end": 14.549,
+   "bloco": "P4"
+  },
+  {
+   "w": "sistema",
+   "start": 14.586,
+   "end": 14.92,
+   "bloco": "P4"
+  },
+  {
+   "w": "deixou",
+   "start": 14.957,
+   "end": 15.216,
+   "bloco": "P4"
+  },
+  {
+   "w": "cada",
+   "start": 15.29,
+   "end": 15.438,
+   "bloco": "P4"
+  },
+  {
+   "w": "um",
+   "start": 15.512,
+   "end": 15.586,
+   "bloco": "P4"
+  },
+  {
+   "w": "instalar",
+   "start": 15.698,
+   "end": 15.957,
+   "bloco": "P4"
+  },
+  {
+   "w": "uma",
+   "start": 16.031,
+   "end": 16.105,
+   "bloco": "P4"
+  },
+  {
+   "w": "de",
+   "start": 16.179,
+   "end": 16.253,
+   "bloco": "P4"
+  },
+  {
+   "w": "novo.",
+   "start": 16.29,
+   "end": 16.772,
+   "bloco": "P4"
+  },
+  {
+   "w": "O",
+   "start": 16.809,
+   "end": 16.846,
+   "bloco": "P4"
+  },
+  {
+   "w": "português",
+   "start": 16.957,
+   "end": 17.29,
+   "bloco": "P4"
+  },
+  {
+   "w": "veio",
+   "start": 17.327,
+   "end": 17.438,
+   "bloco": "P4"
+  },
+  {
+   "w": "bloqueado.",
+   "start": 17.512,
+   "end": 18.179,
+   "bloco": "P4"
+  },
+  {
+   "w": "Você",
+   "start": 18.29,
+   "end": 18.401,
+   "bloco": "P5"
+  },
+  {
+   "w": "foi",
+   "start": 18.475,
+   "end": 18.549,
+   "bloco": "P5"
+  },
+  {
+   "w": "de",
+   "start": 18.586,
+   "end": 18.623,
+   "bloco": "P5"
+  },
+  {
+   "w": "inglês.",
+   "start": 18.698,
+   "end": 19.29,
+   "bloco": "P5"
+  },
+  {
+   "w": "Nível",
+   "start": 19.327,
+   "end": 19.586,
+   "bloco": "P5"
+  },
+  {
+   "w": "um.",
+   "start": 19.661,
+   "end": 20.031,
+   "bloco": "P5"
+  },
+  {
+   "w": "A",
+   "start": 20.095,
+   "end": 20.105,
+   "bloco": "P6"
+  },
+  {
+   "w": "regra:",
+   "start": 20.179,
+   "end": 20.698,
+   "bloco": "P6"
+  },
+  {
+   "w": "quem",
+   "start": 20.747,
+   "end": 20.846,
+   "bloco": "P6"
+  },
+  {
+   "w": "não",
+   "start": 20.92,
+   "end": 21.068,
+   "bloco": "P6"
+  },
+  {
+   "w": "chega",
+   "start": 21.105,
+   "end": 21.29,
+   "bloco": "P6"
+  },
+  {
+   "w": "no",
+   "start": 21.327,
+   "end": 21.364,
+   "bloco": "P6"
+  },
+  {
+   "w": "nível",
+   "start": 21.438,
+   "end": 21.661,
+   "bloco": "P6"
+  },
+  {
+   "w": "dois",
+   "start": 21.735,
+   "end": 21.883,
+   "bloco": "P6"
+  },
+  {
+   "w": "até",
+   "start": 21.994,
+   "end": 22.142,
+   "bloco": "P6"
+  },
+  {
+   "w": "meia-noite...",
+   "start": 22.179,
+   "end": 22.994,
+   "bloco": "P6"
+  },
+  {
+   "w": "perde",
+   "start": 23.068,
+   "end": 23.216,
+   "bloco": "P6"
+  },
+  {
+   "w": "a",
+   "start": 23.241,
+   "end": 23.265,
+   "bloco": "P6"
+  },
+  {
+   "w": "voz",
+   "start": 23.29,
+   "end": 23.512,
+   "bloco": "P6"
+  },
+  {
+   "w": "pra",
+   "start": 23.586,
+   "end": 23.809,
+   "bloco": "P6"
+  },
+  {
+   "w": "sempre.",
+   "start": 23.883,
+   "end": 24.401,
+   "bloco": "P6"
+  },
+  {
+   "w": "Você",
+   "start": 24.586,
+   "end": 24.623,
+   "bloco": "P7"
+  },
+  {
+   "w": "passou",
+   "start": 24.698,
+   "end": 24.846,
+   "bloco": "P7"
+  },
+  {
+   "w": "o",
+   "start": 24.92,
+   "end": 24.994,
+   "bloco": "P7"
+  },
+  {
+   "w": "dia",
+   "start": 25.105,
+   "end": 25.216,
+   "bloco": "P7"
+  },
+  {
+   "w": "caçando",
+   "start": 25.29,
+   "end": 25.586,
+   "bloco": "P7"
+  },
+  {
+   "w": "palavra.",
+   "start": 25.698,
+   "end": 26.253,
+   "bloco": "P7"
+  },
+  {
+   "w": "Falta",
+   "start": 26.415,
+   "end": 26.649,
+   "bloco": "P8"
+  },
+  {
+   "w": "uma.",
+   "start": 26.723,
+   "end": 27.242,
+   "bloco": "P8"
+  },
+  {
+   "w": "E",
+   "start": 27.279,
+   "end": 27.316,
+   "bloco": "P8"
+  },
+  {
+   "w": "ela",
+   "start": 27.39,
+   "end": 27.464,
+   "bloco": "P8"
+  },
+  {
+   "w": "tá",
+   "start": 27.538,
+   "end": 27.612,
+   "bloco": "P8"
+  },
+  {
+   "w": "aqui.",
+   "start": 27.686,
+   "end": 28.205,
+   "bloco": "P8"
+  },
+  {
+   "w": "Push...",
+   "start": 28.736,
+   "end": 29.17,
+   "bloco": "P9"
+  },
+  {
+   "w": "Push...",
+   "start": 29.355,
+   "end": 29.911,
+   "bloco": "P9"
+  },
+  {
+   "w": "puxe.",
+   "start": 29.948,
+   "end": 30.503,
+   "bloco": "P9"
+  },
+  {
+   "w": "Tá",
+   "start": 30.528,
+   "end": 30.577,
+   "bloco": "P9"
+  },
+  {
+   "w": "escrito",
+   "start": 30.651,
+   "end": 30.873,
+   "bloco": "P9"
+  },
+  {
+   "w": "puxe.",
+   "start": 31.022,
+   "end": 31.54,
+   "bloco": "P9"
+  },
+  {
+   "w": "Você",
+   "start": 31.651,
+   "end": 31.762,
+   "bloco": "P9"
+  },
+  {
+   "w": "puxa.",
+   "start": 31.836,
+   "end": 32.355,
+   "bloco": "P9"
+  },
+  {
+   "w": "O",
+   "start": 32.417,
+   "end": 32.429,
+   "bloco": "P10"
+  },
+  {
+   "w": "porteiro",
+   "start": 32.54,
+   "end": 32.725,
+   "bloco": "P10"
+  },
+  {
+   "w": "acorda",
+   "start": 32.799,
+   "end": 33.17,
+   "bloco": "P10"
+  },
+  {
+   "w": "e",
+   "start": 33.207,
+   "end": 33.244,
+   "bloco": "P10"
+  },
+  {
+   "w": "grita...",
+   "start": 33.318,
+   "end": 33.836,
+   "bloco": "P10"
+  },
+  {
+   "w": "Ele",
+   "start": 36.271,
+   "end": 36.29,
+   "bloco": "P11"
+  },
+  {
+   "w": "tá",
+   "start": 36.327,
+   "end": 36.364,
+   "bloco": "P11"
+  },
+  {
+   "w": "mandando",
+   "start": 36.438,
+   "end": 36.66,
+   "bloco": "P11"
+  },
+  {
+   "w": "puxar.",
+   "start": 36.734,
+   "end": 37.401,
+   "bloco": "P11"
+  },
+  {
+   "w": "Você",
+   "start": 37.512,
+   "end": 37.623,
+   "bloco": "P11"
+  },
+  {
+   "w": "puxa",
+   "start": 37.66,
+   "end": 37.845,
+   "bloco": "P11"
+  },
+  {
+   "w": "com",
+   "start": 37.919,
+   "end": 37.993,
+   "bloco": "P11"
+  },
+  {
+   "w": "tudo...",
+   "start": 38.141,
+   "end": 38.66,
+   "bloco": "P11"
+  },
+  {
+   "w": "Sem",
+   "start": 39.537,
+   "end": 39.558,
+   "bloco": "P12"
+  },
+  {
+   "w": "maçaneta.",
+   "start": 39.632,
+   "end": 40.373,
+   "bloco": "P12"
+  },
+  {
+   "w": "E",
+   "start": 40.41,
+   "end": 40.447,
+   "bloco": "P12"
+  },
+  {
+   "w": "o",
+   "start": 40.484,
+   "end": 40.521,
+   "bloco": "P12"
+  },
+  {
+   "w": "cachorro",
+   "start": 40.558,
+   "end": 40.891,
+   "bloco": "P12"
+  },
+  {
+   "w": "chegando.",
+   "start": 40.928,
+   "end": 41.558,
+   "bloco": "P12"
+  },
+  {
+   "w": "O",
+   "start": 41.62,
+   "end": 41.632,
+   "bloco": "P13"
+  },
+  {
+   "w": "porteiro",
+   "start": 41.706,
+   "end": 42.003,
+   "bloco": "P13"
+  },
+  {
+   "w": "desenha",
+   "start": 42.114,
+   "end": 42.299,
+   "bloco": "P13"
+  },
+  {
+   "w": "uma",
+   "start": 42.373,
+   "end": 42.447,
+   "bloco": "P13"
+  },
+  {
+   "w": "seta.",
+   "start": 42.521,
+   "end": 43.04,
+   "bloco": "P13"
+  },
+  {
+   "w": "Pra",
+   "start": 43.089,
+   "end": 43.188,
+   "bloco": "P13"
+  },
+  {
+   "w": "dentro.",
+   "start": 43.262,
+   "end": 43.854,
+   "bloco": "P13"
+  },
+  {
+   "w": "Seta",
+   "start": 44.406,
+   "end": 44.488,
+   "bloco": "P14"
+  },
+  {
+   "w": "pra",
+   "start": 44.525,
+   "end": 44.673,
+   "bloco": "P14"
+  },
+  {
+   "w": "dentro...",
+   "start": 44.821,
+   "end": 45.562,
+   "bloco": "P14"
+  },
+  {
+   "w": "e",
+   "start": 45.599,
+   "end": 45.636,
+   "bloco": "P14"
+  },
+  {
+   "w": "se",
+   "start": 45.71,
+   "end": 45.784,
+   "bloco": "P14"
+  },
+  {
+   "w": "push",
+   "start": 45.858,
+   "end": 46.08,
+   "bloco": "P14"
+  },
+  {
+   "w": "não",
+   "start": 46.105,
+   "end": 46.154,
+   "bloco": "P14"
+  },
+  {
+   "w": "for",
+   "start": 46.228,
+   "end": 46.303,
+   "bloco": "P14"
+  },
+  {
+   "w": "puxar?",
+   "start": 46.377,
+   "end": 46.895,
+   "bloco": "P14"
+  },
+  {
+   "w": "Empurra",
+   "start": 47.08,
+   "end": 47.34,
+   "bloco": "P14"
+  },
+  {
+   "w": "ou",
+   "start": 47.414,
+   "end": 47.488,
+   "bloco": "P14"
+  },
+  {
+   "w": "puxa?",
+   "start": 47.562,
+   "end": 48.08,
+   "bloco": "P14"
+  },
+  {
+   "w": "Comenta",
+   "start": 48.117,
+   "end": 48.451,
+   "bloco": "P14"
+  },
+  {
+   "w": "um",
+   "start": 48.525,
+   "end": 48.599,
+   "bloco": "P14"
+  },
+  {
+   "w": "ou",
+   "start": 48.673,
+   "end": 48.821,
+   "bloco": "P14"
+  },
+  {
+   "w": "dois.",
+   "start": 48.858,
+   "end": 49.266,
+   "bloco": "P14"
+  },
+  {
+   "w": "O",
+   "start": 49.291,
+   "end": 49.315,
+   "bloco": "P14"
+  },
+  {
+   "w": "mais",
+   "start": 49.34,
+   "end": 49.488,
+   "bloco": "P14"
+  },
+  {
+   "w": "votado",
+   "start": 49.562,
+   "end": 49.858,
+   "bloco": "P14"
+  },
+  {
+   "w": "decide",
+   "start": 49.932,
+   "end": 50.228,
+   "bloco": "P14"
+  },
+  {
+   "w": "se",
+   "start": 50.303,
+   "end": 50.377,
+   "bloco": "P14"
+  },
+  {
+   "w": "você",
+   "start": 50.451,
+   "end": 50.599,
+   "bloco": "P14"
+  },
+  {
+   "w": "volta",
+   "start": 50.673,
+   "end": 50.821,
+   "bloco": "P14"
+  },
+  {
+   "w": "a",
+   "start": 50.858,
+   "end": 50.895,
+   "bloco": "P14"
+  },
+  {
+   "w": "falar.",
+   "start": 50.969,
+   "end": 51.488,
+   "bloco": "P14"
+  }
+ ],
+ "duracao": 52.217
+}

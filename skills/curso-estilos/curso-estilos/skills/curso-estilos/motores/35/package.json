@@ -1,0 +1,16 @@
+{
+  "name": "curso-estilos-35-heroi-pbr",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Estilo 35: heroi 3D PBR em three.js a partir de arte de conceito. Render deterministico com puppeteer-core + Chrome do sistema + FFmpeg.",
+  "scripts": {
+    "demo": "node render.mjs --demo",
+    "juntar": "node juntar.mjs",
+    "folha": "node render.mjs --times 2,9,19.05 --out saida/folha.jpg",
+    "filme": "node render.mjs --video saida/filme_1080.mp4 --fps 30"
+  },
+  "dependencies": {
+    "puppeteer-core": "^23.11.1"
+  }
+}

@@ -1,0 +1,144 @@
+{
+ "patent": {
+  "doc": "patent1738",
+  "size": [
+   2248,
+   3543
+  ],
+  "quad": [
+   [
+    125.44,
+    430.0
+   ],
+   [
+    928.48,
+    417.68
+   ],
+   [
+    913.37,
+    1676.66
+   ],
+   [
+    110.25,
+    1695.7
+   ]
+  ],
+  "nota": "K4: Patent inteiro, sem esticar; a luz do papel gerado (razao por quadro) multiplica o documento"
+ },
+ "osoby": {
+  "doc": "cz1920_8",
+  "size": [
+   2097,
+   3281
+  ],
+  "quad": [
+   [
+    120.93,
+    30.8
+   ],
+   [
+    954.26,
+    25.29
+   ],
+   [
+    953.0,
+    1328.0
+   ],
+   [
+    131.0,
+    1331.0
+   ]
+  ],
+  "alvo_sluha": [
+   208.1,
+   1070.2
+  ],
+  "zoom_final": 2.45,
+  "camera_k8": {
+   "z": 2.45,
+   "x0": 142.8,
+   "y0": 723.3
+  },
+  "nota": "K8: pagina OSOBY na folha em branco do Z16; push 1,0 -> 2,45 (nativo) ate Robotsky sluha"
+ },
+ "roboti": {
+  "quad": [
+   [
+    186.0,
+    578.0
+   ],
+   [
+    1011.0,
+    505.0
+   ],
+   [
+    1001.0,
+    1432.0
+   ],
+   [
+    178.0,
+    1336.0
+   ]
+  ],
+  "plano": [
+   1000,
+   1100
+  ],
+  "fonte": "Fixture-CondensedBlack",
+  "size": 250,
+  "angulo": 20.0,
+  "base_esq": [
+   68.6,
+   234.9
+  ],
+  "pincel": [
+   688.8,
+   402.2
+  ],
+  "largura": 675.0,
+  "largura_ate_T": 605.0,
+  "nota": "K3: ROBOTI na diagonal da tela, write-on da esquerda p/ direita; o I termina sob o pincel do H3"
+ },
+ "capa": {
+  "doc": "cz1920_2",
+  "x": 258,
+  "y": 566,
+  "w": 560,
+  "rot": -1.2,
+  "crop_esq": 148,
+  "nota": "K2: na montagem a capa nitida volta por cima do clipe; as maos do H3 por cima dela (matte de pele y>1250)"
+ },
+ "briullov": {
+  "doc": "briullov_detalhe",
+  "size": [
+   1903,
+   1903
+  ],
+  "quad": [
+   [
+    122.5,
+    562.5
+   ],
+   [
+    992.0,
+    508.0
+   ],
+   [
+    992.0,
+    1442.0
+   ],
+   [
+    123.0,
+    1386.0
+   ]
+  ],
+  "nota": "Z17v3_2732: tela quase quadrada (o Z-Image nao fez tela paisagem em 9:16 em 4 sementes). O Briullov entra como DETALHE: recorte central 1903x1903 (x 328-2231 do nativo 2560x1903), sem esticar; o credito diz (detalhe). A escada (x<250, y>1250) fica NA FRENTE da pintura: matte da madeira = todo."
+ },
+ "capa_h3": {
+  "cx": 539.4,
+  "cy": 1032.3,
+  "w": 560.1,
+  "rot": -0.35,
+  "nota": "capa como o H3 a desenhou (capa_real.py, ORB+RANSAC no q90): o livro da avalanche pousa aqui"
+ }
+}

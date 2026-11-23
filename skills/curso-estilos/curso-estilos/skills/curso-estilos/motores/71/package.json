@@ -1,0 +1,15 @@
+{
+  "name": "curso-estilos-71-blockbench-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Boneco de blocos feito no Blockbench pelo MCP (GLB pronto) numa cena three.js. Demo: 3 s do salto com a mochila virando asa.",
+  "scripts": {
+    "demo": "node render.mjs --pagina cena/index.html --query \"esc=0.5\" --ini 9.6 --fim 12.6 --fps 15 --saida saida/demo.mp4",
+    "folha": "node render.mjs --pagina cena/index.html --query \"esc=0.5\" --folha 2,6.5,10.9,14,20.5,26.8 --saida saida/folha.jpg",
+    "filme": "node render.mjs --pagina cena/index.html --w 1080 --h 1920 --fps 30 --saida saida/filme.mp4"
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}

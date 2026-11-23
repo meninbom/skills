@@ -1,0 +1,51 @@
+{
+ "_leia": "Exemplo real: EP01 Nessa cidade, cai um bicho do céu. Cada plano entra na frase indicada (achada no .words.json da voz). Tempos aceitam: número (s), \"fim\", {\"plano\": nome, \"mais\": s} ou {\"frase\": texto, \"depois_do_plano\": nome, \"mais\": s}.",
+ "titulo": "BichoDoCeu_EP01",
+ "fonte": "Arial Rounded MT Bold",
+ "atraso_voz": 0.3,
+ "cauda": 1.8,
+ "planos": [
+  ["01_aereo", "Na minha cidade", 0], ["02_maquina", "e puxa a alavanca", 0], ["03_cai", "Aí cai um bicho", 1.7],
+  ["04_teo", "E o bicho que cai decide", 0], ["05_tonho", "O seu Tonho", 0], ["06_bia", "A Bia puxou", 0.4],
+  ["07_jairo", "O seu Jairo", 0], ["08_regra", "E tem uma regra", 0], ["09_multidao", "Comigo foi diferente", 0],
+  ["10_alavanca", "Eu puxei a alavanca", 0.3], ["11_tubo", "e não caiu nada", 0], ["12_olhando", "Todo mundo ficou", 0],
+  ["13_casa", "Aí o pessoal", 0], ["14_caixa", "Só que de noite", 0], ["15_penas", "Tinha pena queimada", 0],
+  ["16_bichos", "E hoje de manhã", 0], ["17_sombra", "Foi aí que a cidade", 0], ["18_olho", "Lá em cima", 0],
+  ["19_coleira", "E no pescoço", 0], ["20_teo", "Eu subo ou", 0]
+ ],
+ "hud": [
+  {"txt": "IDADE  10", "de": 0.2, "ate": "fim", "margem_v": 230},
+  {"txt": "BICHO:  ???", "de": 0.2, "ate": {"plano": "18_olho"}, "margem_v": 320},
+  {"txt": "BICHO:  LENDÁRIO", "de": {"plano": "18_olho"}, "ate": "fim", "margem_v": 320, "alerta": true}
+ ],
+ "etiquetas": [
+  {"plano": "05_tonho", "txt": "VACA  →  SORVETEIRO"},
+  {"plano": "06_bia", "txt": "ÁGUIA  →  CARTEIRA"},
+  {"plano": "07_jairo", "txt": "TATU  →  ENCANADOR"},
+  {"plano": "08_regra", "txt": "1 PUXADA POR PESSOA"}
+ ],
+ "voto": {"frase": "Comenta", "opcoes": ["1  ·  SUBIR", "2  ·  ESCONDER"]},
+ "som": {
+  "_leia": "Arquivos procurados na pasta da variável SFX_DIR (padrão: ./sons). Ponha os seus (sua biblioteca de efeitos ou um pack CC0). Arquivo que faltar é pulado com aviso.",
+  "sfx": [
+   {"arquivo": "baque.wav", "em": {"plano": "03_cai", "mais": 1.95}, "extra_db": -3, "dur": 0.8, "fade": 0.3},
+   {"arquivo": "pop.wav", "em": {"plano": "03_cai", "mais": 2.0}, "extra_db": -2, "dur": 0.5, "fade": 0.1},
+   {"arquivo": "voo.wav", "em": {"plano": "06_bia", "mais": 0.6}, "extra_db": -4, "dur": 1.5, "fade": 0.5},
+   {"arquivo": "alavanca.wav", "em": {"plano": "10_alavanca", "mais": 0.9}, "extra_db": -3, "dur": 1.2, "fade": 0.4},
+   {"arquivo": "tique.wav", "em": {"frase": "Dez", "depois_do_plano": "12_olhando"}, "ate": {"plano": "13_casa"}, "extra_db": 0, "fade": 0.2, "loop": true},
+   {"arquivo": "chama.wav", "em": {"plano": "14_caixa", "mais": 0.1}, "extra_db": -4, "dur": 1.6, "fade": 0.6},
+   {"arquivo": "aviso.wav", "em": {"plano": "18_olho", "mais": 0.05}, "extra_db": -4, "dur": 0.5, "fade": 0.05},
+   {"arquivo": "pop.wav", "em": {"frase": "Comenta", "depois_do_plano": "20_teo"}, "extra_db": -2, "dur": 0.5, "fade": 0.1}
+  ],
+  "ambiente": [
+   {"arquivo": "amb_vila.wav", "de": 0, "ate": {"plano": "14_caixa"}, "alvo_db": -38},
+   {"arquivo": "amb_vento.wav", "de": {"plano": "14_caixa"}, "ate": {"plano": "16_bichos"}, "alvo_db": -36},
+   {"arquivo": "amb_vila.wav", "de": {"plano": "16_bichos"}, "ate": {"plano": "17_sombra"}, "alvo_db": -38},
+   {"arquivo": "amb_vento.wav", "de": {"plano": "17_sombra"}, "ate": "fim", "alvo_db": -34}
+  ],
+  "trilha": [
+   {"arquivo": "trilha_leve.wav", "de": 0, "ate": {"plano": "17_sombra", "mais": 0.6}},
+   {"arquivo": "trilha_tensa.wav", "de": {"plano": "17_sombra", "mais": -0.3}, "ate": "fim"}
+  ]
+ }
+}

@@ -1,0 +1,3 @@
+# Só para o estúdio de comparação (estudio.py e medir.py). O demo e o filme não usam Python.
+pillow>=10
+numpy>=1.26

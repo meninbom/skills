@@ -1,0 +1,312 @@
+[
+ {
+  "id": "robot_Z01a",
+  "img": "h3_in/robot_Z01a.png",
+  "prompt": "Static locked-off camera, the framing does not change: no camera movement, no zoom, no pan, no cut. Extreme close-up of a bald pale man against a dark slate-blue wall, hard window light from the left. His heavy half-open eyelids slowly open fully and his light-grey eyes turn from the window at the left to settle calmly on the camera lens; one slow breath lifts his shoulders slightly. His head stays in place. The wall stays perfectly still, the light does not change. Sound: quiet room tone only, no music, no voices.",
+  "segundos_uteis": 2.5,
+  "cena": [
+   1,
+   31
+  ],
+  "prioridade": 1,
+  "seed": 1,
+  "w": 448,
+  "h": 768,
+  "frames": 124,
+  "prompt_file": "h3_in/robot_Z01a.txt",
+  "saida": "h3_out/robot_Z01a.mp4",
+  "comando": "python comfy/h3.py --img \"h3_in/robot_Z01a.png\" --prompt-file \"h3_in/robot_Z01a.txt\" --out \"h3_out/robot_Z01a.mp4\" --w 448 --h 768 --frames 124 --seed 1",
+  "upscale": "bash comfy/upscale_clip.sh \"h3_out/robot_Z01a.mp4\" \"h3_out/robot_Z01a_up.mp4\" 1120 1920",
+  "placa": "1120x1920 (7:12, igual a 448x768: o H3 nao corta); o quadro final e o centro 1080x1920",
+  "nota": "cena 1 (0-0,8 s: olhos abrem, remapear para 0,10-0,60) e cena 31 (o MESMO clipe ao contrario, 2,4 s: olhos fecham, ultimo quadro = quadro 0 = loop). Nada pode se mexer alem do rosto. Prioridade 1."
+ },
+ {
+  "id": "robot_Z01b",
+  "img": "h3_in/robot_Z01b.png",
+  "prompt": "Static locked-off camera, the framing does not change: no camera movement, no zoom, no pan, no cut. Extreme close-up of the bald pale man against a dark slate-blue wall, his calm light-grey eyes looking straight into the lens. He holds the gaze for a moment, then slowly lowers his eyes down toward his hands below the frame, and his face turns quietly serious. Only the eyes, the eyelids and a slight breath move; the head stays in place, the wall and the light stay still. Sound: quiet room tone only, no music, no voices.",
+  "segundos_uteis": 2.0,
+  "cena": [
+   28
+  ],
+  "prioridade": 2,
+  "seed": 1,
+  "w": 448,
+  "h": 768,
+  "frames": 124,
+  "prompt_file": "h3_in/robot_Z01b.txt",
+  "saida": "h3_out/robot_Z01b.mp4",
+  "comando": "python comfy/h3.py --img \"h3_in/robot_Z01b.png\" --prompt-file \"h3_in/robot_Z01b.txt\" --out \"h3_out/robot_Z01b.mp4\" --w 448 --h 768 --frames 124 --seed 1",
+  "upscale": "bash comfy/upscale_clip.sh \"h3_out/robot_Z01b.mp4\" \"h3_out/robot_Z01b_up.mp4\" 1120 1920",
+  "placa": "1120x1920 (7:12, igual a 448x768: o H3 nao corta); o quadro final e o centro 1080x1920",
+  "nota": "cena 28: olhar na lente e, em 38,38 (robo), os olhos descem p/ as maos (raccord de olhar com a cena 29). Mesmo enquadramento do K1: ROBO atras da cabeca na mesma posicao."
+ },
+ {
+  "id": "robot_Z01c",
+  "img": "h3_in/robot_Z01c.png",
+  "prompt": "Static locked-off camera, the framing does not change: no camera movement, no zoom, no pan, no cut. Close-up of the bald pale man in the lower half of the frame, a large empty dark slate wall above his head. He looks into the lens, then his eyes slowly rise to look up toward the top of the frame, hold there for a moment, and come back down to look straight into the lens. His head stays still; only the eyes, the eyelids and one slow breath move. Nothing appears on the wall. Sound: quiet room tone only, no music, no voices.",
+  "segundos_uteis": 2.0,
+  "cena": [
+   15
+  ],
+  "prioridade": 3,
+  "seed": 1,
+  "w": 448,
+  "h": 768,
+  "frames": 124,
+  "prompt_file": "h3_in/robot_Z01c.txt",
+  "saida": "h3_out/robot_Z01c.mp4",
+  "comando": "python comfy/h3.py --img \"h3_in/robot_Z01c.png\" --prompt-file \"h3_in/robot_Z01c.txt\" --out \"h3_out/robot_Z01c.mp4\" --w 448 --h 768 --frames 124 --seed 1",
+  "upscale": "bash comfy/upscale_clip.sh \"h3_out/robot_Z01c.mp4\" \"h3_out/robot_Z01c_up.mp4\" 1120 1920",
+  "placa": "1120x1920 (7:12, igual a 448x768: o H3 nao corta); o quadro final e o centro 1080x1920",
+  "nota": "cena 15 (K6): a foto real da Theatre Guild e pregada em codigo na parede ATRAS da cabeca; o olhar sobe ate ela e desce na lente no 'gente' (21,56)."
+ },
+ {
+  "id": "robot_Z02",
+  "img": "h3_in/robot_Z02.png",
+  "prompt": "Static locked-off camera, the framing does not change: no camera movement, no zoom, no pan, no cut. Low angle from the front row of a small bare theatre stage. The tall bald pale man in a grey knitted tunic and a leather belt stands still and slowly turns his head from the window toward the camera. A few specks of dust drift slowly in the hard shaft of window light across the stage floor; the work-light bulb at the back glows steadily. His body stays in place, he does not walk. Sound: quiet empty theatre room tone, one faint creak of a floorboard, no music, no voices.",
+  "segundos_uteis": 3.7,
+  "cena": [
+   2,
+   11,
+   12
+  ],
+  "prioridade": 4,
+  "seed": 1,
+  "w": 448,
+  "h": 768,
+  "frames": 124,
+  "prompt_file": "h3_in/robot_Z02.txt",
+  "saida": "h3_out/robot_Z02.mp4",
+  "comando": "python comfy/h3.py --img \"h3_in/robot_Z02.png\" --prompt-file \"h3_in/robot_Z02.txt\" --out \"h3_out/robot_Z02.mp4\" --w 448 --h 768 --frames 124 --seed 1",
+  "upscale": "bash comfy/upscale_clip.sh \"h3_out/robot_Z02.mp4\" \"h3_out/robot_Z02_up.mp4\" 1120 1920",
+  "placa": "1120x1920 (7:12, igual a 448x768: o H3 nao corta); o quadro final e o centro 1080x1920",
+  "nota": "cena 2 nitida (1,1 s) e fundo desfocado das cenas 11-12 (foto real de Paris desliza no assoalho)."
+ },
+ {
+  "id": "robot_Z03",
+  "img": "h3_in/robot_Z03.png",
+  "prompt": "Locked-off overhead camera looking straight down at a pale oak desk, the framing does not change: no camera movement, no zoom. The brown book lies perfectly still in the center. The writer's two hands resting at its lower edge slowly slide back toward the bottom edge of the frame and leave it. The bands of hard window light across the desk soften and return slowly as a cloud passes. The book, the typewriter and the desk never move, nothing is written or drawn on anything. Sound: quiet room, a soft rustle of a wool sleeve on wood, no music, no voices.",
+  "segundos_uteis": 5.0,
+  "cena": [
+   3,
+   4,
+   23,
+   24,
+   25
+  ],
+  "prioridade": 5,
+  "seed": 1,
+  "w": 448,
+  "h": 768,
+  "frames": 124,
+  "prompt_file": "h3_in/robot_Z03.txt",
+  "saida": "h3_out/robot_Z03.mp4",
+  "comando": "python comfy/h3.py --img \"h3_in/robot_Z03.png\" --prompt-file \"h3_in/robot_Z03.txt\" --out \"h3_out/robot_Z03.mp4\" --w 448 --h 768 --frames 124 --seed 1",
+  "upscale": "bash comfy/upscale_clip.sh \"h3_out/robot_Z03.mp4\" \"h3_out/robot_Z03_up.mp4\" 1120 1920",
+  "placa": "1120x1920 (7:12, igual a 448x768: o H3 nao corta); o quadro final e o centro 1080x1920",
+  "nota": "cena 3 nitida (K2: a capa real nitida volta por cima com o matte das maos) e fundo desfocado das cenas 4, 23, 24, 25 (o clipe inteiro). Homografia fixa: checar deriva (tratar_clipes.py --ecc)."
+ },
+ {
+  "id": "robot_Z04",
+  "img": "h3_in/robot_Z04.png",
+  "prompt": "Static locked-off camera, the framing does not change: no camera movement, no zoom, no pan, no cut. A winter painter's studio. The painter, seen from behind with his face hidden, keeps a second brush clenched crosswise in his teeth while his raised right arm makes short slow strokes with the brush tip at the right end of the large bare canvas, barely touching it and leaving no marks; his head tilts slightly. Snow falls softly outside the tall window at the left. The canvas stays clean and still, the easel does not move. Sound: quiet room tone, soft bristle strokes on canvas, no music, no voices.",
+  "segundos_uteis": 3.8,
+  "cena": [
+   5,
+   6
+  ],
+  "prioridade": 6,
+  "seed": 1,
+  "w": 448,
+  "h": 768,
+  "frames": 124,
+  "prompt_file": "h3_in/robot_Z04.txt",
+  "saida": "h3_out/robot_Z04.mp4",
+  "comando": "python comfy/h3.py --img \"h3_in/robot_Z04.png\" --prompt-file \"h3_in/robot_Z04.txt\" --out \"h3_out/robot_Z04.mp4\" --w 448 --h 768 --frames 124 --seed 1",
+  "upscale": "bash comfy/upscale_clip.sh \"h3_out/robot_Z04.mp4\" \"h3_out/robot_Z04_up.mp4\" 1120 1920",
+  "placa": "1120x1920 (7:12, igual a 448x768: o H3 nao corta); o quadro final e o centro 1080x1920",
+  "nota": "cena 5 (K3: ROBOTI se pinta em codigo na homografia da tela, o I termina sob o pincel) e fundo desfocado da cena 6 (fotos reais pregadas). O rosto do pintor NUNCA aparece (honestidade)."
+ },
+ {
+  "id": "robot_Z05",
+  "img": "h3_in/robot_Z05.png",
+  "prompt": "Static locked-off camera, the framing does not change: no camera movement, no zoom, no pan, no cut. The weathered silver-grey plank notice board and the blank sheet of paper nailed to it stay perfectly still. Far behind, out of focus, bare branches sway gently and the morning haze drifts; the low winter sun slowly brightens and its warm light creeps a little further across the planks. Nothing is written on the paper. Sound: soft cold wind, no music, no voices.",
+  "segundos_uteis": 2.7,
+  "cena": [
+   7
+  ],
+  "prioridade": 7,
+  "seed": 1,
+  "w": 448,
+  "h": 768,
+  "frames": 124,
+  "prompt_file": "h3_in/robot_Z05.txt",
+  "saida": "h3_out/robot_Z05.mp4",
+  "comando": "python comfy/h3.py --img \"h3_in/robot_Z05.png\" --prompt-file \"h3_in/robot_Z05.txt\" --out \"h3_out/robot_Z05.mp4\" --w 448 --h 768 --frames 124 --seed 1",
+  "upscale": "bash comfy/upscale_clip.sh \"h3_out/robot_Z05.mp4\" \"h3_out/robot_Z05_up.mp4\" 1120 1920",
+  "placa": "1120x1920 (7:12, igual a 448x768: o H3 nao corta); o quadro final e o centro 1080x1920",
+  "nota": "cena 7 (K4): o Robott-Patent real entra em codigo na homografia do papel; a luz do papel gerado (por quadro) passa para o documento."
+ },
+ {
+  "id": "robot_Z06",
+  "img": "h3_in/robot_Z06.png",
+  "prompt": "Static camera at furrow level, the framing does not change: no camera movement, no zoom. The gaunt serf in the foreground and the line of serfs behind him lean forward and drive the heavy wooden plough step by step through the wet earth and old snow, slow and heavy, their breath steaming in the cold air; the mounted overseer in the back stays still; the manor house on the hill does not move. Sound: heavy breathing, boots in wet earth, cold wind, no music, no voices.",
+  "segundos_uteis": 1.3,
+  "cena": [
+   8
+  ],
+  "prioridade": 8,
+  "seed": 1,
+  "w": 448,
+  "h": 768,
+  "frames": 124,
+  "prompt_file": "h3_in/robot_Z06.txt",
+  "saida": "h3_out/robot_Z06.mp4",
+  "comando": "python comfy/h3.py --img \"h3_in/robot_Z06.png\" --prompt-file \"h3_in/robot_Z06.txt\" --out \"h3_out/robot_Z06.mp4\" --w 448 --h 768 --frames 124 --seed 1",
+  "upscale": "bash comfy/upscale_clip.sh \"h3_out/robot_Z06.mp4\" \"h3_out/robot_Z06_up.mp4\" 1120 1920",
+  "placa": "1120x1920 (7:12, igual a 448x768: o H3 nao corta); o quadro final e o centro 1080x1920",
+  "nota": "cena 8: plano fechado no servo (11,28-11,72) e corte para o tilt servo -> casa senhorial (11,72-12,40) em codigo."
+ },
+ {
+  "id": "robot_Z07a",
+  "img": "h3_in/robot_Z07a.png",
+  "prompt": "Static macro camera on a frosted window pane, the framing does not change: no camera movement, no zoom. The white frost ferns at the edges of the glass slowly grow a little further inward, their fine feathery crystals extending. Through the clear thawed patch, out of focus, the distant stooped peasant takes slow steps through the snow pulling his cart by the rope. Nothing else moves. Sound: faint cold wind outside the glass, no music, no voices.",
+  "segundos_uteis": 1.7,
+  "cena": [
+   10
+  ],
+  "prioridade": 9,
+  "seed": 1,
+  "w": 448,
+  "h": 768,
+  "frames": 124,
+  "prompt_file": "h3_in/robot_Z07a.txt",
+  "saida": "h3_out/robot_Z07a.mp4",
+  "comando": "python comfy/h3.py --img \"h3_in/robot_Z07a.png\" --prompt-file \"h3_in/robot_Z07a.txt\" --out \"h3_out/robot_Z07a.mp4\" --w 448 --h 768 --frames 124 --seed 1",
+  "upscale": "bash comfy/upscale_clip.sh \"h3_out/robot_Z07a.mp4\" \"h3_out/robot_Z07a_up.mp4\" 1120 1920",
+  "placa": "1120x1920 (7:12, igual a 448x768: o H3 nao corta); o quadro final e o centro 1080x1920",
+  "nota": "cena 10 (K5): RAB no ceu do vidro limpo, cadeia RABOTA/ROBOTA/ROBOT descendo pelo servo; cristais por cima das pontas."
+ },
+ {
+  "id": "robot_Z08",
+  "img": "h3_in/robot_Z08.png",
+  "prompt": "Static locked-off camera, the framing does not change: no camera movement, no zoom, no pan, no cut. The smooth pale hand resting on the oak table slowly curls its fingers into a loose fist and opens them again; the faint veins at the wrist shift under the skin. The forearm and the knitted sleeve stay in place, the table and the window light do not change. Sound: quiet room tone, a soft brush of skin on wood, no music, no voices.",
+  "segundos_uteis": 1.9,
+  "cena": [
+   13
+  ],
+  "prioridade": 10,
+  "seed": 1,
+  "w": 448,
+  "h": 768,
+  "frames": 124,
+  "prompt_file": "h3_in/robot_Z08.txt",
+  "saida": "h3_out/robot_Z08.mp4",
+  "comando": "python comfy/h3.py --img \"h3_in/robot_Z08.png\" --prompt-file \"h3_in/robot_Z08.txt\" --out \"h3_out/robot_Z08.mp4\" --w 448 --h 768 --frames 124 --seed 1",
+  "upscale": "bash comfy/upscale_clip.sh \"h3_out/robot_Z08.mp4\" \"h3_out/robot_Z08_up.mp4\" 1120 1920",
+  "placa": "1120x1920 (7:12, igual a 448x768: o H3 nao corta); o quadro final e o centro 1080x1920",
+  "nota": "cena 13: 'carne'. A gravura real do Vesalius cai na mesa ao lado (codigo)."
+ },
+ {
+  "id": "robot_Z09",
+  "img": "h3_in/robot_Z09.png",
+  "prompt": "Static camera, the framing does not change: no camera movement, no zoom. In the long whitewashed factory hall the rows of identical bald workers in grey knitted tunics and leather belts march toward the camera in perfect step, arms swinging in unison, an even mechanical rhythm; the tall windows and the hall stay still. Sound: synchronized footsteps on a hard floor echoing in a large hall, no music, no voices.",
+  "segundos_uteis": 1.6,
+  "cena": [
+   14
+  ],
+  "prioridade": 11,
+  "seed": 1,
+  "w": 448,
+  "h": 768,
+  "frames": 124,
+  "prompt_file": "h3_in/robot_Z09.txt",
+  "saida": "h3_out/robot_Z09.mp4",
+  "comando": "python comfy/h3.py --img \"h3_in/robot_Z09.png\" --prompt-file \"h3_in/robot_Z09.txt\" --out \"h3_out/robot_Z09.mp4\" --w 448 --h 768 --frames 124 --seed 1",
+  "upscale": "bash comfy/upscale_clip.sh \"h3_out/robot_Z09.mp4\" \"h3_out/robot_Z09_up.mp4\" 1120 1920",
+  "placa": "1120x1920 (7:12, igual a 448x768: o H3 nao corta); o quadro final e o centro 1080x1920",
+  "nota": "cena 14: no 'serie' (20,06) step-print + grade 3x4 de 12 copias defasadas 2 quadros (precisa de ~1 s ANTES de 20,06 no clipe)."
+ },
+ {
+  "id": "robot_Z10",
+  "img": "h3_in/robot_Z10.png",
+  "prompt": "Static low camera on the snowy street, the framing does not change: no camera movement, no zoom. Snow falls steadily through the deep blue dusk; the couple in dark wool coats walks slowly away from the camera toward the warm glowing doorway of the small theatre, their breath steaming; a few townspeople in dark coats follow. The building, the lantern and the warm windows stay still. Sound: muffled footsteps in snow, soft winter wind, no music, no voices.",
+  "segundos_uteis": 2.5,
+  "cena": [
+   16,
+   18
+  ],
+  "prioridade": 12,
+  "seed": 1,
+  "w": 448,
+  "h": 768,
+  "frames": 124,
+  "prompt_file": "h3_in/robot_Z10.txt",
+  "saida": "h3_out/robot_Z10.mp4",
+  "comando": "python comfy/h3.py --img \"h3_in/robot_Z10.png\" --prompt-file \"h3_in/robot_Z10.txt\" --out \"h3_out/robot_Z10.mp4\" --w 448 --h 768 --frames 124 --seed 1",
+  "upscale": "bash comfy/upscale_clip.sh \"h3_out/robot_Z10.mp4\" \"h3_out/robot_Z10_up.mp4\" 1120 1920",
+  "placa": "1120x1920 (7:12, igual a 448x768: o H3 nao corta); o quadro final e o centro 1080x1920",
+  "nota": "cena 16 nitida (flash de fim de rolo em 22,03) e fundo desfocado da cena 18 (foto real do Klicperovo + HRADEC KRALOVE no ceu)."
+ },
+ {
+  "id": "robot_Z11",
+  "img": "h3_in/robot_Z11.png",
+  "prompt": "Static macro camera, the framing does not change: no camera movement, no zoom. Fine small snowflakes drift slowly down through the blue dusk and settle softly on the dark wool shoulder of the overcoat; the flakes already on the wool stay in place; the warm street lamp far behind stays out of focus. Only the falling snow moves. Sound: near silence, the faintest whisper of falling snow, no music, no voices.",
+  "segundos_uteis": 2.2,
+  "cena": [
+   17
+  ],
+  "prioridade": 13,
+  "seed": 1,
+  "w": 448,
+  "h": 768,
+  "frames": 124,
+  "prompt_file": "h3_in/robot_Z11.txt",
+  "saida": "h3_out/robot_Z11.mp4",
+  "comando": "python comfy/h3.py --img \"h3_in/robot_Z11.png\" --prompt-file \"h3_in/robot_Z11.txt\" --out \"h3_out/robot_Z11.mp4\" --w 448 --h 768 --frames 124 --seed 1",
+  "upscale": "bash comfy/upscale_clip.sh \"h3_out/robot_Z11.mp4\" \"h3_out/robot_Z11_up.mp4\" 1120 1920",
+  "placa": "1120x1920 (7:12, igual a 448x768: o H3 nao corta); o quadro final e o centro 1080x1920",
+  "nota": "cena 17 (K7): 2. / LEDEN / 1921 no ceu; os flocos nitidos passam POR CIMA do tipo (matte de luminancia)."
+ },
+ {
+  "id": "robot_Z12",
+  "img": "h3_in/robot_Z12.png",
+  "prompt": "Static locked-off camera, the framing does not change: no camera movement, no zoom, no pan, no cut. In the small backstage dressing room the plump baker grins and tugs the pale bald cap further down over his head with both hands; beside him the young woman pats white powder on her cheek with a puff and a small soft cloud of powder rises; behind them the bespectacled teacher finishes buttoning his grey cardigan. Small, natural, playful movements. Sound: a powder puff tapping, a soft chuckle, quiet room, no music, no voices.",
+  "segundos_uteis": 1.0,
+  "cena": [
+   19
+  ],
+  "prioridade": 14,
+  "seed": 1,
+  "w": 448,
+  "h": 768,
+  "frames": 124,
+  "prompt_file": "h3_in/robot_Z12.txt",
+  "saida": "h3_out/robot_Z12.mp4",
+  "comando": "python comfy/h3.py --img \"h3_in/robot_Z12.png\" --prompt-file \"h3_in/robot_Z12.txt\" --out \"h3_out/robot_Z12.mp4\" --w 448 --h 768 --frames 124 --seed 1",
+  "upscale": "bash comfy/upscale_clip.sh \"h3_out/robot_Z12.mp4\" \"h3_out/robot_Z12_up.mp4\" 1120 1920",
+  "placa": "1120x1920 (7:12, igual a 448x768: o H3 nao corta); o quadro final e o centro 1080x1920",
+  "nota": "cena 19 (graca): 'ochotnici = amadores' na parede escura do camarim."
+ },
+ {
+  "id": "robot_Z14",
+  "img": "h3_in/robot_Z14.png",
+  "prompt": "Low static macro camera at table level, the framing does not change: no camera movement, no zoom. The 1930s wind-up tin toy robot walks stiffly toward the camera across the pale oak table with small jerky mechanical steps, its arms swinging, the brass gear in its chest turning; the window light stays the same. Sound: clockwork ticking and tiny tin feet tapping on wood, no music, no voices.",
+  "segundos_uteis": 3.2,
+  "cena": [
+   26,
+   27
+  ],
+  "prioridade": 15,
+  "seed": 1,
+  "w": 448,
+  "h": 768,
+  "frames": 124,
+  "prompt_file": "h3_in/robot_Z14.txt",
+  "saida": "h3_out/robot_Z14.mp4",
+  "comando": "python comfy/h3.py --img \"h3_in/robot_Z14.png\" --prompt-file \"h3_in/robot_Z14.txt\" --out \"h3_out/robot_Z14.mp4\" --w 448 --h 768 --frames 124 --seed 1",
+  "upscale": "bash comfy/upscale_clip.sh \"h3_out/robot_Z14.mp4\" \"h3_out/robot_Z14_up.mp4\" 1120 1920",
+  "placa": "1120x1920 (7:12, igual a 448x768: o H3 nao corta); o quadro final e o centro 1080x1920",
+  "nota": "cena 26 (punch no peito em 35,39 'engrenagem') e fundo desfocado da cena 27 (Televox real)."
+ }
+]

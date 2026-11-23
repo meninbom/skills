@@ -1,0 +1,16 @@
+# Replicar · o que os scripts precisam. Instalar só com o ok do aluno:
+#   pip install -r requirements.txt
+# Fora do pip: ffmpeg e ffprobe no PATH.
+
+# Obrigatórias (análise, classificação, lado a lado)
+numpy
+opencv-python
+pillow
+
+# Opcionais: sem elas o Replicar roda e avisa o que não foi medido.
+# Para instalar, tire o "#" da linha ou rode: pip install <nome>
+# librosa                 # BPM e ataques do som
+# soundfile               # leitura do áudio para a transcrição
+# rapidocr-onnxruntime    # texto na tela (quanto e onde)
+# demucs                  # --voz: separa a voz da música (baixa o PyTorch, ~2 GB)
+# faster-whisper          # --voz: transcreve a voz separada
