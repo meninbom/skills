@@ -3,12 +3,14 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from image_utils import frame_image, load_preset, quota_exhausted, quota_window_expired, validate_png
+from codex_image import build_prompt
 
 
 class PresetTests(unittest.TestCase):
@@ -102,6 +104,33 @@ class ImageTests(unittest.TestCase):
         with patch("image_utils._require_pillow", side_effect=ValueError("Pillow is required")):
             with self.assertRaisesRegex(ValueError, "Pillow"):
                 validate_png(self.p)
+
+
+class PromptTests(unittest.TestCase):
+    def make_args(self, **overrides):
+        values = dict(prompt="A product illustration", prompt_file=None, aspect="16:9",
+                      framing="contain", crop=False, transparent=False, ref=[],
+                      preset="hero", preset_config={"brief": "Reserve negative space"},
+                      brand_kit_text="Primary ink #051a24")
+        values.update(overrides)
+        return SimpleNamespace(**values)
+
+    def test_preset_and_brand_kit_reach_codex_prompt(self):
+        prompt = build_prompt(self.make_args())
+        self.assertIn("VISUAL PRESET hero", prompt)
+        self.assertIn("Primary ink #051a24", prompt)
+        self.assertIn("Target aspect ratio 16:9", prompt)
+        self.assertIn("Keep the whole subject in frame", prompt)
+
+    def test_crop_adds_safe_margin_guidance(self):
+        prompt = build_prompt(self.make_args(framing="crop", aspect="9:16"))
+        self.assertIn("IMPORTANT FRAMING", prompt)
+
+    def test_brief_does_not_need_preset(self):
+        prompt = build_prompt(self.make_args(preset=None, preset_config=None,
+                                             brand_kit_text="", framing=None))
+        self.assertIn("A product illustration", prompt)
+        self.assertNotIn("VISUAL PRESET", prompt)
 
 
 if __name__ == "__main__":
