@@ -1,0 +1,20 @@
+{
+  "presets": {
+    "hero": {
+      "aspect": "16:9",
+      "brief": "Website hero artwork. Make a strong focal subject on one side, leave generous genuinely empty negative space on the other for HTML headline and CTA, maintain clean silhouettes and readable contrast. Do not render UI text inside the image."
+    },
+    "mascot": {
+      "aspect": "1:1",
+      "brief": "Memorable mascot design with a consistent silhouette, distinct face, intentional limited palette and clear expression. For general illustrations, show the full subject including hands and feet with safe margins. For a social profile photo/avatar, prioritize an expressive head-and-shoulders portrait, large readable features and central circular-safe placement; never let the circular crop cut off the face or identifying details. Avoid clutter and unnecessary text."
+    },
+    "social": {
+      "aspect": "4:5",
+      "brief": "Editorial social media artwork with a readable visual hierarchy, one focal message, strong composition, and safe space for later typography. Avoid tiny text, fake logos and crowded corners."
+    },
+    "reel": {
+      "aspect": "9:16",
+      "brief": "Vertical video still with subject in the central safe area, breathing room at top and bottom for platform overlays and subtitles, and a coherent background. Avoid text embedded in pixels."
+    }
+  }
+}

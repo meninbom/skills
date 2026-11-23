@@ -7,11 +7,11 @@ Codex saved under $CODEX_HOME/generated_images/<thread>/, and copies it to the p
 Usage:
   python3 codex_image.py "<prompt>" -o out.png [--aspect 9:16] [--ref a.png --ref b.png]
   python3 codex_image.py --prompt-file spec.json -o out.png --aspect 4:5 --crop
-  python3 codex_image.py --quota          # last known usage of the Codex plan, generates nothing
+  python3 codex_image.py "hero art" --preset hero --framing contain -o out.png\n  python3 codex_image.py --quota          # last known usage of the Codex plan, generates nothing
 
 Output (stdout), one item per line:
   SAVED <path>            the image that was saved
-  SIZE <w>x<h>            pixel size of the saved file
+  SIZE <w>x<h>            pixel size of the saved file\n  VALIDATED PNG <w>x<h>    PNG decoded, plus aspect/alpha checks where requested
   SOURCE <path>           original file under $CODEX_HOME/generated_images
   UNCROPPED <path>        with --crop: the full original canvas (same as SOURCE)
   QUOTA <text>            when a threshold (50%, 25%, 10%, 5% left) is crossed, or with --quota
@@ -21,7 +21,7 @@ Output (stdout), one item per line:
 Exit codes: 0 ok, 1 no image / refused, 2 not logged in, 3 codex missing,
             4 usage limit reached, 5 timeout.
 
-No paid API is used: everything goes through the ChatGPT plan that Codex is logged in with,
+Pillow is required: generated PNGs are validated before being published.\n\nNo paid API is used: everything goes through the ChatGPT plan that Codex is logged in with,
 and shares that plan's Codex usage limits with normal Codex work.
 """
 import argparse
@@ -35,6 +35,7 @@ import tempfile
 import time
 from datetime import datetime
 from pathlib import Path
+from image_utils import _require_pillow, frame_image, load_preset, quota_exhausted, quota_window_expired, validate_png, write_circle_preview
 
 CODEX_HOME = Path(os.environ.get("CODEX_HOME", Path.home() / ".codex"))
 STATE_DIR = Path(os.environ.get("CODEX_IMAGE_HOME", Path.home() / ".codex-image-skill"))
@@ -102,10 +103,14 @@ def report_quota(rl, force=False):
         state = json.loads(STATE_FILE.read_text())
     except Exception:
         state = {}
-    limit_hit = bool(rl.get("rate_limit_reached_type"))
+    limit_hit = quota_exhausted(rl)
     for key in ("primary", "secondary"):
         w = rl.get(key)
         if not w:
+            continue
+        if quota_window_expired(w):
+            if force:
+                print(f"QUOTA {key}: last snapshot expired; run Codex once to refresh usage")
             continue
         left, text = fmt_window(w)
         if left <= 0:
@@ -147,7 +152,7 @@ def build_prompt(args):
         orient, size = ASPECTS[args.aspect]
         lines.append(f"Target aspect ratio {args.aspect} ({orient}); if that exact ratio is not "
                      f"available, use the {orient} canvas {size}.")
-        if args.crop:
+        if args.framing == "crop":
             cw, ch = (int(x) for x in size.split("x"))
             a, b = (float(x) for x in args.aspect.split(":"))
             keep = min(1.0, (a / b) / (cw / ch)) if cw / ch > a / b else min(1.0, (b / a) / (ch / cw))
@@ -165,6 +170,23 @@ def build_prompt(args):
                     f"the {side} edges; any arms or hands stay well inside the frame.")
     if args.transparent:
         lines.append("Use a genuinely transparent background (transparent_background true).")
+    if args.preset_config:
+        lines.append(f"VISUAL PRESET {args.preset}: {args.preset_config['brief']}")
+    if args.avatar_safe:
+        lines.append(
+            "INSTAGRAM CIRCULAR PROFILE AVATAR: compose on a square 1:1 canvas. "
+            "The final profile display masks every pixel outside an inscribed circle. "
+            "Keep the face, eyes, expression and defining features FULLY inside the central "
+            "60 percent of width and height, clear of the circular crop. Favor a bold "
+            "head-and-shoulders portrait with a recognisable silhouette and high contrast "
+            "at tiny thumbnail size (about 48 px). Do not rely on important details "
+            "at the corners. Show the full body only if the user's brief explicitly requests it. "
+            "No lettering or watermark unless explicitly requested."
+        )
+    if args.brand_kit_text:
+        lines.append("PROJECT BRAND KIT (follow visual guidelines, do not fabricate brand marks):\n" + args.brand_kit_text)
+    if args.framing in ("contain", "blur"):
+        lines.append("Keep the whole subject in frame. The post-processing will extend the canvas without cutting content; this is not AI outpainting.")
     if args.ref:
         lines.append(
             f"{len(args.ref)} reference image(s) are attached, numbered in order (image 1 = first). "
@@ -212,31 +234,19 @@ def unique_path(p: Path, force: bool) -> Path:
         i += 1
 
 
-def crop_to_aspect(path: Path, aspect: str):
-    try:
-        from PIL import Image
-    except ImportError:
-        print("WARN --crop needs Pillow (pip install pillow); kept the original canvas", file=sys.stderr)
-        return
-    a, b = (float(x) for x in aspect.split(":"))
-    im = Image.open(path)
-    w, h = im.size
-    target = a / b
-    if abs(w / h - target) < 0.01:
-        return
-    if w / h > target:
-        nw = int(round(h * target)); box = ((w - nw) // 2, 0, (w - nw) // 2 + nw, h)
-    else:
-        nh = int(round(w / target)); box = (0, (h - nh) // 2, w, (h - nh) // 2 + nh)
-    im.crop(box).save(path)
-
-
 def main():
     p = argparse.ArgumentParser(description="Generate/edit one image with Codex's built-in image tool")
     p.add_argument("prompt", nargs="?")
     p.add_argument("--prompt-file")
     p.add_argument("-o", "--out")
     p.add_argument("--aspect", choices=sorted(ASPECTS))
+    p.add_argument("--preset", help="visual preset from presets.json: hero, mascot, social, reel")
+    p.add_argument("--avatar-safe", action="store_true", help="square circle-safe framing and circular preview for profile avatars")
+    p.add_argument("--brand-kit", help="local UTF-8 brand guidelines to include in the briefing")
+    p.add_argument("--framing", choices=("crop", "contain", "blur"), help="exact aspect: crop, solid pad, or blurred pad")
+    p.add_argument("--focal-x", type=float, default=0.5, help="crop horizontal focal position (0 left, 1 right)")
+    p.add_argument("--focal-y", type=float, default=0.5, help="crop vertical focal position (0 top, 1 bottom)")
+    p.add_argument("--pad-color", default="#FFFFFF", help="background color for contain (default white)")
     p.add_argument("--crop", action="store_true", help="center-crop to the exact --aspect (needs Pillow)")
     p.add_argument("--ref", action="append", default=[], help="reference / edit image (repeatable)")
     p.add_argument("--transparent", action="store_true")
@@ -255,10 +265,43 @@ def main():
     if args.quota:
         report_quota(latest_rate_limits(), force=True)
         return
+    if args.preset:
+        try:
+            args.preset_config = load_preset(args.preset, Path(__file__).resolve().parent.parent / "presets.json")
+        except ValueError as exc:
+            p.error(str(exc))
+        if not args.aspect:
+            args.aspect = args.preset_config.get("aspect")
+    else:
+        args.preset_config = None
+    if args.avatar_safe:
+        if args.aspect and args.aspect != "1:1":
+            p.error("--avatar-safe requires square 1:1 output; override the preset with --aspect 1:1")
+        args.aspect = "1:1"
+        if not args.framing and not args.crop:
+            args.framing = "contain"  # guarantee square without cutting the face
+    args.brand_kit_text = ""
+    if args.brand_kit:
+        try:
+            args.brand_kit_text = Path(args.brand_kit).read_text(encoding="utf-8").strip()
+        except OSError as exc:
+            p.error(f"cannot read brand kit: {exc}")
+        if len(args.brand_kit_text) > 30000:
+            p.error("brand kit too large (maximum 30000 characters)")
     if not args.out:
         p.error("-o/--out is required unless --quota is used")
-    if args.crop and not args.aspect:
-        p.error("--crop needs --aspect")
+    if args.crop and args.framing:
+        p.error("use --crop or --framing, not both")
+    if args.crop:
+        args.framing = "crop"
+    if args.framing and not args.aspect:
+        p.error("--framing needs --aspect or --preset")
+    if not (0 <= args.focal_x <= 1 and 0 <= args.focal_y <= 1):
+        p.error("--focal-x and --focal-y must be between 0 and 1")
+    try:
+        _require_pillow()  # before spending Codex quota; no silent success without QA
+    except ValueError as exc:
+        fail(2, str(exc))
     for r in args.ref:
         if not os.path.isfile(r):
             fail(1, f"reference not found: {r}")
@@ -269,9 +312,7 @@ def main():
 
     # Stop early if the server already said the limit is over.
     rl = latest_rate_limits()
-    if rl and (rl.get("rate_limit_reached_type") or any(
-            float((rl.get(k) or {}).get("used_percent") or 0) >= 100
-            and (rl.get(k) or {}).get("resets_at", 0) > time.time() for k in ("primary", "secondary"))):
+    if rl and quota_exhausted(rl):
         print("LIMIT_REACHED Codex usage limit already reached; see --quota for the reset time")
         sys.exit(4)
 
@@ -331,18 +372,46 @@ def main():
     src = Path(saved[-1])
     out = unique_path(Path(args.out), args.force)
     out.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(src, out)
-    if args.crop:
-        crop_to_aspect(out, args.aspect)
-    print(f"SAVED {out}")
+    # Validate the original before framing: padding must not fake transparency.
     try:
-        from PIL import Image
-        w, h = Image.open(out).size
-        print(f"SIZE {w}x{h}")
-    except Exception:
-        pass
+        validate_png(src, transparent=args.transparent)
+    except ValueError as exc:
+        fail(1, f"Generated image failed QA: {exc}")
+    with tempfile.NamedTemporaryFile(prefix=f".{out.stem}-", suffix=".png",
+                                     dir=out.parent, delete=False) as tmp_file:
+        tmp = Path(tmp_file.name)
+    preview_tmp = None
+    preview_out = None
+    try:
+        shutil.copy2(src, tmp)
+        if args.framing:
+            frame_image(tmp, args.aspect, args.framing,
+                        focal_x=args.focal_x, focal_y=args.focal_y,
+                        transparent=args.transparent, pad_color=args.pad_color)
+        w, h = validate_png(tmp, aspect=args.aspect if args.framing else None,
+                            transparent=args.transparent)
+        if args.avatar_safe:
+            preview_out = unique_path(out.with_name(f"{out.stem}-avatar-preview.png"), args.force)
+            with tempfile.NamedTemporaryFile(prefix=f".{out.stem}-avatar-", suffix=".png",
+                                             dir=out.parent, delete=False) as preview_file:
+                preview_tmp = Path(preview_file.name)
+            write_circle_preview(tmp, preview_tmp)
+        os.replace(tmp, out)  # publish only after both files pass validation
+        if preview_tmp is not None:
+            os.replace(preview_tmp, preview_out)
+    except (ValueError, OSError) as exc:
+        fail(1, f"Image QA/framing failed: {exc}")
+    finally:
+        tmp.unlink(missing_ok=True)
+        if preview_tmp is not None:
+            preview_tmp.unlink(missing_ok=True)
+    print(f"SAVED {out}")
+    if preview_out is not None:
+        print(f"AVATAR_PREVIEW {preview_out}")
+    print(f"SIZE {w}x{h}")
+    print(f"VALIDATED PNG {w}x{h}" + (" transparent" if args.transparent else ""))
     print(f"SOURCE {src}")
-    if args.crop:
+    if args.framing:
         print(f"UNCROPPED {src}")
     print(f"TIME {time.time() - started:.0f}s")
 
