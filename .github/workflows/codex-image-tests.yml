@@ -1,0 +1,21 @@
+name: Codex Image tests
+on:
+  pull_request:
+    paths:
+      - 'skills/codex-image/**'
+      - '.github/workflows/codex-image-tests.yml'
+  push:
+    paths:
+      - 'skills/codex-image/**'
+      - '.github/workflows/codex-image-tests.yml'
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --upgrade pillow
+      - run: python -m compileall -q skills/codex-image/scripts
+      - run: python -m unittest discover -s skills/codex-image/tests -v
