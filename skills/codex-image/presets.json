@@ -6,7 +6,7 @@
     },
     "mascot": {
       "aspect": "1:1",
-      "brief": "Memorable mascot design with a consistent silhouette, distinct face, intentional limited palette and clear expression. Show the full subject including hands and feet with safe margins; avoid clutter and unnecessary text."
+      "brief": "Memorable mascot design with a consistent silhouette, distinct face, intentional limited palette and clear expression. For general illustrations, show the full subject including hands and feet with safe margins. For a social profile photo/avatar, prioritize an expressive head-and-shoulders portrait, large readable features and central circular-safe placement; never let the circular crop cut off the face or identifying details. Avoid clutter and unnecessary text."
     },
     "social": {
       "aspect": "4:5",
