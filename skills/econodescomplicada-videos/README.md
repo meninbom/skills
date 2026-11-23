@@ -12,7 +12,7 @@ Esta skill preserva a identidade visual, o roteiro de cinco cenas, o gancho dos 
 
 1. Instale Python 3.8+.
 2. Faça uma cópia de config.example.json chamada config.local.json na pasta desta skill. Ela é ignorada pelo Git. Preencha os diretórios reais.
-3. Copie ou monte em local acessível os recursos externos legítimos (motor #07, sprites, template e referências). Nunca edite o motor de origem.
+3. Copie ou monte em local acessível os recursos externos legítimos (motor #07, sprites e referências). `episode_template` é **opcional** quando o motor já contém o renderizador necessário. Nunca edite o motor de origem.
 4. Planejamento pode acontecer sem renderizador. Para render real, instale as ferramentas do PATH: Node/npm, FFmpeg/ffprobe, Chrome/Chromium, Codex CLI + codex-image (ou seu provedor de imagens) e edge-tts (ou backend equivalente com timestamps).
 5. Rode o diagnóstico antes de qualquer produção.
 
@@ -23,7 +23,7 @@ python3 scripts/preflight.py --config config.local.json --stage render
 python3 scripts/preflight.py --config config.local.json --stage publish --json
 ~~~
 
-Saída: READY ou NOT_READY, com erros e avisos específicos. O diagnóstico não instala nada, não acessa conta, não gera imagem e não usa cota de IA. No estágio publish, a conexão real do Drive continua sendo verificada pelo agente.
+Saídas possíveis: `READY` (dependências estáticas atendidas), `NOT_READY` (recurso obrigatório ausente) ou `NEEDS_VERIFICATION` (provedor externo/Drive ainda não validado). O relatório JSON traz `status`, `ready` e `manual_verification`. `NEEDS_VERIFICATION` retorna código 2 e **não equivale a autorização de renderizar**: o agente precisa realizar e registrar verificações reais antes de avançar. O diagnóstico não instala nada, não acessa conta, não gera imagem e não usa cota de IA. Mesmo com `READY`, é necessário verificar login do Codex e executar QA do render real.
 
 ### Configuração de exemplo
 
@@ -34,7 +34,7 @@ Os caminhos relativos são resolvidos a partir de config.local.json, e não do d
   "paths": {
     "workspace": "./workspace",
     "engine": "/caminho/do/motor-07",
-    "episode_template": "/caminho/do/episodio-modelo",
+    "episode_template": "",
     "sprites": "/caminho/dos/sprites",
     "style_reference": "/caminho/da/referencia.png",
     "checker_script": "/caminho/do/checar.py",
@@ -79,8 +79,12 @@ O campo render_workers aceita auto ou inteiro entre 1 e 32. Em auto, usa um valo
 - Se o usuário pedir só ideias, roteiro ou legenda: stage plan é suficiente.
 - Se pedir gerar placas, voz ou vídeo: stage render deve passar, e os recursos externos precisam ser utilizados de verdade.
 - Se pedir vídeo final publicado: os três estágios precisam estar verificáveis, o QA do SKILL.md precisa ser cumprido, e upload só pode ser afirmado depois de confirmado.
-- Se um provedor alternativo estiver configurado, o preflight avisa que não consegue verificar semanticamente sua equivalência. Não esconda essa limitação.
+- Se um provedor alternativo estiver configurado, o preflight retorna `NEEDS_VERIFICATION`, não `READY`; o agente deve validar sua integração, formato e timestamps com evidências reais antes de prosseguir. Para Drive, confirme acesso e permissões em tempo de publicação.
 - Se a fonte de episódios anteriores não estiver disponível, gere apenas um rascunho não numerado. Não invente qual seria o próximo episódio.
+
+## Testes em diferentes ambientes
+
+O GitHub Actions executa testes unitários e um smoke test real do comando de planejamento em dez combinações: Linux x64 e ARM64, macOS Apple Silicon e Intel, Windows x64, cada um com Python 3.10 e 3.12. Isso testa configuração, resolução de caminhos, níveis de diagnóstico e execução do CLI sem dependências externas; **não** testa a geração real de vídeo, a autenticação do Codex ou o motor #07.
 
 ## Testes offline
 
