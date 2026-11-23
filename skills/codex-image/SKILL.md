@@ -17,6 +17,7 @@ The goal is to clarify the user's intent with **as little friction as possible**
 - **Partially specified:** ask **one or two** targeted questions only about choices that would materially change the output (e.g. purpose, aesthetic, composition, aspect, brand kit). Offer a reasonable default when the answer is low-stakes.
 - **Open-ended:** propose two or three distinct creative directions in a single concise question. Ask only the essential next question, then generate. Do not demand a long form or approval ceremony.
 - **Existing project:** inspect its available brand kit, visual assets and earlier user directions first. Never ask again for a color, ratio or reference already supplied.
+- **Avatar or Instagram profile mascot:** select the `mascot` preset AND `--avatar-safe`. The important parts of the face and visual identity must fit within the central 60% of a square image to survive the platform's circular mask. Favor a larger head-and-shoulders view that stays recognizable at thumbnail size; avoid important content in corners. If the user explicitly wants a full-body character, honor it while keeping the defining features circle-safe. Ask about the profile's theme or aesthetic if missing; do not invent the identity without permission or reopen the whole questionnaire.
 - **Edits/iterations:** retain agreed style, colors, proportions, references and restrictions from the conversation. Ask again only when the user changes direction or previous context is unavailable. Keep the last consolidated brief in a project-local UTF-8 file if repeatability matters; never store private credentials in a brief.
 
 Build the final English prompt with: **purpose + subject + visual style + framing/negative space + palette/brand + references + short exact text (if unavoidable) + exclusions**. Use the same agreed brief on retries. An agent can ask questions; the Python script cannot and should not.
@@ -39,13 +40,16 @@ Build the final English prompt with: **purpose + subject + visual style + framin
 
 The presets live in `presets.json`: `hero` (16:9), `mascot` (1:1), `social` (4:5), `reel` (9:16). A preset contributes **composition guidance and default aspect**, not a rigid aesthetic. An explicit `--aspect` takes priority over the preset's ratio.
 
-- Use `--preset hero` for website hero artwork with negative space for live HTML text, or `--preset mascot` for consistent full-character illustrations.
+- Use `--preset hero` for website hero artwork with negative space for live HTML text, or `--preset mascot` for consistent character illustrations. If the mascot is an Instagram or other circular profile picture, append `--avatar-safe`.
 - Use `--brand-kit path/to/brand.md` to pass an existing project's visual guidelines into the Codex image brief. Only pass local material actually available in the project. The project brand kit overrides generic visual preferences when they conflict.
 - Use `--framing crop` (or legacy `--crop`) for exact ratio with a crop. `--focal-x` / `--focal-y` from 0 to 1 determine the crop's focal point (default 0.5/center); inspect edges afterward.
 - Use `--framing contain` for solid-color padding (with optional `--pad-color '#051a24'`) or `--framing blur` for a blurred-background extension. **Neither is AI outpainting**; both preserve the full original canvas without cutting the subject.
+- `--avatar-safe` enforces 1:1, applies `contain` by default if no framing was chosen, adds circle-safe prompt guidance, and writes a second PNG at `AVATAR_PREVIEW <path>` with transparent pixels outside the circle. **Inspect the circular preview yourself** to verify the face, eyes and distinguishing marks remain visible. The PNG check verifies the mask, not visual semantics; neither the script nor the model guarantees a perfect avatar.
 - If no framing is selected, `--aspect` only guides the model, and the actual aspect is reported but not guaranteed. `--framing` requires an aspect, either explicit or from a preset.
 
 Example: `python3 <skill-dir>/scripts/codex_image.py 'Product hero, laptop on the right, empty left half' --preset hero --brand-kit brand.md --framing contain -o public/hero.png`.
+
+Avatar example: `python3 <skill-dir>/scripts/codex_image.py 'Friendly mascot for a study account, cheerful expression, purple palette' --preset mascot --avatar-safe -o assets/mascot.png`.
 
 ## Reading the script output
 
@@ -54,6 +58,7 @@ Example: `python3 <skill-dir>/scripts/codex_image.py 'Product hero, laptop on th
 | `SAVED <path>` | image saved | open it and look |
 | `SIZE <w>x<h>` | pixel size of the saved file | check it fits the use |
 | `VALIDATED PNG <w>x<h>` | PNG decoded, framing ratio verified if requested, and transparency checked when requested | safe to inspect the artifact |
+| `AVATAR_PREVIEW <path>` | circle-masked preview produced by `--avatar-safe` | open this to check the real profile-photo crop |
 | `SOURCE <path>` / `UNCROPPED <path>` | original under `$CODEX_HOME/generated_images` (full canvas before `--crop`) | use as `--ref` for the next edit |
 | `QUOTA <text>` | a usage window crossed 50/25/10/5 % left | **tell the user in one short sentence**, then continue |
 | `LIMIT_REACHED <text>` | the Codex usage limit is over (exit 4) | stop, tell the user when it resets, do not retry |
