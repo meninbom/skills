@@ -13,6 +13,7 @@ Cada skill é uma pasta com `SKILL.md`. Instale só o que precisa.
 | `landing-page-design` | LP nova de cliente ou do estúdio: oferta, estrutura, copy, tokens do brand kit do projeto, QA antes de preview |
 | `lp-motion-gsap` | Animações e interações de LP com GSAP + ScrollTrigger; respeita reduced-motion; consulta MCP GSAP antes de inventar |
 | `econodescomplicada-videos` | Episódios verticais do @econodescomplicada (estilo #07, mascote Moedinha): roteiro 5 cenas + CTA com regras de gancho dos 3 primeiros segundos, narração edge-tts, render, QA e arquivamento. Pesquisa de ganchos em `pesquisa-ganchos.md`. |
+| [`codex-image`](skills/codex-image/) | Geração e edição de imagens com o `image_gen` embutido no Codex CLI, via login ChatGPT. Suporta referências, proporção, recorte, transparência solicitada e consulta de uso. [Guia e exemplos](skills/codex-image/README.md). |
 
 ## Brand rules (resumo)
 
@@ -45,7 +46,15 @@ curl -o .cursor/rules/<skill-name>.md \
 
 ### Codex
 
-Copie o `SKILL.md` para `AGENTS.md` do projeto (ou anexe no prompt do job).
+Instale a **pasta inteira** da skill (não apenas o `SKILL.md`), para manter scripts e exemplos disponíveis:
+
+```bash
+mkdir -p .agents/skills
+git clone https://github.com/meninbom/skills.git /tmp/mwllo-skills
+cp -r /tmp/mwllo-skills/skills/<skill-name> .agents/skills/
+```
+
+A `codex-image` requer o Codex CLI autenticado com ChatGPT (`codex login`) e o recurso `image_generation` habilitado. O Pillow é opcional e usado no recorte (`--crop`). Consulte o [guia da codex-image](skills/codex-image/README.md).
 
 ## Teste com Codex (próximo passo)
 
