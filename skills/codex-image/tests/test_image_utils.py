@@ -9,7 +9,7 @@ from unittest.mock import patch
 from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from image_utils import frame_image, load_preset, quota_exhausted, quota_window_expired, validate_png
+from image_utils import frame_image, load_preset, quota_exhausted, quota_window_expired, validate_png, write_circle_preview
 from codex_image import build_prompt
 
 
@@ -100,6 +100,22 @@ class ImageTests(unittest.TestCase):
         frame_image(self.p, "1:1", "blur")
         self.assertEqual(validate_png(self.p, "1:1"), (160, 160))
 
+    def test_circle_avatar_preview_hides_corners_keeps_center(self):
+        Image.new("RGBA", (100, 100), (255, 0, 0, 255)).save(self.p)
+        preview = Path(self.temp.name) / "circle.png"
+        write_circle_preview(self.p, preview)
+        self.assertEqual(validate_png(preview, aspect="1:1", transparent=True), (100, 100))
+        with Image.open(preview) as im:
+            self.assertEqual(im.getpixel((0, 0))[3], 0)
+            self.assertEqual(im.getpixel((50, 50)), (255, 0, 0, 255))
+        # Original must not be modified when producing the preview.
+        self.assertEqual(validate_png(self.p, "1:1"), (100, 100))
+
+    def test_circle_avatar_preview_rejects_rectangle(self):
+        Image.new("RGB", (160, 100), "red").save(self.p)
+        with self.assertRaisesRegex(ValueError, "square"):
+            write_circle_preview(self.p, Path(self.temp.name) / "circle.png")
+
     def test_missing_pillow_fails_clearly(self):
         with patch("image_utils._require_pillow", side_effect=ValueError("Pillow is required")):
             with self.assertRaisesRegex(ValueError, "Pillow"):
@@ -111,6 +127,7 @@ class PromptTests(unittest.TestCase):
         values = dict(prompt="A product illustration", prompt_file=None, aspect="16:9",
                       framing="contain", crop=False, transparent=False, ref=[],
                       preset="hero", preset_config={"brief": "Reserve negative space"},
+                      avatar_safe=False,
                       brand_kit_text="Primary ink #051a24")
         values.update(overrides)
         return SimpleNamespace(**values)
@@ -125,6 +142,14 @@ class PromptTests(unittest.TestCase):
     def test_crop_adds_safe_margin_guidance(self):
         prompt = build_prompt(self.make_args(framing="crop", aspect="9:16"))
         self.assertIn("IMPORTANT FRAMING", prompt)
+
+    def test_avatar_safe_prompt_includes_circle_crop_and_thumbnail(self):
+        prompt = build_prompt(self.make_args(preset="mascot",
+                                             preset_config={"brief": "Mascot"},
+                                             aspect="1:1", avatar_safe=True))
+        self.assertIn("INSTAGRAM CIRCULAR PROFILE AVATAR", prompt)
+        self.assertIn("central 60 percent", prompt)
+        self.assertIn("48 px", prompt)
 
     def test_brief_does_not_need_preset(self):
         prompt = build_prompt(self.make_args(preset=None, preset_config=None,
