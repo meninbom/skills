@@ -7,7 +7,7 @@ description: Generate or edit raster images (illustrations, mascots, banners, pr
 
 You do not draw the pixels. You are the **art director**: turn the request into a precise brief, run the script, **look at the image**, and decide whether to redo it.
 
-The script is `scripts/codex_image.py` in this skill's directory (Python 3 stdlib; Pillow optional for `--crop` and `SIZE`). It calls `codex exec` once, Codex calls its built-in `image_gen` tool once, and the script copies the PNG from `$CODEX_HOME/generated_images/<thread>/` to the path you choose. **Run it yourself, directly, from the shell.** Do not hand it to a sub-agent. One image takes about 20–40 s.
+The script is `scripts/codex_image.py` in this skill's directory (Python 3 and Pillow required for safe PNG validation/framing). It calls `codex exec` once, Codex calls its built-in `image_gen` tool once, and the script copies the PNG from `$CODEX_HOME/generated_images/<thread>/` to the path you choose. **Run it yourself, directly, from the shell.** Do not hand it to a sub-agent. One image takes about 20–40 s.
 
 ## Adaptive briefing (before any quota-consuming run)
 
@@ -33,7 +33,7 @@ Build the final English prompt with: **purpose + subject + visual style + framin
    For long or complex briefs, write a text or JSON file and use `--prompt-file`, because quotes break on the command line.
 4. **Look at the result yourself.** Open the saved file with a tool that can show images. Judge composition, readable text, artifacts, hands, cropped limbs, and how well it matches the brief. Be honest with the user about what is wrong.
 5. **Iterate 2–3 times at most.** Preserve the answers and design decisions from intake; do not restart the questionnaire. For a small fix, pass the previous image with `--ref` and ask only for the change ("Edit image 1. Change only X; keep Y unchanged"). Then show the user and ask.
-6. **Save assets inside the project** (`assets/`, `public/`, `docs/`), never loose in the root. The script never overwrites a file: it writes `name-v2.png` unless you pass `--force`.
+6. **Save assets inside the project** (`assets/`, `public/`, `docs/`), never loose in the root. The script never overwrites a file: it writes `name-v2.png` unless you pass `--force`. It validates first and only publishes the final PNG on success.
 
 ## Presets, brand kits, framing
 
@@ -58,7 +58,7 @@ Example: `python3 <skill-dir>/scripts/codex_image.py 'Product hero, laptop on th
 | `QUOTA <text>` | a usage window crossed 50/25/10/5 % left | **tell the user in one short sentence**, then continue |
 | `LIMIT_REACHED <text>` | the Codex usage limit is over (exit 4) | stop, tell the user when it resets, do not retry |
 
-Exit codes: `0` ok; `1` no image or refused (read the message); `2` not logged in (`codex login`), or a bad command line; `3` codex CLI missing; `4` usage limit reached; `5` timeout. On `2`, `3` or `4`, take the problem to the user instead of retrying.
+Exit codes: `0` ok; `1` no image, image QA failed, or refused (read the message); `2` not logged in (`codex login`), Pillow missing, or a bad command line; `3` codex CLI missing; `4` usage limit reached; `5` timeout. On `2`, `3` or `4`, take the problem to the user instead of retrying.
 
 Before a batch of more than about 6 images, run `python3 <skill-dir>/scripts/codex_image.py --quota` and tell the user how much is left. It generates nothing. It prints the most recent usage snapshot Codex received from the server (5-hour window, weekly window and plan), so it is only as fresh as the last Codex run.
 
