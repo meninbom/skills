@@ -7,11 +7,11 @@ Codex saved under $CODEX_HOME/generated_images/<thread>/, and copies it to the p
 Usage:
   python3 codex_image.py "<prompt>" -o out.png [--aspect 9:16] [--ref a.png --ref b.png]
   python3 codex_image.py --prompt-file spec.json -o out.png --aspect 4:5 --crop
-  python3 codex_image.py --quota          # last known usage of the Codex plan, generates nothing
+  python3 codex_image.py "hero art" --preset hero --framing contain -o out.png\n  python3 codex_image.py --quota          # last known usage of the Codex plan, generates nothing
 
 Output (stdout), one item per line:
   SAVED <path>            the image that was saved
-  SIZE <w>x<h>            pixel size of the saved file
+  SIZE <w>x<h>            pixel size of the saved file\n  VALIDATED PNG <w>x<h>    PNG decoded, plus aspect/alpha checks where requested
   SOURCE <path>           original file under $CODEX_HOME/generated_images
   UNCROPPED <path>        with --crop: the full original canvas (same as SOURCE)
   QUOTA <text>            when a threshold (50%, 25%, 10%, 5% left) is crossed, or with --quota
@@ -21,7 +21,7 @@ Output (stdout), one item per line:
 Exit codes: 0 ok, 1 no image / refused, 2 not logged in, 3 codex missing,
             4 usage limit reached, 5 timeout.
 
-No paid API is used: everything goes through the ChatGPT plan that Codex is logged in with,
+Pillow is required: generated PNGs are validated before being published.\n\nNo paid API is used: everything goes through the ChatGPT plan that Codex is logged in with,
 and shares that plan's Codex usage limits with normal Codex work.
 """
 import argparse
@@ -221,25 +221,6 @@ def unique_path(p: Path, force: bool) -> Path:
         if not q.exists():
             return q
         i += 1
-
-
-def crop_to_aspect(path: Path, aspect: str):
-    try:
-        from PIL import Image
-    except ImportError:
-        print("WARN --crop needs Pillow (pip install pillow); kept the original canvas", file=sys.stderr)
-        return
-    a, b = (float(x) for x in aspect.split(":"))
-    im = Image.open(path)
-    w, h = im.size
-    target = a / b
-    if abs(w / h - target) < 0.01:
-        return
-    if w / h > target:
-        nw = int(round(h * target)); box = ((w - nw) // 2, 0, (w - nw) // 2 + nw, h)
-    else:
-        nh = int(round(w / target)); box = (0, (h - nh) // 2, w, (h - nh) // 2 + nh)
-    im.crop(box).save(path)
 
 
 def main():
