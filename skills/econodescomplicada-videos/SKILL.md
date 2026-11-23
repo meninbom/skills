@@ -1,31 +1,34 @@
 ---
 name: econodescomplicada-videos
 description: >-
-  Use when creating, revising, or delivering vertical Economics explainer videos
-  (with caption) for the @econodescomplicada profile in Kurzgesagt #07
-  illustrated style with the Moedinha mascot.
+  Produza e revise vídeos curtos ilustrados de Economia para o perfil
+  @econodescomplicada, com mascote Moedinha, gancho, narração, render,
+  legenda e QA. Fluxo portátil; verifique configuração e dependências locais.
 ---
-# Vídeos do @econodescomplicada (Estilo #07 · Explicativo Ilustrado)
 
-Receita completa para produzir, revisar, legendar e arquivar vídeos verticais curtos (Reels/TikTok/Shorts) de Economia para público leigo no estilo `#07` (Explicativo ilustrado, pegada Kurzgesagt) com a mascote **Moedinha**.
+# Vídeos do @econodescomplicada (Estilo #07 · Explicativo ilustrado)
 
-## 1. Identidade fixa da série
-- **Formato:** vertical `1080×1920` (9:16), 30 fps, H.264 High, `yuv420p`, `+faststart`, ~32–45 s + versão leve `720×1280` para celular.
-- **Público e linguagem:** 100% público leigo, cotidiano brasileiro, tom direto e visual. **Proibido** jargão de aula ou gráfico acadêmico (nada de *ceteris paribus*, `P*`/`Q*`, curvas D/O' de livro, M1/M2, IPCA técnico, COPOM técnico, exógeno).
-- **Mascote fixa (Moedinha):** reaproveitar os sprites já limpos (0 pixels de franja magenta) em `/workspace/fabrica-videos-claude/economia-leigo-07/arte/sprites/`:
-  - `moeda_acena.png` (explicação; nunca no 1º quadro, ver 2.1)
-  - `moeda_aponta.png` (destaque/crescimento/CTA)
-  - `moeda_feliz.png` (alívio/equilíbrio/fecho calmo)
-  - `moeda_assustada.png` (traz guarda-chuva azul — usar **somente** quando houver chuva literal ou metafórica, como chuva de água ou de notas)
-- **Paleta de overlays da marca:**
-  - Cartões/selos principais: violeta-índigo profundo (`#3B207A` / `#2A155E`)
-  - Destaques e etiqueta inicial: amarelo ouro (`#FFD93D`)
-  - Alerta de alta e botão CTA: coral vibrante (`#FF4F5E`)
-  - Equilíbrio / cédulas / check: verde esmeralda (`#27C26C`)
-- **Base de referência (somente leitura):**
-  - Motor `#07` do plugin (NUNCA editar lá): `/workspace/fabrica-videos-claude/extracted/curso-estilos/skills/curso-estilos/motores/07/`
-  - Receita e regras do estilo: `/workspace/fabrica-videos-claude/extracted/curso-estilos/skills/curso-estilos/estilos/07_explicativo_ilustrado.md` e `OFICIO.md`
-  - Projetos-modelo validados: `/workspace/fabrica-videos-claude/economia-leigo-07/` (ep. 01) e `/workspace/fabrica-videos-claude/economia-inflacao-07/` (ep. 02)
+Pipeline portátil para vídeos verticais de Economia para leigos. **A identidade editorial é fixa, os caminhos e ferramentas não.**
+
+A skill contém instruções e diagnóstico, **não** os assets da série, o motor externo #07, credenciais, acesso ao Google Drive ou renderizador completo. Não afirme que um ambiente está pronto sem testar os recursos reais.
+
+## 0. Descoberta e configuração
+
+1. Leia o README desta skill e config.example.json; copie para config.local.json, mantido fora do Git. Configure paths.workspace, paths.engine e paths.sprites com recursos **existentes**. paths.episode_template é opcional quando o motor já possui renderizador suficiente; paths.style_reference, paths.checker_script e paths.browser são declarados conforme a etapa. Não invente paths nem IDs.
+2. Os caminhos relativos são resolvidos em relação ao arquivo de configuração, nunca ao diretório atual do terminal. Valem macOS (Intel/Apple Silicon), Linux, Windows e WSL. Não fixe /workspace, ~/Documents, Homebrew, venv, Chrome ou ffmpeg em um endereço universal.
+3. Antes do roteiro, execute scripts/preflight.py --config config.local.json --stage plan. Antes de produzir mídia, use --stage render. Antes da publicação, --stage publish. Com --json, obtenha o diagnóstico estruturado. `READY` significa apenas pré-requisitos estáticos encontrados; `NEEDS_VERIFICATION` significa que um provedor externo ou o acesso ao Drive ainda exige comprovação manual; `NOT_READY` indica dependência faltante. Não trate `NEEDS_VERIFICATION` como sucesso automático: valide o recurso, registre a evidência no projeto e só então prossiga. Ausência de ferramenta bloqueia a etapa correspondente, não a escrita de um rascunho.
+4. Use image_backend codex-image se a skill e o Codex estiverem disponíveis e autenticados; senão, use um gerador externo **configurado e verificado**. Para áudio, prefira edge-tts; outro fornecedor só se houver voz equivalente e timestamps reais por palavra. Não presume ferramentas chamadas GenerateImage, Read ou videoReview.
+5. Para incertezas do tema, público e CTA, faça só as perguntas que afetam a entrega. Reutilize decisões anteriores. Não crie um interrogatório obrigatório.
+6. Caminhos pessoais, tokens e IDs de pasta ficam em configuração local e variáveis de ambiente, não no repositório público.
+
+## 1. Identidade visual e técnica preservada
+
+- **Vídeo final:** 1080×1920 (9:16), 30 fps, H.264 High, yuv420p, +faststart, AAC estéreo 48 kHz, aproximadamente 32–45 s. Faça também versão de 720×1280 para visualização.
+- **Público:** brasileiros leigos, cotidiano concreto, sem jargão acadêmico de Economia; explicar o mecanismo por imagens acessíveis, sem gráficos de apostila.
+- **Mascote Moedinha:** usar sprites reais do diretório paths.sprites, sem franja magenta: moeda_acena.png (explicação, nunca na primeira imagem), moeda_aponta.png (destaque), moeda_feliz.png (alívio), moeda_assustada.png (guarda-chuva azul, **somente com chuva** literal ou metafórica).
+- **Expressões opcionais do PR #6:** moeda_alerta, moeda_chocada, moeda_confusa, moeda_pensativa, moeda_preocupada, moeda_rindo, moeda_nota, moeda_joinha; caminhada anda_a/b e pulo pulo_agacha/ar. Essas variações não estão incluídas na skill; use só se os arquivos existirem, sem substituir silenciosamente sprites reais por nomes inventados.
+- **Paleta:** violeta/índigo #3B207A e #2A155E; amarelo #FFD93D; coral #FF4F5E; verde #27C26C.
+- **Motor #07:** recurso externo em paths.engine (origem somente leitura); projeto-modelo, se houver, em paths.episode_template. Não editar a fonte do motor e não assumir que o agente dispõe de um plugin antigo.
 
 ## 2. Estrutura de roteiro (5 cenas + CTA) e legenda obrigatória
 Salve sempre `roteiro.md` e **`legenda.txt`** na pasta do episódio:
@@ -120,72 +123,67 @@ Pergunta só vale se for **específica e sem resposta óbvia**. Proibido "Já vi
 - CTA igual ao do vídeo: padrão *"Quer entender economia sem complicação? Segue o @econodescomplicada. 👇"*; se o vídeo usou link na bio, *"Quer entender economia sem complicação? Clica no link da bio. 👇"*.
 - Linha final com 5–6 hashtags limpas e relevantes (incluindo `#economia`, `#educacaofinanceira`, `#economiasemcomplicacao`).
 
-## 3. Fluxo de produção (zero API paga)
+## 3. Fluxo de produção independente de máquina
 
-### Passo 0 — Validação de tema no Drive (OBRIGATÓRIO antes de qualquer criação)
-Antes de roteirizar ou produzir qualquer coisa:
-1. Liste **ao vivo** as subpastas da pasta do projeto no Drive pessoal (`user-Google-drive--personal`, pasta "Economia Sem Complicação — Vídeos", id `1iREg0PXN6AGqVpmtl-hrnq21DawowxJp`). Os nomes seguem o padrão `NN — <Tema>`.
-2. Monte a lista de episódios já feitos (número + tema). Em caso de dúvida sobre o que um episódio cobriu, abra o `roteiro.md` ou o `legenda.txt` daquela subpasta.
-3. Compare o tema pedido com essa lista. Considere repetido o mesmo conceito, mesmo com outro nome ou ângulo muito parecido (ex.: "Selic" e "taxa básica de juros"; "inflação" e "por que os preços sobem").
-4. **Se o tema já foi abordado:** não produza. Avise o dono dizendo qual episódio já cobre aquilo e sugira 2–3 temas novos (ou um ângulo claramente diferente). Só siga com o OK dele.
-5. **Se o tema é novo:** o número do episódio é o maior `NN` existente + 1. Use esse número na subpasta do Drive e no `roteiro.md`.
-6. Nunca confie só na memória ou em listas antigas: a fonte da verdade é o Drive no momento da criação. Se o Drive não responder, pare e avise em vez de chutar.
+### Passo 0 — Conferir temas e numbering
 
+- Antes de numerar ou publicar, consulte a fonte atualizada dos episódios anteriores: Drive conectado, índice oficial local ou fonte explicitamente confirmada. Compare conceitos, não somente títulos.
+- Se duplicado, informe o episódio existente e ofereça outro ângulo. Para tema novo, o número será o maior número existente mais um, **somente** depois de verificar a lista.
+- Quando o Drive estiver desconectado e nenhuma fonte confiável existir, pode escrever um **rascunho sem número**. Não declare que verificou duplicação nem publique número presumido. O ID da pasta do Drive deve estar somente em configuração local ou variável de ambiente.
 
-### Passo 1 — Criar pasta isolada do episódio
-- Crie `/workspace/fabrica-videos-claude/economia-<slug>-07/` copiando `motores/07/` (nunca altere a pasta do plugin nem episódios anteriores).
-- Reaproveite `render_paralelo.mjs`, `snap.mjs` e os sprites limpos de `/workspace/fabrica-videos-claude/economia-leigo-07/arte/sprites/`.
-- Garanta `puppeteer-core` disponível (`node_modules` ou symlink do episódio anterior).
+### Passo 1 — Preparar ambiente e projeto
 
-### Passo 2 — Narração primeiro (`edge-tts` grátis)
-- Use o venv `/workspace/fabrica-videos-claude/economia-oferta-demanda/.venv-audio` com `edge-tts` em **uma única tomada contínua** (sem emendas):
-  - Voz padrão da série: `pt-BR-ThalitaMultilingualNeural`, rate `+10%`.
-- Extraia timestamps exatos por palavra (`WordBoundary`) em `voz/words.json`.
-- Normalize para `voz/narracao_norm.wav` (−16 LUFS) e gere a faixa final `saida/voz_final.wav` em **−14,0 LUFS estéreo, True Peak ≤ −1,5 dBTP**, 48 kHz.
-  - Sempre **estéreo** (mono duplicado nos dois canais) para não perder 6 dB no teste de celular do `checar-video`.
-- Defina a duração total (`window.END`) com **0,8 s de respiro visual após a última palavra** do CTA ("perfil" ou "bio") para nunca cortar áudio.
+- Execute o preflight no estágio render. Se motor, sprites, Chrome, FFmpeg, Node ou TTS faltarem, reporte o pré-requisito específico. Um template separado só é necessário quando o motor não fornece o renderizador exigido. Se um backend externo estiver pendente de verificação, confirme de verdade sua operação antes de gerar mídia; não invente uma instalação nem gere um vídeo fictício.
+- Crie uma pasta isolada em paths.workspace/episodios/<slug>. Copie os arquivos do motor e template **apenas quando existirem**, preservando a origem. Não reutilize symlink para node_modules de outros episódios; instale dependências declaradas no package.json da cópia.
+- Render workers vêm da configuração (auto conservador por CPU, ou valor explícito). Não imponha 2 workers em todo computador.
 
-### Passo 3 — 5 placas de cenário 9:16 (`GenerateImage`)
-- Gere 5 ilustrações `aspect_ratio: "9:16"` no estilo flat vetorial Kurzgesagt passando uma placa da série (`/workspace/fabrica-videos-claude/economia-leigo-07/arte/placas/c1_sol.png` ou `catalogo/previas/07.jpg`) em `reference_image_paths` para manter paleta, luz e sombras violeta-índigo consistentes.
-- Regras obrigatórias nos prompts:
-  - Espaço limpo no terço superior para cartões e CTA.
-  - **`ABSOLUTELY NO text, NO numbers, NO letters, NO price tags, NO signs with words, NO watermarks, NO mascot.`**
-- **Inspecione todas as 5 placas com `Read`** antes de animar. Rejeite e regenere qualquer placa com texto borrado de IA, vazamento de cenário de outro episódio ou composição pobre (guarde rejeitadas em `arte/bruto/`).
-- Amplie as aprovadas para `1350×2400` (Lanczos) para permitir pan/zoom suaves sem perder nitidez.
+### Passo 2 — Narração e timecodes reais
 
-### Passo 4 — Animação em Canvas (`filme/cenas.js` e `filme/filme.html`)
-Baseie-se na estrutura validada de `economia-inflacao-07/filme/cenas.js` e siga este checklist rígido:
-- **Sincronia:** derive as entradas das âncoras reais de `voz/words.json`; primeiro evento visual em ≤ 0,4 s; nada congelado por > 1,5 s; estenda câmera da Cena 5 até além de `window.END`.
-- **Transições limpas:** **nunca use `whip`** (gera cópias fantasma). Use `empurra` (deslizamento único com filete de sombra) ou zoom suave ≤ 1,2×.
-- **Zero texto fantasma:** desenhe cada cartão, selo e botão como bloco composto único (offscreen/layer) antes de aplicar transparência.
-- **Legibilidade total:**
-  - Fontes sem-serifa bold ≥ 44 px, acentuação PT-BR conferida (`Ç`, `Ã`, `Ó`, `É`, `Í`, `Ê`).
-  - **Zero anéis, brilhos ou partículas sobre letras/números**; setas de alerta devem ser opacas com contorno.
-  - **Zero emoji de texto** em Canvas (desenhe ícones vetoriais limpos em Canvas 2D: elo de link, cursor, sacolas, setas, cédulas).
-  - Respeite a zona segura: overlays no terço superior/médio (`y≈160–900`), nada nos 15% inferiores (UI de Reels/TikTok) e nada cobrindo a Moedinha (`y≈1100–1600`).
+- Padrão da série: edge-tts com pt-BR-ThalitaMultilingualNeural, rate +10%, em uma tomada contínua. Outro backend precisa oferecer narração equivalente e os timestamps necessários.
+- Crie voz/words.json com os limites reais de cada palavra; não invente WordBoundary. Primeira palavra ≤ 0,30 s.
+- Normalize áudio a −16 LUFS e produza saida/voz_final.wav em −14 LUFS, true peak ≤ −1,5 dBTP, 48 kHz estéreo. Verifique por medição, usando ffmpeg/ffprobe do PATH.
+- Duração final window.END = última palavra do CTA + 0,8 s, com respiro visual para nunca cortar a voz.
 
-### Passo 5 — Render paralelo 1080p + 720p
-- Rode `render_paralelo.mjs` (use `--workers 2` quando a memória disponível estiver apertada, um episódio por vez para não disputar RAM do Chromium) gerando:
-  - `saida/<slug>_leigo_1080p.mp4` (`1080×1920`, 30 fps, H.264 High, `yuv420p`, `+faststart`, AAC 48 kHz estéreo ~192k)
-  - `saida/<slug>_leigo_720p.mp4` (`720×1280`, 30 fps, H.264 High, `yuv420p`, `+faststart`, AAC 48 kHz estéreo ~128k)
-- Valide duração, codecs, tamanho, LUFS e True Peak via `ffprobe` + `ebur128`.
+### Passo 3 — Cinco placas verticais 9:16
 
-## 4. Portão de QA obrigatório (os 3 passos antes de entregar)
-1. **Checagem técnica (`checar-video` #29):**
-   `/workspace/fabrica-videos-claude/demo-14/.venv-checar/bin/python /workspace/fabrica-videos-claude/extracted/curso-estilos/skills/checar-video/scripts/checar.py <mp4_1080p> --sem-ocr --sem-stt`
-   - Exigir **PASSOU (0 falhas)** (0 engasgos, 0 flashes/s, 0 quadros vazios, 0 s parado, áudio −14 LUFS e celular ok; o aviso de largura do herói em cenário cheio é esperado).
-2. **Inspeção de quadros (`Read`):**
-   - Extrair grade + quadros soltos direto do `1080p.mp4` (`0,15 s`, cena 1, salto da cena 2, transições, cena 3, cena 4, saída dos cartões, auge do botão de CTA (`SEGUIR` ou `LINK NA BIO`) e último frame) e conferir visualmente com `Read`.
-   - **Checagem do gancho (2.7):** no quadro de 0,15 s, texto de gancho legível, Moedinha com expressão (não aceno) e algo em movimento; em `words.json`, 1ª palavra com `start ≤ 0,30` e nome do conceito só depois da 1ª frase. Falhou = corrigir antes de entregar.
-3. **Revisão de vídeo (`videoReview`):**
-   - Enviar o `720p.mp4` ao subagente `videoReview` validando narração completa sem corte, sincronia, transições sem glitch, acentos, ausência de texto fantasma e recorte da Moedinha sem franja magenta.
-   - Se `videoReview` apontar algum problema, confira primeiro o quadro exato no `1080p.mp4` com `Read`; sendo defeito real, arquive a versão anterior em `_antigo/`, corrija na raiz, re-renderize e passe nos 3 passos de novo.
+- Gere uma placa por cena a partir da direção visual, assets e paths.style_reference existentes. Prefira codex-image se disponível, com referências reais e verificadas. Não presuma um script gerar_placa.sh do Mac nem geração de imagem sem login.
+- Brief em inglês: lugar e objetos concretos, luz, índigo/violeta, espaço superior limpo e espaço para a Moedinha. Regras: NO text, numbers, letters, signs, price labels, logos, watermark or mascot. A Moedinha entra depois como sprite.
+- Confira proporção final e corte; eventuais conversões com FFmpeg/Pillow não recuperam detalhes ausentes. Revise as 5 placas visualmente. Guarde rejeitadas em arte/bruto e aprovadas em arte/placas.
 
-## 5. Entrega e arquivamento no Drive (SEMPRE com legenda)
-- **No chat:** envie o `1080p.mp4` primeiro como anexo (`type: "attachment"`), seguido imediatamente da mensagem com resumo curto (duração/QA) **+ a legenda pronta para copiar e colar** (nunca envie um vídeo sem a legenda, e nunca afirme ter assistido ao vídeo).
-- **No Google Drive pessoal:** salve sempre na pasta do projeto do Drive pessoal do dono (confirmando o e-mail pessoal antes de criar/enviar, nunca em conta acadêmica/secundária) em uma subpasta numerada `NN — <Tema>` contendo **4 arquivos obrigatórios**:
-  1. `<slug>_leigo_1080p.mp4`
-  2. `<slug>_leigo_720p.mp4`
-  3. `roteiro.md`
-  4. `legenda.txt`
-- Liste os arquivos da subpasta ao vivo depois do upload para confirmar tamanhos e links.
+### Passo 4 — Animação Canvas no motor real
+
+- Inspecione o template real para confirmar filme/cenas.js, filme/filme.html, window.seek/window.render e funções disponíveis. Não invente APIs nem copie plugins inexistentes.
+- Faça o timing pelos marcadores de voz/words.json: primeiro movimento ≤ 0,4 s e nenhuma cena visualmente imóvel por mais de 1,5 s. Extraia pelo menos 2 quadros por cena antes do render final.
+- Regras úteis dos episódios anteriores: evitar whip com fantasma; usar transições limpas, zoom até 1,2×; compor cada bloco de texto como uma única camada; animar passos/pulos se os sprites necessários existirem.
+- Fontes bold ≥ 44 px, acentuação correta, nada de emoji textual no Canvas, nenhuma partícula sobre números, evitar 15% inferiores ocupados pela UI das plataformas e não cobrir a Moedinha.
+
+### Passo 5 — Renderização e prova técnica
+
+- Execute o render_paralelo.mjs **apenas se encontrado** no motor ou template configurado. Gere saida/<slug>_leigo_1080p.mp4 e saida/<slug>_leigo_720p.mp4.
+- Exija 30 fps, H.264 High, yuv420p, +faststart, áudio AAC 48 kHz estéreo. Prefira color_range tv quando apropriado; não exporte yuvj420p incompatível com alguns players.
+- Confirme dimensões, FPS, codecs, duração, LUFS e true peak com ffprobe/ffmpeg. Não declare valores sem medir.
+
+## 4. Portão de QA obrigatório
+
+1. **Técnico:** use paths.checker_script (checar-video ou outro checker realmente disponível). Se não houver verificador equivalente, execute os testes parciais com ffprobe e registre **QA pendente**, sem escrever PASSOU fictício.
+2. **Inspeção de quadros:** abra imagens reais do 1080p (0,15 s, Cena 2, transições, Cenas 3/4, CTA e último quadro). Confira gancho legível, Moedinha expressiva e movimento inicial, além de primeira palavra ≤ 0,30 s.
+3. **Revisão audiovisual:** assista ao 720p ou use ferramenta de vídeo disponível para conferir cortes de narração, sincronia, ruído visual, transições, acentuação e transparência da Moedinha. Um print isolado não comprova isso.
+
+Falhou? Salve a versão antiga em _antigo, corrija e repita verificações. Anote resultados e pendências junto do episódio.
+
+## 5. Entrega e arquivamento
+
+- Sempre entregar quatro arquivos: MP4 1080p, MP4 720p, roteiro.md e legenda.txt; informar localização real e status do QA.
+- archive.mode=local: manter tudo no workspace e fornecer caminhos, sem afirmar upload.
+- archive.mode=google-drive: só usar o Drive quando conector, conta e pasta corretos tiverem sido confirmados em tempo real. Arquivar em NN — Tema depois de verificar o índice; conferir arquivos no destino e não divulgar IDs privados.
+- No chat, entregar legenda pronta e resumo de duração, QA e pendências. Nunca afirmar que assistiu ao vídeo, executou um modelo ou fez upload sem confirmação.
+
+## 6. Arquivos incluídos
+
+- README.md: migração do Mac e configuração por sistema.
+- config.example.json: diretórios e provedores configuráveis, sem dados pessoais.
+- scripts/preflight.py: diagnóstico read-only por estágio, sem gerar conteúdo e sem instalar dependências.
+- tests/test_preflight.py: testes offline dos caminhos, requisitos e variáveis de ambiente.
+- pesquisa-ganchos.md: referências editoriais.
+
+**Limite da portabilidade:** configuração e lógica podem rodar em outros sistemas, mas render real continua exigindo o motor #07, sprites, modelos e ferramentas externas compatíveis e autorizados.

@@ -1,0 +1,5 @@
+config.local.json
+workspace/
+**/__pycache__/
+*.py[cod]
+.DS_Store

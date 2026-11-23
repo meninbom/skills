@@ -1,0 +1,30 @@
+name: Econo portable workflow tests
+on:
+  pull_request:
+    paths:
+      - 'skills/econodescomplicada-videos/**'
+      - '.github/workflows/econo-portable-tests.yml'
+  push:
+    paths:
+      - 'skills/econodescomplicada-videos/**'
+      - '.github/workflows/econo-portable-tests.yml'
+jobs:
+  preflight:
+    strategy:
+      fail-fast: false
+      matrix:
+        # Covers Linux x64/ARM64, macOS Apple Silicon/Intel, and Windows x64.
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, macos-15-intel, windows-latest]
+        python-version: ['3.10', '3.12']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile preflight
+        run: python -m compileall -q skills/econodescomplicada-videos/scripts
+      - name: Run offline tests
+        run: python -m unittest discover -s skills/econodescomplicada-videos/tests -v
+      - name: Smoke test CLI in planning mode (no external binaries required)
+        run: python skills/econodescomplicada-videos/scripts/preflight.py --stage plan --json

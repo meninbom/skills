@@ -1,0 +1,23 @@
+{
+  "paths": {
+    "workspace": "./workspace",
+    "engine": "",
+    "episode_template": "",
+    "sprites": "",
+    "style_reference": "",
+    "checker_script": "",
+    "browser": ""
+  },
+  "production": {
+    "image_backend": "codex-image",
+    "tts_backend": "edge-tts",
+    "render_workers": "auto",
+    "video_width": 1080,
+    "video_height": 1920,
+    "fps": 30
+  },
+  "archive": {
+    "mode": "local",
+    "drive_folder_id": ""
+  }
+}
