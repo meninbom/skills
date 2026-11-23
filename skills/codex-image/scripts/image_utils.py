@@ -140,3 +140,24 @@ def frame_image(path, aspect, mode, focal_x=0.5, focal_y=0.5, transparent=False,
             background.alpha_composite(im, ((new_w - w) // 2, (new_h - h) // 2))
             result = background
         result.save(path, format="PNG")
+
+
+def write_circle_preview(source_path, preview_path):
+    """Create a real circular-avatar preview, preserving source alpha.
+
+    This is a visual inspection aid. It cannot guarantee a face or other
+    meaningful details fit the crop, so the agent must inspect the preview.
+    """
+    Image, _, _ = _require_pillow()
+    from PIL import ImageChops, ImageDraw
+
+    with Image.open(source_path) as src:
+        img = src.convert("RGBA")
+        w, h = img.size
+        if w != h:
+            raise ValueError("Circular avatar preview requires a square source")
+        mask = Image.new("L", (w, h), 0)
+        ImageDraw.Draw(mask).ellipse((0, 0, w - 1, h - 1), fill=255)
+        img.putalpha(ImageChops.multiply(img.getchannel("A"), mask))
+        img.save(preview_path, format="PNG")
+    validate_png(preview_path, aspect="1:1", transparent=True)
