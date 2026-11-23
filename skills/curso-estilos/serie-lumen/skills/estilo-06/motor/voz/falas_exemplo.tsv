@@ -1,3 +1,0 @@
-# Falas de personagem para o voz/gerar_voz.py --tsv (uma por linha, separadas por TAB): id, voice_id da SUA conta, texto.
-# Linhas com # são ignoradas. Sem tag de sussurro.
-I1	SEU_VOICE_ID	Não se mexe.

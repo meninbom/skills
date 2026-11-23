@@ -14,7 +14,7 @@ Cada skill é uma pasta com `SKILL.md`. Instale só o que precisa.
 | `lp-motion-gsap` | Animações e interações de LP com GSAP + ScrollTrigger; respeita reduced-motion; consulta MCP GSAP antes de inventar |
 | [`econodescomplicada-videos`](skills/econodescomplicada-videos/) | Pipeline portátil de vídeos de Economia com Moedinha: roteiro de 5 cenas, briefing, narração, render, QA e arquivamento. Caminhos, motor, sprites e ferramentas são configuráveis e verificados por [preflight multiplataforma](skills/econodescomplicada-videos/README.md); os assets externos continuam necessários. |
 | [`codex-image`](skills/codex-image/) | Geração e edição de imagens com briefing adaptativo (perguntas só quando necessárias), presets `hero/mascot/social/reel`, brand kits locais, enquadramento com recorte ou preservação, validação real de PNG/alpha e consulta de cotas mais segura. [Guia e exemplos](skills/codex-image/README.md). |
-| [`curso-estilos`](skills/curso-estilos/) | Pacote completo do curso de estilos de vídeo: receitas, motores, prévias, checagem e o módulo `serie-lumen`. A pasta espelha o ZIP (leia `LEIA-ME.md`). Não entra na licença MIT da raiz; veja `skills/curso-estilos/AVISO.md`. |
+| [`curso-estilos`](skills/curso-estilos/) | Pacote do curso de estilos de vídeo: receitas, motores, prévias e checagem. A pasta espelha o ZIP, sem o módulo `serie-lumen` (leia `LEIA-ME.md`). Não entra na licença MIT da raiz; veja `skills/curso-estilos/AVISO.md`. |
 
 ## Brand rules (resumo)
 

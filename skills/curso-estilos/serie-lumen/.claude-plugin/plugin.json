@@ -1,7 +1,0 @@
-{
-  "name": "serie-lumen",
-  "version": "0.3.7",
-  "description": "Série de história em vídeo com escolha nos comentários, no fluxo da série LUMEN: roteiro, fichas, revisor, animação, voz, montagem, golpe e entrega, com trava de gasto.",
-  "author": { "name": "doti" },
-  "keywords": ["video", "serie", "historia", "curso"]
-}
