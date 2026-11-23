@@ -18,6 +18,7 @@ python3 skills/codex-image/scripts/codex_image.py --quota
 
 - **Briefing adaptativo no agente:** pedido completo gera diretamente; pedido incompleto recebe 1–2 perguntas úteis; edições reutilizam decisões anteriores. O Python não abre diálogos.
 - **Presets:** `--preset hero|mascot|social|reel` define orientação e composição-base, sem engessar o estilo. Um `--aspect` explícito prevalece.
+- **Mascote para foto de perfil:** `--preset mascot --avatar-safe` faz briefing com foco no rosto central, enquadramento quadrado e prévia circular (`AVATAR_PREVIEW`). Mantém a figura reconhecível após o corte circular do Instagram; o agente ainda precisa conferir visualmente a prévia.
 - **Brand kit local:** `--brand-kit caminho/brand.md` incorpora identidade visual do projeto ao prompt, sem rede e sem guardar credenciais.
 - **Enquadramento:** `--framing crop` (com `--focal-x/--focal-y`), `--framing contain` ou `--framing blur` preservando o conteúdo. `--crop` continua funcionando como alias. *Contain* e *blur* não são outpainting com IA.
 - **QA real:** arquivo PNG íntegro, dimensões verificadas, razão exata quando há enquadramento, transparência efetiva se solicitada. Falha antes de publicar um resultado inválido.
@@ -37,6 +38,11 @@ python3 skills/codex-image/scripts/codex_image.py \
   "Friendly coin character, full body, clean outlines" \
   --preset mascot --framing crop --focal-x 0.7 \
   -o public/mascot.png
+
+# Avatar quadrado: gera também prévia com o corte circular de perfil
+python3 skills/codex-image/scripts/codex_image.py \
+  "Mascote simpático para Instagram de educação, rosto expressivo, sem texto" \
+  --preset mascot --avatar-safe -o assets/mascote.png
 
 # Testes locais sem chamar Codex
 python3 -m unittest discover -s skills/codex-image/tests -v
