@@ -14,9 +14,9 @@ A skill contém instruções e diagnóstico, **não** os assets da série, o mot
 
 ## 0. Descoberta e configuração
 
-1. Leia o README desta skill e config.example.json; copie para config.local.json, mantido fora do Git. Configure paths.workspace, paths.engine, paths.episode_template, paths.sprites, paths.style_reference, paths.checker_script e paths.browser com recursos **existentes**. Não invente paths nem IDs.
+1. Leia o README desta skill e config.example.json; copie para config.local.json, mantido fora do Git. Configure paths.workspace, paths.engine e paths.sprites com recursos **existentes**. paths.episode_template é opcional quando o motor já possui renderizador suficiente; paths.style_reference, paths.checker_script e paths.browser são declarados conforme a etapa. Não invente paths nem IDs.
 2. Os caminhos relativos são resolvidos em relação ao arquivo de configuração, nunca ao diretório atual do terminal. Valem macOS (Intel/Apple Silicon), Linux, Windows e WSL. Não fixe /workspace, ~/Documents, Homebrew, venv, Chrome ou ffmpeg em um endereço universal.
-3. Antes do roteiro, execute scripts/preflight.py --config config.local.json --stage plan. Antes de produzir mídia, use --stage render. Antes da publicação, --stage publish. Com --json, obtenha o diagnóstico estruturado. Ausência de ferramenta bloqueia a etapa correspondente, não a escrita de um rascunho.
+3. Antes do roteiro, execute scripts/preflight.py --config config.local.json --stage plan. Antes de produzir mídia, use --stage render. Antes da publicação, --stage publish. Com --json, obtenha o diagnóstico estruturado. `READY` significa apenas pré-requisitos estáticos encontrados; `NEEDS_VERIFICATION` significa que um provedor externo ou o acesso ao Drive ainda exige comprovação manual; `NOT_READY` indica dependência faltante. Não trate `NEEDS_VERIFICATION` como sucesso automático: valide o recurso, registre a evidência no projeto e só então prossiga. Ausência de ferramenta bloqueia a etapa correspondente, não a escrita de um rascunho.
 4. Use image_backend codex-image se a skill e o Codex estiverem disponíveis e autenticados; senão, use um gerador externo **configurado e verificado**. Para áudio, prefira edge-tts; outro fornecedor só se houver voz equivalente e timestamps reais por palavra. Não presume ferramentas chamadas GenerateImage, Read ou videoReview.
 5. Para incertezas do tema, público e CTA, faça só as perguntas que afetam a entrega. Reutilize decisões anteriores. Não crie um interrogatório obrigatório.
 6. Caminhos pessoais, tokens e IDs de pasta ficam em configuração local e variáveis de ambiente, não no repositório público.
@@ -133,7 +133,7 @@ Pergunta só vale se for **específica e sem resposta óbvia**. Proibido "Já vi
 
 ### Passo 1 — Preparar ambiente e projeto
 
-- Execute o preflight no estágio render. Se motor, template, sprites, Chrome, FFmpeg, Node ou TTS faltarem, reporte o pré-requisito específico; não invente uma instalação nem gere um vídeo fictício.
+- Execute o preflight no estágio render. Se motor, sprites, Chrome, FFmpeg, Node ou TTS faltarem, reporte o pré-requisito específico. Um template separado só é necessário quando o motor não fornece o renderizador exigido. Se um backend externo estiver pendente de verificação, confirme de verdade sua operação antes de gerar mídia; não invente uma instalação nem gere um vídeo fictício.
 - Crie uma pasta isolada em paths.workspace/episodios/<slug>. Copie os arquivos do motor e template **apenas quando existirem**, preservando a origem. Não reutilize symlink para node_modules de outros episódios; instale dependências declaradas no package.json da cópia.
 - Render workers vêm da configuração (auto conservador por CPU, ou valor explícito). Não imponha 2 workers em todo computador.
 
