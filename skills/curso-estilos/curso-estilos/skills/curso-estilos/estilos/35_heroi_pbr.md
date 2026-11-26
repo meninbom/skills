@@ -21,6 +21,8 @@ Tudo grátis. A peça é muda. Se você quiser narrar, use a API ou o site da El
 - **Python 3.10+** com Pillow e numpy (`pip install -r requirements.txt`): só para o estúdio de comparação (`estudio.py` e `medir.py`).
 - **Gerador de imagem** para o conceito e as texturas do SEU herói: a peça usou o Z-Image Turbo no ComfyUI local (placa de ~12 GB). Serve qualquer gerador que entregue um turnaround de 3 vistas em 1536×1024 e texturas quadradas. Sem placa forte, gere num serviço online ou desenhe a folha: o resto do estilo roda em CPU.
 
+**Neste setup:** gere conceito e texturas com a skill `codex-image` (`../CODEX_IMAGE.md`), sem ComfyUI e sem placa. Folha de turnaround: `--aspect 3:2`. Texturas: `--aspect 1:1`. Exemplo: `python3 ~/.agents/skills/codex-image/scripts/codex_image.py "<brief>" -o assets/conceito.png --aspect 3:2 --crop`. Salve em `assets/`, copie para `conceito/` (e a pasta de texturas) como a receita pede, e continue o pipeline em CPU.
+
 ## Motor
 Em `motores/35/` (~5 MB, com as texturas reduzidas). Copie a pasta inteira para o seu projeto e trabalhe na cópia.
 - `motores/35/DEMO.md`: o demo de um comando. Comece por ele.

@@ -17,6 +17,8 @@ Tudo grátis.
 - **FFmpeg** no PATH.
 - **three.js r160**: já vem em `motores/34/vendor/three.module.js` (licença MIT), carregado por import map no `motores/34/index.html`. Nada de CDN.
 - **Texturas pintadas**: `motores/34/tex/bark.jpg` e `motores/34/tex/wood.jpg` (1024 px). Para fazer as suas, qualquer gerador de imagem serve (nós usamos um modelo local, 1536², 12 passos, ~18 s cada); o prompt que funciona está em "Pegadinhas".
+
+**Neste setup:** se for criar texturas novas (o motor já traz as de exemplo), use a skill `codex-image` (`../CODEX_IMAGE.md`): `python3 ~/.agents/skills/codex-image/scripts/codex_image.py "<brief>" -o assets/bark.png --aspect 1:1 --crop`. Salve em `assets/` e copie para `tex/` da cópia do motor.
 - Sem placa de vídeo: `DEMO_CPU=1` renderiza por software (mais lento, mesmo resultado).
 
 ## Motor (dentro do plugin)

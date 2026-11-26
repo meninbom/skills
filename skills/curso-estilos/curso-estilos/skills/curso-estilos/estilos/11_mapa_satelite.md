@@ -22,6 +22,8 @@ Tudo descrito no `MOTOR.md` da skill. Resumo:
 - **Motor (grátis):** three.js (vendorizado) + camada 2D num HTML; render quadro a quadro pelo Chrome do sistema (puppeteer-core, sem baixar navegador) em CPU (SwiftShader). Não usa GPU. Precisa de Node 18+, Chrome/Edge e ffmpeg.
 - **Mapa (grátis):** Blue Marble pelo GIBS WMS da NASA (sem chave, domínio público), Sentinel-2 cloudless de perto (CC BY 4.0, atribuição na descrição do post), Natural Earth e malhas do IBGE. O pacote traz um recorte pequeno; `node baixar_assets.mjs` busca a base cheia.
 - **Ilustrações (grátis, opcional):** IA de imagem local (nos nossos testes, Z-Image no ComfyUI, ~12 s cada) + rembg para o recorte. Sem isso, o demo usa um cartão-placeholder.
+
+**Neste setup:** gere as ilustrações com a skill `codex-image` (`../CODEX_IMAGE.md`): `python3 ~/.agents/skills/codex-image/scripts/codex_image.py "<brief>" -o assets/nome.png --aspect 1:1 --crop`. Salve em `assets/`, recorte (rembg, se quiser) e continue o pipeline. Sem elas, o demo segue com placeholder. Não é preciso subir o ComfyUI para essas aindas.
 - **Voz (PAGA):** API ou site da ElevenLabs, com a sua chave. Voz do piloto: "Will - Dynamic Voiceover".
 
 ## Motor (na skill irmã)

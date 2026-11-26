@@ -2,6 +2,8 @@
 
 > Vitrine: série de ilustração com HUD de RPG, EP01 "O Apagão" (52 s) · Custo: só a voz (PAGA: ~900 caracteres de narração por tomada; conte 2–3 tomadas); imagem, animação e montagem R$ 0 · Ferramentas: Flow (Nano Banana), H3 Flash no ComfyUI local, RIFE, Python + FFmpeg (montagem e HUD), ElevenLabs, Whisper
 
+**Neste setup, as ilustrações paradas saem pela skill `codex-image`** (`../CODEX_IMAGE.md`): `python3 ~/.agents/skills/codex-image/scripts/codex_image.py "<brief>" -o assets/nome.png --aspect 9:16 --crop`. Salve em `assets/` da cópia do motor e continue HUD + montagem. A animação (H3 Flash / ComfyUI) continua opcional e à parte, só se o aluno quiser — pede GPU.
+
 ## O que é
 História curta para adulto em ilustração vetorial chapada (traço tipo Kurzgesagt, noite azul, janela quente), contada em 2ª pessoa, com uma camada de HUD de RPG por cima: status e relógio nos cantos, um cartão de sistema, um círculo de alvo e legenda de 1–2 palavras. O motor do episódio é um teste de leitura (a palavra em inglês na tela, PUSH lido como "puxe") e o fim é um voto "1 ou 2" nos comentários (formato inspirado em contas de isekai/RPG com voto). As imagens nascem todas de um quadro-mestre aprovado; o H3 Flash anima; o código faz HUD, corte seco e som.
 

@@ -81,7 +81,7 @@
    "vram_gb": 0,
    "status": "beta",
    "aula": "2.2 e 2.3",
-   "nota": "Demo com boneco de primitivas; o roteiro de exemplo é só de estudo."
+   "nota": "Demo com boneco de primitivas; o roteiro de exemplo é só de estudo. Texturas geradas: skill codex-image (CODEX_IMAGE.md)."
   },
   {
    "id": "03",
@@ -150,7 +150,8 @@
    ],
    "vram_gb": 0,
    "status": "v1",
-   "aula": "2.4"
+   "aula": "2.4",
+   "nota": "Texturas novas: skill codex-image (CODEX_IMAGE.md)."
   },
   {
    "id": "35",
@@ -168,7 +169,7 @@
    "vram_gb": 0,
    "status": "beta",
    "aula": "3.5",
-   "nota": "O demo roda sem placa forte. As texturas do exemplo ainda são fracas; herói próprio pede gerador de imagem e modelagem à mão."
+   "nota": "O demo roda sem placa forte. As texturas do exemplo ainda são fracas; herói próprio: conceito e texturas pela skill codex-image, mais modelagem à mão."
   },
   {
    "id": "36",
@@ -277,7 +278,7 @@
    "vram_gb": 0,
    "status": "v1",
    "aula": "6.2",
-   "nota": "O motor roda sozinho; as ilustrações o aluno gera (IA de imagem) ou desenha."
+   "nota": "O motor roda sozinho; as ilustrações saem pela skill codex-image (ou o aluno desenha). Ver CODEX_IMAGE.md."
   },
   {
    "id": "08",
@@ -296,7 +297,7 @@
    "vram_gb": 12,
    "status": "avançado",
    "aula": "6.3",
-   "nota": "O demo cobre a montagem (Remotion: grátis até empresa de 3 pessoas); a geração pede ComfyUI."
+   "nota": "O demo cobre a montagem (Remotion: grátis até empresa de 3 pessoas). Styleframes: skill codex-image. Animação em vídeo (H3) continua opcional e pede ComfyUI."
   },
   {
    "id": "11",
@@ -314,7 +315,7 @@
    "vram_gb": 0,
    "status": "v1",
    "aula": "5.5",
-   "nota": "Usa a skill geo-tales do pacote."
+   "nota": "Usa a skill geo-tales do pacote. Ilustrações: skill codex-image (CODEX_IMAGE.md)."
   },
   {
    "id": "13",
@@ -332,7 +333,7 @@
    "vram_gb": 0,
    "status": "beta",
    "aula": "6.5",
-   "nota": "Gravado da tela do Roblox Studio, plano a plano; só a montagem tem demo. Captura só no Windows."
+   "nota": "Gravado da tela do Roblox Studio, plano a plano; só a montagem tem demo. Captura só no Windows. Céu pintado: skill codex-image (CODEX_IMAGE.md)."
   },
   {
    "id": "66",
@@ -350,7 +351,7 @@
    "vram_gb": 12,
    "status": "avançado",
    "aula": "6.4",
-   "nota": "O demo cobre HUD e montagem; ilustração e animação pedem IA de imagem e ComfyUI."
+   "nota": "O demo cobre HUD e montagem; ilustrações paradas pela skill codex-image. Animação (H3) continua opcional e pede ComfyUI."
   },
   {
    "id": "14",
@@ -368,7 +369,7 @@
    "vram_gb": 0,
    "status": "v1",
    "aula": "5.1",
-   "nota": "GSAP é baixado do npm na instalação (licença própria)."
+   "nota": "GSAP é baixado do npm na instalação (licença própria). Fotos geradas: skill codex-image (CODEX_IMAGE.md)."
   },
   {
    "id": "25",

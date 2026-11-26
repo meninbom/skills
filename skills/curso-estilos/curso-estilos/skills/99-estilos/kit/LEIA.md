@@ -59,3 +59,7 @@ Renderizar é desenhar o filme quadro a quadro, e usa o processador inteiro. Com
 - Estilo em 3D: precisa, ou fica muito lento. Dois dos nossos 99 só saíram com placa.
 - `LEMO_ANGLE=swiftshader` força o desenho pelo processador (lento, mas funciona em filme curto).
 - Com placa, não defina nada: a biblioteca usa a placa sozinha. Se um render em 3D estiver lento num PC com placa, confira se `LEMO_ANGLE` não ficou como `swiftshader`.
+
+## Imagens (`#116`, `#147`, `#188`)
+
+Quando a biblioteca pedir um gerador de imagem, use a skill `codex-image`. O passo a passo está em `../../curso-estilos/CODEX_IMAGE.md`. Salve em `assets/` do filme e continue o pipeline.

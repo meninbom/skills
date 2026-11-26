@@ -23,11 +23,15 @@ São os 99 estilos da biblioteca Lemo-Opuscar, numerados no curso de `#101` a `#
 
 ## Os que saíram fracos no nosso teste
 
-Nota 5,5 ou menos: `#147` (`manga-panels`), `#158` (`one-line`), `#161` (`paper-popup`), `#162` (`papercut-red`), `#189` (`thermal-camera`), `#190` (`tilt-shift`), `#191` (`transit-map`), `#194` (`vintage-collage`). Não quer dizer que o estilo é ruim: quer dizer que ele pede mais rodadas de correção, ou material que o teste não tinha (três estilos, por exemplo, desenham os personagens com um gerador de imagem que você precisa ter).
+Nota 5,5 ou menos: `#147` (`manga-panels`), `#158` (`one-line`), `#161` (`paper-popup`), `#162` (`papercut-red`), `#189` (`thermal-camera`), `#190` (`tilt-shift`), `#191` (`transit-map`), `#194` (`vintage-collage`). Não quer dizer que o estilo é ruim: quer dizer que ele pede mais rodadas de correção, ou material que o teste não tinha. Três estilos desenham os personagens com gerador de imagem — `#116` (`comic-history`), `#147` (`manga-panels`) e `#188` (`text-flash-cuts`): neste setup, use a skill `codex-image` (guia em `../curso-estilos/CODEX_IMAGE.md`), salve em `assets/` do filme e siga o pipeline.
 
 ## Os que pedem placa de vídeo
 
 Os estilos em 3D e os que usam terreno real ficam lentos ou param sem placa de vídeo. No nosso teste, o `#148` (`map-explainer`) e o `#192` (`ukiyoe`) só saíram com placa; com ela, o render levou cerca de 20 segundos. Veja "Sem placa de vídeo" no `SKILL.md`.
+
+## Gerador de imagem (neste setup: `codex-image`)
+
+`#116` (`comic-history`), `#147` (`manga-panels`) e `#188` (`text-flash-cuts`) pedem um gerador para os personagens ou as imagens de apoio. Use a skill `codex-image` (script em `~/.agents/skills/codex-image/scripts/codex_image.py`), salve em `assets/` do projeto e continue o pipeline. O passo a passo está em `../curso-estilos/CODEX_IMAGE.md`.
 
 ## Todos
 

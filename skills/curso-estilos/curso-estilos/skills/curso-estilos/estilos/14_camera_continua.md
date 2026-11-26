@@ -20,6 +20,8 @@ Funciona porque resolve de uma vez três problemas comuns de vídeo curto: corte
 - **HyperFrames** (grátis, Apache 2.0), opcional: as pastas `kit_template/` e `hf/` também são projetos HyperFrames. `npx --yes hyperframes@0.8.162 render` faz o mesmo render e `preview` mostra ao vivo; ele baixa um Chromium próprio na primeira vez.
 - **Python 3.10+** com `pip install -r requirements.txt` (numpy, scipy, pillow para os adesivos; soundfile e pyloudnorm para a mixagem).
 - **Fotos**: qualquer gerador de imagem (o exemplo usou Z-Image Turbo local, que pede placa de vídeo; um gerador online serve igual) ou foto de banco com licença comercial.
+
+**Neste setup:** se for gerar as fotos, use a skill `codex-image` (`../CODEX_IMAGE.md`): `python3 ~/.agents/skills/codex-image/scripts/codex_image.py "<brief>" -o assets/nome.png --aspect 4:5 --crop` (ajuste o `--aspect` à cena). Salve em `assets/` da cópia do motor e continue o pipeline. Foto de banco com licença comercial também vale.
 - **Voz** (opcional, paga): a API ou o site da ElevenLabs com a sua chave, ou a sua própria voz gravada. Confira o preço antes: é cobrado por caractere.
 - Pegadinha de instalação: skills de mídia do ecossistema HyperFrames podem procurar um `.env` em pastas acima da sua e gastar créditos de voz sem pedir. Não deixe chave de API em `.env` solto perto do projeto; gere a voz você mesmo, num passo separado.
 

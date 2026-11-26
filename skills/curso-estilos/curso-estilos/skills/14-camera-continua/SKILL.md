@@ -17,6 +17,17 @@ Esta skill é a porta de entrada do estilo. A receita e o código ficam na skill
 - **Motor (código):** `../curso-estilos/motores/14/`, com o demo em `DEMO.md`
 - **Prévia de 15 s:** `../curso-estilos/catalogo/previas/14.mp4`
 
+
+## Imagens geradas (`codex-image`)
+
+Quando este estilo precisar de imagens geradas, use a skill `codex-image` (guia: `../curso-estilos/CODEX_IMAGE.md`). Comando:
+
+```bash
+python3 ~/.agents/skills/codex-image/scripts/codex_image.py "<brief in English>" -o assets/nome.png --aspect 4:5 --crop
+```
+
+Salve em `assets/` do projeto (ou no caminho que a receita pede) e continue o pipeline do estilo. Sem chave de API e sem API paga. Ajuste o `--aspect` à cena. Foto de banco com licença comercial também vale.
+
 ## Fluxo
 
 1. **Conferir o PC para este estilo.** Só lê, não instala nada:

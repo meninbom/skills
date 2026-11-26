@@ -18,6 +18,8 @@ Historinha de 75–105 s narrada por uma criança em 1ª pessoa, toda encenada d
 - **MCP oficial do Studio (grátis):** no Studio, Assistant → ⋯ → Manage MCP Servers → Enable Studio as MCP server. No Claude Code, registre o servidor (escopo user) apontando para o `mcp.bat` que o Studio instala em `%LOCALAPPDATA%\Roblox`. **Pegadinha:** no Git Bash o `/c` do comando vira `C:/` e o servidor dá timeout; rode o `claude mcp add` com `MSYS_NO_PATHCONV=1`.
 - **Ferramentas do MCP usadas:** execute_luau, upload_image, screen_capture, generate_mesh (IA do Studio, grátis, 1–2 min por bicho), wait_job_finished, save_place.
 - **Gerador de imagem (só para o céu pintado):** qualquer um que faça 1024×1024. Nós usamos Z-Image no ComfyUI local (grátis, pede GPU).
+
+**Neste setup:** gere as cinco faces do céu com a skill `codex-image` (`../CODEX_IMAGE.md`), `--aspect 1:1`, sem ComfyUI: `python3 ~/.agents/skills/codex-image/scripts/codex_image.py "<brief>" -o assets/ceu/Ft.png --aspect 1:1 --crop`. Salve em `assets/ceu/`, copie para `ceu/dia/` com os nomes da receita (`Ft.png`, `Rt.png`, `Bk.png`, `Lf.png`, `Up.png`) e rode `gerar_ceu.py`. Depois continue no Studio.
 - **Python 3.10+** com `pip install -r requirements.txt` (Pillow, numpy, zstandard) e **FFmpeg 7+** com gdigrab (gravação da tela, Windows).
 - **ElevenLabs (PAGO):** a API da ElevenLabs com a sua chave, na variável de ambiente `ELEVENLABS_API_KEY`.
 

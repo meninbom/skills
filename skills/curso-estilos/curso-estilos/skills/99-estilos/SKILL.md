@@ -23,7 +23,7 @@ Tudo fica na pasta deste arquivo (`${CLAUDE_SKILL_DIR}`):
 - **A biblioteca não vem neste pacote.** Ela é baixada do endereço oficial, de graça: `github.com/lemomo-ai/lemo-opuscar`.
 - **O código dela é livre (licença MIT)** e os filmes que você faz com ela são seus.
 - **Os textos que descrevem cada estilo são de uso não comercial** (licença CC BY-NC 4.0). Por isso eles não estão aqui dentro, e você não deve copiar, revender nem redistribuir esses textos. Usar a biblioteca para fazer os seus vídeos é outra coisa, e é permitido.
-- **Três estilos desenham os personagens com um gerador de imagem que você precisa ter** (os de mangá, de cortes de texto e de história em quadrinhos). Sem um gerador, escolha outro estilo.
+- **Três estilos desenham os personagens com um gerador de imagem** (`#116` `comic-history`, `#147` `manga-panels`, `#188` `text-flash-cuts`). Neste setup, use a skill `codex-image` (veja a seção "Imagens com codex-image" abaixo). Não é preciso ter ComfyUI nem API paga.
 - Esta skill é a nossa camada por cima: o catálogo com notas, os ajustes e o kit.
 
 ## 1. Conferir o PC
@@ -110,6 +110,25 @@ Então use a skill da biblioteca (`lemo-opuscar`) com esse pedido. Um filme leva
 - **A nota do catálogo é do nosso teste**, com roteiro e prazo curtos. Estilo com nota baixa costuma pedir mais rodadas de correção, não é estilo ruim.
 - **O empurrão de câmera não funciona** quando o filme cria o `canvas` por um módulo, em vez de ele estar no HTML. O script avisa e não mexe; peça o movimento dentro do código do filme.
 - **Não copie os textos de estilo** da biblioteca para outro lugar, nem para o seu projeto de curso ou produto: eles são de uso não comercial.
+
+
+
+## Imagens com `codex-image` (`#116`, `#147`, `#188`)
+
+Quando a biblioteca pedir imagens geradas para um desses três estilos, **use a skill `codex-image`**, não outro gerador e não uma API paga.
+
+1. Leia o guia `../curso-estilos/CODEX_IMAGE.md` e o `SKILL.md` em `~/.agents/skills/codex-image/`.
+2. Escreva o brief em inglês e gere **uma imagem por vez**:
+
+```bash
+python3 ~/.agents/skills/codex-image/scripts/codex_image.py "<brief>" -o assets/nome.png --aspect 9:16 --crop
+```
+
+Para `#116` e `#147`, `--aspect 2:3` também serve (painel/personagem). Use `--ref` quando precisar manter o mesmo personagem.
+3. Salve em `assets/` da pasta do filme, **passe esses arquivos no pedido à biblioteca** e continue o pipeline da skill (vertical, voz, câmera, checagem).
+4. A geração consome a cota do Codex. Antes de um lote, rode o script com `--quota` e avise o aluno. Se a cota acabar, pare.
+
+Não copie os textos de estilo da biblioteca (CC BY-NC 4.0) para o brief: use o assunto do aluno e o nome do estilo.
 
 ## Regras de sempre
 

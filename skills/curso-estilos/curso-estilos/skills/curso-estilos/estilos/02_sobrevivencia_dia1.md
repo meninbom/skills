@@ -2,6 +2,8 @@
 
 > Vitrine: "SURTO ZUMBI · DIA 1 no sítio" · Custo: ~1.100 caracteres de narração por tomada na ElevenLabs (gravamos 2 tomadas); todo o resto R$ 0 · Ferramentas: three.js r160 (vendorizado), Node + puppeteer-core com o Chrome do sistema, FFmpeg, um gerador de imagem para as texturas, ElevenLabs para a voz; opcionais para o boneco gerado: imagem → 3D e texto → movimento no ComfyUI, Blender, conjunto 100STYLE
 
+**Neste setup:** as texturas geradas saem pela skill `codex-image` (`../CODEX_IMAGE.md`): `python3 ~/.agents/skills/codex-image/scripts/codex_image.py "<brief>" -o assets/tex.png --aspect 1:1 --crop`. Salve em `assets/` da cópia do motor e continue o pipeline. Image→3D e texto→movimento no ComfyUI **não** entram nesta skill e continuam opcionais e à parte.
+
 ## O que é
 Formato "se o mundo acabasse hoje": um narrador calmo explica, passo a passo, como um personagem sobrevive ao primeiro dia (aqui, o Zé num sítio brasileiro com o caramelo). Corte a cada ~3 s, legenda palavra a palavra, e **todo número falado vira HUD** (cronômetro, litros de água, raio do barulho do gerador, ficha de suprimentos). Formato inspirado em contas de sobrevivência com boneco de palito ("DIA 1"); a estética é outra: 3D em código com sol baixo, névoa, desfoque e textura pintada. Termina em gancho ("PARTE 2").
 

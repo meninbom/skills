@@ -77,6 +77,11 @@ Ao mostrar o catálogo, apresente o `#100` primeiro e diga que é o estilo em de
 - Scripts de voz ou de qualquer serviço pago só rodam com a chave do aluno e depois da regra 2.
 - Estilo marcado **beta** no catálogo: leia "Limites conhecidos" e diga ao aluno o que é manual antes de começar.
 
+
+## Imagens geradas (`codex-image`)
+
+Vários estilos pedem um gerador de imagem (nos extras: `#116`, `#147`, `#188`; no curso: `#07`, `#08`, `#11`, `#14`, `#35`, `#66`, `#02`, `#13` e, se for criar textura nova, `#34`). **Neste setup, use a skill `codex-image`**, com o login do ChatGPT, sem chave de API e sem API paga. O guia, o comando e o caminho de cada estilo estão em `CODEX_IMAGE.md` (nesta pasta). Salve em `assets/` do projeto e continue o pipeline da receita. A animação em vídeo no ComfyUI (H3), quando a receita fala dela, continua opcional e à parte.
+
 ## Os 99 estilos extras
 
 Além dos 28 estilos do curso, o catálogo lista mais 99: os estilos `#101` a `#199`. Eles vêm de uma biblioteca gratuita de terceiros e são conduzidos pela skill `99-estilos`, que traz as nossas notas, a prévia de cada um e os nossos ajustes (vertical, voz grátis, câmera). O aluno pede do mesmo jeito que os outros: "faz o estilo 196 sobre…", ou pelo nome ("aquarela", "vitral"). Não têm receita nem motor na pasta `estilos/`: o `--estilo 196` mostra o que existe e aponta a skill.

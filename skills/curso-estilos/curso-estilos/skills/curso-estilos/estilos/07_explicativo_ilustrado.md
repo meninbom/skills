@@ -18,6 +18,8 @@ Explicativo de ciência no ofício do Kurzgesagt (estilo inspirado em): mundo il
 - **Node 18+, Google Chrome e FFmpeg** (render). `npm install` dentro da pasta do motor instala só o `puppeteer-core`, que usa o Chrome que você já tem (variável `CHROME_PATH` se ele estiver fora do lugar padrão).
 - **Python 3 + `pip install -r requirements.txt`** (numpy e opencv): só para medir quadros e recortar folhas.
 - **Modelo de imagem com referência de estilo:** a peça usou o Google Flow com o Nano Banana Pro. Na conta usada, imagem não descontou créditos e o modelo Pro tinha cota diária (~12 imagens), caindo depois para um modelo menor. Preço e cota mudam: confira no seu plano. Serve qualquer modelo que aceite imagens de referência.
+
+**Neste setup:** para a arte (ficha do mascote, placas, folhas de poses e props), use a skill `codex-image` (`../CODEX_IMAGE.md`). Comando: `python3 ~/.agents/skills/codex-image/scripts/codex_image.py "<brief>" -o assets/nome.png --aspect 9:16 --crop`. Anexe os quadros de estilo com `--ref`. **Uma imagem por pedido.** Salve em `assets/` e siga o recorte em `arte/` da receita. O Real-ESRGAN (ampliação) continua opcional e à parte.
 - **Real-ESRGAN (grátis):** modelo animevideov3 para arte vetorial (borda limpa). Usa a placa de vídeo: uma tarefa de GPU por vez.
 - **ElevenLabs (PAGO):** a API, com a sua chave na variável `ELEVENLABS_API_KEY`. O script `gerar_voz.mjs` só gera com `--confirmo-custo`.
 - **Não é HyperFrames:** o filme roda num canvas próprio com `seek(t)`. Dá para portar, mas a receita medida é esta.
