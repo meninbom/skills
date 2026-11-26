@@ -25,6 +25,18 @@ function situacao(s) {
   }
   return { tipo: "roda", texto: "roda no seu PC", falta };
 }
+// os estilos #101 a #199: os 99 da biblioteca gratuita Lemo-Opuscar, que a skill 99-estilos ensina a usar.
+// Entram no catálogo como estilos comuns, com a prévia do filme de teste que fizemos em cada um.
+const DIR99 = path.join(AQUI, "..", "..", "99-estilos");
+const arq99 = path.join(DIR99, "estilos99.json");
+if (fs.existsSync(arq99)) {
+  cfg.familias.push("Mais 99 estilos em código (biblioteca gratuita Lemo-Opuscar)");
+  for (const e of JSON.parse(fs.readFileSync(arq99, "utf8")))
+    cfg.estilos.push({ id: e.id, previa: e.previa, previaDir: path.join(DIR99, "previas"), arquivo: path.join(DIR99, "CATALOGO.md"),
+      familia: cfg.familias.length - 1, nome: e.estilo, exemplo: `${e.titulo} · nossa nota: ${e.nota}`, custo: "Grátis",
+      precisa: ["node", "python", "ffmpeg"], vram_gb: e.pede_placa ? 4 : 0, status: "extra", aula: "Bônus: 99 estilos", skill: "99-estilos",
+      nota: e.melhor ? "Entre os 10 que mais renderam no nosso teste." : e.fraco ? "Saiu fraco no nosso teste: pede mais rodadas de correção." : "" });
+}
 // estilos aprendidos pelo Replicar (ficam fora da pasta do plugin)
 const apArq = path.join(DADOS, "aprendidos", "assinaturas.json");
 if (fs.existsSync(apArq)) {
@@ -32,7 +44,7 @@ if (fs.existsSync(apArq)) {
   if (ap.length) cfg.familias.push("Aprendidos pelo Replicar");
   ap.forEach((e, i) => {
     const base = cfg.estilos.find((x) => x.id === e.base);
-    cfg.estilos.push({ cod: `#${200 + i + 1}`, id: e.id, previaAbs: path.join(DADOS, "aprendidos", e.id), arquivo: path.isAbsolute(e.arquivo) ? e.arquivo : path.join(DADOS, e.arquivo),   // aprendidos ganham os códigos #201, #202... (os do curso vão até #100)
+    cfg.estilos.push({ cod: `#${200 + i + 1}`, id: e.id, previaAbs: path.join(DADOS, "aprendidos", e.id), arquivo: path.isAbsolute(e.arquivo) ? e.arquivo : path.join(DADOS, e.arquivo),   // aprendidos ganham os códigos #201, #202... (os do curso vão até #199)
        familia: cfg.familias.length - 1,
       nome: e.nome, exemplo: e.sinais || "", custo: "Grátis", precisa: base ? base.precisa : ["node", "chrome", "ffmpeg"], vram_gb: base ? base.vram_gb : 0,
       status: "aprendido", aula: "—" });
@@ -42,7 +54,7 @@ if (fs.existsSync(apArq)) {
 const skArq = path.join(CAT, "skills.json");
 const SKILLS = fs.existsSync(skArq) ? JSON.parse(fs.readFileSync(skArq, "utf8")) : {};
 const MOTOR = { "11": path.join(AQUI, "..", "..", "geo-tales", "motor") };   // o #11 usa o motor da skill geo-tales
-const itens = cfg.estilos.map((s) => ({ ...s, cod: s.cod || `#${s.id}`, skill: s.status === "aprendido" ? null : SKILLS[s.id] || null, sit: situacao(s) }));
+const itens = cfg.estilos.map((s) => ({ ...s, cod: s.cod || `#${s.id}`, skill: s.status === "aprendido" ? null : s.skill || SKILLS[s.id] || null, sit: situacao(s) }));
 
 // acha um estilo pelo que o aluno disse: "#25", "25", "3" (= #03), "luta", "#201" ou o apelido de um aprendido
 function achar(q) {
@@ -57,10 +69,18 @@ if (iE > -1) {
     console.error(`Não achei o estilo "${process.argv[iE + 1] ?? ""}". Códigos que existem: ${itens.map((x) => x.cod).join(" ")}`);
     process.exit(1);
   }
-  const aprendido = s.status === "aprendido";
+  const aprendido = s.status === "aprendido", extra = s.status === "extra";
   console.log(`${s.cod} · ${s.nome} [${s.status}]${s.destaque ? " · ★ estilo em destaque" : ""}`);
   console.log(`situação: ${s.sit.texto}`);
   if (s.skill) console.log(`skill:    ${s.skill}  (é a porta de entrada do estilo: use esta skill para produzir)`);
+  if (extra) {
+    console.log(`nome na biblioteca: ${s.nome}  (é este nome que vai no pedido para a biblioteca)`);
+    console.log(`nosso filme de teste: ${s.exemplo}`);
+    console.log(`catálogo: ${s.arquivo}`);
+    console.log(`prévia:   ${path.join(s.previaDir, s.previa + ".mp4")}`);
+    if (s.nota) console.log(`nota:     ${s.nota}`);
+    process.exit(0);
+  }
   console.log(`receita:  ${aprendido ? s.arquivo : path.join(AQUI, "..", "estilos", s.arquivo)}`);
   console.log(`motor:    ${aprendido ? path.join(DADOS, "aprendidos", s.id, "motor") : MOTOR[s.id] || path.join(AQUI, "..", "motores", s.id)}`);
   console.log(`aula:     ${s.aula}`);
@@ -78,7 +98,7 @@ if (process.argv.includes("--json")) {
   });
   const c = (t) => itens.filter((x) => x.sit.tipo === t).length;
   console.log(`\n${c("roda")} rodam agora · ${c("instalar")} pedem instalação · ${c("placa")} pedem placa forte`);
-  console.log(`Escolha pelo código, o mesmo do e-book (ex.: #25). Os códigos não são sequenciais.`);
+  console.log(`Escolha pelo código, o mesmo do e-book (ex.: #25). Os códigos não são sequenciais. Do #101 ao #199 são os 99 estilos extras.`);
 }
 
 // ---------- página ----------
@@ -100,7 +120,7 @@ function sincronizar(origem) {
 const temSom = (arq) => fs.readFileSync(arq).includes("soun");
 const cartao = (s) => {
   // estilo do curso: prévia copiada para previas/. Estilo aprendido: a prévia já mora na pasta de dados.
-  const dir = s.previaAbs || path.join(CAT, "previas"), nome = s.previaAbs ? "previa" : s.previa;
+  const dir = s.previaAbs || s.previaDir || path.join(CAT, "previas"), nome = s.previaAbs ? "previa" : s.previa;
   const rel = s.previaAbs ? `aprendidos/${encodeURIComponent(s.id)}/` : "previas/";
   const tem = (f) => fs.existsSync(path.join(dir, f));
   const jpg = `${nome}.jpg`, mp4 = `${nome}.mp4`;

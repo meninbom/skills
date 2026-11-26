@@ -1,0 +1,992 @@
+[
+ {
+  "id": "101",
+  "previa": "101",
+  "estilo": "archive-lighttable",
+  "titulo": "Duas frases e um fogo",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "102",
+  "previa": "102",
+  "estilo": "art-deco",
+  "titulo": "O botão em Roma",
+  "nota": "7,5",
+  "melhor": true,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "103",
+  "previa": "103",
+  "estilo": "ascii-crt",
+  "titulo": "Cinco mísseis",
+  "nota": "7,5",
+  "melhor": true,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "104",
+  "previa": "104",
+  "estilo": "assembly-line-diagram",
+  "titulo": "A fábrica que come o próprio resto",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "105",
+  "previa": "105",
+  "estilo": "backrooms",
+  "titulo": "Terminal 1",
+  "nota": "7,5",
+  "melhor": true,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "106",
+  "previa": "106",
+  "estilo": "bauhaus-shapes",
+  "titulo": "O círculo que não parava",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "107",
+  "previa": "107",
+  "estilo": "blueprint",
+  "titulo": "O ovo que escuta",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "108",
+  "previa": "108",
+  "estilo": "brick-toy",
+  "titulo": "A capital em poucas folhas",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "109",
+  "previa": "109",
+  "estilo": "briefing-board",
+  "titulo": "A furadeira de poço",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "110",
+  "previa": "110",
+  "estilo": "caption-news",
+  "titulo": "12,11",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "111",
+  "previa": "111",
+  "estilo": "cel-anime-80s",
+  "titulo": "Trinta e uma voltas",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "112",
+  "previa": "112",
+  "estilo": "chalkboard",
+  "titulo": "Vossa Mercê",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "113",
+  "previa": "113",
+  "estilo": "circuit-board",
+  "titulo": "O áudio que vai pelo chão do mar",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "114",
+  "previa": "114",
+  "estilo": "city-symphony",
+  "titulo": "Terra da garoa",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "115",
+  "previa": "115",
+  "estilo": "colored-pencil",
+  "titulo": "Treze metros de terra",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "116",
+  "previa": "116",
+  "estilo": "comic-history",
+  "titulo": "O estado que o Brasil comprou",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "117",
+  "previa": "117",
+  "estilo": "countdown",
+  "titulo": "O último minuto do ano",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "118",
+  "previa": "118",
+  "estilo": "crayon-book",
+  "titulo": "O pinguim que volta",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "119",
+  "previa": "119",
+  "estilo": "crayon-world",
+  "titulo": "O voo de volta",
+  "nota": "7,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "120",
+  "previa": "120",
+  "estilo": "dark-documentary",
+  "titulo": "Caixa-preta laranja",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "121",
+  "previa": "121",
+  "estilo": "dark-keynote",
+  "titulo": "NOMODES",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "122",
+  "previa": "122",
+  "estilo": "data-physical",
+  "titulo": "A torre de volantes",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "123",
+  "previa": "123",
+  "estilo": "dataviz",
+  "titulo": "A linha que desceu",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "124",
+  "previa": "124",
+  "estilo": "desktop-flythrough",
+  "titulo": "Oito reais de pastel",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "125",
+  "previa": "125",
+  "estilo": "double-exposure",
+  "titulo": "A praia dentro do casco",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "126",
+  "previa": "126",
+  "estilo": "engraving",
+  "titulo": "A árvore que virou nome",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "127",
+  "previa": "127",
+  "estilo": "firefly-pointillism",
+  "titulo": "A noite que apagou",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "128",
+  "previa": "128",
+  "estilo": "flat-space-explainer",
+  "titulo": "Vinte e duas horas e meia",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "129",
+  "previa": "129",
+  "estilo": "flow-field",
+  "titulo": "O furacão que não podia existir",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "130",
+  "previa": "130",
+  "estilo": "game-show",
+  "titulo": "Três finais",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "131",
+  "previa": "131",
+  "estilo": "gilded-illumination",
+  "titulo": "Quatrocentos quilos",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "132",
+  "previa": "132",
+  "estilo": "glass-product",
+  "titulo": "Vinte e tantos corações",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "133",
+  "previa": "133",
+  "estilo": "halftone-dossier",
+  "titulo": "O caso Cacareco",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "134",
+  "previa": "134",
+  "estilo": "hardcore-info",
+  "titulo": "Inverno, verão",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "135",
+  "previa": "135",
+  "estilo": "hd-2d",
+  "titulo": "A última noite do querosene",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "136",
+  "previa": "136",
+  "estilo": "hologram-hud",
+  "titulo": "Chu II",
+  "nota": "7,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "137",
+  "previa": "137",
+  "estilo": "impasto",
+  "titulo": "O ipê do ponto de ônibus",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "138",
+  "previa": "138",
+  "estilo": "ink-wash",
+  "titulo": "A jangada São Pedro",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "139",
+  "previa": "139",
+  "estilo": "instruction-manual",
+  "titulo": "Passo 6: o cheiro",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "140",
+  "previa": "140",
+  "estilo": "ipad-sketch",
+  "titulo": "Açaí é almoço",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "141",
+  "previa": "141",
+  "estilo": "iso-infographic",
+  "titulo": "Deu descarga",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "142",
+  "previa": "142",
+  "estilo": "isometric-picture-book",
+  "titulo": "Fica à direita",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "143",
+  "previa": "143",
+  "estilo": "kino-montage",
+  "titulo": "Fora do desenho",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "144",
+  "previa": "144",
+  "estilo": "lidar-survey",
+  "titulo": "Debaixo da mata",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "145",
+  "previa": "145",
+  "estilo": "living-screencast",
+  "titulo": "Doze reais",
+  "nota": "7",
+  "melhor": true,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "146",
+  "previa": "146",
+  "estilo": "lowpoly-island",
+  "titulo": "Duas ilhotas, nenhum morador",
+  "nota": "7,5",
+  "melhor": true,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "147",
+  "previa": "147",
+  "estilo": "manga-panels",
+  "titulo": "Só a sexta",
+  "nota": "5,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": true
+ },
+ {
+  "id": "148",
+  "previa": "148",
+  "estilo": "map-explainer",
+  "titulo": "O rio que foge do mar",
+  "nota": "7,5",
+  "melhor": false,
+  "pede_placa": true,
+  "fraco": false
+ },
+ {
+  "id": "149",
+  "previa": "149",
+  "estilo": "marker-paper",
+  "titulo": "Até um milhão",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "150",
+  "previa": "150",
+  "estilo": "memphis-diorama",
+  "titulo": "Antes da chuva, depois da chuva",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "151",
+  "previa": "151",
+  "estilo": "microgame",
+  "titulo": "Réveillon: 10 segundos pra meia-noite",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "152",
+  "previa": "152",
+  "estilo": "microscope",
+  "titulo": "Berenice",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "153",
+  "previa": "153",
+  "estilo": "midcentury-toon",
+  "titulo": "Arroz soltinho",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "154",
+  "previa": "154",
+  "estilo": "neon-tubes",
+  "titulo": "Do tamanho que a lei deixa",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "155",
+  "previa": "155",
+  "estilo": "news-package",
+  "titulo": "1º de julho de 1994",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "156",
+  "previa": "156",
+  "estilo": "newsreel",
+  "titulo": "A caixa que fala",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "157",
+  "previa": "157",
+  "estilo": "one-bit-dither",
+  "titulo": "A camisa cinza",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "158",
+  "previa": "158",
+  "estilo": "one-line",
+  "titulo": "Sem ângulo reto",
+  "nota": "5,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": true
+ },
+ {
+  "id": "159",
+  "previa": "159",
+  "estilo": "oscilloscope-math",
+  "titulo": "127 nunca",
+  "nota": "7",
+  "melhor": true,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "160",
+  "previa": "160",
+  "estilo": "paper-lantern",
+  "titulo": "As torres de Itá",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "161",
+  "previa": "161",
+  "estilo": "paper-popup",
+  "titulo": "Pé virado",
+  "nota": "5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": true
+ },
+ {
+  "id": "162",
+  "previa": "162",
+  "estilo": "papercut-red",
+  "titulo": "A língua do boi",
+  "nota": "5,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": true
+ },
+ {
+  "id": "163",
+  "previa": "163",
+  "estilo": "pen-plotter",
+  "titulo": "Caranguejos",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "164",
+  "previa": "164",
+  "estilo": "pictogram-motion",
+  "titulo": "O relógio da rodoviária",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "165",
+  "previa": "165",
+  "estilo": "pip-simulation",
+  "titulo": "A fila da Dona Cida",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "166",
+  "previa": "166",
+  "estilo": "pixel-rpg",
+  "titulo": "Mãe saiu do grupo",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "167",
+  "previa": "167",
+  "estilo": "pop-art",
+  "titulo": "O chinelo do avesso",
+  "nota": "7,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "168",
+  "previa": "168",
+  "estilo": "precise-mechanism",
+  "titulo": "O pino da panela",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "169",
+  "previa": "169",
+  "estilo": "printed-long-take",
+  "titulo": "Vale da Morte",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "170",
+  "previa": "170",
+  "estilo": "risograph",
+  "titulo": "O homem da pedra que falta",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "171",
+  "previa": "171",
+  "estilo": "rubber-hose",
+  "titulo": "O pote",
+  "nota": "7,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "172",
+  "previa": "172",
+  "estilo": "satellite-briefing",
+  "titulo": "Atafona perde a rua",
+  "nota": "7,5",
+  "melhor": true,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "173",
+  "previa": "173",
+  "estilo": "scifi-toon",
+  "titulo": "Cancelar",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "174",
+  "previa": "174",
+  "estilo": "scratch-film",
+  "titulo": "Aleluia",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "175",
+  "previa": "175",
+  "estilo": "security-xray",
+  "titulo": "Doce de leite, linha 2",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "176",
+  "previa": "176",
+  "estilo": "shadow-puppet",
+  "titulo": "A flor que muda de cor",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "177",
+  "previa": "177",
+  "estilo": "silent-film",
+  "titulo": "O marmiteiro",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "178",
+  "previa": "178",
+  "estilo": "silhouette-rhythm",
+  "titulo": "Ó o mate!",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "179",
+  "previa": "179",
+  "estilo": "silkscreen-poster",
+  "titulo": "Não dá pra afundar",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "180",
+  "previa": "180",
+  "estilo": "sketchnote",
+  "titulo": "Qual gema é a caipira?",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "181",
+  "previa": "181",
+  "estilo": "spreadsheet",
+  "titulo": "A coluna da cerveja",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "182",
+  "previa": "182",
+  "estilo": "spy-titles",
+  "titulo": "Grama sintética",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "183",
+  "previa": "183",
+  "estilo": "stained-glass",
+  "titulo": "O vitral que o neto consertou",
+  "nota": "7,5",
+  "melhor": true,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "184",
+  "previa": "184",
+  "estilo": "stick-explainer",
+  "titulo": "Uma bolsa, quatro mãos",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "185",
+  "previa": "185",
+  "estilo": "swiss-motion",
+  "titulo": "Oito números",
+  "nota": "7,5",
+  "melhor": true,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "186",
+  "previa": "186",
+  "estilo": "teardown",
+  "titulo": "Vinte unidades",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "187",
+  "previa": "187",
+  "estilo": "telestrator",
+  "titulo": "Ele não olhou",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "188",
+  "previa": "188",
+  "estilo": "text-flash-cuts",
+  "titulo": "DIGITANDO…",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "189",
+  "previa": "189",
+  "estilo": "thermal-camera",
+  "titulo": "O único ponto azul",
+  "nota": "5,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": true
+ },
+ {
+  "id": "190",
+  "previa": "190",
+  "estilo": "tilt-shift",
+  "titulo": "Quatro da manhã",
+  "nota": "4,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": true
+ },
+ {
+  "id": "191",
+  "previa": "191",
+  "estilo": "transit-map",
+  "titulo": "Dois dias por mês",
+  "nota": "5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": true
+ },
+ {
+  "id": "192",
+  "previa": "192",
+  "estilo": "ukiyoe",
+  "titulo": "Ninguém tinha visto um pé de café",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": true,
+  "fraco": false
+ },
+ {
+  "id": "193",
+  "previa": "193",
+  "estilo": "urban-sketch",
+  "titulo": "A sombrinha",
+  "nota": "6,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "194",
+  "previa": "194",
+  "estilo": "vintage-collage",
+  "titulo": "O selo sem o imperador",
+  "nota": "5,5",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": true
+ },
+ {
+  "id": "195",
+  "previa": "195",
+  "estilo": "visual-investigation",
+  "titulo": "21 segundos e 1/5",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "196",
+  "previa": "196",
+  "estilo": "watercolor",
+  "titulo": "O ipê-branco",
+  "nota": "8",
+  "melhor": true,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "197",
+  "previa": "197",
+  "estilo": "white-model",
+  "titulo": "A sombra chega às duas",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "198",
+  "previa": "198",
+  "estilo": "whiteboard",
+  "titulo": "A régua e o barbante",
+  "nota": "7",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ },
+ {
+  "id": "199",
+  "previa": "199",
+  "estilo": "woodcut",
+  "titulo": "A primeira capa",
+  "nota": "6",
+  "melhor": false,
+  "pede_placa": false,
+  "fraco": false
+ }
+]

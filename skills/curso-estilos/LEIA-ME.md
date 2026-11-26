@@ -10,7 +10,7 @@ Você precisa do app **Claude** no computador, com a aba **Code**. O resto, o pr
 4. Quando ele terminar, **abra uma conversa nova** (de qualquer pasta). O plugin só aparece nas conversas abertas depois da instalação.
 5. Na conversa nova, peça: **quais estilos tem?** Cada estilo tem um código, o mesmo do e-book (por exemplo `#25`): é por ele que você escolhe. Cada estilo também é uma skill com o código no nome: digitando `/25` você acha a do `#25`. Para replicar um vídeo de referência: **replica esse vídeo** e passe o arquivo.
 
-O `curso-estilos` é o curso: catálogo com 28 estilos, Replicar e checagem do vídeo. O módulo `serie-lumen` não está neste repositório.
+O `curso-estilos` é o curso: catálogo com 28 estilos, mais 99 estilos extras do `#101` ao `#199`, Replicar e checagem do vídeo. O módulo `serie-lumen` não está neste repositório.
 
 ## Atualizar quando sair um ZIP novo
 

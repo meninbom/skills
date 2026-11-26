@@ -12,6 +12,7 @@ O mesmo pacote traz um segundo plugin, opcional: `serie-lumen`, o módulo especi
 
 - `curso-estilos`: a skill mestre. Confere o PC e mostra o catálogo com as prévias.
 - **Uma skill por estilo**, com o código do e-book no nome: `01-toon-pov`, `03-boneco-vetor`, `25-mapa-manga`, `60-pixel-indie`, `luta-2d`, `impact-frame`, `100-serie-voto`... São 28. Digite `/` e o código para achar, ou peça pelo nome ("quero um vídeo de boneco 2D").
+- `99-estilos`: os estilos `#101` a `#199`. São mais 99 estilos de filme em código, a partir de uma biblioteca gratuita de terceiros, com a nossa nota, a prévia de cada um e os nossos ajustes. Peça como os outros: "faz o estilo 196 sobre…".
 - `replicar`: você manda um vídeo de referência, ele descobre qual estilo é e passa para a skill daquele estilo.
 - `checar-video`: a checagem técnica do vídeo pronto (é o `#29` do e-book).
 - `geo-tales`: o motor de mapa usado pelo `#11`.

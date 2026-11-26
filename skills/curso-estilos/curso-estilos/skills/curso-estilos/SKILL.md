@@ -77,6 +77,10 @@ Ao mostrar o catálogo, apresente o `#100` primeiro e diga que é o estilo em de
 - Scripts de voz ou de qualquer serviço pago só rodam com a chave do aluno e depois da regra 2.
 - Estilo marcado **beta** no catálogo: leia "Limites conhecidos" e diga ao aluno o que é manual antes de começar.
 
+## Os 99 estilos extras
+
+Além dos 28 estilos do curso, o catálogo lista mais 99: os estilos `#101` a `#199`. Eles vêm de uma biblioteca gratuita de terceiros e são conduzidos pela skill `99-estilos`, que traz as nossas notas, a prévia de cada um e os nossos ajustes (vertical, voz grátis, câmera). O aluno pede do mesmo jeito que os outros: "faz o estilo 196 sobre…", ou pelo nome ("aquarela", "vitral"). Não têm receita nem motor na pasta `estilos/`: o `--estilo 196` mostra o que existe e aponta a skill.
+
 ## Estilo #06 (série em massinha)
 
 O `#06` não está neste catálogo: ele fica no plugin `serie-lumen`, do mesmo pacote (skill `estilo-06`). Se o aluno pedir série em massinha, isekai de massinha ou série com escolha em vários episódios, diga isso e, se o plugin não estiver instalado, oriente o aluno a abrir uma conversa na pasta do curso e pedir "instala também o módulo da série".
